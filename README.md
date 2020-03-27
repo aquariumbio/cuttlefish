@@ -14,6 +14,6 @@ Within the local repository folder, install the necessary dependencies
 
 `npm install`
 
-With the same folder, run on your local server
+Within the same folder, run on your local server
 
 `npm run start`
