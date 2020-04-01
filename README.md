@@ -6,14 +6,51 @@ Although Aquarium has no internal representation of the expected project schedul
 
 ## Getting Started
 
-From the terminal, clone this repository to your local machine
+1. From the terminal, clone this repository to your local machine
 
-`git clone https://github.com/klavinslab/project-dashboard.git`
+   ```bash
+   git clone https://github.com/klavinslab/project-dashboard.git
+   ```
 
-Within the local repository folder, install the necessary dependencies
+2. Within the local repository folder, install the necessary dependencies
 
-`npm install`
+   ```bash
+   npm install` or `yarn
+   ```
 
-With the same folder, run on your local server
+3. Within the same folder, start your local server
 
-`npm run start`
+   ```bash
+   npm run start` or `yarn start
+   ```
+
+4. Open your browser and navigate to `localhost:3000`
+
+### Built with Devias Material Kit Pro
+
+- React
+- Material-UI
+- Redux
+- DraftJS
+- ChartJS
+- PrismJS
+- React Markdown
+- React Full Calendar
+
+##### Installing Devias Kit Pro
+
+1. Unzip the zip file that you have downloaded from Material-Ui. Inside the zip file, you will find the the source file (exactly this demo project) (react-material-kit-pro-x.x.x-.zip) and design folder where you will find two more folders for figma and sketch source files.
+2. Extract the contents of the zip file (react-material-kit-pro-x.x.x-.zip) into a folder that you will work within. For this documentation, we will refer that as "your work folder".
+3. Open your machine console application (Terminal, Command Prompt etc.), navigate into your work folder and run the following command and wait for it to finish:
+
+```bash
+npm install
+```
+
+4. After the installation is complete write in the terminal
+
+```bash
+npm run start
+```
+
+5. Open your browser and navigate to `localhost:3000`
