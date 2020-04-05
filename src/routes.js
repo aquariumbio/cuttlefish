@@ -7,7 +7,6 @@ import ErrorLayout from './layouts/Error';
 import DashboardLayout from './layouts/Dashboard';
 import DashboardAnalyticsView from './views/DashboardAnalytics';
 import DashboardDefaultView from './views/DashboardDefault';
-import OverviewView from './views/Overview';
 import HomeView from './views/Home';
 
 export default [
@@ -119,19 +118,29 @@ export default [
         component: DashboardDefaultView
       },
       {
-        path: '/overview',
-        exact: true,
-        component: OverviewView
-      },
-      {
         path: '/home',
         exact: true,
         component: HomeView
       },
       {
+        path: '/todo',
+        exact: true,
+        component: lazy(() => import('src/views/Lists'))
+      },
+      {
+        path: '/inbox',
+        exact: true,
+        component: lazy(() => import('src/views/Mail'))
+      },
+      {
         path: '/projects',
         exact: true,
         component: lazy(() => import('src/views/ProjectList'))
+      },
+      {
+        path: '/tasks',
+        exact: true,
+        component: lazy(() => import('src/views/Tasks'))
       },
       {
         component: () => <Redirect to="/errors/error-404" />

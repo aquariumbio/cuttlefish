@@ -25,7 +25,7 @@ import Page from 'src/components/Page';
 import AddEditEvent from './AddEditEvent';
 import Toolbar from './Toolbar';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(3),
@@ -95,15 +95,15 @@ function Calendar() {
   const theme = useTheme();
   const mobileDevice = useMediaQuery(theme.breakpoints.down('sm'));
   const [view, setView] = useState(mobileDevice ? 'listWeek' : 'dayGridMonth');
-  const [date, setDate] = useState(moment('2019-07-30 08:00:00').toDate());
+  const [date, setDate] = useState(moment().toDate());
   const [events, setEvents] = useState([]);
   const [eventModal, setEventModal] = useState({
     open: false,
     event: null
   });
 
-  const handleEventClick = (info) => {
-    const selected = events.find((event) => event.id === info.event.id);
+  const handleEventClick = info => {
+    const selected = events.find(event => event.id === info.event.id);
 
     setEventModal({
       open: true,
@@ -118,8 +118,8 @@ function Calendar() {
     });
   };
 
-  const handleEventDelete = (event) => {
-    setEvents((currentEvents) => currentEvents.filter((e) => e.id !== event.id));
+  const handleEventDelete = event => {
+    setEvents(currentEvents => currentEvents.filter(e => e.id !== event.id));
     setEventModal({
       open: false,
       event: null
@@ -133,16 +133,18 @@ function Calendar() {
     });
   };
 
-  const handleEventAdd = (event) => {
-    setEvents((currentEvents) => [...currentEvents, event]);
+  const handleEventAdd = event => {
+    setEvents(currentEvents => [...currentEvents, event]);
     setEventModal({
       open: false,
       event: null
     });
   };
 
-  const handleEventEdit = (event) => {
-    setEvents((currentEvents) => currentEvents.map((e) => (e.id === event.id ? event : e)));
+  const handleEventEdit = event => {
+    setEvents(currentEvents =>
+      currentEvents.map(e => (e.id === event.id ? event : e))
+    );
     setEventModal({
       open: false,
       event: null
@@ -156,7 +158,7 @@ function Calendar() {
     setDate(calendarApi.getDate());
   };
 
-  const handleViewChange = (newView) => {
+  const handleViewChange = newView => {
     const calendarApi = calendarRef.current.getApi();
 
     calendarApi.changeView(newView);
@@ -184,7 +186,7 @@ function Calendar() {
       if (mounted) {
         axios
           .get('/api/calendar')
-          .then((response) => setEvents(response.data.events));
+          .then(response => setEvents(response.data.events));
       }
     };
 
@@ -204,10 +206,7 @@ function Calendar() {
   }, [mobileDevice]);
 
   return (
-    <Page
-      className={classes.root}
-      title="Calendar"
-    >
+    <Page className={classes.root} title="Calendar">
       <Container maxWidth={false}>
         <Toolbar
           date={date}
@@ -245,10 +244,7 @@ function Calendar() {
             />
           </CardContent>
         </Card>
-        <Modal
-          onClose={handleModalClose}
-          open={eventModal.open}
-        >
+        <Modal onClose={handleModalClose} open={eventModal.open}>
           <AddEditEvent
             event={eventModal.event}
             onAdd={handleEventAdd}
