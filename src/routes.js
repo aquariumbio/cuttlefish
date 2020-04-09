@@ -7,13 +7,13 @@ import ErrorLayout from './layouts/Error';
 import DashboardLayout from './layouts/Dashboard';
 import DashboardAnalyticsView from './views/DashboardAnalytics';
 import DashboardDefaultView from './views/DashboardDefault';
-import HomeView from './views/Home';
+import Overview from './views/Overview';
 
 export default [
   {
     path: '/',
     exact: true,
-    component: () => <Redirect to="/home" />
+    component: () => <Redirect to="/overview" />
   },
   {
     path: '/auth',
@@ -118,14 +118,14 @@ export default [
         component: DashboardDefaultView
       },
       {
-        path: '/home',
+        path: '/overview',
         exact: true,
-        component: HomeView
+        component: Overview
       },
       {
         path: '/todo',
         exact: true,
-        component: lazy(() => import('src/views/Lists'))
+        component: lazy(() => import('src/views/TodoList'))
       },
       {
         path: '/inbox',

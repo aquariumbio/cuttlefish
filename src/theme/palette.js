@@ -6,7 +6,7 @@ export default {
   primary: {
     contrastText: white,
     dark: colors.indigo[900],
-    main: colors.indigo[500],
+    main: '#065683',
     light: colors.indigo[100]
   },
   secondary: {
@@ -32,5 +32,7 @@ export default {
     default: '#F4F6F8',
     paper: white
   },
-  divider: colors.grey[200]
+  divider: colors.grey[200],
+  success: { main: colors.green[500] },
+  caution: { main: colors.amber[500] }
 };

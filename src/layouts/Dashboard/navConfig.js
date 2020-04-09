@@ -14,8 +14,8 @@ export default [
     subheader: 'Project Dasboard',
     items: [
       {
-        title: 'Home',
-        href: '/home',
+        title: 'Overview',
+        href: '/overview',
         icon: HomeIcon
       },
       {
