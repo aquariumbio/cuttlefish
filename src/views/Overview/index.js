@@ -2,6 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Container } from '@material-ui/core';
 import Page from 'src/components/Page';
+import Header from './Header';
+import Statistics from './Statistics'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -14,7 +16,10 @@ function Overview() {
   const classes = useStyles();
   return (
     <Page className={classes.root} title="Overview">
-      <Container maxWidth={false}></Container>
+      <Container maxWidth={false}>
+        <Header />
+        <Statistics />
+      </Container>
     </Page>
   );
 }

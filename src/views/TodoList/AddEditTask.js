@@ -13,11 +13,8 @@ import {
   TextField,
   Button,
   Grid,
-  IconButton,
   Divider,
   FormControlLabel,
-  Switch,
-  colors
 } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -64,7 +61,6 @@ const AddEditTask = forwardRef((props, ref) => {
   const [values, setValues] = useState(task || { ...defaultTask });
   const mode = task ? 'edit' : 'add';
 
-  const [selectEdge, setSelectEdge] = useState(null);
   const [selectedDate, setSelectedDate] = useState(moment());
   const [taskStatus, setTaskStatus] = useState('todo');
 
@@ -79,12 +75,6 @@ const AddEditTask = forwardRef((props, ref) => {
       [e.target.name]:
         e.target.type === 'checkbox' ? e.target.checked : e.target.value
     }));
-  };
-
-  const handleDelete = () => {
-    if (onDelete) {
-      onDelete(task);
-    }
   };
 
   const handleAdd = () => {
