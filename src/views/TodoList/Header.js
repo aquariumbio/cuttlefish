@@ -27,17 +27,6 @@ function Header({ onTaskAdd, className, ...rest }) {
             Personal Task List
           </Typography>
         </Grid>
-        <Grid item>
-          <Button
-            color="primary"
-            component={RouterLink}
-            onClick={onTaskAdd}
-            variant="contained"
-          >
-            <AddIcon className={classes.addIcon} />
-            Create Task
-          </Button>
-        </Grid>
       </Grid>
     </div>
   );
