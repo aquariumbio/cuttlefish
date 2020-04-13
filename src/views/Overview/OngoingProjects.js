@@ -8,21 +8,37 @@ import {
   Divider,
   Grid
 } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
 
 const useStyles = makeStyles(theme => ({
   root: {},
   content: {
     padding: 0
-  },
-  filterlisticon: {
-    marginTop: 15,
-    marginLeft: 15
   }
 }));
 
+const options = [
+  'All',
+  'Protein Design',
+  'Strain Construction'
+];
+
 function OngoingProjects({ customer, className, ...rest }) {
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <Card
@@ -34,7 +50,21 @@ function OngoingProjects({ customer, className, ...rest }) {
           <CardHeader title="Ongoing Projects" />
         </Grid>
         <Grid item xs>
-          <FilterListIcon className={classes.filterlisticon} />
+          <IconButton onClick={handleClick}>
+            <FilterListIcon />
+          </IconButton>
+          <Menu
+            id="long-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+          >
+            {options.map((option) => (
+              <MenuItem key={option} selected={option === 'All'} onClick={handleClose}>
+                {option}
+              </MenuItem>
+            ))}
+          </Menu>
         </Grid>
       </Grid>
       <Divider />

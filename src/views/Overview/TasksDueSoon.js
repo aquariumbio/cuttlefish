@@ -25,9 +25,7 @@ function TasksDueSoon({ customer, className, ...rest }) {
     >
       <CardHeader title="Tasks Due Soon" />
       <Divider />
-      <CardContent className={classes.content}>
- 
-      </CardContent>
+      <CardContent className={classes.content}></CardContent>
     </Card>
   );
 }
