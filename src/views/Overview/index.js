@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/styles';
 import { Container } from '@material-ui/core';
 import Page from 'src/components/Page';
 import Header from './Header';
-import Statistics from './Statistics'
+import Statistics from './Statistics';
+import Board from './Board'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,6 +20,7 @@ function Overview() {
       <Container maxWidth={false}>
         <Header />
         <Statistics />
+        <Board />
       </Container>
     </Page>
   );

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -9,34 +8,20 @@ import {
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
-  content: {
-    padding: 0
+  root: {
+    marginTop: theme.spacing(1)
   },
-  item: {
+  subroot: {
     padding: theme.spacing(3),
-    textAlign: 'center',
-    [theme.breakpoints.up('md')]: {
-      '&:not(:last-of-type)': {
-        borderRight: `1px solid ${theme.palette.divider}`
-      }
-    },
-    [theme.breakpoints.down('sm')]: {
-      '&:not(:last-of-type)': {
-        borderBottom: `1px solid ${theme.palette.divider}`
-      }
-    }
-  },
-  titleWrapper: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'space-between'
   },
-  label: {
-    marginLeft: theme.spacing(1)
-  },
-  overline: {
-    marginTop: theme.spacing(1)
+  details: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    marginTop: 20
   }
 }));
 
@@ -44,90 +29,109 @@ function Statistics({ className, ...rest }) {
   const classes = useStyles();
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
+    <Grid
+      container
+      spacing={3}
+      className={classes.grid}
     >
       <Grid
-        alignItems="center"
-        container
-        justify="space-between"
+        item
+        lg={3}
+        sm={6}
+        xs={12}
       >
-        <Grid
-          className={classes.item}
-          item
-          md={3}
-          sm={6}
-          xs={12}
+        <Card
+          {...rest}
+          className={clsx(classes.subroot, className)}
         >
-          <Typography variant="h2">
-            2
-          </Typography>
-          <Typography
-            className={classes.overline}
-            variant="overline"
-          >
-            Total Projects
-          </Typography>
-        </Grid>
-        <Grid
-          className={classes.item}
-          item
-          md={3}
-          sm={6}
-          xs={12}
-        >
-          <Typography variant="h2">
-            50
-          </Typography>
-          <Typography
-            className={classes.overline}
-            variant="overline"
-          >
-            Total Tasks
-          </Typography>
-        </Grid>
-        <Grid
-          className={classes.item}
-          item
-          md={3}
-          sm={6}
-          xs={12}
-        >
-          <Typography variant="h2">
-            10
-          </Typography>
-          <Typography
-            className={classes.overline}
-            variant="overline"
-          >
-            Total Users
-          </Typography>
-        </Grid>
-        <Grid
-          className={classes.item}
-          item
-          md={3}
-          sm={6}
-          xs={12}
-        >
-          <Typography variant="h2">
-            12
-          </Typography>
-          <Typography
-            className={classes.overline}
-            variant="overline"
-          >
-            Total Notifications
-          </Typography>
-        </Grid>
+          <div>
+            <Typography
+              component="h3"
+              gutterBottom
+              variant="overline"
+            >
+              Total Projects
+            </Typography>
+            <div className={classes.details}>
+              <Typography variant="h3">
+                3
+              </Typography>
+            </div>
+            <Typography
+              component="h6"
+              variant="overline"
+            >
+              projects
+            </Typography>
+          </div>
+        </Card>
       </Grid>
-    </Card>
+      <Grid
+        item
+        lg={3}
+        sm={6}
+        xs={12}
+      >
+        <Card
+          {...rest}
+          className={clsx(classes.subroot, className)}
+        >
+          <div>
+            <Typography
+              component="h3"
+              gutterBottom
+              variant="overline"
+            >
+              Total Tasks
+            </Typography>
+            <div className={classes.details}>
+              <Typography variant="h3">
+                50
+              </Typography>
+            </div>
+            <Typography
+              component="h6"
+              variant="overline"
+            >
+              tasks
+            </Typography>
+          </div>
+        </Card>
+      </Grid>
+      <Grid
+        item
+        lg={3}
+        sm={6}
+        xs={12}
+      >
+        <Card
+          {...rest}
+          className={clsx(classes.subroot, className)}
+        >
+          <div>
+            <Typography
+              component="h3"
+              gutterBottom
+              variant="overline"
+            >
+              Total Users
+            </Typography>
+            <div className={classes.details}>
+              <Typography variant="h3">
+                10
+              </Typography>
+            </div>
+            <Typography
+              component="h6"
+              variant="overline"
+            >
+              users
+            </Typography>
+          </div>
+        </Card>
+      </Grid>
+    </Grid>
   );
 }
-
-Statistics.propTypes = {
-  className: PropTypes.string
-};
 
 export default Statistics;

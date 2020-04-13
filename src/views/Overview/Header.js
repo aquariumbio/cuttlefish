@@ -1,36 +1,27 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import {
   Typography,
-  Grid
+  Grid,
+  Button
 } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
-  summaryButton: {
-    backgroundColor: theme.palette.common.white
-  },
-  barChartIcon: {
+  addIcon: {
     marginRight: theme.spacing(1)
-  },
-  image: {
-    width: '100%',
-    maxHeight: 400
   }
 }));
 
-function Header({ className, ...rest }) {
+function Header() {
   const classes = useStyles();
   const session = useSelector((state) => state.session);
 
   return (
-    <div
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
+    <div>
       <Grid
         alignItems="center"
         container
@@ -64,6 +55,16 @@ function Header({ className, ...rest }) {
           >
             Here’s what’s happening with your projects today
           </Typography>
+        </Grid>
+        <Grid item>
+          <Button
+            color="primary"
+            component={RouterLink}
+            variant="contained"
+          >
+            <AddIcon className={classes.addIcon} />
+            Create Project
+          </Button>
         </Grid>
       </Grid>
     </div>
