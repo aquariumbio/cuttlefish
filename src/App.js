@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Router } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { createBrowserHistory } from 'history';

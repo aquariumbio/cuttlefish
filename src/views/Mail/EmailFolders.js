@@ -15,7 +15,6 @@ import InboxIcon from '@material-ui/icons/InboxOutlined';
 import SendIcon from '@material-ui/icons/SendOutlined';
 import DraftsIcon from '@material-ui/icons/DraftsOutlined';
 import DeleteIcon from '@material-ui/icons/DeleteOutlined';
-import FlagIcon from '@material-ui/icons/OutlinedFlag';
 import Label from 'src/components/Label';
 
 const useStyles = makeStyles((theme) => ({
@@ -76,12 +75,6 @@ function EmailFolders({ onFolderOpen, className, ...rest }) {
       title: 'Sent',
       total_items: 78,
       icon: <SendIcon className={classes.folderIcon} />
-    },
-    {
-      id: 'spam',
-      title: 'Spam',
-      total_items: 0,
-      icon: <FlagIcon className={classes.folderIcon} />
     },
     {
       id: 'trash',
