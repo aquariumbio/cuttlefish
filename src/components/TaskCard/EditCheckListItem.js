@@ -137,9 +137,9 @@ function EditCheckListItem({
           onKeyDown={e => handlekeyPress(e)}
         />
       </ClickAwayListener>
-      {/* <ListItemIcon>
+      <ListItemIcon>
         <ClearIcon className={classes.clear} />
-      </ListItemIcon> */}
+      </ListItemIcon>
     </ListItem>
   ) : (
     <ListItem
@@ -164,9 +164,9 @@ function EditCheckListItem({
         />
       </ListItemIcon>
       <ListItemText primary={description} onClick={handleTextClick} />
-      {/* <ListItemIcon>
+      <ListItemIcon>
         <ClearIcon className={classes.clear} />
-      </ListItemIcon> */}
+      </ListItemIcon>
     </ListItem>
   );
   return listItem;
