@@ -61,6 +61,8 @@ const AddEditEvent = forwardRef((props, ref) => {
   const { event, onCancel, onAdd, className, ...rest } = props;
   const classes = useStyles();
   const [values, setValues] = useState(event || { ...defaultEvent });
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const mode = event ? 'edit' : 'add';
 
   const handleFieldChange = e => {
@@ -90,22 +92,22 @@ const AddEditEvent = forwardRef((props, ref) => {
           <TextField
             className={classes.field}
             fullWidth
-            label="Title"
-            name="title"
+            label="File name?"
+            name="name"
             onChange={handleFieldChange}
-            value={values.title}
+            defaultValue={title}
             variant="outlined"
           />
           <TextField
             className={classes.field}
             fullWidth
-            label="Description"
+            label="Description?"
             name="desc"
             onChange={handleFieldChange}
-            value={values.desc}
+            defaultValue={description}
             variant="outlined"
           />
-          <FilesDropzone />
+          <FilesDropzone className={classes.field} />
         </CardContent>
         <Divider />
         <CardActions>

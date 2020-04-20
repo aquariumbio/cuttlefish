@@ -15,9 +15,16 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles(theme => ({
-  root: {},
+  root: {
+    height: '75vh'
+  },
   content: {
     padding: 0
+  },
+  topBar: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   }
 }));
 
@@ -42,11 +49,11 @@ export default function Notebook({ className, ...rest }) {
     <Grid container spacing={1}>
       <Grid item xs={3}>
         <Card {...rest} className={clsx(classes.root, className)}>
-          <Grid container>
-            <Grid item xs={10}>
+          <Grid container className={classes.topBar}>
+            <Grid item>
               <CardHeader title={'Notebook'} />
             </Grid>
-            <Grid item xs>
+            <Grid item>
               <IconButton onClick={handleClick}>
                 <FilterListIcon />
               </IconButton>
