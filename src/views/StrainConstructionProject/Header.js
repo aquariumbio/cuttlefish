@@ -1,20 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { Typography, Grid, Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import { Link as RouterLink } from 'react-router-dom';
 
-const useStyles = makeStyles(theme => ({
-  addIcon: {
-    marginRight: theme.spacing(1)
-  }
-}));
+const useStyles = makeStyles(theme => ({}));
 
-function Header() {
+function Header(props) {
   const classes = useStyles();
   const session = useSelector(state => state.session);
+
+  const getButton = () => {
+    if (props.currentTab === 0) {
+      return (
+        <Button color="primary" variant="contained">
+          <AddIcon className={classes.addIcon} />
+          Create Task
+        </Button>
+      );
+    } else if (props.currentTab === 1) {
+      return (
+        <Button color="primary" variant="contained">
+          <AddIcon className={classes.addIcon} />
+          Add File
+        </Button>
+      );
+    } else {
+      return (
+        <Button color="primary" variant="contained">
+          <AddIcon className={classes.addIcon} />
+          Create File
+        </Button>
+      );
+    }
+  };
 
   return (
     <div>
@@ -27,12 +47,7 @@ function Header() {
             Task description
           </Typography>
         </Grid>
-        <Grid item>
-          {/* <Button color="primary" component={RouterLink} variant="contained">
-            <AddIcon className={classes.addIcon} />
-            Add File
-          </Button> */}
-        </Grid>
+        <Grid item>{getButton()}</Grid>
       </Grid>
     </div>
   );

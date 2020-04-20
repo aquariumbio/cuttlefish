@@ -18,27 +18,33 @@ const useStyles = makeStyles(theme => ({
   },
   panel: {
     color: theme.palette.primary.main
+  },
+  addIcon: {
+    marginRight: theme.spacing(1)
   }
 }));
 
 function StrainConstructionProject() {
   const classes = useStyles();
   const [currentTab, setCurrentTab] = useState(0);
+  const [headerType, setHeaderType] = useState(0);
 
   const handleChange = (event, newTab) => {
     setCurrentTab(newTab);
   };
 
+  useEffect(() => {}, [currentTab]);
+
   return (
     <Page className={classes.root} title="Strain Construction Project">
       <Container maxWidth={false}>
-        <Header />
+        <Header currentTab={currentTab} />
+
         <Tabs
           value={currentTab}
           onChange={handleChange}
           aria-label="simple tabs example"
           indicatorColor="primary"
-          initialSelectedIndex={currentTab}
         >
           <Tab label="Kanban" />
           <Tab label="Notebook" />
