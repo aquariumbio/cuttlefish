@@ -13,7 +13,7 @@ import uuid from 'uuid/v1';
 
 import Header from './Header';
 import Page from 'src/components/Page';
-import TaskCard from 'src/components/TaskCard';
+import TodoCard from 'src/components/TodoCard';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -71,13 +71,13 @@ function TodoList({ className, ...rest }) {
     <Page className={classes.root} title="TodoList">
       <Container maxWidth="lg">
         <Header />
-        <TaskCard status="Todo" tasks={tasksTodo} setTasks={setTasksTodo} />
-        <TaskCard
+        <TodoCard status="Todo" tasks={tasksTodo} setTasks={setTasksTodo} />
+        <TodoCard
           status="In Progress"
           tasks={tasksInProgress}
           setTasks={setTasksInProgress}
         />
-        <TaskCard
+        <TodoCard
           status="Complete"
           tasks={tasksComplete}
           setTasks={setTasksComplete}

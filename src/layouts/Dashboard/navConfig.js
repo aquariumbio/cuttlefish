@@ -41,7 +41,7 @@ export default [
         // label: () => <Label color={colors.green[500]}>New</Label>
       },
       {
-        title: 'TodoList',
+        title: 'Todo List',
         href: '/todo',
         icon: CheckIcon
       },

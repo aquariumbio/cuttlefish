@@ -138,6 +138,11 @@ export default [
         component: lazy(() => import('src/views/ProjectList'))
       },
       {
+        path: '/projects/:project',
+        exact: true,
+        component: lazy(() => import('src/views/StrainConstructionProject'))
+      },
+      {
         path: '/tasks',
         exact: true,
         component: lazy(() => import('src/views/Tasks'))

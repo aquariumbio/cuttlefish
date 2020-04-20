@@ -24,7 +24,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import getInitials from 'src/utils/getInitials';
 import Label from 'src/components/Label';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {},
   header: {
     paddingBottom: 0
@@ -71,25 +71,18 @@ function ProjectCard({ project, className, ...rest }) {
   };
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
+    <Card {...rest} className={clsx(classes.root, className)}>
       <CardHeader
-        avatar={(
-          <Avatar
-            alt="Author"
-            src={project.author.avatar}
-          >
+        avatar={
+          <Avatar alt="Author" src={project.author.avatar}>
             {getInitials(project.author.name)}
           </Avatar>
-        )}
+        }
         className={classes.header}
         disableTypography
-        subheader={(
+        subheader={
           <Typography variant="body2">
-            by
-            {' '}
+            by{' '}
             <Link
               color="textPrimary"
               component={RouterLink}
@@ -97,14 +90,11 @@ function ProjectCard({ project, className, ...rest }) {
               variant="h6"
             >
               {project.author.name}
-            </Link>
-            {' '}
-            | Updated:
-            {' '}
-            {moment(project.updated_at).fromNow()}
+            </Link>{' '}
+            | Updated: {moment(project.updated_at).fromNow()}
           </Typography>
-        )}
-        title={(
+        }
+        title={
           <Link
             color="textPrimary"
             component={RouterLink}
@@ -113,24 +103,19 @@ function ProjectCard({ project, className, ...rest }) {
           >
             {project.title}
           </Link>
-        )}
+        }
       />
       <CardContent className={classes.content}>
         <div className={classes.description}>
-          <Typography
-            color="textSecondary"
-            variant="subtitle2"
-          >
-            We&apos;re looking for experienced Developers and Product Designers to
-            come aboard and help us build succesful businesses through software.
+          <Typography color="textSecondary" variant="subtitle2">
+            We&apos;re looking for experienced Developers and Product Designers
+            to come aboard and help us build succesful businesses through
+            software.
           </Typography>
         </div>
         <div className={classes.tags}>
-          {project.tags.map((tag) => (
-            <Label
-              color={tag.color}
-              key={tag.text}
-            >
+          {project.tags.map(tag => (
+            <Label color={tag.color} key={tag.text}>
               {tag.text}
             </Label>
           ))}
@@ -144,10 +129,7 @@ function ProjectCard({ project, className, ...rest }) {
             spacing={3}
           >
             <Grid item>
-              <Typography variant="h5">
-                $
-                {project.price}
-              </Typography>
+              <Typography variant="h5">${project.price}</Typography>
               <Typography variant="body2">Per Project</Typography>
             </Grid>
             <Grid item>
@@ -181,10 +163,7 @@ function ProjectCard({ project, className, ...rest }) {
                 </Tooltip>
               )}
               <Tooltip title="Share">
-                <IconButton
-                  className={classes.shareButton}
-                  size="small"
-                >
+                <IconButton className={classes.shareButton} size="small">
                   <ShareIcon />
                 </IconButton>
               </Tooltip>
