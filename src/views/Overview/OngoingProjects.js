@@ -38,13 +38,24 @@ function OngoingProjects({ customer, className, ...rest }) {
     setAnchorEl(null);
   };
 
-  const mockProject = {
-    title: 'Project A',
-    owner: 'Thomas Penner',
-    date: '4/18/20',
-    type: 'Type A',
-    status: 'pending'
-  };
+  const mockProjects = [
+    {
+      title: 'Project A',
+      owner: 'Thomas Penner',
+      date: '4/18/20',
+      type: 'Type A',
+      status: 'pending'
+    },
+    {
+      title: 'Project B',
+      owner: 'Thomas Penner',
+      date: '4/19/20',
+      type: 'Type B',
+      status: 'pending'
+    }
+  ];
+
+  const projects = mockProjects.map(proj => <ProjectCard project={proj} />);
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
@@ -75,8 +86,7 @@ function OngoingProjects({ customer, className, ...rest }) {
         </Grid>
       </Grid>
       <Divider />
-      <ProjectCard project={mockProject} />
-      <ProjectCard project={mockProject} />
+      {projects}
       <CardContent className={classes.content}></CardContent>
     </Card>
   );

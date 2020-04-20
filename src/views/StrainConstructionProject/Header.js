@@ -14,21 +14,21 @@ function Header(props) {
   const getButton = () => {
     if (props.currentTab === 0) {
       return (
-        <Button color="primary" variant="contained">
+        <Button color="primary" variant="contained" onClick={props.onEventAdd}>
           <AddIcon className={classes.addIcon} />
           Create Task
         </Button>
       );
     } else if (props.currentTab === 1) {
       return (
-        <Button color="primary" variant="contained">
+        <Button color="primary" variant="contained" onClick={props.onEventAdd}>
           <AddIcon className={classes.addIcon} />
           Add File
         </Button>
       );
     } else {
       return (
-        <Button color="primary" variant="contained">
+        <Button color="primary" variant="contained" onClick={props.onEventAdd}>
           <AddIcon className={classes.addIcon} />
           Create File
         </Button>
