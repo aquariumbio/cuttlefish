@@ -4,7 +4,8 @@ import {
   Container,
   Tabs,
   Tab,
-  Modal
+  Modal,
+  Typography
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 import Header from './Header';
@@ -13,11 +14,16 @@ import Kanban from './Kanban';
 import Notebook from './Notebook';
 import Plan from './Plan';
 import AddFile from './AddFile';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import { withStyles, lighten } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(3)
+  },
+  progress: {
+    margin: theme.spacing(2)
   },
   tabs: {
     height: '30px'
@@ -30,6 +36,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const CustomLinearProgress = withStyles(theme => ({
+  root: {
+    height: 5,
+    backgroundColor: lighten(theme.palette.success.main, 0.5)
+  },
+  bar: {
+    borderRadius: 20,
+    backgroundColor: theme.palette.success.main
+  }
+}))(LinearProgress);
+
 function StrainConstructionProject() {
   const classes = useStyles();
   const [currentTab, setCurrentTab] = useState(0);
@@ -38,6 +55,7 @@ function StrainConstructionProject() {
     open: false,
     event: null
   });
+  const [progress, setProgress] = useState([80]);
 
   const handleEventNew = () => {
     setEventModal({
@@ -88,6 +106,18 @@ function StrainConstructionProject() {
     <Page className={classes.root} title="Strain Construction Project">
       <Container maxWidth={false}>
         <Header currentTab={currentTab} onEventAdd={handleEventNew} />
+
+        <div className={classes.progress}>
+          <Typography gutterBottom variant="h6">
+            8 tasks completed out of 10
+          </Typography>
+          <CustomLinearProgress
+            variant="determinate"
+            value={progress}
+            color="primary"
+          />
+        </div>
+
         <Tabs
           value={currentTab}
           onChange={handleChange}
