@@ -29,6 +29,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import axios from 'src/utils/axios';
 import { logout } from 'src/actions';
+import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
+import NotificationsPopover from 'src/components/NotificationsPopover';
+
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -106,6 +110,7 @@ function TopBar({ onOpenNavBarMobile, className, ...rest }) {
   const [openSearchPopover, setOpenSearchPopover] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [notifications, setNotifications] = useState([]);
+  const [openNotifications, setOpenNotifications] = useState(false);
 
   const handleLogout = () => {
     history.push('/auth/login');
@@ -126,6 +131,14 @@ function TopBar({ onOpenNavBarMobile, className, ...rest }) {
 
   const handleSearchPopverClose = () => {
     setOpenSearchPopover(false);
+  };
+
+  const handleNotificationsOpen = () => {
+    setOpenNotifications(true);
+  };
+
+  const handleNotificationsClose = () => {
+    setOpenNotifications(false);
   };
 
   useEffect(() => {
@@ -158,8 +171,10 @@ function TopBar({ onOpenNavBarMobile, className, ...rest }) {
             <MenuIcon />
           </IconButton>
         </Hidden>
+        
         <RouterLink to="/">{/* <img alt="Logo" src="" /> */}</RouterLink>
         <div className={classes.flexGrow} />
+
         <Hidden smDown>
           <div className={classes.search} ref={searchRef}>
             <SearchIcon className={classes.searchIcon} />
@@ -197,6 +212,29 @@ function TopBar({ onOpenNavBarMobile, className, ...rest }) {
             </ClickAwayListener>
           </Popper>
         </Hidden>
+
+        <Hidden mdDown>
+          <IconButton
+            className={classes.notificationsButton}
+            color="inherit"
+            onClick={handleNotificationsOpen}
+            ref={notificationsRef}
+          >
+            <Badge
+              badgeContent={notifications.length}
+              classes={{ badge: classes.notificationsBadge }}
+              variant="dot"
+            >
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+        </Hidden>
+        <NotificationsPopover
+          anchorEl={notificationsRef.current}
+          notifications={notifications}
+          onClose={handleNotificationsClose}
+          open={openNotifications}
+        />
 
         <Hidden mdDown>
           <Button
