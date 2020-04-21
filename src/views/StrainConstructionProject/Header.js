@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { Typography, Grid, Button } from '@material-ui/core';
@@ -9,7 +8,6 @@ const useStyles = makeStyles(theme => ({}));
 
 function Header(props) {
   const classes = useStyles();
-  const session = useSelector(state => state.session);
 
   const getButton = () => {
     if (props.currentTab === 0) {

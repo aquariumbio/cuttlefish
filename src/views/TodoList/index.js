@@ -43,7 +43,7 @@ function TodoList({ className, ...rest }) {
   const [tasksTodo, setTasksTodo] = useState([
     {
       description:
-        'This is a test task This is a test task This is a test task This is a test task This is a test task This is a test task This is a test task This is a test task This is a test task',
+        'This is a test task',
       complete: false,
       id: uuid()
     }

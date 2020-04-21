@@ -7,8 +7,7 @@ import {
   CardContent,
   Divider,
   Grid,
-  Typography,
-  colors
+  Typography
 } from '@material-ui/core';
 import palette from '../../theme/palette';
 import { Link } from 'react-router-dom';

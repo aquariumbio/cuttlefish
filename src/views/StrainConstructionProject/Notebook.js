@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -6,8 +6,7 @@ import {
   CardHeader,
   CardContent,
   Divider,
-  Grid,
-  CardActions
+  Grid
 } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import FilterListIcon from '@material-ui/icons/FilterList';

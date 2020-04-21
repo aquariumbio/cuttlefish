@@ -12,13 +12,9 @@ import {
   Typography,
   TextField,
   Button,
-  IconButton,
   Divider,
-  FormControlLabel,
-  Switch,
   colors
 } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/DeleteOutlined';
 import FilesDropzone from 'src/components/FilesDropzone';
 
 const useStyles = makeStyles(theme => ({

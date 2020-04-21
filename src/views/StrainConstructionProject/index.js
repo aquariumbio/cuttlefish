@@ -1,13 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
-import moment from 'moment';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import {
   Container,
   Tabs,
   Tab,
-  Modal,
-  useTheme,
-  useMediaQuery
+  Modal
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 import Header from './Header';
@@ -36,12 +33,6 @@ const useStyles = makeStyles(theme => ({
 function StrainConstructionProject() {
   const classes = useStyles();
   const [currentTab, setCurrentTab] = useState(0);
-  const [headerType, setHeaderType] = useState(0);
-  const calendarRef = useRef(null);
-  const theme = useTheme();
-  const mobileDevice = useMediaQuery(theme.breakpoints.down('sm'));
-  const [view, setView] = useState(mobileDevice ? 'listWeek' : 'dayGridMonth');
-  const [date, setDate] = useState(moment().toDate());
   const [events, setEvents] = useState([]);
   const [eventModal, setEventModal] = useState({
     open: false,

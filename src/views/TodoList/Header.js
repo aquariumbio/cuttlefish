@@ -1,16 +1,11 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import { Typography, Grid, Button } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles(theme => ({
-  root: {},
-  addIcon: {
-    marginRight: theme.spacing(1)
-  }
+  root: {}
 }));
 
 function Header({ onTaskAdd, className, ...rest }) {

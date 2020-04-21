@@ -1,13 +1,10 @@
 /* eslint-disable react/no-multi-comp */
 /* eslint-disable react/display-name */
-import React from 'react';
-// import { colors } from '@material-ui/core';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import HomeIcon from '@material-ui/icons/HomeOutlined';
 import MailIcon from '@material-ui/icons/MailOutlined';
 import CheckIcon from '@material-ui/icons/Check';
-// import Label from 'src/components/Label';
 
 export default [
   {

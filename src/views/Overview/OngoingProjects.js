@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/styles';
@@ -14,7 +14,6 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ProjectCard from '../../components/ProjectCard/index';
-import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({
   root: {},
