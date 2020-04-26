@@ -10,10 +10,10 @@ import {
 import Page from 'src/components/Page';
 import Header from './Header';
 import TabPanel from '../../components/TabPanel';
-import Kanban from './Kanban';
+import KanbanBoard from './KanbanBoard';
 import Notebook from './Notebook';
 import Plan from './Plan';
-import AddFile from './AddFile';
+import AddEditEvent from './AddFile';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles, lighten } from '@material-ui/core/styles';
 
@@ -90,7 +90,7 @@ function StrainConstructionProject() {
     } else if (currentTab === 1) {
       return (
         <Modal onClose={handleModalClose} open={eventModal.open}>
-          <AddFile
+          <AddEditEvent
             event={eventModal.event}
             onAdd={handleEventAdd}
             onCancel={handleModalClose}
@@ -129,7 +129,7 @@ function StrainConstructionProject() {
           <Tab label="AQ Plan" />
         </Tabs>
         <TabPanel value={currentTab} index={0}>
-          <Kanban />
+          <KanbanBoard />
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
           <Notebook />
