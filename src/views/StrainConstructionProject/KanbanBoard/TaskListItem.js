@@ -12,7 +12,6 @@ import {
 } from '@material-ui/core';
 import GenericMoreButton from 'src/components/GenericMoreButton';
 import Label from 'src/components/Label';
-import { width } from '@material-ui/system';
 
 const useStyles = makeStyles((theme) => ({
   root: {

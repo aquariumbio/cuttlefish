@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
-import {
-  Container,
-  Card,
-  Grid,
-  CardHeader,
-  Typography,
-  Modal
-} from '@material-ui/core';
-import clsx from 'clsx';
+import { Container } from '@material-ui/core';
 import uuid from 'uuid/v1';
-
 import Header from './Header';
 import Page from 'src/components/Page';
 import TodoCard from 'src/components/TodoCard';
@@ -32,13 +23,8 @@ const useStyles = makeStyles(theme => ({
   complete: { color: theme.palette.success.main }
 }));
 
-function TodoList({ className, ...rest }) {
+function TodoList() {
   const classes = useStyles();
-
-  const [taskModal, setTaskModal] = useState({
-    open: false,
-    task: null
-  });
 
   const [tasksTodo, setTasksTodo] = useState([
     {
