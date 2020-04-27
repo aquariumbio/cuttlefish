@@ -46,7 +46,7 @@ function OngoingProjects({ customer, className, ...rest }) {
       status: 'pending'
     },
     {
-      title: 'Project B',
+      title: 'COVID-19',
       owner: 'Thomas Penner',
       date: '4/19/20',
       type: 'Protein Design',

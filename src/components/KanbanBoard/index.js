@@ -3,14 +3,13 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import _ from 'lodash';
 import uuid from 'uuid/v1';
 import { makeStyles } from '@material-ui/styles';
-import data from './data';
 import Page from 'src/components/Page';
 import Header from './Header';
 import TaskList from './TaskList';
 import TaskListItem from './TaskListItem';
 import TaskDetails from './TaskDetails';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     height: '100%',
     display: 'flex',
@@ -24,28 +23,28 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function KanbanBoard() {
+function KanbanBoard(props) {
   const classes = useStyles();
   const [lists, setLists] = useState([]);
   const [openedTask, setOpenedTask] = useState(null);
   const tempLists = [];
 
   useEffect(() => {
-    for (const list of data.lists) {
+    for (const list of props.data.lists) {
       tempLists.push({ ...list, items: [] });
     }
 
-    for (const task of data.tasks) {
-      tempLists.forEach((list) => {
+    for (const task of props.data.tasks) {
+      tempLists.forEach(list => {
         if (list.id === task.list) {
           list.items.push(task);
         }
       });
     }
-    setLists(tempLists)
+    setLists(tempLists);
   }, []);
 
-  const handleDragEnd = (event) => {
+  const handleDragEnd = event => {
     const { source, destination } = event;
 
     if (!destination) {
@@ -53,9 +52,9 @@ function KanbanBoard() {
     }
 
     const newLists = _.clone(lists);
-    const sourceList = newLists.find((list) => list.id === source.droppableId);
+    const sourceList = newLists.find(list => list.id === source.droppableId);
     const destinationList = newLists.find(
-      (list) => list.id === destination.droppableId
+      list => list.id === destination.droppableId
     );
     const [removedItem] = sourceList.items.splice(source.index, 1);
 
@@ -76,10 +75,10 @@ function KanbanBoard() {
       items: []
     };
 
-    setLists((prevLists) => [...prevLists, list]);
+    setLists(prevLists => [...prevLists, list]);
   };
 
-  const handleTaskOpen = (task) => {
+  const handleTaskOpen = task => {
     setOpenedTask(task);
   };
 
@@ -88,18 +87,12 @@ function KanbanBoard() {
   };
 
   return (
-    <Page
-      className={classes.root}
-      title="Kanban Board"
-    >
+    <Page className={classes.root} title="Kanban Board">
       <Header onListAdd={handleListAdd} />
       <div className={classes.container}>
         <DragDropContext onDragEnd={handleDragEnd}>
-          {lists.map((list) => (
-            <Droppable
-              droppableId={list.id}
-              key={list.id}
-            >
+          {lists.map(list => (
+            <Droppable droppableId={list.id} key={list.id}>
               {(provided, snapshot) => (
                 <TaskList
                   provided={provided}

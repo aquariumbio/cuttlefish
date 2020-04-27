@@ -65,6 +65,8 @@ function ProjectCard({ project, className, ...rest }) {
     }
   };
 
+  // To simulate pulling from a database, therer is a currentProject state in redux that is being updated here so
+  // the correct project view can be rendered upon clicking
   const handleClick = () => {
     dispatch(getProject(project));
     history.push(`/project/${project.title}`);

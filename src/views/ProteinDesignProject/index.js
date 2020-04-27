@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Container, Tabs, Tab, Modal, Typography } from '@material-ui/core';
 import Page from 'src/components/Page';
+import KanbanBoard from '../../components/KanbanBoard';
+import Gantt from '../../components/Gantt';
 import Header from './Header';
 import TabPanel from '../../components/TabPanel';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles, lighten } from '@material-ui/core/styles';
+import data from './data';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -108,8 +111,12 @@ function ProteinDesignProject() {
           <Tab label="Kanban" />
           <Tab label="Gantt" />
         </Tabs>
-        <TabPanel value={currentTab} index={0}></TabPanel>
-        <TabPanel value={currentTab} index={1}></TabPanel>
+        <TabPanel value={currentTab} index={0}>
+          <KanbanBoard data={data} />
+        </TabPanel>
+        <TabPanel value={currentTab} index={1}>
+          <Gantt />
+        </TabPanel>
         {getModal()}
       </Container>
     </Page>

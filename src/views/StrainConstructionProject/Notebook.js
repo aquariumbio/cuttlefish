@@ -24,7 +24,8 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center'
-  }
+  },
+  container: {}
 }));
 
 export default function Notebook({ className, ...rest }) {
@@ -45,7 +46,7 @@ export default function Notebook({ className, ...rest }) {
   const options = ['Sort', 'Options', 'Here'];
 
   return (
-    <Grid container spacing={1}>
+    <Grid className={classes.container} container spacing={1}>
       <Grid item xs={3}>
         <Card {...rest} className={clsx(classes.root, className)}>
           <Grid container className={classes.topBar}>

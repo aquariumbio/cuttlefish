@@ -4,12 +4,13 @@ import { Container, Tabs, Tab, Modal, Typography } from '@material-ui/core';
 import Page from 'src/components/Page';
 import Header from './Header';
 import TabPanel from '../../components/TabPanel';
-import KanbanBoard from './KanbanBoard';
+import KanbanBoard from '../../components/KanbanBoard';
 import Notebook from './Notebook';
 import Plan from './Plan';
 import AddEditEvent from './AddFile';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles, lighten } from '@material-ui/core/styles';
+import data from './data';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -123,7 +124,7 @@ function StrainConstructionProject() {
           <Tab label="AQ Plan" />
         </Tabs>
         <TabPanel value={currentTab} index={0}>
-          <KanbanBoard />
+          <KanbanBoard data={data} />
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
           <Notebook />
