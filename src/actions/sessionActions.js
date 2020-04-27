@@ -14,17 +14,8 @@ export const logout = () => dispatch =>
     type: SESSION_LOGOUT
   });
 
-export const switchProject = project => dispatch =>
+export const getProject = project => dispatch =>
   dispatch({
     type: GET_PROJECT,
     payload: project
-  });
-
-export const proteinDesign = () => dispatch =>
-  dispatch({
-    type: PROTEIN
-  });
-export const strainConstruction = () => dispatch =>
-  dispatch({
-    type: STRAIN
   });

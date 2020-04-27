@@ -34,28 +34,7 @@ const sessionReducer = (state = initialState, action) => {
     case actionTypes.GET_PROJECT: {
       return {
         ...state,
-        currentProject: {
-          title: action.payload.title,
-          type: action.payload.type
-        }
-      };
-    }
-
-    case actionTypes.PROTEIN: {
-      return {
-        ...state,
-        currentProject: {
-          type: 'Protein Design'
-        }
-      };
-    }
-
-    case actionTypes.STRAIN: {
-      return {
-        ...state,
-        currentProject: {
-          type: 'Strain Construction'
-        }
+        currentProject: action.payload
       };
     }
 

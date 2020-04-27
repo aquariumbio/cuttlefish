@@ -13,7 +13,7 @@ import palette from '../../theme/palette';
 import { Link, Route } from 'react-router-dom';
 import Label from 'src/components/Label';
 import { useDispatch } from 'react-redux';
-import { switchProject } from 'src/actions';
+import { getProject } from 'src/actions';
 import { useHistory } from 'react-router';
 
 const useStyles = makeStyles(theme => ({
@@ -66,7 +66,7 @@ function ProjectCard({ project, className, ...rest }) {
   };
 
   const handleClick = () => {
-    dispatch(switchProject(project));
+    dispatch(getProject(project));
     history.push(`/project/${project.title}`);
   };
 
