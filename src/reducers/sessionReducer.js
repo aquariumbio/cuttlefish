@@ -9,7 +9,8 @@ const initialState = {
     avatar: '',
     bio: 'Position',
     role: 'ADMIN' // ['GUEST', 'USER', 'ADMIN']
-  }
+  },
+  currentProject: {}
 };
 
 const sessionReducer = (state = initialState, action) => {
@@ -26,6 +27,34 @@ const sessionReducer = (state = initialState, action) => {
         loggedIn: false,
         user: {
           role: 'GUEST'
+        }
+      };
+    }
+
+    case actionTypes.GET_PROJECT: {
+      return {
+        ...state,
+        currentProject: {
+          title: action.payload.title,
+          type: action.payload.type
+        }
+      };
+    }
+
+    case actionTypes.PROTEIN: {
+      return {
+        ...state,
+        currentProject: {
+          type: 'Protein Design'
+        }
+      };
+    }
+
+    case actionTypes.STRAIN: {
+      return {
+        ...state,
+        currentProject: {
+          type: 'Strain Construction'
         }
       };
     }

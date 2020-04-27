@@ -4,10 +4,6 @@ import { Container, Tabs, Tab, Modal, Typography } from '@material-ui/core';
 import Page from 'src/components/Page';
 import Header from './Header';
 import TabPanel from '../../components/TabPanel';
-import KanbanBoard from './KanbanBoard';
-import Notebook from './Notebook';
-import Plan from './Plan';
-import AddEditEvent from './AddFile';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles, lighten } from '@material-ui/core/styles';
 
@@ -41,7 +37,7 @@ const CustomLinearProgress = withStyles(theme => ({
   }
 }))(LinearProgress);
 
-function StrainConstructionProject() {
+function ProteinDesignProject() {
   const classes = useStyles();
   const [currentTab, setCurrentTab] = useState(0);
   const [events, setEvents] = useState([]);
@@ -82,15 +78,7 @@ function StrainConstructionProject() {
     if (currentTab === 0) {
       return <Modal onClose={handleModalClose} open={eventModal.open}></Modal>;
     } else if (currentTab === 1) {
-      return (
-        <Modal onClose={handleModalClose} open={eventModal.open}>
-          <AddEditEvent
-            event={eventModal.event}
-            onAdd={handleEventAdd}
-            onCancel={handleModalClose}
-          />
-        </Modal>
-      );
+      return <Modal onClose={handleModalClose} open={eventModal.open}></Modal>;
     } else {
       return <Modal onClose={handleModalClose} open={eventModal.open}></Modal>;
     }
@@ -100,7 +88,6 @@ function StrainConstructionProject() {
     <Page className={classes.root} title="Strain Construction Project">
       <Container maxWidth={false}>
         <Header currentTab={currentTab} onEventAdd={handleEventNew} />
-
         <div className={classes.progress}>
           <Typography gutterBottom variant="h6">
             8 tasks completed out of 10
@@ -119,22 +106,14 @@ function StrainConstructionProject() {
           indicatorColor="primary"
         >
           <Tab label="Kanban" />
-          <Tab label="Notebook" />
-          <Tab label="AQ Plan" />
+          <Tab label="Gantt" />
         </Tabs>
-        <TabPanel value={currentTab} index={0}>
-          <KanbanBoard />
-        </TabPanel>
-        <TabPanel value={currentTab} index={1}>
-          <Notebook />
-        </TabPanel>
-        <TabPanel value={currentTab} index={2}>
-          <Plan />
-        </TabPanel>
+        <TabPanel value={currentTab} index={0}></TabPanel>
+        <TabPanel value={currentTab} index={1}></TabPanel>
         {getModal()}
       </Container>
     </Page>
   );
 }
 
-export default StrainConstructionProject;
+export default ProteinDesignProject;

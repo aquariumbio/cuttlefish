@@ -13,26 +13,16 @@ function Header(props) {
 
   const getButton = () => {
     if (props.currentTab === 0) {
-      return (
-        <Button color="primary" variant="contained" onClick={props.onEventAdd}>
-          <AddIcon className={classes.addIcon} />
-          Create Task
-        </Button>
-      );
+      return null;
     } else if (props.currentTab === 1) {
       return (
         <Button color="primary" variant="contained" onClick={props.onEventAdd}>
           <AddIcon className={classes.addIcon} />
-          Add File
+          Create Library
         </Button>
       );
     } else {
-      return (
-        <Button color="primary" variant="contained" onClick={props.onEventAdd}>
-          <AddIcon className={classes.addIcon} />
-          Create File
-        </Button>
-      );
+      return null;
     }
   };
 
@@ -42,9 +32,6 @@ function Header(props) {
         <Grid item md={6} xs={12}>
           <Typography component="h1" gutterBottom variant="h3">
             {session.currentProject.title}
-          </Typography>
-          <Typography gutterBottom variant="subtitle1">
-            Task description
           </Typography>
         </Grid>
         <Grid item>{getButton()}</Grid>

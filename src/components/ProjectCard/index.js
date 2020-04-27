@@ -10,14 +10,17 @@ import {
   Typography
 } from '@material-ui/core';
 import palette from '../../theme/palette';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import Label from 'src/components/Label';
+import { useDispatch } from 'react-redux';
+import { switchProject } from 'src/actions';
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginTop: theme.spacing(2),
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2)
+    marginTop: theme.spacing(1),
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1)
   },
 
   content: {
@@ -49,6 +52,8 @@ const useStyles = makeStyles(theme => ({
 
 function ProjectCard({ project, className, ...rest }) {
   const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const getLabelColor = () => {
     if (project.status === 'pending') {
@@ -60,29 +65,36 @@ function ProjectCard({ project, className, ...rest }) {
     }
   };
 
+  const handleClick = () => {
+    dispatch(switchProject(project));
+    history.push(`/project/${project.title}`);
+  };
+
   return (
-    <Link to={`/projects/${project.title}`}>
-      <Card {...rest} className={clsx(classes.root, className)}>
-        <CardContent className={classes.content}>
-          <Grid container className={classes.container}>
-            <Grid item>
-              <Typography variant="body2">{project.date}</Typography>
-              <Typography className={classes.header} variant="h4">
-                {project.title}
-              </Typography>
-              <Typography variant="body2">{`Owned by: ${project.owner}`}</Typography>
-            </Grid>
-            <Grid item className={classes.cardLabel}>
-              <Typography variant="body2">{project.type}</Typography>
-              <Label color={getLabelColor()} variant="other">
-                {project.status}
-              </Label>
-            </Grid>
+    <Card
+      {...rest}
+      className={clsx(classes.root, className)}
+      onClick={handleClick}
+    >
+      <CardContent className={classes.content}>
+        <Grid container className={classes.container}>
+          <Grid item>
+            <Typography variant="body2">{project.date}</Typography>
+            <Typography className={classes.header} variant="h4">
+              {project.title}
+            </Typography>
+            <Typography variant="body2">{`Owned by: ${project.owner}`}</Typography>
           </Grid>
-        </CardContent>
-        <Divider />
-      </Card>
-    </Link>
+          <Grid item className={classes.cardLabel}>
+            <Typography variant="body2">{project.type}</Typography>
+            <Label color={getLabelColor()} variant="other">
+              {project.status}
+            </Label>
+          </Grid>
+        </Grid>
+      </CardContent>
+      <Divider />
+    </Card>
   );
 }
 

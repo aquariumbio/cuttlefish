@@ -42,14 +42,14 @@ function OngoingProjects({ customer, className, ...rest }) {
       title: 'Project A',
       owner: 'Thomas Penner',
       date: '4/18/20',
-      type: 'Type A',
+      type: 'Strain Construction',
       status: 'pending'
     },
     {
       title: 'Project B',
       owner: 'Thomas Penner',
       date: '4/19/20',
-      type: 'Type B',
+      type: 'Protein Design',
       status: 'pending'
     }
   ];
