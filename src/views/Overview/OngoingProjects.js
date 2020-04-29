@@ -39,17 +39,24 @@ function OngoingProjects({ customer, className, ...rest }) {
 
   const mockProjects = [
     {
-      title: 'Project A',
-      owner: 'Thomas Penner',
+      title: 'CircuitSeq',
+      owner: 'Justin',
       date: '4/18/20',
       type: 'Strain Construction',
       status: 'pending'
     },
     {
       title: 'COVID-19',
-      owner: 'Thomas Penner',
+      owner: 'Sam',
       date: '4/19/20',
       type: 'Protein Design',
+      status: 'pending'
+    },
+    {
+      title: 'AQ Project Dashboard',
+      owner: 'Thomas, Phuong, Melody',
+      date: '4/19/20',
+      type: 'Web App',
       status: 'pending'
     }
   ];
