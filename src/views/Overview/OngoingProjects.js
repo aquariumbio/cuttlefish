@@ -1,6 +1,5 @@
 import React from 'react';
 import clsx from 'clsx';
-
 import { makeStyles } from '@material-ui/styles';
 import {
   Card,
@@ -24,10 +23,37 @@ const useStyles = makeStyles(theme => ({
 
 const options = ['All', 'Protein Design', 'Strain Construction'];
 
+const mockProjects = [
+  {
+    title: 'CircuitSeq',
+    owner: 'Justin',
+    date: '4/18/20',
+    type: 'Strain Construction',
+    status: 'pending'
+  },
+  {
+    title: 'COVID-19',
+    owner: 'Sam',
+    date: '4/19/20',
+    type: 'Protein Design',
+    status: 'pending'
+  },
+  {
+    title: 'AQ Project Dashboard',
+    owner: 'Thomas, Phuong, Melody',
+    date: '4/19/20',
+    type: 'Web App',
+    status: 'pending'
+  }
+];
+
+let filterData;
+
 function OngoingProjects({ customer, className, ...rest }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -37,31 +63,18 @@ function OngoingProjects({ customer, className, ...rest }) {
     setAnchorEl(null);
   };
 
-  const mockProjects = [
-    {
-      title: 'CircuitSeq',
-      owner: 'Justin',
-      date: '4/18/20',
-      type: 'Strain Construction',
-      status: 'pending'
-    },
-    {
-      title: 'COVID-19',
-      owner: 'Sam',
-      date: '4/19/20',
-      type: 'Protein Design',
-      status: 'pending'
-    },
-    {
-      title: 'AQ Project Dashboard',
-      owner: 'Thomas, Phuong, Melody',
-      date: '4/19/20',
-      type: 'Web App',
-      status: 'pending'
-    }
-  ];
+  const handleFilter = (event, index) => {
+    setAnchorEl(null);
+    setSelectedIndex(index)
+  };
 
-  const projects = mockProjects.map(proj => <ProjectCard project={proj} />);
+  if (selectedIndex === 0) {
+    filterData = mockProjects
+  } else {
+    filterData = mockProjects.filter((proj) => proj.type === options[selectedIndex])
+  }
+
+  const projects = filterData.map(proj => <ProjectCard project={proj} />);
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
@@ -79,11 +92,11 @@ function OngoingProjects({ customer, className, ...rest }) {
             open={open}
             onClose={handleClose}
           >
-            {options.map(option => (
+            {options.map((option, index) => (
               <MenuItem
                 key={option}
-                selected={option === 'All'}
-                onClick={handleClose}
+                selected={index === selectedIndex}
+                onClick={(event) => handleFilter(event, index)}
               >
                 {option}
               </MenuItem>
