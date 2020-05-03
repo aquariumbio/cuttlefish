@@ -63,6 +63,8 @@ function KanbanBoard(props) {
       setLists(newLists);
     } else {
       removedItem.list = destination.droppableId;
+      removedItem.status = destinationList.title;
+      removedItem.statusColor = destinationList.titleColor;
       destinationList.items.splice(destination.index, 0, removedItem);
       setLists(newLists);
     }

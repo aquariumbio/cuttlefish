@@ -65,20 +65,20 @@ export default {
             status: "Not Started",
             statusColor: "#909090",
             title: "Debug Server",
-            members: "",
+            members: ["Phuong", "Thomas", "Melody"],
             deadline: "05/01/2020"
         },
         {
-            id: 1,
+            id: 2,
             list: 1,
             status: "Not Started",
             statusColor: "#909090",
             title: "Add Authentication Feature",
-            members: "",
+            members: ["Phuong", "Thomas"],
             deadline: '05/21/2020'
         },
         {
-            id: 1,
+            id: 3,
             list: 1,
             status: "Not Started",
             statusColor: "#909090",
@@ -87,7 +87,7 @@ export default {
             deadline: '07/01/2020'
         },
         {
-            id: 1,
+            id: 4,
             list: 1,
             status: "Not Started",
             statusColor: "#909090",
@@ -96,7 +96,7 @@ export default {
             deadline: '07/12/2020'
         },
         {
-            id: 2,
+            id: 5,
             list: 2,
             status: "In Progress",
             statusColor: "#E6B265",
@@ -105,7 +105,7 @@ export default {
             deadline: '04/25/2020'
         },
         {
-            id: 2,
+            id: 6,
             list: 2,
             status: "In Progress",
             statusColor: "#E6B265",
@@ -114,7 +114,7 @@ export default {
             deadline: '04/30/2020'
         },
         {
-            id: 2,
+            id: 7,
             list: 2,
             status: "In Progress",
             statusColor: "#E6B265",
@@ -123,7 +123,7 @@ export default {
             deadline: '05/01/2020'
         },
         {
-            id: 3,
+            id: 8,
             list: 3,
             status: "Completed",
             statusColor: "#4CAF50",
@@ -132,7 +132,7 @@ export default {
             deadline: '04/04/2020'
         },
         {
-            id: 3,
+            id: 9,
             list: 3,
             status: "Completed",
             statusColor: "#4CAF50",

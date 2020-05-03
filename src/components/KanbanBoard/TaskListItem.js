@@ -79,7 +79,7 @@ function TaskListItem({
             color="textSecondary"
             variant="body2"
           >
-            {moment(task.deadline).format('D MMM')}
+            {moment(task.deadline).format('D MMM YYYY')}
           </Typography>
         </div>
       </CardContent>

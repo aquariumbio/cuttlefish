@@ -86,7 +86,7 @@ function Statistics({ className, ...rest }) {
             </Typography>
             <div className={classes.details}>
               <Typography variant="h3">
-                50
+                18
               </Typography>
             </div>
             <Typography
@@ -118,7 +118,7 @@ function Statistics({ className, ...rest }) {
             </Typography>
             <div className={classes.details}>
               <Typography variant="h3">
-                10
+                2
               </Typography>
             </div>
             <Typography
