@@ -65,7 +65,7 @@ export default {
             status: "Not Started",
             statusColor: "#909090",
             title: "Debug Server",
-            members: ["Phuong", "Thomas", "Melody"],
+            members: "Phuong, Thomas",
             deadline: "05/01/2020"
         },
         {
@@ -74,7 +74,7 @@ export default {
             status: "Not Started",
             statusColor: "#909090",
             title: "Add Authentication Feature",
-            members: ["Phuong", "Thomas"],
+            members: "Phuong, Thomas",
             deadline: '05/21/2020'
         },
         {
@@ -83,7 +83,7 @@ export default {
             status: "Not Started",
             statusColor: "#909090",
             title: "Connect to Backend Server",
-            members: "",
+            members: "Phuong, Thomas",
             deadline: '07/01/2020'
         },
         {
@@ -92,7 +92,7 @@ export default {
             status: "Not Started",
             statusColor: "#909090",
             title: "User Testings for React web app",
-            members: "",
+            members: "Phuong, Thomas",
             deadline: '07/12/2020'
         },
         {
@@ -101,7 +101,7 @@ export default {
             status: "In Progress",
             statusColor: "#E6B265",
             title: "Meeting with Ben",
-            members: "",
+            members: "Phuong, Thomas, Melody",
             deadline: '04/25/2020'
         },
         {
@@ -110,7 +110,7 @@ export default {
             status: "In Progress",
             statusColor: "#E6B265",
             title: "User Testings for Figma design",
-            members: "",
+            members: "Phuong, Thomas, Melody",
             deadline: '04/30/2020'
         },
         {
@@ -119,7 +119,7 @@ export default {
             status: "In Progress",
             statusColor: "#E6B265",
             title: "Building GUI for React web app",
-            members: "",
+            members: "Phuong, Thomas",
             deadline: '05/01/2020'
         },
         {
@@ -128,7 +128,7 @@ export default {
             status: "Completed",
             statusColor: "#4CAF50",
             title: "Integrate React Router",
-            members: "",
+            members: "Phuong, Thomas",
             deadline: '04/04/2020'
         },
         {
@@ -137,7 +137,7 @@ export default {
             status: "Completed",
             statusColor: "#4CAF50",
             title: "User Research - Interviews",
-            members: "",
+            members: "Phuong, Thomas, Melody",
             deadline: '04/04/2020'
         }
     ]
