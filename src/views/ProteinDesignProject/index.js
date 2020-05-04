@@ -8,7 +8,8 @@ import Header from './Header';
 import TabPanel from '../../components/TabPanel';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles, lighten } from '@material-ui/core/styles';
-import data from './data';
+import kanbanData from './mockKanbanData';
+import ganttData from './mockGanttData';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,7 +43,7 @@ const CustomLinearProgress = withStyles(theme => ({
 
 function ProteinDesignProject() {
   const classes = useStyles();
-  const [currentTab, setCurrentTab] = useState(0);
+  const [currentTab, setCurrentTab] = useState(1);
   const [events, setEvents] = useState([]);
   const [eventModal, setEventModal] = useState({
     open: false,
@@ -112,10 +113,10 @@ function ProteinDesignProject() {
           <Tab label="Gantt" />
         </Tabs>
         <TabPanel value={currentTab} index={0}>
-          <KanbanBoard data={data} />
+          <KanbanBoard data={kanbanData} />
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
-          <Gantt />
+          <Gantt data={ganttData} />
         </TabPanel>
         {getModal()}
       </Container>

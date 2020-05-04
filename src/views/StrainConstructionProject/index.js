@@ -10,7 +10,7 @@ import Plan from './Plan';
 import AddEditEvent from './AddFile';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles, lighten } from '@material-ui/core/styles';
-import data from './data';
+import data from './mockKanbanData';
 
 const useStyles = makeStyles(theme => ({
   root: {

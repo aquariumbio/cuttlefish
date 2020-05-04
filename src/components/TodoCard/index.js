@@ -10,7 +10,6 @@ import {
   Typography,
   List
 } from '@material-ui/core';
-import MoreIcon from '@material-ui/icons/MoreVert';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import EditCheckListItem from './EditCheckListItem';

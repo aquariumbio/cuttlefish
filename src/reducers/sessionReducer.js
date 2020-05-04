@@ -10,7 +10,9 @@ const initialState = {
     bio: 'Position',
     role: 'ADMIN' // ['GUEST', 'USER', 'ADMIN']
   },
-  currentProject: {}
+  currentProject: {
+    type: 'Protein Design'
+  }
 };
 
 const sessionReducer = (state = initialState, action) => {
