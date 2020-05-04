@@ -14,6 +14,9 @@ import {
   colors
 } from '@material-ui/core';
 import getInitials from 'src/utils/getInitials';
+import { useDispatch } from 'react-redux';
+import { getProject } from 'src/actions';
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,12 +66,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ProjectCard({ project, className, ...rest }) {
-  const classes = useStyles();
+  const classes = useStyles();  
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const statusColors = {
     'In progress': colors.orange[600],
     Canceled: colors.grey[600],
     Completed: colors.green[600]
+  };
+
+  const handleClick = () => {
+    dispatch(getProject(project));
+    history.push(`/project/${project.title}`);
   };
 
   return (
@@ -78,13 +88,6 @@ function ProjectCard({ project, className, ...rest }) {
     >
       <CardContent className={classes.content}>
         <div className={classes.header}>
-          <Avatar
-            alt="Author"
-            className={classes.avatar}
-            src={project.author.avatar}
-          >
-            {getInitials(project.author.name)}
-          </Avatar>
           <div>
             <Link
               color="textPrimary"
@@ -104,31 +107,24 @@ function ProjectCard({ project, className, ...rest }) {
                 to="/management/customers/1"
                 variant="h6"
               >
-                {project.author.name}
+                {project.owner}
               </Link>
             </Typography>
           </div>
         </div>
         <div className={classes.stats}>
-          <Typography variant="h6">
-            {project.currency}
-            {project.price}
-          </Typography>
-          <Typography variant="body2">Project price</Typography>
-        </div>
-        <div className={classes.stats}>
-          <Typography variant="h6">{project.members}</Typography>
-          <Typography variant="body2">Team members</Typography>
+          <Typography variant="h6">{project.members.length}</Typography>
+          <Typography variant="body2">members</Typography>
         </div>
         <div className={classes.stats}>
           <Typography variant="h6">
-            {moment(project.start_date).format('DD MMMM YYYY')}
+            {moment(project.start_date).format('DD/MM/YY')}
           </Typography>
           <Typography variant="body2">Project started</Typography>
         </div>
         <div className={classes.stats}>
           <Typography variant="h6">
-            {moment(project.end_date).format('DD MMMM YYYY')}
+            {moment(project.end_date).format('DD/MM/YY')}
           </Typography>
           <Typography variant="body2">Project deadline</Typography>
         </div>
@@ -146,8 +142,9 @@ function ProjectCard({ project, className, ...rest }) {
             color="primary"
             size="small"
             variant="outlined"
+            onClick={handleClick}
           >
-            View
+            View Project
           </Button>
         </div>
       </CardContent>

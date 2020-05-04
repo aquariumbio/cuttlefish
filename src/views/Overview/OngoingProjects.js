@@ -13,6 +13,7 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ProjectCard from '../../components/ProjectCard/index';
+import mockProjects from './projects_data'
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -22,30 +23,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const options = ['All', 'Protein Design', 'Strain Construction'];
-
-const mockProjects = [
-  {
-    title: 'CircuitSeq',
-    owner: 'Justin',
-    date: '4/18/20',
-    type: 'Strain Construction',
-    status: 'pending'
-  },
-  {
-    title: 'COVID-19',
-    owner: 'Sam',
-    date: '4/19/20',
-    type: 'Protein Design',
-    status: 'pending'
-  },
-  {
-    title: 'AQ Project Dashboard',
-    owner: 'Thomas, Phuong, Melody',
-    date: '4/19/20',
-    type: 'Web App',
-    status: 'pending'
-  }
-];
 
 let filterData;
 

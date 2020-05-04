@@ -7,6 +7,8 @@ import Paginate from 'src/components/Paginate';
 import SearchBar from 'src/components/SearchBar';
 import Header from './Header';
 import ProjectCard from './ProjectCard';
+import mockProjects from 'src/views/Overview/projects_data';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,34 +29,33 @@ function ProjectManagementList() {
   const classes = useStyles();
   const [rowsPerPage] = useState(10);
   const [page] = useState(0);
-  const [projects, setProjects] = useState([]);
 
   const handleFilter = () => {};
 
   const handleSearch = () => {};
 
-  useEffect(() => {
-    let mounted = true;
+  // useEffect(() => {
+  //   let mounted = true;
 
-    const fetchProjects = () => {
-      axios.get('/api/projects').then((response) => {
-        if (mounted) {
-          setProjects(response.data.projects);
-        }
-      });
-    };
+  //   const fetchProjects = () => {
+  //     axios.get('/api/projects').then((response) => {
+  //       if (mounted) {
+  //         setProjects(response.data.projects);
+  //       }
+  //     });
+  //   };
 
-    fetchProjects();
+  //   fetchProjects();
 
-    return () => {
-      mounted = false;
-    };
-  }, []);
+  //   return () => {
+  //     mounted = false;
+  //   };
+  // }, []);
 
   return (
     <Page
       className={classes.root}
-      title="Project Management List"
+      title="Projects"
     >
       <Container maxWidth={false}>
         <Header />
@@ -68,9 +69,9 @@ function ProjectManagementList() {
             gutterBottom
             variant="body2"
           >
-            {`${projects.length} Records found. Page ${page + 1} of ${Math.ceil(projects.length / rowsPerPage)}`}
+            {`${mockProjects.length} projects found. Page ${page + 1} of ${Math.ceil(mockProjects.length / rowsPerPage)}`}
           </Typography>
-          {projects.map((project) => (
+          {mockProjects.map((project) => (
             <ProjectCard
               key={project.id}
               project={project}

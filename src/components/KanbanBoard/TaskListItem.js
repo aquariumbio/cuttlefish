@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
   },
   date: {
     marginLeft: theme.spacing(2)
+  },
+  member: {
+    paddingBottom: theme.spacing(1)
   }
 }));
 
@@ -66,6 +69,10 @@ function TaskListItem({
         titleTypographyProps={{ variant: 'h5', gutterBottom: true }}
       />
       <CardContent className={classes.content}>
+        <Typography className={classes.member} variant="body1">
+          <strong>Engineers: </strong>
+          {task.members}
+        </Typography>
         <div className={classes.stats}>
           <Label
             color={task.statusColor}
@@ -79,7 +86,7 @@ function TaskListItem({
             color="textSecondary"
             variant="body2"
           >
-            {moment(task.deadline).format('D MMM')}
+            {moment(task.deadline).format('D MMM YYYY')}
           </Typography>
         </div>
       </CardContent>

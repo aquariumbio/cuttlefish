@@ -135,7 +135,7 @@ export default [
       {
         path: '/projects',
         exact: true,
-        component: lazy(() => import('src/views/ProjectList'))
+        component: lazy(() => import('src/views/ProjectManagementList'))
       },
       {
         path: '/project/:project',

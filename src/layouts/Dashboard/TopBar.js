@@ -23,7 +23,6 @@ import {
   ListItemText,
   ClickAwayListener
 } from '@material-ui/core';
-
 import InputIcon from '@material-ui/icons/Input';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
@@ -31,8 +30,7 @@ import axios from 'src/utils/axios';
 import { logout } from 'src/actions';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import NotificationsPopover from 'src/components/NotificationsPopover';
-
-
+import img from "src/images/logo.png"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -172,7 +170,7 @@ function TopBar({ onOpenNavBarMobile, className, ...rest }) {
           </IconButton>
         </Hidden>
         
-        <RouterLink to="/">{/* <img alt="Logo" src="" /> */}</RouterLink>
+        <RouterLink to="/"><img alt="Logo" src={img} height="50"/></RouterLink>
         <div className={classes.flexGrow} />
 
         <Hidden smDown>

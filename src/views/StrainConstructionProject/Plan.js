@@ -1,8 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
-import { Typography, Button, Card, Link } from '@material-ui/core';
+import { Typography, Button, Card } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import Page from 'src/components/Page';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,30 +36,31 @@ function Plan({ className, ...rest }) {
   const classes = useStyles();
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
-      <div className={classes.header}>
-        <Typography
-          variant="h5"
-        >
-          AQ plan is the way the researcher describes the work that should be done.
-          It consists of the operations and links between operations, also including the inputs.
+    <Page title={"Plan"}>
+      <Card
+        {...rest}
+        className={clsx(classes.root, className)}
+      >
+        <div className={classes.header}>
+          <Typography
+            variant="h5"
+          >
+            AQ plan is the way the researcher describes the work that should be done.
+            It consists of the operations and links between operations, also including the inputs.
         </Typography>
-      </div>
-      <a href="http://52.27.43.242/launcher">
-        <Button
-          variant="outlined"
-          color="primary"
-          className={classes.button}
-          endIcon={<ArrowForwardIosIcon />}
-        >
-          Go to AQ Plan
+        </div>
+        <a href="http://52.27.43.242/launcher">
+          <Button
+            variant="outlined"
+            color="primary"
+            className={classes.button}
+            endIcon={<ArrowForwardIosIcon />}
+          >
+            Go to AQ Plan
         </Button>
-      </a>
-
-    </Card>
+        </a>
+      </Card>
+    </Page>
   );
 }
 

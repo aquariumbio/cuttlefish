@@ -98,7 +98,7 @@ function StrainConstructionProject() {
   };
 
   return (
-    <Page className={classes.root} title="Strain Construction Project">
+    <Page className={classes.root} title={"Strain Construction Project"}>
       <Container maxWidth={false}>
         <Header currentTab={currentTab} onEventAdd={handleEventNew} />
 

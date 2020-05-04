@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography, Divider } from '@material-ui/core';
 import LibraryTab from './LibraryTab';
+import Page from '../Page';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,23 +46,18 @@ export default function Gantt(props) {
   ));
 
   return (
-    <Grid container className={classes.root}>
-      <Grid item xs={3} className={classes.taskList}>
-        <Grid container className={classes.topBar}>
-          <Grid item>
+    <Page className={classes.root} title={'Gantt Chart'}>
+      <Grid container className={classes.root}>
+        <Grid item xs={3} className={classes.taskList}>
+          <div className={classes.topBar}>
             <Typography variant="h4">Library</Typography>
-          </Grid>
-          <Grid item>
             <Typography variant="h4">Owner</Typography>
-          </Grid>
+          </div>
         </Grid>
-        <Grid container className={classes.libraries}>
-          {libraryTabs}
+        <Grid item xs={9} className={classes.calendar}>
+          Calendar
         </Grid>
       </Grid>
-      <Grid item xs={9} className={classes.calendar}>
-        Calendar
-      </Grid>
-    </Grid>
+    </Page>
   );
 }

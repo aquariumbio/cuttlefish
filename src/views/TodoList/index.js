@@ -54,7 +54,7 @@ function TodoList() {
   useEffect(() => {}, [tasksTodo, tasksInProgress, tasksComplete]);
 
   return (
-    <Page className={classes.root} title="TodoList">
+    <Page className={classes.root} title="Todo List">
       <Container maxWidth="lg">
         <Header />
         <TodoCard status="Todo" tasks={tasksTodo} setTasks={setTasksTodo} />
