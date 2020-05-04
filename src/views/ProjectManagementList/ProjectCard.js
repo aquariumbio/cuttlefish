@@ -14,6 +14,9 @@ import {
   colors
 } from '@material-ui/core';
 import getInitials from 'src/utils/getInitials';
+import { useDispatch } from 'react-redux';
+import { getProject } from 'src/actions';
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,12 +66,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ProjectCard({ project, className, ...rest }) {
-  const classes = useStyles();
+  const classes = useStyles();  
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const statusColors = {
     'In progress': colors.orange[600],
     Canceled: colors.grey[600],
     Completed: colors.green[600]
+  };
+
+  const handleClick = () => {
+    dispatch(getProject(project));
+    history.push(`/project/${project.title}`);
   };
 
   return (
@@ -132,8 +142,9 @@ function ProjectCard({ project, className, ...rest }) {
             color="primary"
             size="small"
             variant="outlined"
+            onClick={handleClick}
           >
-            View 
+            View Project
           </Button>
         </div>
       </CardContent>

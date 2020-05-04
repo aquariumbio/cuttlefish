@@ -7,7 +7,8 @@ import Paginate from 'src/components/Paginate';
 import SearchBar from 'src/components/SearchBar';
 import Header from './Header';
 import ProjectCard from './ProjectCard';
-import mockProjects from 'src/views/Overview/projects_data'
+import mockProjects from 'src/views/Overview/projects_data';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
