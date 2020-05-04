@@ -8,6 +8,7 @@ import {
   Divider,
   Grid
 } from '@material-ui/core';
+import Page from 'src/components/Page';
 import IconButton from '@material-ui/core/IconButton';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Menu from '@material-ui/core/Menu';
@@ -15,7 +16,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    height: '75vh'
   },
   content: {
     padding: 0
@@ -46,48 +46,50 @@ export default function Notebook({ className, ...rest }) {
   const options = ['Sort', 'Options', 'Here'];
 
   return (
-    <Grid className={classes.container} container spacing={1}>
-      <Grid item xs={3}>
-        <Card {...rest} className={clsx(classes.root, className)}>
-          <Grid container className={classes.topBar}>
-            <Grid item>
-              <CardHeader title={'Notebook'} />
+    <Page className={classes.root} title={"Notebook"}>
+      <Grid className={classes.container} container spacing={1}>
+        <Grid item xs={3}>
+          <Card {...rest} className={clsx(classes.root, className)}>
+            <Grid container className={classes.topBar}>
+              <Grid item>
+                <CardHeader title={'Notebook'} />
+              </Grid>
+              <Grid item>
+                <IconButton onClick={handleClick}>
+                  <FilterListIcon />
+                </IconButton>
+                <Menu
+                  id="long-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                >
+                  {options.map(option => (
+                    <MenuItem
+                      key={option}
+                      selected={option === 'All'}
+                      onClick={handleClose}
+                    >
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Grid>
             </Grid>
-            <Grid item>
-              <IconButton onClick={handleClick}>
-                <FilterListIcon />
-              </IconButton>
-              <Menu
-                id="long-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-              >
-                {options.map(option => (
-                  <MenuItem
-                    key={option}
-                    selected={option === 'All'}
-                    onClick={handleClose}
-                  >
-                    {option}
-                  </MenuItem>
-                ))}
-              </Menu>
+            <Divider />
+            <CardContent className={classes.content}></CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={9}>
+          <Card {...rest} className={clsx(classes.root, className)}>
+            <Grid item xs={10}>
+              <CardHeader title={fileType} />
             </Grid>
-          </Grid>
-          <Divider />
-          <CardContent className={classes.content}></CardContent>
-        </Card>
+            <Divider />
+            <CardContent className={classes.content}></CardContent>
+          </Card>
+        </Grid>
       </Grid>
-      <Grid item xs={9}>
-        <Card {...rest} className={clsx(classes.root, className)}>
-          <Grid item xs={10}>
-            <CardHeader title={fileType} />
-          </Grid>
-          <Divider />
-          <CardContent className={classes.content}></CardContent>
-        </Card>
-      </Grid>
-    </Grid>
+    </Page>
   );
 }

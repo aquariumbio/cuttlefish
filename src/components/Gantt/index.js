@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
+import Page from 'src/components/Page';
 import { Grid, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
@@ -23,16 +24,18 @@ const useStyles = makeStyles(theme => ({
 export default function Gannt() {
   const classes = useStyles();
   return (
-    <Grid container className={classes.root}>
-      <Grid item xs={3} className={classes.taskList}>
-        <div className={classes.topBar}>
-          <Typography variant="h4">Library</Typography>
-          <Typography variant="h4">Owner</Typography>
-        </div>
+    <Page className={classes.root} title={"Gantt Chart"}>
+      <Grid container className={classes.root}>
+        <Grid item xs={3} className={classes.taskList}>
+          <div className={classes.topBar}>
+            <Typography variant="h4">Library</Typography>
+            <Typography variant="h4">Owner</Typography>
+          </div>
+        </Grid>
+        <Grid item xs={9} className={classes.calendar}>
+          Calendar
       </Grid>
-      <Grid item xs={9} className={classes.calendar}>
-        Calendar
       </Grid>
-    </Grid>
+    </Page>
   );
 }
