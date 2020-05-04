@@ -81,7 +81,7 @@ function ProjectCard({ project, className, ...rest }) {
       <CardContent className={classes.content}>
         <Grid container className={classes.container}>
           <Grid item>
-            <Typography variant="body2">{project.date}</Typography>
+            <Typography variant="body2">{project.start_date}</Typography>
             <Typography className={classes.header} variant="h4">
               {project.title}
             </Typography>

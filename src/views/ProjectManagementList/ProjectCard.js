@@ -78,13 +78,6 @@ function ProjectCard({ project, className, ...rest }) {
     >
       <CardContent className={classes.content}>
         <div className={classes.header}>
-          <Avatar
-            alt="Author"
-            className={classes.avatar}
-            src={project.author.avatar}
-          >
-            {getInitials(project.author.name)}
-          </Avatar>
           <div>
             <Link
               color="textPrimary"
@@ -104,31 +97,24 @@ function ProjectCard({ project, className, ...rest }) {
                 to="/management/customers/1"
                 variant="h6"
               >
-                {project.author.name}
+                {project.owner}
               </Link>
             </Typography>
           </div>
         </div>
         <div className={classes.stats}>
-          <Typography variant="h6">
-            {project.currency}
-            {project.price}
-          </Typography>
-          <Typography variant="body2">Project price</Typography>
-        </div>
-        <div className={classes.stats}>
-          <Typography variant="h6">{project.members}</Typography>
-          <Typography variant="body2">Team members</Typography>
+          <Typography variant="h6">{project.members.length}</Typography>
+          <Typography variant="body2">members</Typography>
         </div>
         <div className={classes.stats}>
           <Typography variant="h6">
-            {moment(project.start_date).format('DD MMMM YYYY')}
+            {moment(project.start_date).format('DD/MM/YY')}
           </Typography>
           <Typography variant="body2">Project started</Typography>
         </div>
         <div className={classes.stats}>
           <Typography variant="h6">
-            {moment(project.end_date).format('DD MMMM YYYY')}
+            {moment(project.end_date).format('DD/MM/YY')}
           </Typography>
           <Typography variant="body2">Project deadline</Typography>
         </div>
@@ -147,7 +133,7 @@ function ProjectCard({ project, className, ...rest }) {
             size="small"
             variant="outlined"
           >
-            View
+            View 
           </Button>
         </div>
       </CardContent>
