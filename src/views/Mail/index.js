@@ -95,7 +95,7 @@ function Mail() {
         [classes.root]: true,
         [classes.openFolder]: openFolder
       })}
-      title="Mail"
+      title="Inbox"
     >
       <EmailFolders
         className={classes.emailFolders}

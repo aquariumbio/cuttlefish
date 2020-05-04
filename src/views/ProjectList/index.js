@@ -28,7 +28,7 @@ function ProjectList() {
   return (
     <Page
       className={classes.root}
-      title="Projects List"
+      title="Projects"
     >
       <Container maxWidth="lg">
         <Header className={classes.header} />
