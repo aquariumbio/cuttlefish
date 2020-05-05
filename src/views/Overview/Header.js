@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import {
+  Modal,
   Typography,
   Grid,
   Button
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { Link as RouterLink } from 'react-router-dom';
+import CreateProject from './CreateProject';
 
 const useStyles = makeStyles((theme) => ({
   addIcon: {
@@ -19,6 +21,11 @@ const useStyles = makeStyles((theme) => ({
 function Header() {
   const classes = useStyles();
   const session = useSelector((state) => state.session);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
 
   return (
     <div>
@@ -57,14 +64,20 @@ function Header() {
           </Typography>
         </Grid>
         <Grid item>
-          <Button
-            color="primary"
-            component={RouterLink}
-            variant="contained"
-          >
-            <AddIcon className={classes.addIcon} />
+          <>
+          <Button color="primary" variant="contained" onClick={handleShow}>
             Create Project
           </Button>
+
+          <Modal open={show} onHide={handleClose} animation={false}>
+          <div>  
+            <CreateProject>
+
+            </CreateProject>
+              
+          </div>
+          </Modal>
+          </>
         </Grid>
       </Grid>
     </div>
