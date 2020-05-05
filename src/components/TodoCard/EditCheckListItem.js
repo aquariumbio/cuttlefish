@@ -27,12 +27,15 @@ const useStyles = makeStyles(theme => ({
   removed: {
     display: 'none'
   },
-  clear: {
+  deleteButton: {
     color: theme.palette.primary.light,
     '&:hover': {
       cursor: 'pointer',
       color: theme.palette.primary.dark
     }
+  },
+  deleted: {
+    display: 'none'
   }
 }));
 
@@ -53,6 +56,7 @@ function EditCheckListItem({
   const [description, setDescription] = useState(text);
   const [checkValue, setCheckValue] = useState(complete);
   const [existingTask, setExistingTask] = useState(description != '');
+  const [deleted, setDeleted] = useState(false);
 
   const handleTextClick = () => {
     if (checkValue == false) {
@@ -101,6 +105,10 @@ function EditCheckListItem({
     }
   };
 
+  const handleDelete = () => {
+    setDeleted(true);
+  };
+
   useEffect(() => {}, [openField, checkValue]);
 
   const listItem = openField ? (
@@ -109,6 +117,7 @@ function EditCheckListItem({
         [classes.root]: true,
         [classes.checked]: checkValue,
         [classes.removed]: description == '' && !editing,
+        [classes.deleted]: deleted,
         className
       })}
       button
@@ -138,7 +147,7 @@ function EditCheckListItem({
         />
       </ClickAwayListener>
       <ListItemIcon>
-        <ClearIcon className={classes.clear} />
+        <ClearIcon className={classes.clear} onClick={handleDelete} />
       </ListItemIcon>
     </ListItem>
   ) : (
@@ -150,6 +159,7 @@ function EditCheckListItem({
         [classes.root]: true,
         [classes.checked]: checkValue,
         [classes.remove]: description == '',
+        [classes.deleted]: deleted,
         className
       })}
       disableRipple
@@ -165,7 +175,7 @@ function EditCheckListItem({
       </ListItemIcon>
       <ListItemText primary={description} onClick={handleTextClick} />
       <ListItemIcon>
-        <ClearIcon className={classes.clear} />
+        <ClearIcon className={classes.deleteButton} onClick={handleDelete} />
       </ListItemIcon>
     </ListItem>
   );
