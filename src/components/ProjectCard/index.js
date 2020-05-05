@@ -80,15 +80,22 @@ function ProjectCard({ project, className, ...rest }) {
     >
       <CardContent className={classes.content}>
         <Grid container className={classes.container}>
-          <Grid item>
-            <Typography variant="body2">{project.start_date}</Typography>
-            <Typography className={classes.header} variant="h4">
+          <Grid item xs>
+            <Typography variant="body2" noWrap>
+              {project.start_date}
+            </Typography>
+            <Typography className={classes.header} variant="h4" noWrap>
               {project.title}
             </Typography>
-            <Typography variant="body2">{`Owned by: ${project.owner}`}</Typography>
+            <Typography
+              variant="body2"
+              noWrap
+            >{`Owned by: ${project.owner}`}</Typography>
           </Grid>
-          <Grid item className={classes.cardLabel}>
-            <Typography variant="body2">{project.type}</Typography>
+          <Grid item xs className={classes.cardLabel}>
+            <Typography variant="body2" noWrap>
+              {project.type}
+            </Typography>
             <Label color={getLabelColor()} variant="other">
               {project.status}
             </Label>
