@@ -100,7 +100,7 @@ export default {
             list: 2,
             status: "In Progress",
             statusColor: "#E6B265",
-            title: "Meeting with Ben",
+            title: "Team Meeting",
             members: "Phuong, Thomas, Melody",
             deadline: '04/25/2020'
         },
@@ -109,7 +109,7 @@ export default {
             list: 2,
             status: "In Progress",
             statusColor: "#E6B265",
-            title: "User Testings for Figma design",
+            title: "User Testings",
             members: "Phuong, Thomas, Melody",
             deadline: '04/30/2020'
         },
@@ -118,7 +118,7 @@ export default {
             list: 2,
             status: "In Progress",
             statusColor: "#E6B265",
-            title: "Building GUI for React web app",
+            title: "Building React web app",
             members: "Phuong, Thomas",
             deadline: '05/01/2020'
         },

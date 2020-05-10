@@ -16,9 +16,11 @@ import ProjectCard from '../../components/ProjectCard/index';
 import mockProjects from './projects_data'
 
 const useStyles = makeStyles(theme => ({
-  root: {},
+  root: {
+    backgroundColor: "#FAFAFA"
+  },
   content: {
-    padding: 0
+    padding: theme.spacing(1)
   }
 }));
 
@@ -82,8 +84,9 @@ function OngoingProjects({ customer, className, ...rest }) {
         </Grid>
       </Grid>
       <Divider />
-      {projects}
-      <CardContent className={classes.content}></CardContent>
+      <CardContent className={classes.content}>
+        {projects}
+      </CardContent>
     </Card>
   );
 }

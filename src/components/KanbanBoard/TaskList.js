@@ -8,7 +8,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "#E3E7EB",
+    backgroundColor: "#FAFAFA",
     userSelect: 'none',
     whiteSpace: 'normal',
     height: '100%',

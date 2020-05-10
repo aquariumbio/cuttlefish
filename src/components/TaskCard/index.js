@@ -52,26 +52,26 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function ProjectCard({ project, className, ...rest }) {
+function TaskCard({ task, className, ...rest }) {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
 
   const getLabelColor = () => {
-    if (project.status === 'pending') {
+    if (task.status === 'pending') {
       return palette.caution.main;
-    } else if (project.status === 'completed') {
+    } else if (task.status === 'completed') {
       return palette.success.main;
     } else {
       return palette.error.main;
     }
   };
 
-  // To simulate pulling from a database, therer is a currentProject state in redux that is being updated here so
-  // the correct project view can be rendered upon clicking
+  // To simulate pulling from a database, therer is a currenttTask state in redux that is being updated here so
+  // the correct task view can be rendered upon clicking
   const handleClick = () => {
-    dispatch(getProject(project));
-    history.push(`/project/${project.title}`);
+    dispatch(getProject(task));
+    history.push(`/task/${task.title}`);
   };
 
   return (
@@ -84,22 +84,22 @@ function ProjectCard({ project, className, ...rest }) {
         <Grid container className={classes.container}>
           <Grid item xs>
             <Typography variant="body2" noWrap>
-              {project.start_date}
+              {task.deadline}
             </Typography>
             <Typography className={classes.header} variant="h4" noWrap>
-              {project.title}
+              {task.title}
             </Typography>
             <Typography
               variant="body2"
               noWrap
-            >{`Owned by: ${project.owner}`}</Typography>
+            >{`Owned by: ${task.members}`}</Typography>
           </Grid>
           <Grid item xs className={classes.cardLabel}>
             <Typography variant="body2" noWrap>
-              {project.type}
+              {/* {task.type} */}
             </Typography>
             <Label color={getLabelColor()} variant="other">
-              {project.status}
+              Due Soon
             </Label>
           </Grid>
         </Grid>
@@ -109,8 +109,8 @@ function ProjectCard({ project, className, ...rest }) {
   );
 }
 
-ProjectCard.propTypes = {
+TaskCard.propTypes = {
   className: PropTypes.string
 };
 
-export default ProjectCard;
+export default TaskCard;

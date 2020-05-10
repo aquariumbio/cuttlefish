@@ -15,9 +15,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 
 const useStyles = makeStyles(theme => ({
-  root: {},
+  root: {
+    backgroundColor: "#FAFAFA"
+  },
   content: {
-    padding: 0
+    padding: theme.spacing(1)
   }
 }));
 
