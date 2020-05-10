@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function ProjectCard({ project, className, ...rest }) {
+function TaskCard({ task, className, ...rest }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -77,8 +77,8 @@ function ProjectCard({ project, className, ...rest }) {
   };
 
   const handleClick = () => {
-    dispatch(getProject(project));
-    history.push(`/project/${project.title}`);
+    dispatch(getProject(task));
+    history.push(`/project/${task.group}`);
   };
 
   return (
@@ -96,7 +96,7 @@ function ProjectCard({ project, className, ...rest }) {
               to="#"
               variant="h5"
             >
-              {project.title}
+              {task.title}
             </Link>
             <Typography variant="body2">
               by
@@ -107,35 +107,35 @@ function ProjectCard({ project, className, ...rest }) {
                 to="/management/customers/1"
                 variant="h6"
               >
-                {project.owner}
+                {task.owner}
               </Link>
             </Typography>
           </div>
         </div>
         <div className={classes.stats}>
-          <Typography variant="h6">{project.members.length}</Typography>
+          <Typography variant="h6">{task.members.length}</Typography>
           <Typography variant="body2">members</Typography>
         </div>
         <div className={classes.stats}>
           <Typography variant="h6">
-            {moment(project.start_date).format('DD/MM/YY')}
+            {moment(task.start_date).format('DD/MM/YY')}
           </Typography>
-          <Typography variant="body2">Project started</Typography>
+          <Typography variant="body2">Task started</Typography>
         </div>
         <div className={classes.stats}>
           <Typography variant="h6">
-            {moment(project.end_date).format('DD/MM/YY')}
+            {moment(task.end_date).format('DD/MM/YY')}
           </Typography>
-          <Typography variant="body2">Project deadline</Typography>
+          <Typography variant="body2">Task deadline</Typography>
         </div>
         <div className={classes.stats}>
           <Typography
-            style={{ color: statusColors[project.status] }}
+            style={{ color: statusColors[task.status] }}
             variant="h6"
           >
-            {project.status}
+            {task.status}
           </Typography>
-          <Typography variant="body2">Project status</Typography>
+          <Typography variant="body2">Task status</Typography>
         </div>
         <div className={classes.actions}>
           <Button
@@ -144,7 +144,7 @@ function ProjectCard({ project, className, ...rest }) {
             variant="outlined"
             onClick={handleClick}
           >
-            View Project
+            View Task
           </Button>
         </div>
       </CardContent>
@@ -152,9 +152,9 @@ function ProjectCard({ project, className, ...rest }) {
   );
 }
 
-ProjectCard.propTypes = {
+TaskCard.propTypes = {
   className: PropTypes.string,
   project: PropTypes.object.isRequired
 };
 
-export default ProjectCard;
+export default TaskCard;

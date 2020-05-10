@@ -145,7 +145,7 @@ export default [
       {
         path: '/tasks',
         exact: true,
-        component: lazy(() => import('src/views/Tasks'))
+        component: lazy(() => import('src/views/TaskManagementList'))
       },
       {
         component: () => <Redirect to="/errors/error-404" />
