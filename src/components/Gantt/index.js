@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography, Divider } from '@material-ui/core';
 import LibraryTab from './LibraryTab';
 import Page from '../Page';
+import Calendar from './Calendar';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,6 +27,9 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: theme.spacing(2),
     borderTopLeftRadius: '3px',
     marginBottom: theme.spacing(0.2)
+  },
+  libraries: {
+    width: '100%'
   }
 }));
 
@@ -49,13 +53,18 @@ export default function Gantt(props) {
     <Page className={classes.root} title={'Gantt Chart'}>
       <Grid container className={classes.root}>
         <Grid item xs={3} className={classes.taskList}>
-          <div className={classes.topBar}>
-            <Typography variant="h4">Library</Typography>
-            <Typography variant="h4">Owner</Typography>
-          </div>
+          <Grid item className={classes.topBar}>
+            <Typography variant="h4" noWrap>
+              Library
+            </Typography>
+            <Typography variant="h4" noWrap>
+              Owner
+            </Typography>
+          </Grid>
+          <div className={classes.libraries}>{libraryTabs}</div>
         </Grid>
         <Grid item xs={9} className={classes.calendar}>
-          Calendar
+          <Calendar />
         </Grid>
       </Grid>
     </Page>

@@ -6,9 +6,9 @@ import { makeStyles } from '@material-ui/styles';
 import { Typography, IconButton, Tooltip, Card } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: "#E3E7EB",
+    backgroundColor: '#E3E7EB',
     userSelect: 'none',
     whiteSpace: 'normal',
     height: '100%',
@@ -62,28 +62,15 @@ function TaskList({
       ref={provided.innerRef}
     >
       <div className={classes.header}>
-        <Typography
-          color={titleColor}
-          variant="h5"
-        >
+        <Typography color={titleColor} variant="h5">
           {title}
         </Typography>
-        <Typography
-          className={classes.counter}
-          color={titleColor}
-          variant="h6"
-        >
-          (
-          {total}
-          )
+        <Typography className={classes.counter} color={titleColor} variant="h6">
+          ({total})
         </Typography>
         <div className={classes.headerAction}>
           <Tooltip title="Add task">
-            <IconButton
-              color="inherit"
-              edge="end"
-              variant="contained"
-            >
+            <IconButton color="inherit" edge="end" variant="contained">
               <AddIcon />
             </IconButton>
           </Tooltip>
