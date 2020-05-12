@@ -65,79 +65,79 @@ export default {
             status: "Not Started",
             statusColor: "#909090",
             title: "Debug Server",
-            members: "Phuong, Thomas",
+            members: "",
             deadline: "05/01/2020"
         },
         {
-            id: 2,
+            id: 1,
             list: 1,
             status: "Not Started",
             statusColor: "#909090",
             title: "Add Authentication Feature",
-            members: "Phuong, Thomas",
+            members: "",
             deadline: '05/21/2020'
         },
         {
-            id: 3,
+            id: 1,
             list: 1,
             status: "Not Started",
             statusColor: "#909090",
             title: "Connect to Backend Server",
-            members: "Phuong, Thomas",
+            members: "",
             deadline: '07/01/2020'
         },
         {
-            id: 4,
+            id: 1,
             list: 1,
             status: "Not Started",
             statusColor: "#909090",
             title: "User Testings for React web app",
-            members: "Phuong, Thomas",
+            members: "",
             deadline: '07/12/2020'
         },
         {
-            id: 5,
+            id: 2,
             list: 2,
             status: "In Progress",
             statusColor: "#E6B265",
-            title: "Team Meeting",
-            members: "Phuong, Thomas, Melody",
+            title: "Meeting with Ben",
+            members: "",
             deadline: '04/25/2020'
         },
         {
-            id: 6,
+            id: 2,
             list: 2,
             status: "In Progress",
             statusColor: "#E6B265",
-            title: "User Testings",
-            members: "Phuong, Thomas, Melody",
+            title: "User Testings for Figma design",
+            members: "",
             deadline: '04/30/2020'
         },
         {
-            id: 7,
+            id: 2,
             list: 2,
             status: "In Progress",
             statusColor: "#E6B265",
-            title: "Building React web app",
-            members: "Phuong, Thomas",
+            title: "Building GUI for React web app",
+            members: "",
             deadline: '05/01/2020'
         },
         {
-            id: 8,
+            id: 3,
             list: 3,
             status: "Completed",
             statusColor: "#4CAF50",
             title: "Integrate React Router",
-            members: "Phuong, Thomas",
+            members: "",
             deadline: '04/04/2020'
         },
         {
-            id: 9,
+            id: 3,
             list: 3,
             status: "Completed",
             statusColor: "#4CAF50",
             title: "User Research - Interviews",
-            members: "Phuong, Thomas, Melody",
+            members: "",
             deadline: '04/04/2020'
         }
     ]

@@ -13,12 +13,14 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ProjectCard from '../../components/ProjectCard/index';
-import mockProjects from './projects_data'
+import mockProjects from '../ProjectManagementList/projects_data'
 
 const useStyles = makeStyles(theme => ({
-  root: {},
+  root: {
+    backgroundColor: "#FAFAFA"
+  },
   content: {
-    padding: 0
+    padding: theme.spacing(1)
   }
 }));
 
@@ -82,8 +84,9 @@ function OngoingProjects({ customer, className, ...rest }) {
         </Grid>
       </Grid>
       <Divider />
-      {projects}
-      <CardContent className={classes.content}></CardContent>
+      <CardContent className={classes.content}>
+        {projects}
+      </CardContent>
     </Card>
   );
 }

@@ -5,8 +5,6 @@ import { Redirect } from 'react-router-dom';
 import AuthLayout from './layouts/Auth';
 import ErrorLayout from './layouts/Error';
 import DashboardLayout from './layouts/Dashboard';
-import DashboardAnalyticsView from './views/DashboardAnalytics';
-import DashboardDefaultView from './views/DashboardDefault';
 import Overview from './views/Overview';
 
 export default [
@@ -78,44 +76,14 @@ export default [
         component: lazy(() => import('src/views/Buttons'))
       },
       {
-        path: '/components/cards',
-        exact: true,
-        component: lazy(() => import('src/views/Cards'))
-      },
-      {
         path: '/components/chips',
         exact: true,
         component: lazy(() => import('src/views/Chips'))
       },
       {
-        path: '/components/forms',
-        exact: true,
-        component: lazy(() => import('src/views/Forms'))
-      },
-      {
-        path: '/components/lists',
-        exact: true,
-        component: lazy(() => import('src/views/Lists'))
-      },
-      {
-        path: '/components/modals',
-        exact: true,
-        component: lazy(() => import('src/views/Modals'))
-      },
-      {
         path: '/components/typography',
         exact: true,
         component: lazy(() => import('src/views/Typography'))
-      },
-      {
-        path: '/dashboards/analytics',
-        exact: true,
-        component: DashboardAnalyticsView
-      },
-      {
-        path: '/dashboards/default',
-        exact: true,
-        component: DashboardDefaultView
       },
       {
         path: '/overview',
@@ -145,7 +113,7 @@ export default [
       {
         path: '/tasks',
         exact: true,
-        component: lazy(() => import('src/views/Tasks'))
+        component: lazy(() => import('src/views/TaskManagementList'))
       },
       {
         component: () => <Redirect to="/errors/error-404" />

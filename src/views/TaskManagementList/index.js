@@ -6,8 +6,8 @@ import Page from 'src/components/Page';
 import Paginate from 'src/components/Paginate';
 import SearchBar from 'src/components/SearchBar';
 import Header from './Header';
-import ProjectCard from './ProjectCard';
-import mockProjects from './projects_data';
+import TaskCard from './TaskCard';
+import mockTasks from './tasks_data';
 import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function ProjectManagementList() {
+function TaskManagementList() {
   const classes = useStyles();
   const [rowsPerPage] = useState(10);
   const [page] = useState(0);
@@ -55,7 +55,7 @@ function ProjectManagementList() {
   return (
     <Page
       className={classes.root}
-      title="Current Projects"
+      title="Current Tasks"
     >
       <Container maxWidth={false}>
         <Header />
@@ -69,12 +69,12 @@ function ProjectManagementList() {
             gutterBottom
             variant="body2"
           >
-            {`${mockProjects.length} projects found. Page ${page + 1} of ${Math.ceil(mockProjects.length / rowsPerPage)}`}
+            {`${mockTasks.length} tasks found. Page ${page + 1} of ${Math.ceil(mockTasks.length / rowsPerPage)}`}
           </Typography>
-          {mockProjects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
+          {mockTasks.map((task) => (
+            <TaskCard
+              key={task.id}
+              task={task}
             />
           ))}
         </div>
@@ -86,4 +86,4 @@ function ProjectManagementList() {
   );
 }
 
-export default ProjectManagementList;
+export default TaskManagementList;
