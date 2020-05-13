@@ -1,17 +1,62 @@
 import React, { useState } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, GridItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({
-  root: {}
+  root: {},
+  month: { display: 'flex', overflowX: 'auto' },
+  monthTitle: {
+    height: '50px',
+    borderRight: '1px solid black',
+    borderBottom: '1px solid black'
+  },
+  days: {
+    display: 'flex',
+    overflowX: 'auto',
+    height: '100vh'
+  },
+  day: {
+    textAlign: 'center',
+    minWidth: '30px',
+    background: theme.palette.white.main,
+    height: '100vh',
+    borderRight: '1px solid black'
+  }
 }));
 
-const mockData = [
-  {
-    name: 'May',
-    days: 31
-  }
+let days = [
+  'F',
+  'S',
+  'S',
+  'M',
+  'T',
+  'W',
+  'T',
+  'F',
+  'S',
+  'S',
+  'M',
+  'T',
+  'W',
+  'T',
+  'F',
+  'S',
+  'S',
+  'M',
+  'T',
+  'W',
+  'T',
+  'F',
+  'S',
+  'S',
+  'M',
+  'T',
+  'W',
+  'T',
+  'F',
+  'S',
+  'S'
 ];
 
 const months = moment().months();
@@ -22,20 +67,26 @@ export default function Calendar() {
   const classes = useStyles();
   const [date, setDate] = useState(moment().toDate());
 
-  const monthItems = mockData.map(month => (
-    <Grid item className={classes.month}>
-      <Grid container direction="column">
-        <Grid item>{currentMonth}</Grid>
-        <Grid container direction="row" className={classes.days}>
-          {week}
-        </Grid>
-      </Grid>
-    </Grid>
-  ));
-
   return (
-    <Grid container className={classes.root}>
-      {monthItems}
-    </Grid>
+    <div className={classes.root}>
+      <div className={classes.month}>
+        <div>
+          <div className={classes.monthTitle}>May</div>
+          <div className={classes.days}>
+            {days.map(day => (
+              <div className={classes.day}>{day}</div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div className={classes.monthTitle}>June</div>
+          <div className={classes.days}>
+            {days.map(day => (
+              <div className={classes.day}>{day}</div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

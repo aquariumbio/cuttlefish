@@ -14,7 +14,8 @@ import ganttData from './mockGanttData';
 const useStyles = makeStyles(theme => ({
   root: {
     paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3)
+    paddingBottom: theme.spacing(3),
+    height: '100%'
   },
   progress: {
     margin: theme.spacing(2)

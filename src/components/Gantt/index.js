@@ -9,13 +9,17 @@ const useStyles = makeStyles(theme => ({
   root: {
     borderRadius: '2px'
   },
+  container: {
+    display: 'flex'
+  },
   taskList: {
     background: theme.palette.white.main,
-    height: '80vh'
+    minWidth: '300px',
+    textOverflow: 'ellipsis'
   },
   calendar: {
     background: theme.palette.white.main,
-    height: '80vh'
+    width: '55vw'
   },
   topBar: {
     background: theme.palette.primary.main,
@@ -26,7 +30,8 @@ const useStyles = makeStyles(theme => ({
     paddingRight: theme.spacing(2),
     paddingLeft: theme.spacing(2),
     borderTopLeftRadius: '3px',
-    marginBottom: theme.spacing(0.2)
+    marginBottom: theme.spacing(0.2),
+    textOverflow: 'ellipsis'
   },
   libraries: {
     width: '100%'
@@ -51,8 +56,8 @@ export default function Gantt(props) {
 
   return (
     <Page className={classes.root} title={'Gantt Chart'}>
-      <Grid container className={classes.root}>
-        <Grid item xs={3} className={classes.taskList}>
+      <div className={classes.container}>
+        <div className={classes.taskList}>
           <Grid item className={classes.topBar}>
             <Typography variant="h4" noWrap>
               Library
@@ -62,11 +67,11 @@ export default function Gantt(props) {
             </Typography>
           </Grid>
           <div className={classes.libraries}>{libraryTabs}</div>
-        </Grid>
-        <Grid item xs={9} className={classes.calendar}>
+        </div>
+        <div className={classes.calendar}>
           <Calendar />
-        </Grid>
-      </Grid>
+        </div>
+      </div>
     </Page>
   );
 }
