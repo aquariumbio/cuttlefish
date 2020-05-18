@@ -14,9 +14,11 @@ import {
   Button,
   Chip,
   Divider,
-  colors
+  Grid,
+  IconButton
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: '#065683'
     }
+  },
+  closeIcon: {
+    marginLeft: theme.spacing(35)
   }
 }));
 
@@ -71,6 +76,8 @@ const AddEditEvent = forwardRef((props, ref) => {
     onCancel,
     onAdd,
     onEdit,
+    show,
+    setShow,
     className,
     ...rest
   } = props;
@@ -164,6 +171,9 @@ const AddEditEvent = forwardRef((props, ref) => {
     })
   }
 
+  const handleClose = () => {
+    setShow(false)
+  }
 
   return (
     <Card
@@ -173,13 +183,33 @@ const AddEditEvent = forwardRef((props, ref) => {
     >
       <form>
         <CardContent>
-          <CustomTypography
-            align="left"
-            gutterBottom
-            variant="h3"
+          <Grid
+            container
+            spacing={20}
           >
-            Create Project
-          </CustomTypography>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <CustomTypography
+                align="left"
+                gutterBottom
+                variant="h3"
+              >
+                Create Project
+              </CustomTypography>
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <IconButton className={classes.closeIcon} onClick={handleClose} aria-label="close">
+                <CloseIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
           <TextField
             className={classes.field}
             fullWidth
@@ -301,7 +331,7 @@ const AddEditEvent = forwardRef((props, ref) => {
         <CardActions>
           <Button
             className={classes.cancelButton}
-            onClick={onCancel}
+            onClick={handleClose}
             variant="contained"
           >
             Cancel

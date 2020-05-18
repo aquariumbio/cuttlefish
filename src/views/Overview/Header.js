@@ -79,7 +79,7 @@ function Header() {
           </Button>
           <Modal open={show} onHide={handleClose} animation={false}>
             <div>
-              <CreateProject />
+              <CreateProject show={show} setShow={setShow} />
             </div>
           </Modal>
         </Grid>
