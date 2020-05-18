@@ -16,7 +16,7 @@ import {
   Divider,
   colors
 } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/DeleteOutlined';
+import { withStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,12 +39,18 @@ const useStyles = makeStyles((theme) => ({
   },
   confirmButton: {
     color: theme.palette.common.white,
-    backgroundColor: colors.blue[900],
+    backgroundColor: '#05486E',
     '&:hover': {
-      backgroundColor: colors.blue[600]
+      backgroundColor: '#05486E'
     }
   }
 }));
+
+const CustomTypography = withStyles(theme => ({
+  h3: {
+    color: '#05486E'
+  }
+}))(Typography);
 
 const defaultEvent = {
   title: 'Enter your project name',
@@ -52,7 +58,7 @@ const defaultEvent = {
   desc: 'Enter your project description',
   direc: 'Enter your project directory',
   start: moment().toDate(),
-  end: moment().toDate(), 
+  end: moment().toDate(),
   dur: 'Project Duration',
   contr: 'Enter name',
   role: 'Select Role'
@@ -134,9 +140,9 @@ const AddEditEvent = forwardRef((props, ref) => {
     chipsArray.push(name);
     chips.push(
       <Chip
-      label={name}
-      onDelete={(name, index) => handleDeleteChip(name, index)}
-    />
+        label={name}
+        onDelete={(name, index) => handleDeleteChip(name, index)}
+      />
     );
   };
 
@@ -149,10 +155,10 @@ const AddEditEvent = forwardRef((props, ref) => {
   const showChipArray = () => {
     chipsArray.forEach(function (index, chip) {
       chips.push(
-        <Chip
-        label={chip}
-        onDelete={(chip, index) => handleDeleteChip(chip, index)}
-      />
+        <Chip 
+          label={chip}
+          onDelete={(chip, index) => handleDeleteChip(chip, index)}
+        />
       );
       console.log('pushed chip ' + index);
     })
@@ -167,13 +173,13 @@ const AddEditEvent = forwardRef((props, ref) => {
     >
       <form>
         <CardContent>
-          <Typography
-            align="center"
+          <CustomTypography
+            align="left"
             gutterBottom
             variant="h3"
           >
             Create Project
-          </Typography>
+          </CustomTypography>
           <TextField
             className={classes.field}
             fullWidth
@@ -196,11 +202,11 @@ const AddEditEvent = forwardRef((props, ref) => {
             value={type}
             variant="outlined">
             {projectTypes.map((option) => (
-                <option key={option.value} value={option.value}>
+              <option key={option.value} value={option.value}>
                 {option.label}
               </option>
             ))}
-            </TextField>
+          </TextField>
           <TextField
             className={classes.field}
             fullWidth
@@ -222,7 +228,7 @@ const AddEditEvent = forwardRef((props, ref) => {
           <TextField
             className={classes.field}
             defaultValue={moment(values.start).format('YYYY-MM-DDThh:mm:ss')}
-            style = {{width: '35%', marginRight: 10}}
+            style={{ width: '35%', marginRight: 10 }}
             margin="normal"
             label="Start date"
             name="start"
@@ -234,7 +240,7 @@ const AddEditEvent = forwardRef((props, ref) => {
             className={classes.field}
             defaultValue={moment(values.end).format('YYYY-MM-DDThh:mm:ss')}
             disabled={values.allDay}
-            style = {{width: '35%', marginRight: 10}}
+            style={{ width: '35%', marginRight: 10 }}
             margin="normal"
             label="End date"
             name="end"
@@ -246,7 +252,7 @@ const AddEditEvent = forwardRef((props, ref) => {
             className={classes.field}
             label="Project Duration (days)"
             name="dur"
-            style = {{width: '25%', float: 'right'}}
+            style={{ width: '25%', float: 'right' }}
             margin="normal"
             onChange={handleFieldChange}
             value={moment(values.end).diff(moment(values.start), 'days')}
@@ -255,7 +261,7 @@ const AddEditEvent = forwardRef((props, ref) => {
           />
           <TextField
             className={classes.field}
-            style = {{width: '35%', marginRight: 10}}
+            style={{ width: '35%', marginRight: 10 }}
             label="Project Contributors"
             name="contr"
             onChange={handleFieldChange}
@@ -264,7 +270,7 @@ const AddEditEvent = forwardRef((props, ref) => {
           />
           <TextField
             className={classes.field}
-            style = {{width: '35%', marginRight: 10}}
+            style={{ width: '35%', marginRight: 10 }}
             select
             SelectProps={{
               native: true,
@@ -274,15 +280,15 @@ const AddEditEvent = forwardRef((props, ref) => {
             onChange={handleRoleChange}
             value={role}
             variant="outlined">
-              {roleTypes.map((option) => (
-                <option key={option.value} value={option.value}>
+            {roleTypes.map((option) => (
+              <option key={option.value} value={option.value}>
                 {option.label}
               </option>
             ))}
-            </TextField>
+          </TextField>
           <Button
             className={classes.field}
-            style = {{width: '15%'}}
+            style={{ width: '12%' }}
             margin="normal"
             onClick={handleAddChip(values.contr)}
             variant="contained"
