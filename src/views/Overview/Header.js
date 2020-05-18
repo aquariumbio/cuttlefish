@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
@@ -78,9 +78,7 @@ function Header() {
             Create Project
           </Button>
           <Modal open={show} onHide={handleClose} animation={false}>
-            <div>
-              <CreateProject show={show} setShow={setShow} />
-            </div>
+            <CreateProject show={show} setShow={setShow} />
           </Modal>
         </Grid>
       </Grid>

@@ -3,8 +3,9 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { makeStyles } from '@material-ui/styles';
-import { Typography, IconButton, Tooltip, Card } from '@material-ui/core';
+import { Typography, IconButton, Tooltip, Card, Modal } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import AddTaskDialog from './AddTaskDialog'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -54,6 +55,10 @@ function TaskList({
   ...rest
 }) {
   const classes = useStyles();
+  const [show, setShow] = React.useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <Card
@@ -70,10 +75,13 @@ function TaskList({
         </Typography>
         <div className={classes.headerAction}>
           <Tooltip title="Add task">
-            <IconButton color="inherit" edge="end" variant="contained">
+            <IconButton color="inherit" edge="end" variant="contained" onClick={handleShow}>
               <AddIcon />
             </IconButton>
           </Tooltip>
+          <Modal open={show} onHide={handleClose} animation={false}>
+            <AddTaskDialog show={show} setShow={setShow} />
+          </Modal>
         </div>
       </div>
       <div
