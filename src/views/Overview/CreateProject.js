@@ -39,9 +39,9 @@ const useStyles = makeStyles((theme) => ({
   },
   confirmButton: {
     color: theme.palette.common.white,
-    backgroundColor: '#05486E',
+    backgroundColor: '#065683',
     '&:hover': {
-      backgroundColor: '#05486E'
+      backgroundColor: '#065683'
     }
   }
 }));
@@ -155,7 +155,7 @@ const AddEditEvent = forwardRef((props, ref) => {
   const showChipArray = () => {
     chipsArray.forEach(function (index, chip) {
       chips.push(
-        <Chip 
+        <Chip
           label={chip}
           onDelete={(chip, index) => handleDeleteChip(chip, index)}
         />

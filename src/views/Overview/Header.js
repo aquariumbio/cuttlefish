@@ -9,10 +9,16 @@ import {
   Button
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import { Link as RouterLink } from 'react-router-dom';
 import CreateProject from './CreateProject';
 
 const useStyles = makeStyles((theme) => ({
+  createButton: {
+    color: theme.palette.common.white,
+    backgroundColor: '#065683',
+    '&:hover': {
+      backgroundColor: '#065683'
+    }
+  },
   addIcon: {
     marginRight: theme.spacing(1)
   }
@@ -25,7 +31,6 @@ function Header() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
 
   return (
     <div>
@@ -64,20 +69,19 @@ function Header() {
           </Typography>
         </Grid>
         <Grid item>
-          <>
-          <Button color="primary" variant="contained" onClick={handleShow}>
+          <Button
+            className={classes.createButton}
+            onClick={handleShow}
+            variant="contained"
+          >
+            <AddIcon className={classes.addIcon} />
             Create Project
           </Button>
-
           <Modal open={show} onHide={handleClose} animation={false}>
-          <div>  
-            <CreateProject>
-
-            </CreateProject>
-              
-          </div>
+            <div>
+              <CreateProject />
+            </div>
           </Modal>
-          </>
         </Grid>
       </Grid>
     </div>
