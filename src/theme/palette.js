@@ -35,5 +35,8 @@ export default {
   divider: colors.grey[200],
   success: { main: colors.green[500] },
   caution: { main: colors.amber[500] },
+  statusGrey: { main: '#C9C9C9' },
+  statusGreen: { main: '#4CAF50' },
+  statusYellow: { main: '#FFC164' },
   white: { main: '#FFFFFF', dark: '#F4F6F8' }
 };

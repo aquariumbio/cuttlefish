@@ -46,7 +46,13 @@ export default function LibraryTab(props) {
   const [open, setOpen] = useState(false);
 
   const handleDropDown = event => {
-    setOpen(!open);
+    if (!open) {
+      props.setRowCount(props.rowCount + props.library.tasks.length);
+      setOpen(true);
+    } else {
+      props.setRowCount(props.rowCount - props.library.tasks.length);
+      setOpen(false);
+    }
   };
 
   const dropButton = open ? (
@@ -68,11 +74,14 @@ export default function LibraryTab(props) {
       <ArrowRightIcon fontSize="large" />
     </Button>
   );
-
   const tasks = open
     ? props.library.tasks.map(task => (
         <Grid item>
-          <LibraryTask task={task} />
+          <LibraryTask
+            task={task}
+            setRowCount={props.setRowCount}
+            rowCount={props.rowCount}
+          />
         </Grid>
       ))
     : null;

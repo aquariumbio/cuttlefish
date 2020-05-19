@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export default {
   libraries: [
     {
@@ -8,7 +10,9 @@ export default {
         {
           id: 1,
           title: 'Amplify and Transform',
-          subtasks: []
+          subtasks: [],
+          started: true,
+          completed: false
         },
         {
           id: 2,
@@ -23,7 +27,12 @@ export default {
         {
           id: 4,
           title: 'New Gen Sequence',
-          subtasks: ['Z-D', 'q1', 'q2', 'seq']
+          subtasks: [
+            { title: 'Z-D', started: true, completed: false },
+            { title: 'q1', started: true, completed: false },
+            { title: 'q2', started: true, completed: false },
+            { title: 'seq', started: true, completed: false }
+          ]
         }
       ]
     },

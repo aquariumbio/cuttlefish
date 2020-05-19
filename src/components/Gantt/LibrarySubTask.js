@@ -28,7 +28,7 @@ export default function LibrarySubTask(props) {
     <Grid container className={classes.root}>
       <Grid item xs className={classes.left} zeroMinWidth>
         <Typography variant="caption" noWrap>
-          {props.subtask}
+          {props.subtask.title}
         </Typography>
       </Grid>
       <Grid item xs zeroMinWidth className={classes.right}>

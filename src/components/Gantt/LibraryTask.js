@@ -37,7 +37,13 @@ export default function LibraryTask(props) {
   const [open, setOpen] = useState(false);
 
   const handleDropDown = event => {
-    setOpen(!open);
+    if (!open) {
+      props.setRowCount(props.rowCount + props.task.subtasks.length);
+      setOpen(true);
+    } else {
+      props.setRowCount(props.rowCount - props.task.subtasks.length);
+      setOpen(false);
+    }
   };
 
   const subTasks = open

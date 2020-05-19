@@ -14,12 +14,14 @@ const useStyles = makeStyles(theme => ({
   },
   taskList: {
     background: theme.palette.white.main,
-    minWidth: '300px',
+    width: '350px',
+    minWidth: '350px',
     textOverflow: 'ellipsis'
   },
   calendar: {
     background: theme.palette.white.main,
-    width: '55vw'
+    width: '55vw',
+    marginLeft: theme.spacing(1)
   },
   topBar: {
     background: theme.palette.primary.main,
@@ -41,6 +43,7 @@ const useStyles = makeStyles(theme => ({
 export default function Gantt(props) {
   const classes = useStyles();
   const [libraries, setLibraries] = useState([]);
+  const [rowCount, setRowCount] = useState(0);
 
   useEffect(() => {
     const libraries = [];
@@ -51,7 +54,11 @@ export default function Gantt(props) {
   }, []);
 
   const libraryTabs = libraries.map(library => (
-    <LibraryTab library={library} />
+    <LibraryTab
+      library={library}
+      setRowCount={setRowCount}
+      rowCount={rowCount}
+    />
   ));
 
   return (
@@ -69,7 +76,7 @@ export default function Gantt(props) {
           <div className={classes.libraries}>{libraryTabs}</div>
         </div>
         <div className={classes.calendar}>
-          <Calendar />
+          <Calendar rowCount={rowCount} />
         </div>
       </div>
     </Page>
