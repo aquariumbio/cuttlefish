@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useState, forwardRef } from 'react';
+import clsx from 'clsx';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import uuid from 'uuid/v1';
 import { makeStyles } from '@material-ui/styles';
 import {
-    Button,
-    Dialog,
     Typography,
+    Dialog,
     TextField,
+    Button,
+    Chip,
     Divider,
     Grid,
     IconButton
 } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles((theme) => ({
@@ -44,13 +49,16 @@ const CustomTypography = withStyles(theme => ({
     }
 }))(Typography);
 
-
-export default function AddTaskDialog(show, setShow) {
+const AddTaskDialog = forwardRef((props) => {
+    const {
+        show,
+        setShow
+    } = props;
     const classes = useStyles();
 
     const handleClose = () => {
-        setShow(false);
-    };
+        setShow(false)
+    }
 
     return (
         <div>
@@ -116,4 +124,7 @@ export default function AddTaskDialog(show, setShow) {
             </Dialog>
         </div>
     );
-}
+});
+
+export default AddTaskDialog
+
