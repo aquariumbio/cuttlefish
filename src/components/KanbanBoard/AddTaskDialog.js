@@ -1,15 +1,10 @@
-import React, { useState, forwardRef } from 'react';
-import clsx from 'clsx';
-import PropTypes from 'prop-types';
-import moment from 'moment';
-import uuid from 'uuid/v1';
+import React, { forwardRef } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import {
     Typography,
     Dialog,
     TextField,
     Button,
-    Chip,
     Divider,
     Grid,
     IconButton

@@ -5,7 +5,6 @@ import clsx from 'clsx';
 import moment from 'moment';
 import { makeStyles } from '@material-ui/styles';
 import {
-  Avatar,
   Button,
   Card,
   CardContent,
@@ -13,7 +12,6 @@ import {
   Typography,
   colors
 } from '@material-ui/core';
-import getInitials from 'src/utils/getInitials';
 import { useDispatch } from 'react-redux';
 import { getProject } from 'src/actions';
 import { useHistory } from 'react-router';

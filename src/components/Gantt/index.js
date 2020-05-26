@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { Grid, Typography, Divider } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import LibraryTab from './LibraryTab';
 import Page from '../Page';
 import Calendar from './Calendar';

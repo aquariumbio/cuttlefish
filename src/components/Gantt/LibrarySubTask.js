@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { Grid, Typography, Button, IconButton } from '@material-ui/core';
+import { Grid, Typography, IconButton } from '@material-ui/core';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 
 const useStyles = makeStyles(theme => ({

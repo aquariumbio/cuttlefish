@@ -8,7 +8,6 @@ import {
   TextField,
   ClickAwayListener
 } from '@material-ui/core';
-import uuid from 'uuid/v1';
 import clsx from 'clsx';
 import ClearIcon from '@material-ui/icons/Clear';
 
@@ -48,18 +47,17 @@ function EditCheckListItem({
   className,
   tasks,
   setTasks,
-  setEditing,
-  ...rest
+  setEditing
 }) {
   const classes = useStyles();
   const [openField, setOpenField] = useState(editing);
   const [description, setDescription] = useState(text);
   const [checkValue, setCheckValue] = useState(complete);
-  const [existingTask, setExistingTask] = useState(description != '');
+  const [existingTask, setExistingTask] = useState(description !== '');
   const [deleted, setDeleted] = useState(false);
 
   const handleTextClick = () => {
-    if (checkValue == false) {
+    if (checkValue === false) {
       setOpenField(true);
     }
   };
@@ -72,7 +70,7 @@ function EditCheckListItem({
   const handleSubmit = id => {
     setEditing(false);
     // Updates the task list if new task is being added
-    if (description != '') {
+    if (description !== '') {
       let newTask = {
         description: description,
         complete: checkValue
@@ -81,7 +79,7 @@ function EditCheckListItem({
     }
     // Updates task list if old task is being edited
     if (existingTask) {
-      const taskIndex = tasks.findIndex(task => task.id == itemID);
+      const taskIndex = tasks.findIndex(task => task.id === itemID);
       let updatedTasks = [...tasks];
       updatedTasks[taskIndex] = {
         ...updatedTasks[taskIndex],
@@ -100,7 +98,7 @@ function EditCheckListItem({
   };
 
   const handlekeyPress = e => {
-    if (e.keyCode == 13) {
+    if (e.keyCode === 13) {
       setOpenField(false);
     }
   };
@@ -158,7 +156,7 @@ function EditCheckListItem({
       className={clsx({
         [classes.root]: true,
         [classes.checked]: checkValue,
-        [classes.remove]: description == '',
+        [classes.remove]: description === '',
         [classes.deleted]: deleted,
         className
       })}

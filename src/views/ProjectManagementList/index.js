@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Container, Typography } from '@material-ui/core';
-import axios from 'src/utils/axios';
 import Page from 'src/components/Page';
 import Paginate from 'src/components/Paginate';
 import SearchBar from 'src/components/SearchBar';
 import Header from './Header';
 import ProjectCard from './ProjectCard';
 import mockProjects from './projects_data';
-import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {

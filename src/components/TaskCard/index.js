@@ -10,7 +10,6 @@ import {
   Typography
 } from '@material-ui/core';
 import palette from '../../theme/palette';
-import { Link, Route } from 'react-router-dom';
 import Label from 'src/components/Label';
 import { useDispatch } from 'react-redux';
 import { getProject } from 'src/actions';

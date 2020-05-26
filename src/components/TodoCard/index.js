@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
@@ -69,7 +69,7 @@ function TaskCard({ setTasks, status, tasks, className, ...rest }) {
     if (editing) {
       setEditing(false);
     }
-    if (newTask != '') {
+    if (newTask !== '') {
       setTasks(tasks => [...tasks, newTask]);
     }
   };
