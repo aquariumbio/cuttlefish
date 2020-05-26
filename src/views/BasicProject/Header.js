@@ -33,6 +33,9 @@ function Header(props) {
           <Typography component="h1" gutterBottom variant="h3">
             {session.currentProject.title}
           </Typography>
+          <Typography gutterBottom variant="subtitle1">
+            Project Dashboard example for basic project
+          </Typography>
         </Grid>
         <Grid item>{getButton()}</Grid>
       </Grid>

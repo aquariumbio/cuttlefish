@@ -44,7 +44,7 @@ function Header(props) {
             {session.currentProject.title}
           </Typography>
           <Typography gutterBottom variant="subtitle1">
-            Task description
+            Project Dashboard example for Strain Construction
           </Typography>
         </Grid>
         <Grid item>{getButton()}</Grid>
