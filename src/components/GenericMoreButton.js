@@ -24,6 +24,7 @@ function GenericMoreButton(props) {
   const moreRef = useRef(null);
   const [openMenu, setOpenMenu] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
 
   const handleMenuOpen = () => {
     setOpenMenu(true);
@@ -35,6 +36,9 @@ function GenericMoreButton(props) {
 
   const handleCloseEdit = () => setShowEdit(false);
   const handleShowEdit = () => setShowEdit(true);
+
+  const handleCloseDelete = () => setShowDelete(false);
+  const handleShowDelete = () => setShowDelete(true);
 
   return (
     <>
@@ -78,10 +82,13 @@ function GenericMoreButton(props) {
           <ListItemText primary="Duplicate Task" />
         </MenuItem>
         <MenuItem>
-          <ListItemIcon >
+          <ListItemIcon onClick={handleShowDelete}>
             <DeleteOutlineIcon />
           </ListItemIcon>
           <ListItemText primary="Delete Task" />
+          <Modal open={showDelete} onHide={handleCloseDelete} animation={false}>
+            <DeleteTaskDialog show={showDelete} setShow={setShowDelete} />
+          </Modal>
         </MenuItem>
       </Menu>
     </>
