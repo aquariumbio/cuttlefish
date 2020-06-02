@@ -59,19 +59,19 @@ function GenericMoreButton(props) {
           <ListItemIcon>
             <EditOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary="Edit" />
+          <ListItemText primary="Edit Task" />
         </MenuItem>
         <MenuItem>
           <ListItemIcon>
             <FileCopyOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary="Duplicate" />
+          <ListItemText primary="Duplicate Task" />
         </MenuItem>
         <MenuItem>
           <ListItemIcon>
             <DeleteOutlineIcon />
           </ListItemIcon>
-          <ListItemText primary="Delete" />
+          <ListItemText primary="Delete Task" />
         </MenuItem>
       </Menu>
     </>
