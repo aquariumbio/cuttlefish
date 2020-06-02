@@ -10,16 +10,20 @@ import {
   Tooltip,
   IconButton,
   Menu,
-  MenuItem
+  MenuItem,
+  Modal
 } from '@material-ui/core';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import EditTaskDialog from '../components/KanbanBoard/EditTaskDialog';
+import DeleteTaskDialog from '../components/KanbanBoard/DeleteTaskDialog'
 
 function GenericMoreButton(props) {
   const moreRef = useRef(null);
   const [openMenu, setOpenMenu] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
 
   const handleMenuOpen = () => {
     setOpenMenu(true);
@@ -28,6 +32,9 @@ function GenericMoreButton(props) {
   const handleMenuClose = () => {
     setOpenMenu(false);
   };
+
+  const handleCloseEdit = () => setShowEdit(false);
+  const handleShowEdit = () => setShowEdit(true);
 
   return (
     <>
@@ -56,10 +63,13 @@ function GenericMoreButton(props) {
         }}
       >
         <MenuItem>
-          <ListItemIcon>
+          <ListItemIcon onClick={handleShowEdit}>
             <EditOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary="Edit Task" />
+          <Modal open={showEdit} onHide={handleCloseEdit} animation={false}>
+            <EditTaskDialog show={showEdit} setShow={setShowEdit} />
+          </Modal>
         </MenuItem>
         <MenuItem>
           <ListItemIcon>
@@ -68,7 +78,7 @@ function GenericMoreButton(props) {
           <ListItemText primary="Duplicate Task" />
         </MenuItem>
         <MenuItem>
-          <ListItemIcon>
+          <ListItemIcon >
             <DeleteOutlineIcon />
           </ListItemIcon>
           <ListItemText primary="Delete Task" />
