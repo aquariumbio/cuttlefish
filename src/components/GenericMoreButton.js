@@ -13,11 +13,9 @@ import {
   MenuItem
 } from '@material-ui/core';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import GetAppIcon from '@material-ui/icons/GetApp';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
-import PrintIcon from '@material-ui/icons/Print';
-import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
-import AchiveIcon from '@material-ui/icons/ArchiveOutlined';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 function GenericMoreButton(props) {
   const moreRef = useRef(null);
@@ -59,33 +57,21 @@ function GenericMoreButton(props) {
       >
         <MenuItem>
           <ListItemIcon>
-            <GetAppIcon />
+            <EditOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary="Import" />
+          <ListItemText primary="Edit" />
         </MenuItem>
         <MenuItem>
           <ListItemIcon>
-            <FileCopyIcon />
+            <FileCopyOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary="Copy to clipboard" />
+          <ListItemText primary="Duplicate" />
         </MenuItem>
         <MenuItem>
           <ListItemIcon>
-            <PictureAsPdfIcon />
+            <DeleteOutlineIcon />
           </ListItemIcon>
-          <ListItemText primary="Export as PDF" />
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <PrintIcon />
-          </ListItemIcon>
-          <ListItemText primary="Print" />
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <AchiveIcon />
-          </ListItemIcon>
-          <ListItemText primary="Achive" />
+          <ListItemText primary="Delete" />
         </MenuItem>
       </Menu>
     </>
