@@ -43,7 +43,7 @@ function GenericMoreButton(props) {
 
   return (
     <>
-      <Tooltip title="More options">
+      <Tooltip title="More Options">
         <IconButton
           {...props}
           onClick={handleMenuOpen}

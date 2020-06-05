@@ -74,7 +74,7 @@ function TaskList({
           ({total})
         </Typography>
         <div className={classes.headerAction}>
-          <Tooltip title="Add task">
+          <Tooltip title="Add Task">
             <IconButton color="inherit" edge="end" variant="contained" onClick={handleShow}>
               <AddIcon />
             </IconButton>
