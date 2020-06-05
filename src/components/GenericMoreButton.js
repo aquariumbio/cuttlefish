@@ -5,6 +5,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import {
+  ListItem,
   ListItemIcon,
   ListItemText,
   Tooltip,
@@ -67,25 +68,31 @@ function GenericMoreButton(props) {
         }}
       >
         <MenuItem>
-          <ListItemIcon onClick={handleShowEdit}>
-            <EditOutlinedIcon />
-          </ListItemIcon>
-          <ListItemText primary="Edit Task" />
+          <ListItem onClick={handleShowEdit}>
+            <ListItemIcon >
+              <EditOutlinedIcon />
+            </ListItemIcon>
+            <ListItemText primary="Edit Task" />
+          </ListItem>
           <Modal open={showEdit} onHide={handleCloseEdit} animation={false}>
             <EditTaskDialog show={showEdit} setShow={setShowEdit} />
           </Modal>
         </MenuItem>
         <MenuItem>
-          <ListItemIcon>
-            <FileCopyOutlinedIcon />
-          </ListItemIcon>
-          <ListItemText primary="Duplicate Task" />
+          <ListItem>
+            <ListItemIcon>
+              <FileCopyOutlinedIcon />
+            </ListItemIcon>
+            <ListItemText primary="Duplicate Task" />
+          </ListItem>
         </MenuItem>
         <MenuItem>
-          <ListItemIcon onClick={handleShowDelete}>
-            <DeleteOutlineIcon />
-          </ListItemIcon>
-          <ListItemText primary="Delete Task" />
+          <ListItem onClick={handleShowDelete}>
+            <ListItemIcon >
+              <DeleteOutlineIcon />
+            </ListItemIcon>
+            <ListItemText primary="Delete Task" />
+          </ListItem>
           <Modal open={showDelete} onHide={handleCloseDelete} animation={false}>
             <DeleteTaskDialog show={showDelete} setShow={setShowDelete} />
           </Modal>
