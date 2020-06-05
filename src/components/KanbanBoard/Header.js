@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, Modal } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import AddListDialog from './AddListDialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,11 +15,15 @@ const useStyles = makeStyles((theme) => ({
 
 function Header({ onListAdd, className, ...rest }) {
   const classes = useStyles();
+  const [show, setShow] = useState(false);
   
   const [state, setState] = React.useState({
     filter: '',
     name: '',
   });
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -56,11 +61,15 @@ function Header({ onListAdd, className, ...rest }) {
         <Grid item>
           <Button
             color="primary"
-            onClick={onListAdd}
+            // onClick={onListAdd}
+            onClick={handleShow}
             variant="contained"
           >
             Add list
           </Button>
+          <Modal open={show} onHide={handleClose} animation={false}>
+            <AddListDialog show={show} setShow={setShow} />
+          </Modal>
         </Grid>
       </Grid>
     </div>
