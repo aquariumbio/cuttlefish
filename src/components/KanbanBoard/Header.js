@@ -10,6 +10,13 @@ import AddListDialog from './AddListDialog';
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingBottom: theme.spacing(2)
+  },
+  addList: {
+    color: theme.palette.common.white,
+    backgroundColor: '#065683',
+    '&:hover': {
+        backgroundColor: '#065683'
+    }
   }
 }));
 
@@ -60,7 +67,7 @@ function Header({ onListAdd, className, ...rest }) {
         </Grid>
         <Grid item>
           <Button
-            color="primary"
+            className={classes.addList}
             // onClick={onListAdd}
             onClick={handleShow}
             variant="contained"
