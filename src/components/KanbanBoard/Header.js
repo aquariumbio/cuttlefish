@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function Header({ onListAdd, className, ...rest }) {
+function Header({ onListAdd, listName, setListName, className, ...rest }) {
   const classes = useStyles();
   const [show, setShow] = useState(false);
   
@@ -68,14 +68,13 @@ function Header({ onListAdd, className, ...rest }) {
         <Grid item>
           <Button
             className={classes.addList}
-            // onClick={onListAdd}
             onClick={handleShow}
             variant="contained"
           >
             Add list
           </Button>
           <Modal open={show} onHide={handleClose} animation={false}>
-            <AddListDialog show={show} setShow={setShow} />
+            <AddListDialog show={show} setShow={setShow} onListAdd={onListAdd} listName={listName} setListName={setListName}/>
           </Modal>
         </Grid>
       </Grid>
