@@ -6,6 +6,7 @@ import { Grid, Button, Modal } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import AddListDialog from './AddListDialog';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,7 +72,8 @@ function Header({ onListAdd, listName, setListName, className, ...rest }) {
             onClick={handleShow}
             variant="contained"
           >
-            Add list
+            <AddIcon className={classes.addIcon} />
+            Create List
           </Button>
           <Modal open={show} onHide={handleClose} animation={false}>
             <AddListDialog show={show} setShow={setShow} onListAdd={onListAdd} listName={listName} setListName={setListName}/>

@@ -18,10 +18,10 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import EditTaskDialog from '../components/KanbanBoard/EditTaskDialog';
-import DeleteTaskDialog from '../components/KanbanBoard/DeleteTaskDialog'
+import EditTaskDialog from './KanbanBoard/EditTaskDialog';
+import DeleteTaskDialog from './KanbanBoard/DeleteTaskDialog'
 
-function GenericMoreButton(props) {
+function TaskMoreButton(props) {
   const moreRef = useRef(null);
   const [openMenu, setOpenMenu] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -102,8 +102,8 @@ function GenericMoreButton(props) {
   );
 }
 
-GenericMoreButton.propTypes = {
+TaskMoreButton.propTypes = {
   className: PropTypes.string
 };
 
-export default memo(GenericMoreButton);
+export default memo(TaskMoreButton);

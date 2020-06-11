@@ -3,9 +3,9 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { makeStyles } from '@material-ui/styles';
-import { Typography, IconButton, Tooltip, Card, Modal } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import AddTaskDialog from './AddTaskDialog'
+import { Typography, Card, Modal, Button } from '@material-ui/core';
+import AddTaskDialog from './AddTaskDialog';
+import ListMoreButton from 'src/components/ListMoreButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
   isDraggingOver: {},
   header: {
-    padding: theme.spacing(0.5, 2),
+    padding: theme.spacing(2, 2),
     borderRadius: 4,
     display: 'flex',
     alignItems: 'center'
@@ -41,6 +41,9 @@ const useStyles = makeStyles(theme => ({
   },
   inner: {
     padding: theme.spacing(1, 2)
+  },
+  button: {
+    padding: theme.spacing(2)
   }
 }));
 
@@ -74,14 +77,7 @@ function TaskList({
           ({total})
         </Typography>
         <div className={classes.headerAction}>
-          <Tooltip title="Add Task">
-            <IconButton color="inherit" edge="end" variant="contained" onClick={handleShow}>
-              <AddIcon />
-            </IconButton>
-          </Tooltip>
-          <Modal open={show} onHide={handleClose} animation={false}>
-            <AddTaskDialog show={show} setShow={setShow} />
-          </Modal>
+          <ListMoreButton />
         </div>
       </div>
       <div
@@ -93,6 +89,12 @@ function TaskList({
           <div className={classes.inner}>{children}</div>
         </PerfectScrollbar>
       </div>
+      <Button className={classes.button} onClick={handleShow}>
+          + Add Task Card
+      </Button>
+      <Modal open={show} onHide={handleClose} animation={false}>
+        <AddTaskDialog show={show} setShow={setShow} />
+      </Modal>
     </Card>
   );
 }
