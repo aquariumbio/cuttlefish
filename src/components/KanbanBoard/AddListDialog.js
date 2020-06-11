@@ -47,7 +47,6 @@ const AddListDialog = forwardRef((props) => {
         show,
         setShow,
         onListAdd,
-        listName,
         setListName
     } = props;
     const classes = useStyles();

@@ -18,10 +18,10 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import EditTaskDialog from '../components/KanbanBoard/EditTaskDialog';
-import DeleteTaskDialog from '../components/KanbanBoard/DeleteTaskDialog'
+import EditTaskDialog from './EditTaskDialog';
+import DeleteTaskDialog from './DeleteTaskDialog'
 
-function ListMoreButton(props) {
+function TaskMoreButton(props) {
   const moreRef = useRef(null);
   const [openMenu, setOpenMenu] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -72,7 +72,7 @@ function ListMoreButton(props) {
             <ListItemIcon >
               <EditOutlinedIcon />
             </ListItemIcon>
-            <ListItemText primary="Rename List" />
+            <ListItemText primary="Edit Task" />
           </ListItem>
           <Modal open={showEdit} onHide={handleCloseEdit} animation={false}>
             <EditTaskDialog show={showEdit} setShow={setShowEdit} />
@@ -83,7 +83,7 @@ function ListMoreButton(props) {
             <ListItemIcon>
               <FileCopyOutlinedIcon />
             </ListItemIcon>
-            <ListItemText primary="Duplicate List" />
+            <ListItemText primary="Duplicate Task" />
           </ListItem>
         </MenuItem>
         <MenuItem>
@@ -91,7 +91,7 @@ function ListMoreButton(props) {
             <ListItemIcon >
               <DeleteOutlineIcon />
             </ListItemIcon>
-            <ListItemText primary="Delete List" />
+            <ListItemText primary="Delete Task" />
           </ListItem>
           <Modal open={showDelete} onHide={handleCloseDelete} animation={false}>
             <DeleteTaskDialog show={showDelete} setShow={setShowDelete} />
@@ -102,8 +102,8 @@ function ListMoreButton(props) {
   );
 }
 
-ListMoreButton.propTypes = {
+TaskMoreButton.propTypes = {
   className: PropTypes.string
 };
 
-export default memo(ListMoreButton);
+export default memo(TaskMoreButton);
