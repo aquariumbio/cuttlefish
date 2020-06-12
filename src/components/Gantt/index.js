@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography } from '@material-ui/core';
-import LibraryTab from './LibraryTab';
+import moment from 'moment';
 import Page from '../Page';
+import SampleBar from './SampleBar';
 import Calendar from './Calendar';
 
 const useStyles = makeStyles(theme => ({
@@ -12,71 +13,49 @@ const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex'
   },
-  taskList: {
-    background: theme.palette.white.main,
-    width: '350px',
-    minWidth: '350px',
-    textOverflow: 'ellipsis'
-  },
+
   calendar: {
     background: theme.palette.white.main,
-    width: '55vw',
+    width: '45vw',
     marginLeft: theme.spacing(1)
-  },
-  topBar: {
-    background: theme.palette.primary.main,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    height: '50px',
-    paddingRight: theme.spacing(2),
-    paddingLeft: theme.spacing(2),
-    borderTopLeftRadius: '3px',
-    marginBottom: theme.spacing(0.2),
-    textOverflow: 'ellipsis'
-  },
-  libraries: {
-    width: '100%'
   }
 }));
 
 export default function Gantt(props) {
   const classes = useStyles();
   const [libraries, setLibraries] = useState([]);
-  const [rowCount, setRowCount] = useState(0);
+  const [date, setDate] = useState(moment().toDate());
+  const [monthsLoaded, setMonthsLoaded] = useState(0);
+  const [
+    openRows,
+    setOpenRows
+  ] = useState(); /* Tracks which rows to show in calendar */
 
   useEffect(() => {
     const libraries = [];
+    const currentOpenRows = [];
     for (const list of props.data.libraries) {
-      libraries.push({ ...list, items: [] });
+      libraries.push(list);
+      currentOpenRows.push(list.id);
     }
+    setOpenRows(currentOpenRows);
     setLibraries(libraries);
   }, []);
-
-  const libraryTabs = libraries.map(library => (
-    <LibraryTab
-      library={library}
-      setRowCount={setRowCount}
-      rowCount={rowCount}
-    />
-  ));
 
   return (
     <Page className={classes.root} title={'Gantt Chart'}>
       <div className={classes.container}>
-        <div className={classes.taskList}>
-          <Grid item className={classes.topBar}>
-            <Typography variant="h4" noWrap>
-              Library
-            </Typography>
-            <Typography variant="h4" noWrap>
-              Owner
-            </Typography>
-          </Grid>
-          <div className={classes.libraries}>{libraryTabs}</div>
-        </div>
+        <SampleBar
+          libraries={libraries}
+          openRows={openRows}
+          setOpenRows={setOpenRows}
+        />
         <div className={classes.calendar}>
-          <Calendar rowCount={rowCount} />
+          <Calendar
+            libraries={libraries}
+            openRows={openRows}
+            setOpenRows={setOpenRows}
+          />
         </div>
       </div>
     </Page>
