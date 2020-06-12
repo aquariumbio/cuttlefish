@@ -10,6 +10,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles, lighten } from '@material-ui/core/styles';
 import kanbanData from './mockKanbanData';
 import ganttData from './mockGanttData';
+import PlanTable from 'src/components/Plans/PlanTable'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -120,6 +121,7 @@ function ProteinDesignProject() {
           <Gantt data={ganttData} />
         </TabPanel>
         <TabPanel value={currentTab} index={2}>
+          <PlanTable />
         </TabPanel>
         {getModal()}
       </Container>
