@@ -107,17 +107,19 @@ function ProteinDesignProject() {
         <Tabs
           value={currentTab}
           onChange={handleChange}
-          aria-label="simple tabs example"
           indicatorColor="primary"
         >
           <Tab label="Kanban" />
           <Tab label="Gantt" />
+          <Tab label="Plans" />
         </Tabs>
         <TabPanel value={currentTab} index={0}>
           <KanbanBoard data={kanbanData} />
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
           <Gantt data={ganttData} />
+        </TabPanel>
+        <TabPanel value={currentTab} index={2}>
         </TabPanel>
         {getModal()}
       </Container>
