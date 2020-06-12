@@ -10,7 +10,7 @@ import {
   Typography,
 
 } from '@material-ui/core';
-import TaskMoreButton from 'src/components/TaskMoreButton';
+import TaskMoreButton from 'src/components/KanbanBoard/TaskMoreButton';
 import Label from 'src/components/Label';
 
 const useStyles = makeStyles((theme) => ({

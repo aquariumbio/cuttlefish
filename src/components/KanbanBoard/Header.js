@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Grid, Button, Modal } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import AddListDialog from './AddListDialog';
+import AddListDialog from './ListDialogs/AddListDialog';
 import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({

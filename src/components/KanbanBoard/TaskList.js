@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { makeStyles } from '@material-ui/styles';
 import { Typography, Card, Modal, Button } from '@material-ui/core';
-import AddTaskDialog from './AddTaskDialog';
+import AddTaskDialog from './TaskDialogs/AddTaskDialog';
 import ListMoreButton from 'src/components/KanbanBoard/ListMoreButton';
 
 const useStyles = makeStyles(theme => ({
