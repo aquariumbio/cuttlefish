@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography, Button } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
@@ -43,14 +43,31 @@ const useStyles = makeStyles(theme => ({
 
 export default function LibraryTab(props) {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(props.open);
 
+  useEffect(() => {
+    if (props.open) {
+      props.setOpenRows([...props.openRows, props.library.id]);
+    }
+  }, []);
+
+  const getAllIDs = () => {
+    const IDs = [];
+    props.library.tasks.map(task => {
+      IDs.push(task.id);
+    });
+    IDs.push(props.library.id);
+    return IDs;
+  };
+
+  // Handles dropdown as well as visible rows in calendar view
   const handleDropDown = event => {
     if (!open) {
-      props.setRowCount(props.rowCount + props.library.tasks.length);
+      props.setOpenRows([...props.openRows, props.library.id]);
       setOpen(true);
     } else {
-      props.setRowCount(props.rowCount - props.library.tasks.length);
+      const IDs = getAllIDs();
+      props.setOpenRows(props.openRows.filter(e => !IDs.includes(e)));
       setOpen(false);
     }
   };
@@ -74,17 +91,6 @@ export default function LibraryTab(props) {
       <ArrowRightIcon fontSize="large" />
     </Button>
   );
-  const tasks = open
-    ? props.library.tasks.map(task => (
-        <Grid item>
-          <LibraryTask
-            task={task}
-            setRowCount={props.setRowCount}
-            rowCount={props.rowCount}
-          />
-        </Grid>
-      ))
-    : null;
 
   return (
     <Grid container className={classes.root}>
@@ -102,7 +108,7 @@ export default function LibraryTab(props) {
         </Grid>
       </div>
       <Grid item className={classes.libraryTasks}>
-        {tasks}
+        {open ? props.children : null}
       </Grid>
     </Grid>
   );

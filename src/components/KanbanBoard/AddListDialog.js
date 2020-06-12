@@ -7,7 +7,6 @@ import {
     Button,
     Divider,
     Grid,
-    Chip,
     IconButton
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -47,11 +46,29 @@ const AddListDialog = forwardRef((props) => {
     const {
         show,
         setShow,
+        onListAdd,
+        setListName
     } = props;
     const classes = useStyles();
+    const [inputValue, setInputValue] = useState('');
+
+    const handleInputChange = event => {
+        event.persist();
+        setInputValue(event.target.value);
+    };
+
+    const handleInputKeyup = event => {
+        event.persist();
+        setListName(inputValue);
+    };
 
     const handleClose = () => {
         setShow(false)
+    }
+
+    const handleCreate = () => {
+        setShow(false)
+        onListAdd()
     }
 
     return (
@@ -95,6 +112,10 @@ const AddListDialog = forwardRef((props) => {
                     label="List Name"
                     name="List Name"
                     defaultValue="Enter your list name"
+                    placeholder="Enter your list name"
+                    onChange={handleInputChange}
+                    onKeyUp={handleInputKeyup}
+                    value={inputValue}
                     variant="outlined"
                     fullWidth
                 />
@@ -109,7 +130,7 @@ const AddListDialog = forwardRef((props) => {
                     </Button>
                 <Button
                     className={classes.createButton}
-                    onClick={handleClose}
+                    onClick={handleCreate}
                     variant="contained">
                     Create
                     </Button>

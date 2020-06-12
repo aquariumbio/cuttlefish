@@ -18,10 +18,10 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import EditTaskDialog from '../components/KanbanBoard/EditTaskDialog';
-import DeleteTaskDialog from '../components/KanbanBoard/DeleteTaskDialog'
+import EditTaskDialog from './EditTaskDialog';
+import DeleteTaskDialog from './DeleteTaskDialog'
 
-function GenericMoreButton(props) {
+function ListMoreButton(props) {
   const moreRef = useRef(null);
   const [openMenu, setOpenMenu] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -72,7 +72,7 @@ function GenericMoreButton(props) {
             <ListItemIcon >
               <EditOutlinedIcon />
             </ListItemIcon>
-            <ListItemText primary="Edit Task" />
+            <ListItemText primary="Rename List" />
           </ListItem>
           <Modal open={showEdit} onHide={handleCloseEdit} animation={false}>
             <EditTaskDialog show={showEdit} setShow={setShowEdit} />
@@ -83,7 +83,7 @@ function GenericMoreButton(props) {
             <ListItemIcon>
               <FileCopyOutlinedIcon />
             </ListItemIcon>
-            <ListItemText primary="Duplicate Task" />
+            <ListItemText primary="Duplicate List" />
           </ListItem>
         </MenuItem>
         <MenuItem>
@@ -91,7 +91,7 @@ function GenericMoreButton(props) {
             <ListItemIcon >
               <DeleteOutlineIcon />
             </ListItemIcon>
-            <ListItemText primary="Delete Task" />
+            <ListItemText primary="Delete List" />
           </ListItem>
           <Modal open={showDelete} onHide={handleCloseDelete} animation={false}>
             <DeleteTaskDialog show={showDelete} setShow={setShowDelete} />
@@ -102,8 +102,8 @@ function GenericMoreButton(props) {
   );
 }
 
-GenericMoreButton.propTypes = {
+ListMoreButton.propTypes = {
   className: PropTypes.string
 };
 
-export default memo(GenericMoreButton);
+export default memo(ListMoreButton);

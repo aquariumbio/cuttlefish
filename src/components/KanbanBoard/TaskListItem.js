@@ -3,20 +3,14 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { makeStyles } from '@material-ui/styles';
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  Typography,
-
-} from '@material-ui/core';
-import GenericMoreButton from 'src/components/GenericMoreButton';
+import { Card, CardHeader, CardContent, Typography } from '@material-ui/core';
+import TaskMoreButton from './TaskMoreButton';
 import Label from 'src/components/Label';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     outline: 'none',
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(2)
   },
   isDragging: {},
   content: {
@@ -64,7 +58,7 @@ function TaskListItem({
       style={{ ...style, ...provided.draggableProps.style }}
     >
       <CardHeader
-        action={<GenericMoreButton />}
+        action={<TaskMoreButton />}
         title={task.title}
         titleTypographyProps={{ variant: 'h5', gutterBottom: true }}
       />
@@ -74,10 +68,7 @@ function TaskListItem({
           {task.members}
         </Typography>
         <div className={classes.stats}>
-          <Label
-            color={task.statusColor}
-            variant="contained"
-          >
+          <Label color={task.statusColor} variant="contained">
             {task.status}
           </Label>
           <div className={classes.flexGrow} />
@@ -105,7 +96,7 @@ TaskListItem.propTypes = {
 
 TaskListItem.defaultProps = {
   style: {},
-  onOpen: () => { }
+  onOpen: () => {}
 };
 
 export default TaskListItem;
