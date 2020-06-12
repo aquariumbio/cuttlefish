@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 function KanbanBoard(props) {
   const classes = useStyles();
   const [lists, setLists] = useState([]);
+  const [listName, setListName] = useState('New List');
   const [openedTask, setOpenedTask] = useState(null);
   const tempLists = [];
 
@@ -73,7 +74,7 @@ function KanbanBoard(props) {
   const handleListAdd = () => {
     const list = {
       id: uuid(),
-      title: 'New list',
+      title: listName,
       items: []
     };
 
@@ -90,7 +91,7 @@ function KanbanBoard(props) {
 
   return (
     <Page className={classes.root} title="Kanban Board">
-      <Header onListAdd={handleListAdd} />
+      <Header onListAdd={handleListAdd} listName={listName} setListName={setListName}/>
       <div className={classes.container}>
         <DragDropContext onDragEnd={handleDragEnd}>
           {lists.map(list => (

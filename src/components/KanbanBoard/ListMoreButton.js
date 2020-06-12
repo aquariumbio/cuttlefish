@@ -5,6 +5,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import {
+  ListItem,
   ListItemIcon,
   ListItemText,
   Tooltip,
@@ -17,10 +18,10 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import EditTaskDialog from '../components/KanbanBoard/EditTaskDialog';
-import DeleteTaskDialog from '../components/KanbanBoard/DeleteTaskDialog'
+import EditTaskDialog from './EditTaskDialog';
+import DeleteTaskDialog from './DeleteTaskDialog'
 
-function GenericMoreButton(props) {
+function ListMoreButton(props) {
   const moreRef = useRef(null);
   const [openMenu, setOpenMenu] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -42,7 +43,7 @@ function GenericMoreButton(props) {
 
   return (
     <>
-      <Tooltip title="More options">
+      <Tooltip title="More Options">
         <IconButton
           {...props}
           onClick={handleMenuOpen}
@@ -67,25 +68,31 @@ function GenericMoreButton(props) {
         }}
       >
         <MenuItem>
-          <ListItemIcon onClick={handleShowEdit}>
-            <EditOutlinedIcon />
-          </ListItemIcon>
-          <ListItemText primary="Edit Task" />
+          <ListItem onClick={handleShowEdit}>
+            <ListItemIcon >
+              <EditOutlinedIcon />
+            </ListItemIcon>
+            <ListItemText primary="Rename List" />
+          </ListItem>
           <Modal open={showEdit} onHide={handleCloseEdit} animation={false}>
             <EditTaskDialog show={showEdit} setShow={setShowEdit} />
           </Modal>
         </MenuItem>
         <MenuItem>
-          <ListItemIcon>
-            <FileCopyOutlinedIcon />
-          </ListItemIcon>
-          <ListItemText primary="Duplicate Task" />
+          <ListItem>
+            <ListItemIcon>
+              <FileCopyOutlinedIcon />
+            </ListItemIcon>
+            <ListItemText primary="Duplicate List" />
+          </ListItem>
         </MenuItem>
         <MenuItem>
-          <ListItemIcon onClick={handleShowDelete}>
-            <DeleteOutlineIcon />
-          </ListItemIcon>
-          <ListItemText primary="Delete Task" />
+          <ListItem onClick={handleShowDelete}>
+            <ListItemIcon >
+              <DeleteOutlineIcon />
+            </ListItemIcon>
+            <ListItemText primary="Delete List" />
+          </ListItem>
           <Modal open={showDelete} onHide={handleCloseDelete} animation={false}>
             <DeleteTaskDialog show={showDelete} setShow={setShowDelete} />
           </Modal>
@@ -95,8 +102,8 @@ function GenericMoreButton(props) {
   );
 }
 
-GenericMoreButton.propTypes = {
+ListMoreButton.propTypes = {
   className: PropTypes.string
 };
 
-export default memo(GenericMoreButton);
+export default memo(ListMoreButton);

@@ -10,7 +10,7 @@ import {
   Typography,
 
 } from '@material-ui/core';
-import GenericMoreButton from 'src/components/GenericMoreButton';
+import TaskMoreButton from 'src/components/TaskMoreButton';
 import Label from 'src/components/Label';
 
 const useStyles = makeStyles((theme) => ({
@@ -64,7 +64,7 @@ function TaskListItem({
       style={{ ...style, ...provided.draggableProps.style }}
     >
       <CardHeader
-        action={<GenericMoreButton />}
+        action={<TaskMoreButton />}
         title={task.title}
         titleTypographyProps={{ variant: 'h5', gutterBottom: true }}
       />
