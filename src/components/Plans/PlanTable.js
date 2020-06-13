@@ -23,7 +23,7 @@ const columns = [
         label: 'Plan Nunber',
         minWidth: 50,
         align: 'left',
-        format: (value) => value.toFixed(2),
+        format: (value) => value.toFixed(0),
     },
     {
         id: 'planName',
