@@ -8,6 +8,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import StarIcon from '@material-ui/icons/Star';
 
 const columns = [
     {
@@ -16,9 +18,9 @@ const columns = [
         minWidth: 10,
         align: 'left'
     },
-    { 
-        id: 'planNumber', 
-        label: 'Plan Nunber', 
+    {
+        id: 'planNumber',
+        label: 'Plan Nunber',
         minWidth: 50,
         align: 'left',
         format: (value) => value.toFixed(2),
@@ -27,7 +29,7 @@ const columns = [
         id: 'planName',
         label: 'Plan Name',
         minWidth: 170,
-        align: 'left'    
+        align: 'left'
     },
     {
         id: 'planCreationDate',
@@ -69,8 +71,8 @@ const useStyles = makeStyles({
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.common.white,
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.common.white,
     }
 }))(TableCell);
 
@@ -92,7 +94,7 @@ export default function PlanTable() {
         <Paper className={classes.root}>
             <TableContainer className={classes.container}>
                 <Table sticky Header>
-                    <TableHead >
+                    <TableHead>
                         <TableRow>
                             {columns.map((column) => (
                                 <StyledTableCell
@@ -111,11 +113,27 @@ export default function PlanTable() {
                                 <TableRow hover role="checkbox" tabIndex={-1} key={row.planNumber}>
                                     {columns.map((column) => {
                                         const value = row[column.id];
-                                        return (
-                                            <TableCell key={column.id} align={column.align}>
-                                                {column.format && typeof value === 'number' ? column.format(value) : value}
-                                            </TableCell>
-                                        );
+                                        if (column.id == 'favorite') {
+                                            if (value) {
+                                                return (
+                                                    <TableCell key={column.id} align={column.align}>
+                                                        <StarIcon style={{ color: "#065683", cursor: "pointer" }} />
+                                                    </TableCell>
+                                                )
+                                            } else {
+                                                return (
+                                                    <TableCell key={column.id} align={column.align}>
+                                                        <StarBorderIcon style={{ color: "#065683", cursor: "pointer" }} />
+                                                    </TableCell>
+                                                )
+                                            }
+                                        } else {
+                                            return (
+                                                <TableCell key={column.id} align={column.align}>
+                                                    {column.format && typeof value === 'number' ? column.format(value) : value}
+                                                </TableCell>
+                                            );
+                                        }
                                     })}
                                 </TableRow>
                             );
