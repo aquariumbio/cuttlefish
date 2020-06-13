@@ -45,8 +45,8 @@ const columns = [
     },
 ];
 
-function createData(favorite, number, name, date, status) {
-    return { favorite, number, name, date, status };
+function createData(favorite, planNumber, planName, planCreationDate, planStatus) {
+    return { favorite, planNumber, planName, planCreationDate, planStatus };
 }
 
 const rows = [
