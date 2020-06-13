@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -67,6 +67,13 @@ const useStyles = makeStyles({
     },
 });
 
+const StyledTableCell = withStyles((theme) => ({
+    head: {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.common.white,
+    }
+}))(TableCell);
+
 export default function PlanTable() {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
@@ -84,17 +91,17 @@ export default function PlanTable() {
     return (
         <Paper className={classes.root}>
             <TableContainer className={classes.container}>
-                <Table sticky Header aria-label="sticky table">
-                    <TableHead>
+                <Table sticky Header>
+                    <TableHead >
                         <TableRow>
                             {columns.map((column) => (
-                                <TableCell
+                                <StyledTableCell
                                     key={column.id}
                                     align={column.align}
                                     style={{ minWidth: column.minWidth }}
                                 >
                                     {column.label}
-                                </TableCell>
+                                </StyledTableCell>
                             ))}
                         </TableRow>
                     </TableHead>
