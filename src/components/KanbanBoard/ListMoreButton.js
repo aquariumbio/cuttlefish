@@ -18,8 +18,8 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import EditTaskDialog from './EditTaskDialog';
-import DeleteTaskDialog from './DeleteTaskDialog'
+import EditTaskDialog from './TaskDialogs/EditTaskDialog';
+import DeleteListDialog from './ListDialogs/DeleteListDialog'
 
 function ListMoreButton(props) {
   const moreRef = useRef(null);
@@ -94,7 +94,7 @@ function ListMoreButton(props) {
             <ListItemText primary="Delete List" />
           </ListItem>
           <Modal open={showDelete} onHide={handleCloseDelete} animation={false}>
-            <DeleteTaskDialog show={showDelete} setShow={setShowDelete} />
+            <DeleteListDialog show={showDelete} setShow={setShowDelete} />
           </Modal>
         </MenuItem>
       </Menu>
