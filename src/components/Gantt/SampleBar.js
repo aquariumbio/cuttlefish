@@ -36,6 +36,11 @@ const useStyles = makeStyles(theme => ({
 // Dropdown menu that lists samples, paired with Calendar to form a Gantt chart
 export default function SampleBar(props) {
   const classes = useStyles();
+
+  useEffect(() => {
+    console.log(props);
+  }, [props.libraries]);
+
   const libraryTabs = props.libraries.map(library => (
     <LibraryTab
       library={library}
@@ -71,6 +76,7 @@ export default function SampleBar(props) {
         </Typography>
       </Grid>
       <div className={classes.libraries}>{libraryTabs}</div>
+      {/* <div className={classes.libraries}>{libraryTabs}</div> */}
     </div>
   );
 }

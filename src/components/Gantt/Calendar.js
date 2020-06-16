@@ -49,6 +49,8 @@ export default function Calendar(props) {
   const [date, setDate] = useState(moment().toDate());
   const [monthsLoaded, setMonthsLoaded] = useState(0);
 
+  useEffect(() => {}, [props.libraries]);
+
   const getDaysInMonth = () => {
     var daysInMonth = moment()
       .add(monthsLoaded, 'month')

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Container, Tabs, Tab, Modal, Typography } from '@material-ui/core';
 import Page from 'src/components/Page';
@@ -9,7 +9,7 @@ import TabPanel from '../../components/TabPanel';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles, lighten } from '@material-ui/core/styles';
 import kanbanData from './mockKanbanData';
-import ganttData from './mockGanttData';
+import mockGanttData from './mockGanttData';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -51,6 +51,7 @@ function ProteinDesignProject() {
     event: null
   });
   const [progress, setProgress] = useState([80]);
+  const [ganttData, setGanttData] = useState();
 
   const handleEventNew = () => {
     setEventModal({
@@ -77,6 +78,15 @@ function ProteinDesignProject() {
   const handleChange = (event, newTab) => {
     setCurrentTab(newTab);
   };
+
+  useEffect(() => {
+    async function getSamples() {
+      const response = await fetch('http://localhost:4000/testAPI/plans');
+      const data = await response.json();
+      setGanttData(data);
+    }
+    getSamples();
+  }, [ganttData]);
 
   // Conditional popup button action, rendered differently based on the respective action necessary for the project tab
   const getModal = () => {
@@ -117,7 +127,7 @@ function ProteinDesignProject() {
           <KanbanBoard data={kanbanData} />
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
-          <Gantt data={ganttData} />
+          <Gantt data={mockGanttData} />
         </TabPanel>
         {getModal()}
       </Container>
