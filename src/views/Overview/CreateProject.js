@@ -216,7 +216,7 @@ const AddEditEvent = forwardRef((props, ref) => {
             label="Project Name"
             name="Project Name"
             onChange={handleFieldChange}
-            value={values.title}
+            placeholder={values.title}
             variant="outlined"
           />
           <TextField
@@ -243,7 +243,7 @@ const AddEditEvent = forwardRef((props, ref) => {
             label="Project Description"
             name="desc"
             onChange={handleFieldChange}
-            value={values.desc}
+            placeholder={values.desc}
             variant="outlined"
           />
           <TextField
@@ -252,7 +252,7 @@ const AddEditEvent = forwardRef((props, ref) => {
             label="Project Directory"
             name="direc"
             onChange={handleFieldChange}
-            value={values.direc}
+            placeholder={values.direc}
             variant="outlined"
           />
           <TextField
@@ -285,7 +285,7 @@ const AddEditEvent = forwardRef((props, ref) => {
             style={{ width: '25%', float: 'right' }}
             margin="normal"
             onChange={handleFieldChange}
-            value={moment(values.end).diff(moment(values.start), 'days')}
+            defaultValue={moment(values.end).diff(moment(values.start), 'days')}
             multiline
             variant="filled"
           />
@@ -295,7 +295,7 @@ const AddEditEvent = forwardRef((props, ref) => {
             label="Project Contributors"
             name="contr"
             onChange={handleFieldChange}
-            value={values.contr}
+            placeholder={values.contr}
             variant="outlined"
           />
           <TextField
@@ -308,7 +308,7 @@ const AddEditEvent = forwardRef((props, ref) => {
             label="Role"
             name="role"
             onChange={handleRoleChange}
-            value={role}
+            placeholder={role}
             variant="outlined">
             {roleTypes.map((option) => (
               <option key={option.value} value={option.value}>

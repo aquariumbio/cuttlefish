@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography, Button, IconButton } from '@material-ui/core';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
@@ -34,21 +34,24 @@ const useStyles = makeStyles(theme => ({
 
 export default function LibraryTask(props) {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(props.open);
 
+  useEffect(() => {
+    if (props.open) {
+      props.setOpenRows([...props.openRows, props.id]);
+    }
+  }, []);
+
+  // Handles dropdown as well as visible rows in calendar view
   const handleDropDown = event => {
     if (!open) {
-      props.setRowCount(props.rowCount + props.task.subtasks.length);
+      props.setOpenRows([...props.openRows, props.task.id]);
       setOpen(true);
     } else {
-      props.setRowCount(props.rowCount - props.task.subtasks.length);
+      props.setOpenRows(props.openRows.filter(e => e !== props.task.id));
       setOpen(false);
     }
   };
-
-  const subTasks = open
-    ? props.task.subtasks.map(task => <LibrarySubTask subtask={task} />)
-    : null;
 
   const dropButton = open ? (
     <Button
@@ -95,7 +98,7 @@ export default function LibraryTask(props) {
           </Grid>
         </Grid>
       </Grid>
-      <Grid container>{subTasks}</Grid>
+      <Grid container>{open ? props.children : null}</Grid>
     </div>
   );
 }
