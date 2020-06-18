@@ -3,7 +3,7 @@ import React, { useState, forwardRef } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import uuid from 'uuid/v1';
+import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/styles';
 import {
   Card,
@@ -48,6 +48,14 @@ const useStyles = makeStyles((theme) => ({
   },
   closeIcon: {
     marginLeft: theme.spacing(35)
+  }, 
+  chipList: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    listStyle: 'none'
+  },
+  chip: {
+    backgroundColor: '#bfbfbf'
   }
 }));
 
@@ -113,8 +121,12 @@ const AddEditEvent = forwardRef((props, ref) => {
       label: 'Contributor',
     }
   ];
-  const chipsArray = [];
-  const chips = [];
+
+  const [contributor, setContributor] = useState("")
+
+  const [chipData, setChipData] = useState([
+    { key: 0, label: 'Phuong Le - Owner' },
+  ]);
 
   const handleFieldChange = (e) => {
     e.persist();
@@ -129,47 +141,29 @@ const AddEditEvent = forwardRef((props, ref) => {
     if (!values.title || !values.desc) {
       return;
     }
-
-    onAdd({ ...values, id: uuid() });
+    
   };
-
 
   const handleTypeChange = (event) => {
     setType(event.target.value);
   };
 
+  const handleContributorName = ({ target }) => {
+    setContributor(target.value)
+  }
+
   const handleRoleChange = (event) => {
     setRole(event.target.value);
   };
 
-  const handleAddChip = (name) => {
-    console.log('chip added');
-    chipsArray.push(name);
-    chips.push(
-      <Chip
-        label={name}
-        onDelete={(name, index) => handleDeleteChip(name, index)}
-      />
-    );
+  const handleAddChip = () => {
+    setChipData(chips => [...chips, {key: chips.length + 1, label: contributor + ' - ' + role}]);
+   
   };
 
-  const handleDeleteChip = (chip, index) => {
-    console.log('chip deleted');
-    chipsArray.splice(index, 1);
-    showChipArray();
+  const handleChipDelete = (chipToDelete) => () => {
+    setChipData((chips) => chips.filter((chip) => chip.key !== chipToDelete.key));
   };
-
-  const showChipArray = () => {
-    chipsArray.forEach(function (index, chip) {
-      chips.push(
-        <Chip
-          label={chip}
-          onDelete={(chip, index) => handleDeleteChip(chip, index)}
-        />
-      );
-      console.log('pushed chip ' + index);
-    })
-  }
 
   const handleClose = () => {
     setShow(false)
@@ -294,7 +288,7 @@ const AddEditEvent = forwardRef((props, ref) => {
             style={{ width: '35%', marginRight: 10 }}
             label="Project Contributors"
             name="contr"
-            onChange={handleFieldChange}
+            onChange={handleContributorName}
             placeholder={values.contr}
             variant="outlined"
           />
@@ -320,12 +314,24 @@ const AddEditEvent = forwardRef((props, ref) => {
             className={classes.field}
             style={{ width: '12%' }}
             margin="normal"
-            onClick={handleAddChip(values.contr)}
+            onClick={handleAddChip}
             variant="contained"
           >
             + Add
           </Button>
-          {chips}
+          <Paper component="ul" className={classes.chipList}>
+          {chipData.map((data) => {
+            return (
+              <li key={data.key} >
+                <Chip
+                  label={data.label}
+                  onDelete={data.label.includes('Owner') ? undefined : handleChipDelete(data)}
+                  className={classes.chip}
+                />
+              </li>
+            );
+          })}
+          </Paper>
         </CardContent>
         <Divider />
         <CardActions>
