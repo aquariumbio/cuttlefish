@@ -131,9 +131,9 @@ const CreateProject = forwardRef((props, ref) => {
 
   const [title, setTitle] = useState("");
 
-  const [start, setStart] = useState("");
+  const [start, setStart] = useState(defaultEvent.start);
 
-  const [end, setEnd] = useState("");
+  const [end, setEnd] = useState(defaultEvent.end);
 
   const handleFieldChange = (e) => {
     e.persist();
