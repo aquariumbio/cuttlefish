@@ -91,7 +91,7 @@ function ProjectCard({ project, className, ...rest }) {
             <Typography
               variant="body2"
               noWrap
-            >{`Owned by: ${project.owner}`}</Typography>
+            >{`Owned by: ${project.owner.join(', ')}`}</Typography>
           </Grid>
           <Grid item xs className={classes.cardLabel}>
             <Typography variant="body2" noWrap>
