@@ -135,6 +135,7 @@ const CreateProject = forwardRef((props, ref) => {
 
   const [end, setEnd] = useState(defaultEvent.end);
 
+  const [newProjects, setNewProjects] = useState(mockProjects);
   const handleFieldChange = (e) => {
     e.persist();
     setValues((prevValues) => ({
@@ -149,17 +150,16 @@ const CreateProject = forwardRef((props, ref) => {
   };
 
   const handleCreateProject = () => {
-    console.log(chipData.filter(x => x.role === 'Owner'));
 
-    console.log(chipData.filter(x => x.role === 'Owner')[0].label);
-
-    mockProjects.splice(0, 0, {title: title,
+    newProjects.splice(0, 0, {title: title,
       owner: chipData.filter(x => x.role === 'Owner').map(x => x.label),
       members: chipData.map(x => x.label),
       start_date: moment(start).format('M/D/YY'),
       end_date: moment(end).format('M/D/YY'),
       type: type,
       status: 'pending'});
+    
+    setNewProjects(...newProjects, newProjects);
     handleClose()
   };
 

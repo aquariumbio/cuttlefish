@@ -23,7 +23,7 @@ export default [
     members: ["Thomas", "Phuong", "Melody"],
     start_date: '3/20/20',
     end_date: '8/20/20',
-    type: 'Web App',
+    type: 'Basic',
     status: 'pending'
   }
 ];
