@@ -1,8 +1,9 @@
-import React, { forwardRef } from 'react';
+import React, { useState, forwardRef } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import {
     Typography,
     Dialog,
+    TextField,
     Button,
     Divider,
     Grid,
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     closeIcon: {
-        marginLeft: theme.spacing(12)
+        marginLeft: theme.spacing(14)
     }
 }));
 
@@ -41,16 +42,33 @@ const CustomTypography = withStyles(theme => ({
     }
 }))(Typography);
 
-const DeleteListDialog = forwardRef((props) => {
+const RenameListDialog = forwardRef((props) => {
     const {
         show,
         setShow,
-        onListDelete,
+        onListAdd,
+        setListName
     } = props;
     const classes = useStyles();
+    const [inputValue, setInputValue] = useState('');
+
+    const handleInputChange = event => {
+        event.persist();
+        setInputValue(event.target.value);
+    };
+
+    const handleInputKeyup = event => {
+        event.persist();
+        setListName(inputValue);
+    };
 
     const handleClose = () => {
         setShow(false)
+    }
+
+    const handleCreate = () => {
+        setShow(false)
+        onListAdd()
     }
 
     return (
@@ -73,8 +91,8 @@ const DeleteListDialog = forwardRef((props) => {
                             gutterBottom
                             variant="h3"
                         >
-                            Delete List
-                        </CustomTypography>
+                            Rename List
+                            </CustomTypography>
                     </Grid>
                     <Grid
                         item
@@ -88,13 +106,19 @@ const DeleteListDialog = forwardRef((props) => {
                 </Grid>
             </DialogTitle>
             <DialogContent>
-                <Typography
-                    color="inherit"
-                    variant="subtitle2"
-                    style={{ marginBottom: 20 }}
-                >
-                    Your list will be deleted forever.
-                </Typography>
+                <TextField
+                    className={classes.field}
+                    style={{ width: '100%' }}
+                    label="List Name"
+                    name="List Name"
+                    defaultValue="Enter your list name"
+                    placeholder="Enter your list name"
+                    onChange={handleInputChange}
+                    onKeyUp={handleInputKeyup}
+                    value={inputValue}
+                    variant="outlined"
+                    fullWidth
+                />
             </DialogContent>
             < Divider />
             <DialogActions>
@@ -103,17 +127,17 @@ const DeleteListDialog = forwardRef((props) => {
                     onClick={handleClose}
                     variant="contained">
                     Cancel
-                </Button>
+                    </Button>
                 <Button
                     className={classes.createButton}
-                    onClick={onListDelete}
+                    onClick={handleCreate}
                     variant="contained">
-                    Delete
-                </Button>
+                    Create
+                    </Button>
             </DialogActions>
         </Dialog>
     );
 });
 
-export default DeleteListDialog
+export default RenameListDialog
 

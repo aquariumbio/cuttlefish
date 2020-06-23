@@ -113,7 +113,7 @@ export default function PlanTable() {
                                 <TableRow hover role="checkbox" tabIndex={-1} key={row.planNumber}>
                                     {columns.map((column) => {
                                         const value = row[column.id];
-                                        if (column.id == 'favorite') {
+                                        if (column.id === 'favorite') {
                                             if (value) {
                                                 return (
                                                     <TableCell key={column.id} align={column.align}>
