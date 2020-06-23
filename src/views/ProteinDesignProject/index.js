@@ -10,7 +10,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles, lighten } from '@material-ui/core/styles';
 import kanbanData from './mockKanbanData';
 import mockGanttData from './mockGanttData';
-import ganttData from './mockGanttData';
 import PlanTable from 'src/components/Plans/PlanTable';
 
 const useStyles = makeStyles(theme => ({
