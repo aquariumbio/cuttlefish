@@ -94,7 +94,7 @@ function ListMoreButton(props) {
             <ListItemText primary="Delete List" />
           </ListItem>
           <Modal open={showDelete} onHide={handleCloseDelete} animation={false}>
-            <DeleteListDialog show={showDelete} setShow={setShowDelete} />
+            <DeleteListDialog show={showDelete} setShow={setShowDelete} onListDelete={props.onListDelete}/>
           </Modal>
         </MenuItem>
       </Menu>

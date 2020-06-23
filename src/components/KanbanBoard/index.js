@@ -81,6 +81,11 @@ function KanbanBoard(props) {
     setLists(prevLists => [...prevLists, list]);
   };
 
+  const handleListDelete = () => {
+    const filter = lists.filter(list => list.title !== listName)
+    setLists(filter)
+  }
+
   const handleTaskOpen = task => {
     setOpenedTask(task);
   };
@@ -103,6 +108,7 @@ function KanbanBoard(props) {
                   title={list.title}
                   titleColor={list.titleColor}
                   total={list.items.length}
+                  onListDelete={handleListDelete}
                 >
                   {list.items.map((task, index) => (
                     <Draggable

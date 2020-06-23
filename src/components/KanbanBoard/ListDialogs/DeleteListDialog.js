@@ -45,6 +45,7 @@ const DeleteListDialog = forwardRef((props) => {
     const {
         show,
         setShow,
+        onListDelete,
     } = props;
     const classes = useStyles();
 
@@ -105,7 +106,7 @@ const DeleteListDialog = forwardRef((props) => {
                 </Button>
                 <Button
                     className={classes.createButton}
-                    onClick={handleClose}
+                    onClick={onListDelete}
                     variant="contained">
                     Delete
                 </Button>
