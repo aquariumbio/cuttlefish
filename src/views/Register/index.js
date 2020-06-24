@@ -4,16 +4,15 @@ import { makeStyles } from '@material-ui/styles';
 import {
   Card,
   CardContent,
-  CardMedia,
   Typography,
   Divider,
-  Link,
-  Avatar
+  Link
 } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAddOutlined';
 import gradients from 'src/utils/gradients';
 import Page from 'src/components/Page';
 import RegisterForm from './RegisterForm';
+import img from "src/images/biofab.webp"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,13 +66,6 @@ const useStyles = makeStyles((theme) => ({
   },
   divider: {
     margin: theme.spacing(2, 0)
-  },
-  person: {
-    marginTop: theme.spacing(2),
-    display: 'flex'
-  },
-  avatar: {
-    marginRight: theme.spacing(2)
   }
 }));
 
@@ -110,39 +102,7 @@ function Register() {
             Have an account?
           </Link>
         </CardContent>
-        <CardMedia
-          className={classes.media}
-          image="/images/auth.png"
-          title="Cover"
-        >
-          <Typography
-            color="inherit"
-            variant="subtitle1"
-          >
-            Hella narvwhal Cosby sweater McSweeney&apos;s, salvia kitsch before they sold out High Life.
-          </Typography>
-          <div className={classes.person}>
-            <Avatar
-              alt="Person"
-              className={classes.avatar}
-              src="/images/avatars/avatar_2.png"
-            />
-            <div>
-              <Typography
-                color="inherit"
-                variant="body1"
-              >
-                Ekaterina Tankova
-              </Typography>
-              <Typography
-                color="inherit"
-                variant="body2"
-              >
-                Manager at inVision
-              </Typography>
-            </div>
-          </div>
-        </CardMedia>
+        <img className="media" alt="Logo" src={img} />
       </Card>
     </Page>
   );
