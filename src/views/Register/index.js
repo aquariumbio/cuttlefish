@@ -75,7 +75,7 @@ function Register() {
   return (
     <Page
       className={classes.root}
-      title="Register"
+      title="Sign Up"
     >
       <Card className={classes.card}>
         <CardContent className={classes.content}>

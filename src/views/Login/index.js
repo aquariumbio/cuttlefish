@@ -82,7 +82,7 @@ function Login() {
   return (
     <Page
       className={classes.root}
-      title="Login"
+      title="Sign In"
     >
       <Card className={classes.card}>
         <CardContent className={classes.content}>
