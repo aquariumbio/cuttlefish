@@ -201,13 +201,13 @@ function RegisterForm({ className, ...rest }) {
       </div>
       <Button
         className={classes.submitButton}
-        color="secondary"
+        color="primary"
         disabled={!formState.isValid}
         size="large"
         type="submit"
         variant="contained"
       >
-        Create account
+        Sign Up
       </Button>
     </form>
   );

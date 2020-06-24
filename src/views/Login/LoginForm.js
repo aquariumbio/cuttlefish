@@ -117,7 +117,7 @@ function LoginForm({ className, ...rest }) {
       </div>
       <Button
         className={classes.submitButton}
-        color="secondary"
+        color="primary"
         disabled={!formState.isValid}
         size="large"
         type="submit"

@@ -87,7 +87,7 @@ function Register() {
             Sign up
           </Typography>
           <Typography variant="subtitle2">
-            Sign up on the internal platform
+            Sign up on CuttleFish Project Dashboard
           </Typography>
           <RegisterForm className={classes.registerForm} />
           <Divider className={classes.divider} />

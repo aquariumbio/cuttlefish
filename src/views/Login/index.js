@@ -94,7 +94,7 @@ function Login() {
             Sign in
           </Typography>
           <Typography variant="subtitle2">
-            Sign in on the internal platform
+            Sign in on CuttleFish Project Dashboard
           </Typography>
           <LoginForm className={classes.loginForm} />
           <Divider className={classes.divider} />
