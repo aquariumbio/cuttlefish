@@ -37,9 +37,31 @@ const useStyles = makeStyles(theme => ({
 export default function SampleBar(props) {
   const classes = useStyles();
 
-  useEffect(() => {
-    console.log(props);
-  }, [props.libraries]);
+  useEffect(() => {}, [props.libraries]);
+
+  // const libraryTabs = props.libraries.map(library => (
+  //   <LibraryTab
+  //     library={library}
+  //     open={true}
+  //     setOpenRows={props.setOpenRows}
+  //     openRows={props.openRows}
+  //   >
+  //     {library.tasks.map(task => (
+  //       <Grid item>
+  //         <LibraryTask
+  //           task={task}
+  //           open={false}
+  //           setOpenRows={props.setOpenRows}
+  //           openRows={props.openRows}
+  //         >
+  //           {task.subtasks.map(subtask => (
+  //             <LibrarySubTask subtask={subtask} />
+  //           ))}
+  //         </LibraryTask>
+  //       </Grid>
+  //     ))}
+  //   </LibraryTab>
+  // ));
 
   const libraryTabs = props.libraries.map(library => (
     <LibraryTab
@@ -47,22 +69,7 @@ export default function SampleBar(props) {
       open={true}
       setOpenRows={props.setOpenRows}
       openRows={props.openRows}
-    >
-      {library.tasks.map(task => (
-        <Grid item>
-          <LibraryTask
-            task={task}
-            open={false}
-            setOpenRows={props.setOpenRows}
-            openRows={props.openRows}
-          >
-            {task.subtasks.map(subtask => (
-              <LibrarySubTask subtask={subtask} />
-            ))}
-          </LibraryTask>
-        </Grid>
-      ))}
-    </LibraryTab>
+    ></LibraryTab>
   ));
 
   return (

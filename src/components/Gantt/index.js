@@ -40,8 +40,7 @@ export default function Gantt(props) {
       const currentOpenRows = [];
       const response = await fetch('http://localhost:4000/testAPI/plans');
       const data = await response.json();
-      console.log(data);
-      for (const list of props.data.libraries) {
+      for (const list of data) {
         libraries.push(list);
         currentOpenRows.push(list.id);
       }
