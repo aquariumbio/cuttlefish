@@ -11,30 +11,30 @@ function Header(props) {
   const classes = useStyles();
   const session = useSelector(state => state.session);
 
-  const getButton = () => {
-    if (props.currentTab === 0) {
-      return (
-        <Button color="primary" variant="contained" onClick={props.onEventAdd}>
-          <AddIcon className={classes.addIcon} />
-          Create Task
-        </Button>
-      );
-    } else if (props.currentTab === 1) {
-      return (
-        <Button color="primary" variant="contained" onClick={props.onEventAdd}>
-          <AddIcon className={classes.addIcon} />
-          Add File
-        </Button>
-      );
-    } else {
-      return (
-        <Button color="primary" variant="contained" onClick={props.onEventAdd}>
-          <AddIcon className={classes.addIcon} />
-          Create File
-        </Button>
-      );
-    }
-  };
+  // const getButton = () => {
+  //   if (props.currentTab === 0) {
+  //     return (
+  //       <Button color="primary" variant="contained" onClick={props.onEventAdd}>
+  //         <AddIcon className={classes.addIcon} />
+  //         Create Task
+  //       </Button>
+  //     );
+  //   } else if (props.currentTab === 1) {
+  //     return (
+  //       <Button color="primary" variant="contained" onClick={props.onEventAdd}>
+  //         <AddIcon className={classes.addIcon} />
+  //         Add File
+  //       </Button>
+  //     );
+  //   } else {
+  //     return (
+  //       <Button color="primary" variant="contained" onClick={props.onEventAdd}>
+  //         <AddIcon className={classes.addIcon} />
+  //         Create File
+  //       </Button>
+  //     );
+  //   }
+  // };
 
   return (
     <div>
@@ -47,7 +47,7 @@ function Header(props) {
             Project Dashboard example for Strain Construction
           </Typography>
         </Grid>
-        <Grid item>{getButton()}</Grid>
+        {/* <Grid item>{getButton()}</Grid> */}
       </Grid>
     </div>
   );
