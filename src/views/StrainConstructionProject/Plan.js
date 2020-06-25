@@ -36,7 +36,7 @@ function Plan({ className, ...rest }) {
   const classes = useStyles();
 
   return (
-    <Page title={"Plan"}>
+    <Page title={"AQ Plan"}>
       <Card
         {...rest}
         className={clsx(classes.root, className)}

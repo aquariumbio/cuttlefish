@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Page from 'src/components/Page';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -91,65 +92,67 @@ export default function PlanTable() {
     };
 
     return (
-        <Paper className={classes.root}>
-            <TableContainer className={classes.container}>
-                <Table sticky Header>
-                    <TableHead>
-                        <TableRow>
-                            {columns.map((column) => (
-                                <StyledTableCell
-                                    key={column.id}
-                                    align={column.align}
-                                    style={{ minWidth: column.minWidth }}
-                                >
-                                    {column.label}
-                                </StyledTableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                            return (
-                                <TableRow hover role="checkbox" tabIndex={-1} key={row.planNumber}>
-                                    {columns.map((column) => {
-                                        const value = row[column.id];
-                                        if (column.id === 'favorite') {
-                                            if (value) {
-                                                return (
-                                                    <TableCell key={column.id} align={column.align}>
-                                                        <StarIcon style={{ color: "#065683", cursor: "pointer" }} />
-                                                    </TableCell>
-                                                )
+        <Page className={classes.root} title="Plans">
+            <Paper className={classes.root}>
+                <TableContainer className={classes.container}>
+                    <Table sticky Header>
+                        <TableHead>
+                            <TableRow>
+                                {columns.map((column) => (
+                                    <StyledTableCell
+                                        key={column.id}
+                                        align={column.align}
+                                        style={{ minWidth: column.minWidth }}
+                                    >
+                                        {column.label}
+                                    </StyledTableCell>
+                                ))}
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                                return (
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.planNumber}>
+                                        {columns.map((column) => {
+                                            const value = row[column.id];
+                                            if (column.id === 'favorite') {
+                                                if (value) {
+                                                    return (
+                                                        <TableCell key={column.id} align={column.align}>
+                                                            <StarIcon style={{ color: "#065683", cursor: "pointer" }} />
+                                                        </TableCell>
+                                                    )
+                                                } else {
+                                                    return (
+                                                        <TableCell key={column.id} align={column.align}>
+                                                            <StarBorderIcon style={{ color: "#065683", cursor: "pointer" }} />
+                                                        </TableCell>
+                                                    )
+                                                }
                                             } else {
                                                 return (
                                                     <TableCell key={column.id} align={column.align}>
-                                                        <StarBorderIcon style={{ color: "#065683", cursor: "pointer" }} />
+                                                        {column.format && typeof value === 'number' ? column.format(value) : value}
                                                     </TableCell>
-                                                )
+                                                );
                                             }
-                                        } else {
-                                            return (
-                                                <TableCell key={column.id} align={column.align}>
-                                                    {column.format && typeof value === 'number' ? column.format(value) : value}
-                                                </TableCell>
-                                            );
-                                        }
-                                    })}
-                                </TableRow>
-                            );
-                        })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
-        </Paper>
+                                        })}
+                                    </TableRow>
+                                );
+                            })}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
+            </Paper>
+        </Page>
     );
 }

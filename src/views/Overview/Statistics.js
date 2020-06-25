@@ -86,7 +86,7 @@ function Statistics({ className, ...rest }) {
             </Typography>
             <div className={classes.details}>
               <Typography variant="h3">
-                18
+                9
               </Typography>
             </div>
             <Typography
