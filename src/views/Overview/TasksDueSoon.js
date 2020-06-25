@@ -10,8 +10,6 @@ import {
 } from '@material-ui/core';
 import TaskCard from '../../components/TaskCard/index';
 import mockData from '../StrainConstructionProject/mockKanbanData';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,16 +25,6 @@ let filterData
 function TasksDueSoon({ customer, className, ...rest }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
-
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   filterData = mockData.tasks.filter((task) => task.status === "In Progress");
   const tasks = filterData.map(task => <TaskCard task={task} />);

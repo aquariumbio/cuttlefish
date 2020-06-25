@@ -14,7 +14,7 @@ export default function Project(props) {
         return <StrainConstructionProject />;
       case 'Protein Design':
         return <ProteinDesignProject />;
-      case 'Web App':
+      case 'Basic':
         return <BasicProject />
     }
   };

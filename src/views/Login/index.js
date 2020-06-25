@@ -4,16 +4,15 @@ import { makeStyles } from '@material-ui/styles';
 import {
   Card,
   CardContent,
-  CardMedia,
   Typography,
   Divider,
-  Link,
-  Avatar
+  Link
 } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock';
 import Page from 'src/components/Page';
 import gradients from 'src/utils/gradients';
 import LoginForm from './LoginForm';
+import img from "src/images/biofab.webp"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -83,7 +82,7 @@ function Login() {
   return (
     <Page
       className={classes.root}
-      title="Login"
+      title="Sign In"
     >
       <Card className={classes.card}>
         <CardContent className={classes.content}>
@@ -95,7 +94,7 @@ function Login() {
             Sign in
           </Typography>
           <Typography variant="subtitle2">
-            Sign in on the internal platform
+            Sign in on CuttleFish Project Dashboard
           </Typography>
           <LoginForm className={classes.loginForm} />
           <Divider className={classes.divider} />
@@ -110,40 +109,7 @@ function Login() {
             Don&apos;t have an account?
           </Link>
         </CardContent>
-        <CardMedia
-          className={classes.media}
-          image="/images/auth.png"
-          title="Cover"
-        >
-          <Typography
-            color="inherit"
-            variant="subtitle1"
-          >
-            Hella narvwhal Cosby sweater McSweeney&apos;s, salvia kitsch before they
-            sold out High Life.
-          </Typography>
-          <div className={classes.person}>
-            <Avatar
-              alt="Person"
-              className={classes.avatar}
-              src="/images/avatars/avatar_2.png"
-            />
-            <div>
-              <Typography
-                color="inherit"
-                variant="body1"
-              >
-                Ekaterina Tankova
-              </Typography>
-              <Typography
-                color="inherit"
-                variant="body2"
-              >
-                Manager at inVision
-              </Typography>
-            </div>
-          </div>
-        </CardMedia>
+        <img className="media" alt="Logo" src={img} />
       </Card>
     </Page>
   );

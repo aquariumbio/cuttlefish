@@ -55,6 +55,7 @@ function TaskList({
   snapshot,
   className,
   children,
+  onListDelete,
   ...rest
 }) {
   const classes = useStyles();
@@ -77,7 +78,7 @@ function TaskList({
           ({total})
         </Typography>
         <div className={classes.headerAction}>
-          <ListMoreButton />
+          <ListMoreButton onListDelete={onListDelete}/>
         </div>
       </div>
       <div

@@ -18,7 +18,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import EditTaskDialog from './TaskDialogs/EditTaskDialog';
+import RenameListDialog from './ListDialogs/RenameListDialog';
 import DeleteListDialog from './ListDialogs/DeleteListDialog'
 
 function ListMoreButton(props) {
@@ -75,7 +75,7 @@ function ListMoreButton(props) {
             <ListItemText primary="Rename List" />
           </ListItem>
           <Modal open={showEdit} onHide={handleCloseEdit} animation={false}>
-            <EditTaskDialog show={showEdit} setShow={setShowEdit} />
+            <RenameListDialog show={showEdit} setShow={setShowEdit} />
           </Modal>
         </MenuItem>
         <MenuItem>
@@ -94,7 +94,7 @@ function ListMoreButton(props) {
             <ListItemText primary="Delete List" />
           </ListItem>
           <Modal open={showDelete} onHide={handleCloseDelete} animation={false}>
-            <DeleteListDialog show={showDelete} setShow={setShowDelete} />
+            <DeleteListDialog show={showDelete} setShow={setShowDelete} onListDelete={props.onListDelete}/>
           </Modal>
         </MenuItem>
       </Menu>

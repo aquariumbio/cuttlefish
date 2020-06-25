@@ -32,7 +32,10 @@ const useStyles = makeStyles((theme) => ({
   },
   submitButton: {
     marginTop: theme.spacing(2),
-    width: '100%'
+    width: '100%',
+    '&:hover': {
+      backgroundColor: '#065683'
+    }
   }
 }));
 
@@ -117,7 +120,7 @@ function LoginForm({ className, ...rest }) {
       </div>
       <Button
         className={classes.submitButton}
-        color="secondary"
+        color="primary"
         disabled={!formState.isValid}
         size="large"
         type="submit"

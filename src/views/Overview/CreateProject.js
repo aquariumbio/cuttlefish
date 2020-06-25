@@ -3,7 +3,7 @@ import React, { useState, forwardRef } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import uuid from 'uuid/v1';
+import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/styles';
 import {
   Card,
@@ -19,6 +19,7 @@ import {
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
+import mockProjects from '../ProjectManagementList/projects_data'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,6 +49,14 @@ const useStyles = makeStyles((theme) => ({
   },
   closeIcon: {
     marginLeft: theme.spacing(35)
+  }, 
+  chipList: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    listStyle: 'none'
+  },
+  chip: {
+    backgroundColor: '#bfbfbf'
   }
 }));
 
@@ -69,7 +78,7 @@ const defaultEvent = {
   role: 'Select Role'
 };
 
-const AddEditEvent = forwardRef((props, ref) => {
+const CreateProject = forwardRef((props, ref) => {
   const {
     event,
     onDelete,
@@ -113,9 +122,20 @@ const AddEditEvent = forwardRef((props, ref) => {
       label: 'Contributor',
     }
   ];
-  const chipsArray = [];
-  const chips = [];
 
+  const [contributor, setContributor] = useState("")
+
+  const [chipData, setChipData] = useState([
+    { key: 0, label: 'Phuong Le', role: 'Owner'},
+  ]);
+
+  const [title, setTitle] = useState("");
+
+  const [start, setStart] = useState(defaultEvent.start);
+
+  const [end, setEnd] = useState(defaultEvent.end);
+
+  const [newProjects, setNewProjects] = useState(mockProjects);
   const handleFieldChange = (e) => {
     e.persist();
     setValues((prevValues) => ({
@@ -125,51 +145,52 @@ const AddEditEvent = forwardRef((props, ref) => {
     }));
   };
 
-  const handleAdd = () => {
-    if (!values.title || !values.desc) {
-      return;
-    }
-
-    onAdd({ ...values, id: uuid() });
+  const handleProjectTitle = (event) => {
+    setTitle(event.target.value);
   };
 
+  const handleCreateProject = () => {
+
+    newProjects.splice(0, 0, {title: title,
+      owner: chipData.filter(x => x.role === 'Owner').map(x => x.label),
+      members: chipData.map(x => x.label),
+      start_date: moment(start).format('M/D/YY'),
+      end_date: moment(end).format('M/D/YY'),
+      type: type,
+      status: 'pending'});
+    
+    setNewProjects(...newProjects, newProjects);
+    handleClose()
+  };
 
   const handleTypeChange = (event) => {
     setType(event.target.value);
   };
 
+  const handleStartDate = (event) => {
+    setStart(event.target.value);
+  };
+
+  const handleEndDate = (event) => {
+    setEnd(event.target.value);
+  };
+
+  const handleContributorName = ({ target }) => {
+    setContributor(target.value)
+  }
+
   const handleRoleChange = (event) => {
     setRole(event.target.value);
   };
 
-  const handleAddChip = (name) => {
-    console.log('chip added');
-    chipsArray.push(name);
-    chips.push(
-      <Chip
-        label={name}
-        onDelete={(name, index) => handleDeleteChip(name, index)}
-      />
-    );
+  const handleAddChip = () => {
+    setChipData(chips => [...chips, {key: chips.length + 1, label: contributor, role: role}]);
+   
   };
 
-  const handleDeleteChip = (chip, index) => {
-    console.log('chip deleted');
-    chipsArray.splice(index, 1);
-    showChipArray();
+  const handleChipDelete = (chipToDelete) => () => {
+    setChipData((chips) => chips.filter((chip) => chip.key !== chipToDelete.key));
   };
-
-  const showChipArray = () => {
-    chipsArray.forEach(function (index, chip) {
-      chips.push(
-        <Chip
-          label={chip}
-          onDelete={(chip, index) => handleDeleteChip(chip, index)}
-        />
-      );
-      console.log('pushed chip ' + index);
-    })
-  }
 
   const handleClose = () => {
     setShow(false)
@@ -215,7 +236,7 @@ const AddEditEvent = forwardRef((props, ref) => {
             fullWidth
             label="Project Name"
             name="Project Name"
-            onChange={handleFieldChange}
+            onChange={handleProjectTitle}
             placeholder={values.title}
             variant="outlined"
           />
@@ -262,7 +283,7 @@ const AddEditEvent = forwardRef((props, ref) => {
             margin="normal"
             label="Start date"
             name="start"
-            onChange={handleFieldChange}
+            onChange={handleStartDate}
             type="datetime-local"
             variant="outlined"
           />
@@ -274,7 +295,7 @@ const AddEditEvent = forwardRef((props, ref) => {
             margin="normal"
             label="End date"
             name="end"
-            onChange={handleFieldChange}
+            onChange={handleEndDate}
             type="datetime-local"
             variant="outlined"
           />
@@ -285,7 +306,7 @@ const AddEditEvent = forwardRef((props, ref) => {
             style={{ width: '25%', float: 'right' }}
             margin="normal"
             onChange={handleFieldChange}
-            defaultValue={moment(values.end).diff(moment(values.start), 'days')}
+            defaultValue={moment(end).diff(moment(start), 'days')}
             multiline
             variant="filled"
           />
@@ -294,7 +315,7 @@ const AddEditEvent = forwardRef((props, ref) => {
             style={{ width: '35%', marginRight: 10 }}
             label="Project Contributors"
             name="contr"
-            onChange={handleFieldChange}
+            onChange={handleContributorName}
             placeholder={values.contr}
             variant="outlined"
           />
@@ -320,12 +341,24 @@ const AddEditEvent = forwardRef((props, ref) => {
             className={classes.field}
             style={{ width: '12%' }}
             margin="normal"
-            onClick={handleAddChip(values.contr)}
+            onClick={handleAddChip}
             variant="contained"
           >
             + Add
           </Button>
-          {chips}
+          <Paper component="ul" className={classes.chipList}>
+          {chipData.map((data) => {
+            return (
+              <li key={data.key} >
+                <Chip
+                  label={data.label + ' - ' + data.role}
+                  onDelete={data.role === 'Owner' ? undefined : handleChipDelete(data)}
+                  className={classes.chip}
+                />
+              </li>
+            );
+          })}
+          </Paper>
         </CardContent>
         <Divider />
         <CardActions>
@@ -338,7 +371,7 @@ const AddEditEvent = forwardRef((props, ref) => {
           </Button>
           <Button
             className={classes.confirmButton}
-            onClick={handleAdd}
+            onClick={handleCreateProject}
             variant="contained"
           >
             Create
@@ -349,7 +382,7 @@ const AddEditEvent = forwardRef((props, ref) => {
   );
 });
 
-AddEditEvent.propTypes = {
+CreateProject.propTypes = {
   className: PropTypes.string,
   event: PropTypes.object,
   onAdd: PropTypes.func,
@@ -358,4 +391,4 @@ AddEditEvent.propTypes = {
   onEdit: PropTypes.func
 };
 
-export default AddEditEvent;
+export default CreateProject;

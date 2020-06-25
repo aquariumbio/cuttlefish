@@ -1,7 +1,7 @@
 export default [
   {
     title: 'CircuitSeq',
-    owner: 'Justin',
+    owner: ['Justin'],
     members: ["A", "B", "C", "D", "E"],
     start_date: '3/18/20',
     end_date: '9/01/20',
@@ -10,7 +10,7 @@ export default [
   },
   {
     title: 'COVID-19',
-    owner: 'Sam',
+    owner: ['Sam'],
     members: ["A", "B", "C", "D", "E", "F", "G"],
     start_date: '3/3/20',
     end_date: '10/01/20',
@@ -19,11 +19,11 @@ export default [
   },
   {
     title: 'AQ Project Dashboard',
-    owner: 'Thomas, Phuong, Melody',
+    owner: ['Thomas', 'Phuong', 'Melody'],
     members: ["Thomas", "Phuong", "Melody"],
     start_date: '3/20/20',
     end_date: '8/20/20',
-    type: 'Web App',
+    type: 'Basic',
     status: 'pending'
   }
 ];
