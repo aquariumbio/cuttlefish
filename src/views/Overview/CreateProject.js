@@ -21,7 +21,13 @@ import CloseIcon from '@material-ui/icons/Close';
 import mockProjects from '../ProjectManagementList/projects_data'
 
 const useStyles = makeStyles((theme) => ({
-
+  root: {
+    width:'100%',
+  },
+  title: {
+    marginTop: theme.spacing(1),
+    paddingBottom: 0
+  },
   field: {
     marginTop: theme.spacing(3)
   },
@@ -33,10 +39,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#065683',
     '&:hover': {
       backgroundColor: '#065683'
-    }
+    },
+    margin: theme.spacing(3)
   },
   closeIcon: {
-    marginLeft: theme.spacing(35)
+    paddingTop: 0,
+    marginLeft: theme.spacing(30)
   }, 
   chipList: {
     display: 'flex',
@@ -188,9 +196,12 @@ const CreateProject = forwardRef((props, ref) => {
     <Dialog
         open={show}
         onClose={handleClose}
+        className={classes.root}
     >
       <form>
-        <DialogTitle>
+        <DialogTitle
+          className={classes.title}
+        >
           <Grid
             container
             spacing={20}
