@@ -1,14 +1,13 @@
 /* eslint-disable react/display-name */
 import React, { useState, forwardRef } from 'react';
-import clsx from 'clsx';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/styles';
 import {
-  Card,
-  CardContent,
-  CardActions,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
   Typography,
   TextField,
   Button,
@@ -22,18 +21,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import mockProjects from '../ProjectManagementList/projects_data'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    outline: 'none',
-    boxShadow: theme.shadows[20],
-    width: 700,
-    maxHeight: '100%',
-    overflowY: 'auto',
-    maxWidth: '100%'
-  },
+
   field: {
     marginTop: theme.spacing(3)
   },
@@ -197,13 +185,12 @@ const CreateProject = forwardRef((props, ref) => {
   }
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-      ref={ref}
+    <Dialog
+        open={show}
+        onClose={handleClose}
     >
       <form>
-        <CardContent>
+        <DialogTitle>
           <Grid
             container
             spacing={20}
@@ -231,6 +218,8 @@ const CreateProject = forwardRef((props, ref) => {
               </IconButton>
             </Grid>
           </Grid>
+        </DialogTitle>
+        <DialogContent>
           <TextField
             className={classes.field}
             fullWidth
@@ -301,12 +290,12 @@ const CreateProject = forwardRef((props, ref) => {
           />
           <TextField
             className={classes.field}
-            label="Project Duration (days)"
+            label="Project Duration"
             name="dur"
             style={{ width: '25%', float: 'right' }}
             margin="normal"
             onChange={handleFieldChange}
-            defaultValue={moment(end).diff(moment(start), 'days')}
+            defaultValue={moment(end).diff(moment(start), 'days') + ' day(s)'}
             multiline
             variant="filled"
           />
@@ -359,9 +348,8 @@ const CreateProject = forwardRef((props, ref) => {
             );
           })}
           </Paper>
-        </CardContent>
-        <Divider />
-        <CardActions>
+        </DialogContent>
+        <DialogActions>
           <Button
             className={classes.cancelButton}
             onClick={handleClose}
@@ -376,19 +364,11 @@ const CreateProject = forwardRef((props, ref) => {
           >
             Create
           </Button>
-        </CardActions>
+        </DialogActions>
       </form>
-    </Card>
+    </Dialog>
   );
 });
 
-CreateProject.propTypes = {
-  className: PropTypes.string,
-  event: PropTypes.object,
-  onAdd: PropTypes.func,
-  onCancel: PropTypes.func,
-  onDelete: PropTypes.func,
-  onEdit: PropTypes.func
-};
 
 export default CreateProject;
