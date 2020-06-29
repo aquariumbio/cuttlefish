@@ -45,7 +45,7 @@ const CustomLinearProgress = withStyles(theme => ({
 
 function ProteinDesignProject() {
   const classes = useStyles();
-  const [currentTab, setCurrentTab] = useState(1);
+  const [currentTab, setCurrentTab] = useState(0);
   const [events, setEvents] = useState([]);
   const [eventModal, setEventModal] = useState({
     open: false,
