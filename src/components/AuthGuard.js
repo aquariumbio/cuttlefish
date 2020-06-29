@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 // Example of user roles: ['GUEST', 'USER', 'ADMIN'];
 
 function AuthGuard({ roles, children }) {
-  const session = useSelector((state) => state.session);
+  const session = useSelector(state => state.session);
   const history = useHistory();
 
   useEffect(() => {
@@ -15,9 +15,9 @@ function AuthGuard({ roles, children }) {
       return;
     }
 
-    if (!roles.includes(session.user.role)) {
-      history.push('/errors/error-401');
-    }
+    // if (!roles.includes(session.user.role)) {
+    //   history.push('/errors/error-401');
+    // }
   }, [history, roles, session.loggedIn, session.user]);
 
   return <>{children}</>;

@@ -19,6 +19,7 @@ import './mixins/moment';
 import './mixins/validate';
 import './mixins/prismjs';
 import './assets/scss/main.scss';
+import AuthGuard from './components/AuthGuard';
 
 const history = createBrowserHistory();
 const store = configureStore();
@@ -33,7 +34,7 @@ function App() {
               <ScrollReset />
               <GoogleAnalytics />
               <CookiesNotification />
-              {renderRoutes(routes)}
+              <AuthGuard>{renderRoutes(routes)}</AuthGuard>
             </Router>
           </MuiPickersUtilsProvider>
         </StylesProvider>
