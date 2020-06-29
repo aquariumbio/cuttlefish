@@ -7,10 +7,10 @@ const initialState = {
     last_name: 'Last',
     username: '',
     password: '',
-    email: 'email@mail.com',
+    email: '',
     avatar: '',
     bio: 'Position',
-    role: 'ADMIN' // ['GUEST', 'USER', 'ADMIN']
+    role: '' // ['GUEST', 'USER', 'ADMIN']
   },
   currentProject: {
     type: 'Protein Design'
@@ -26,8 +26,9 @@ const sessionReducer = (state = initialState, action) => {
         loggedIn: true,
         user: {
           ...state.user,
-          username: action.payload,
-          password: action.payload
+          username: action.payload.username,
+          password: action.payload.password,
+          role: 'USER'
         }
       };
     }

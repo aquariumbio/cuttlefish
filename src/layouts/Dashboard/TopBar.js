@@ -30,7 +30,7 @@ import axios from 'src/utils/axios';
 import { logout } from 'src/actions';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import NotificationsPopover from 'src/components/NotificationsPopover';
-import img from "src/images/logo.png"
+import img from 'src/images/logo.png';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -112,7 +112,7 @@ function TopBar({ onOpenNavBarMobile, className, ...rest }) {
 
   const handleLogout = () => {
     history.push('/auth/login');
-    // dispatch(logout());
+    dispatch(logout());
   };
 
   const handleSearchChange = event => {
@@ -169,8 +169,10 @@ function TopBar({ onOpenNavBarMobile, className, ...rest }) {
             <MenuIcon />
           </IconButton>
         </Hidden>
-        
-        <RouterLink to="/"><img alt="Logo" src={img} height="50"/></RouterLink>
+
+        <RouterLink to="/">
+          <img alt="Logo" src={img} height="50" />
+        </RouterLink>
         <div className={classes.flexGrow} />
 
         <Hidden smDown>

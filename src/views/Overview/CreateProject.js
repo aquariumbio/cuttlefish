@@ -1,5 +1,6 @@
 /* eslint-disable react/display-name */
-import React, { useState, forwardRef } from 'react';
+import React, { useState, forwardRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import moment from 'moment';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/styles';
@@ -16,13 +17,17 @@ import {
   Grid,
   IconButton
 } from '@material-ui/core';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
-import mockProjects from '../ProjectManagementList/projects_data'
+import mockProjects from '../ProjectManagementList/projects_data';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    width:'100%',
+    width: '100%'
   },
   title: {
     marginTop: theme.spacing(1),
@@ -45,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   closeIcon: {
     paddingTop: 0,
     marginLeft: theme.spacing(30)
-  }, 
+  },
   chipList: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -53,6 +58,10 @@ const useStyles = makeStyles((theme) => ({
   },
   chip: {
     backgroundColor: '#bfbfbf'
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: '100%'
   }
 }));
 
@@ -66,7 +75,7 @@ const defaultEvent = {
   title: 'Enter your project name',
   type: 'Enter your project type',
   desc: 'Enter your project description',
-  direc: 'Enter your project directory',
+  direc: 'Choose your Aquarium project',
   start: moment().toDate(),
   end: moment().toDate(),
   dur: 'Project Duration',
@@ -87,144 +96,159 @@ const CreateProject = forwardRef((props, ref) => {
     ...rest
   } = props;
   const classes = useStyles();
+  const session = useSelector(state => state.session);
   const [values, setValues] = useState(event || { ...defaultEvent });
   const projectTypes = [
     {
       value: 'Basic',
-      label: 'Basic',
+      label: 'Basic'
     },
     {
       value: 'Protein Design',
-      label: 'Protein Design',
+      label: 'Protein Design'
     },
     {
       value: 'Strain Construction',
-      label: 'Strain Construction',
+      label: 'Strain Construction'
     }
   ];
-  const [type, setType] = React.useState('Basic');
-  const [role, setRole] = React.useState('Owner');
+  const [type, setType] = useState('Basic');
+  const [role, setRole] = useState('Owner');
   const roleTypes = [
     {
       value: 'Owner',
-      label: 'Owner',
+      label: 'Owner'
     },
     {
       value: 'Manager',
-      label: 'Manager',
+      label: 'Manager'
     },
     {
       value: 'Contributor',
-      label: 'Contributor',
+      label: 'Contributor'
     }
   ];
 
-  const [contributor, setContributor] = useState("")
+  const [folder, setFolder] = useState();
+
+  const [contributor, setContributor] = useState('');
 
   const [chipData, setChipData] = useState([
-    { key: 0, label: 'Phuong Le', role: 'Owner'},
+    { key: 0, label: 'Phuong Le', role: 'Owner' }
   ]);
 
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState('');
 
   const [start, setStart] = useState(defaultEvent.start);
 
   const [end, setEnd] = useState(defaultEvent.end);
 
   const [newProjects, setNewProjects] = useState(mockProjects);
-  const handleFieldChange = (e) => {
+
+  const [aquariumFolders, setAquariumFolders] = useState([]);
+
+  const handleFieldChange = e => {
     e.persist();
-    setValues((prevValues) => ({
+    setValues(prevValues => ({
       ...prevValues,
       [e.target.name]:
         e.target.type === 'checkbox' ? e.target.checked : e.target.value
     }));
   };
 
-  const handleProjectTitle = (event) => {
+  const handleProjectTitle = event => {
     setTitle(event.target.value);
   };
 
   const handleCreateProject = () => {
-
-    newProjects.splice(0, 0, {title: title,
+    newProjects.splice(0, 0, {
+      title: title,
       owner: chipData.filter(x => x.role === 'Owner').map(x => x.label),
       members: chipData.map(x => x.label),
       start_date: moment(start).format('M/D/YY'),
       end_date: moment(end).format('M/D/YY'),
       type: type,
-      status: 'pending'});
-    
+      status: 'pending'
+    });
+
     setNewProjects(...newProjects, newProjects);
-    handleClose()
+    handleClose();
   };
 
-  const handleTypeChange = (event) => {
+  const handleTypeChange = event => {
     setType(event.target.value);
   };
 
-  const handleStartDate = (event) => {
+  const handleStartDate = event => {
     setStart(event.target.value);
   };
 
-  const handleEndDate = (event) => {
+  const handleEndDate = event => {
     setEnd(event.target.value);
   };
 
   const handleContributorName = ({ target }) => {
-    setContributor(target.value)
-  }
+    setContributor(target.value);
+  };
 
-  const handleRoleChange = (event) => {
+  const handleRoleChange = event => {
     setRole(event.target.value);
   };
 
-  const handleAddChip = () => {
-    setChipData(chips => [...chips, {key: chips.length + 1, label: contributor, role: role}]);
-   
+  const handleFolderChange = event => {
+    setFolder(event.target.value);
   };
 
-  const handleChipDelete = (chipToDelete) => () => {
-    setChipData((chips) => chips.filter((chip) => chip.key !== chipToDelete.key));
+  const handleAddChip = () => {
+    setChipData(chips => [
+      ...chips,
+      { key: chips.length + 1, label: contributor, role: role }
+    ]);
+  };
+
+  const handleChipDelete = chipToDelete => () => {
+    setChipData(chips => chips.filter(chip => chip.key !== chipToDelete.key));
   };
 
   const handleClose = () => {
-    setShow(false)
-  }
+    setShow(false);
+  };
+
+  const fetchAquariumPlanFolders = async () => {
+    const response = await fetch('http://localhost:4000/users/plans', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: session.user.username,
+        password: session.user.password
+      })
+    });
+    if (response.status === 200) {
+      const folders = await response.json();
+      setAquariumFolders(JSON.parse(folders.data));
+    }
+  };
+
+  useEffect(() => {
+    fetchAquariumPlanFolders();
+  }, []);
 
   return (
-    <Dialog
-        open={show}
-        onClose={handleClose}
-        className={classes.root}
-    >
+    <Dialog open={show} onClose={handleClose} className={classes.root}>
       <form>
-        <DialogTitle
-          className={classes.title}
-        >
-          <Grid
-            container
-            spacing={20}
-          >
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <CustomTypography
-                align="left"
-                gutterBottom
-                variant="h3"
-              >
+        <DialogTitle className={classes.title}>
+          <Grid container spacing={20}>
+            <Grid item md={6} xs={12}>
+              <CustomTypography align="left" gutterBottom variant="h3">
                 Create Project
               </CustomTypography>
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <IconButton className={classes.closeIcon} onClick={handleClose} aria-label="close">
+            <Grid item md={6} xs={12}>
+              <IconButton
+                className={classes.closeIcon}
+                onClick={handleClose}
+                aria-label="close"
+              >
                 <CloseIcon />
               </IconButton>
             </Grid>
@@ -245,14 +269,15 @@ const CreateProject = forwardRef((props, ref) => {
             fullWidth
             select
             SelectProps={{
-              native: true,
+              native: true
             }}
             label="Project Type"
             name="type"
             onChange={handleTypeChange}
             value={type}
-            variant="outlined">
-            {projectTypes.map((option) => (
+            variant="outlined"
+          >
+            {projectTypes.map(option => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
@@ -267,15 +292,24 @@ const CreateProject = forwardRef((props, ref) => {
             placeholder={values.desc}
             variant="outlined"
           />
-          <TextField
-            className={classes.field}
-            fullWidth
-            label="Project Directory"
-            name="direc"
-            onChange={handleFieldChange}
-            placeholder={values.direc}
-            variant="outlined"
-          />
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-controlled-open-select-label">
+              Aquarium Plan Folder
+            </InputLabel>
+            <Select
+              labelId="demo-controlled-open-select-label"
+              id="demo-controlled-open-select"
+              value={folder}
+              onChange={handleFolderChange}
+              placeholder={values.direc}
+            >
+              {aquariumFolders.map(folder =>
+                folder != null ? (
+                  <MenuItem value={folder}>{folder}</MenuItem>
+                ) : null
+              )}
+            </Select>
+          </FormControl>
           <TextField
             className={classes.field}
             defaultValue={moment(values.start).format('YYYY-MM-DDThh:mm:ss')}
@@ -324,14 +358,15 @@ const CreateProject = forwardRef((props, ref) => {
             style={{ width: '35%', marginRight: 10 }}
             select
             SelectProps={{
-              native: true,
+              native: true
             }}
             label="Role"
             name="role"
             onChange={handleRoleChange}
             placeholder={role}
-            variant="outlined">
-            {roleTypes.map((option) => (
+            variant="outlined"
+          >
+            {roleTypes.map(option => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
@@ -347,17 +382,19 @@ const CreateProject = forwardRef((props, ref) => {
             + Add
           </Button>
           <Paper component="ul" className={classes.chipList}>
-          {chipData.map((data) => {
-            return (
-              <li key={data.key} >
-                <Chip
-                  label={data.label + ' - ' + data.role}
-                  onDelete={data.role === 'Owner' ? undefined : handleChipDelete(data)}
-                  className={classes.chip}
-                />
-              </li>
-            );
-          })}
+            {chipData.map(data => {
+              return (
+                <li key={data.key}>
+                  <Chip
+                    label={data.label + ' - ' + data.role}
+                    onDelete={
+                      data.role === 'Owner' ? undefined : handleChipDelete(data)
+                    }
+                    className={classes.chip}
+                  />
+                </li>
+              );
+            })}
           </Paper>
         </DialogContent>
         <DialogActions>
@@ -380,6 +417,5 @@ const CreateProject = forwardRef((props, ref) => {
     </Dialog>
   );
 });
-
 
 export default CreateProject;

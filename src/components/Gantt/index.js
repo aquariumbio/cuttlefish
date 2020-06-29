@@ -34,22 +34,24 @@ export default function Gantt(props) {
   ] = useState(); /* Tracks which rows to hide in calendar */
 
   useEffect(() => {
-    async function getSamples() {
-      const libraries = [];
-      const currentOpenRows = [];
-      const response = await fetch('http://localhost:4000/testAPI/plans');
-      const data = await response.json();
-      for (const list of data) {
-        libraries.push(list);
-        currentOpenRows.push(list.id);
-      }
-      setOpenRows(currentOpenRows);
-      dispatch(setCurrentLibraries(libraries));
-      console.log(libraries);
-      setLibraries(libraries);
-    }
-    getSamples();
+    fetchSamplesFromPlans();
+    console.log('FETCHING');
   }, []);
+
+  const fetchSamplesFromPlans = async () => {
+    const libraries = [];
+    const currentOpenRows = [];
+    const response = await fetch('http://localhost:4000/testAPI/plans');
+    const data = await response.json();
+    for (const list of data) {
+      libraries.push(list);
+      currentOpenRows.push(list.id);
+    }
+    setOpenRows(currentOpenRows);
+    dispatch(setCurrentLibraries(libraries));
+    console.log(libraries);
+    setLibraries(libraries);
+  };
 
   return (
     <Page className={classes.root} title={'Gantt Chart'}>
