@@ -95,7 +95,6 @@ function ProteinDesignProject() {
       });
       if (response.status === 200) {
         const data = await response.json();
-        console.log(data);
         setGanttData(data);
       } else {
         setGanttData([]);
@@ -146,7 +145,7 @@ function ProteinDesignProject() {
           <Gantt data={ganttData} />
         </TabPanel>
         <TabPanel value={currentTab} index={2}>
-          <PlanTable />
+          <PlanTable data={ganttData} />
         </TabPanel>
         {getModal()}
       </Container>
