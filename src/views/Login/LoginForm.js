@@ -8,15 +8,16 @@ import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import { Button, TextField } from '@material-ui/core';
 import { login } from 'src/actions';
+import firebase from '../../firebase/firebase';
 
 const schema = {
-  // email: {
-  //   presence: { allowEmpty: false, message: 'is required' },
-  //   email: true
-  // },
-  username: {
-    presence: { allowEmpty: false, message: 'is required' }
+  email: {
+    presence: { allowEmpty: false, message: 'is required' },
+    email: true
   },
+  // username: {
+  //   presence: { allowEmpty: false, message: 'is required' }
+  // },
   password: {
     presence: { allowEmpty: false, message: 'is required' }
   }
@@ -74,24 +75,21 @@ function LoginForm({ className, ...rest }) {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    const response = await fetch('http://localhost:4000/users/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: formState.values.username,
-        password: formState.values.password
-      })
-    });
-    if (response.status === 200) {
+    try {
+      await firebase.login(formState.values.email, formState.values.password);
+      const username = firebase.getCurrentUsername();
+      // const firestoreUser = firebase.getCurrentFirestoreUser();
       dispatch(
         login({
-          username: formState.values.username,
+          firstName: 'THOMAS',
+          lastName: 'PENNER',
+          username: username,
           password: formState.values.password
         })
       );
       history.push('/');
-    } else {
-      alert('Invalid credentials');
+    } catch (err) {
+      alert(err.message);
     }
   };
 
@@ -115,7 +113,7 @@ function LoginForm({ className, ...rest }) {
       onSubmit={handleSubmit}
     >
       <div className={classes.fields}>
-        {/* <TextField
+        <TextField
           error={hasError('email')}
           fullWidth
           helperText={hasError('email') ? formState.errors.email[0] : null}
@@ -124,8 +122,8 @@ function LoginForm({ className, ...rest }) {
           onChange={handleChange}
           value={formState.values.email || ''}
           variant="outlined"
-        /> */}
-        <TextField
+        />
+        {/* <TextField
           error={hasError('username')}
           fullWidth
           helperText={
@@ -136,7 +134,7 @@ function LoginForm({ className, ...rest }) {
           onChange={handleChange}
           value={formState.values.username || ''}
           variant="outlined"
-        />
+        /> */}
         <TextField
           error={hasError('password')}
           fullWidth

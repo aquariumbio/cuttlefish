@@ -13,6 +13,9 @@ import {
   Typography,
   Link
 } from '@material-ui/core';
+import { login } from 'src/actions';
+import { useDispatch } from 'react-redux';
+import firebase from '../../firebase/firebase';
 
 const schema = {
   firstName: {
@@ -34,19 +37,25 @@ const schema = {
       maximum: 64
     }
   },
+  username: {
+    presence: { allowEmpty: false, message: 'is required' },
+    length: {
+      maximum: 32
+    }
+  },
   password: {
     presence: { allowEmpty: false, message: 'is required' },
     length: {
       maximum: 128
     }
-  },
-  policy: {
-    presence: { allowEmpty: false, message: 'is required' },
-    checked: true
   }
+  // policy: {
+  //   presence: { allowEmpty: false, message: 'is required' },
+  //   checked: true
+  // }
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {},
   fields: {
     margin: theme.spacing(-1),
@@ -76,6 +85,7 @@ const useStyles = makeStyles((theme) => ({
 function RegisterForm({ className, ...rest }) {
   const classes = useStyles();
   const history = useHistory();
+  const dispatch = useDispatch();
   const [formState, setFormState] = useState({
     isValid: false,
     values: {},
@@ -83,10 +93,10 @@ function RegisterForm({ className, ...rest }) {
     errors: {}
   });
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     event.persist();
 
-    setFormState((prevFormState) => ({
+    setFormState(prevFormState => ({
       ...prevFormState,
       values: {
         ...prevFormState.values,
@@ -102,17 +112,53 @@ function RegisterForm({ className, ...rest }) {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    history.push('/');
+    const response = await fetch('http://localhost:4000/users/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: formState.values.username,
+        password: formState.values.password
+      })
+    });
+    if (response.status === 200) {
+      await firebase.register(
+        formState.values.username,
+        formState.values.email,
+        formState.values.password
+      );
+      firebase.db
+        .collection('users')
+        .doc(formState.values.username)
+        .set({
+          aqPassword: formState.values.password,
+          aqLogin: formState.values.username,
+          firstName: formState.values.firstName,
+          lastName: formState.values.lastName
+        })
+        .catch(function(error) {
+          console.error('Error writing document: ', error);
+        });
+      dispatch(
+        login({
+          username: formState.values.username,
+          password: formState.values.password
+        })
+      );
+      history.push('/');
+    } else {
+      alert('Invalid aquraium credentials');
+    }
   };
 
-  const hasError = (field) => !!(formState.touched[field] && formState.errors[field]);
+  const hasError = field =>
+    !!(formState.touched[field] && formState.errors[field]);
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
 
-    setFormState((prevFormState) => ({
+    setFormState(prevFormState => ({
       ...prevFormState,
       isValid: !errors,
       errors: errors || {}
@@ -159,19 +205,31 @@ function RegisterForm({ className, ...rest }) {
           variant="outlined"
         />
         <TextField
+          error={hasError('username')}
+          fullWidth
+          helperText={
+            hasError('username') ? formState.errors.username[0] : null
+          }
+          label="Aquarium login"
+          name="username"
+          onChange={handleChange}
+          value={formState.values.username || ''}
+          variant="outlined"
+        />
+        <TextField
           error={hasError('password')}
           fullWidth
           helperText={
             hasError('password') ? formState.errors.password[0] : null
           }
-          label="Password"
+          label="Aquarium password"
           name="password"
           onChange={handleChange}
           type="password"
           value={formState.values.password || ''}
           variant="outlined"
         />
-        <div>
+        {/* <div>
           <div className={classes.policy}>
             <Checkbox
               checked={formState.values.policy || false}
@@ -200,7 +258,7 @@ function RegisterForm({ className, ...rest }) {
           {hasError('policy') && (
             <FormHelperText error>{formState.errors.policy[0]}</FormHelperText>
           )}
-        </div>
+        </div> */}
       </div>
       <Button
         className={classes.submitButton}

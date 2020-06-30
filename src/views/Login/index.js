@@ -100,7 +100,7 @@ function Login() {
             underline="always"
             variant="subtitle2"
           >
-            {/* Don&apos;t have an account? */}
+            Don&apos;t have an account?
           </Link>
         </CardContent>
         <img className="media" alt="Logo" src={img} />

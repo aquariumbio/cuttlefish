@@ -28,6 +28,8 @@ const sessionReducer = (state = initialState, action) => {
           ...state.user,
           username: action.payload.username,
           password: action.payload.password,
+          firstName: action.payload.firstName,
+          lastName: action.payload.lastName,
           role: 'USER'
         }
       };

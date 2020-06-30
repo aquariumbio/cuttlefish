@@ -87,7 +87,7 @@ function ProteinDesignProject() {
       setGanttData(data);
     }
     getSamples();
-  }, [ganttData]);
+  }, []);
 
   // Conditional popup button action, rendered differently based on the respective action necessary for the project tab
   const getModal = () => {

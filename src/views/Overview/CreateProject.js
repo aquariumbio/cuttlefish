@@ -2,6 +2,7 @@
 import React, { useState, forwardRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
+import uuid from 'uuid';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -24,6 +25,7 @@ import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import mockProjects from '../ProjectManagementList/projects_data';
+import firebase from '../../firebase/firebase';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -113,6 +115,7 @@ const CreateProject = forwardRef((props, ref) => {
     }
   ];
   const [type, setType] = useState('Basic');
+  const [description, setDescription] = useState('');
   const [role, setRole] = useState('Owner');
   const roleTypes = [
     {
@@ -128,24 +131,17 @@ const CreateProject = forwardRef((props, ref) => {
       label: 'Contributor'
     }
   ];
-
   const [folder, setFolder] = useState();
-
   const [contributor, setContributor] = useState('');
-
   const [chipData, setChipData] = useState([
-    { key: 0, label: 'Phuong Le', role: 'Owner' }
+    { key: 0, label: session.firstName + ' ' + session.lastName, role: 'Owner' }
   ]);
-
   const [title, setTitle] = useState('');
-
   const [start, setStart] = useState(defaultEvent.start);
-
   const [end, setEnd] = useState(defaultEvent.end);
-
   const [newProjects, setNewProjects] = useState(mockProjects);
-
   const [aquariumFolders, setAquariumFolders] = useState([]);
+  const [projectID, setProjectID] = useState(uuid());
 
   const handleFieldChange = e => {
     e.persist();
@@ -160,17 +156,29 @@ const CreateProject = forwardRef((props, ref) => {
     setTitle(event.target.value);
   };
 
-  const handleCreateProject = () => {
-    newProjects.splice(0, 0, {
-      title: title,
-      owner: chipData.filter(x => x.role === 'Owner').map(x => x.label),
-      members: chipData.map(x => x.label),
-      start_date: moment(start).format('M/D/YY'),
-      end_date: moment(end).format('M/D/YY'),
-      type: type,
-      status: 'pending'
-    });
+  const handleDescription = event => {
+    setDescription(event.target.value);
+  };
 
+  const handleCreateProject = () => {
+    console.log(session);
+    firebase.db
+      .collection('projects')
+      .doc(projectID)
+      .set({
+        title: title,
+        owner: session.user.username,
+        description: description,
+        folder: folder,
+        members: chipData.map(x => x.label),
+        start_date: moment(start).format('M/D/YY'),
+        end_date: moment(end).format('M/D/YY'),
+        type: type,
+        status: 'pending'
+      })
+      .catch(function(error) {
+        console.error('Error creating project: ', error);
+      });
     setNewProjects(...newProjects, newProjects);
     handleClose();
   };
@@ -288,8 +296,9 @@ const CreateProject = forwardRef((props, ref) => {
             fullWidth
             label="Project Description"
             name="desc"
-            onChange={handleFieldChange}
+            onChange={handleDescription}
             placeholder={values.desc}
+            value={description}
             variant="outlined"
           />
           <FormControl className={classes.formControl}>

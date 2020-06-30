@@ -16,6 +16,4 @@ router.get('/plans', function(req, res, next) {
     .catch(console.log);
 });
 
-router.post;
-
 module.exports = router;
