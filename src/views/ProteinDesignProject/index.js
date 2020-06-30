@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import { Container, Tabs, Tab, Modal, Typography } from '@material-ui/core';
 import Page from 'src/components/Page';
@@ -45,6 +46,7 @@ const CustomLinearProgress = withStyles(theme => ({
 
 function ProteinDesignProject() {
   const classes = useStyles();
+  const session = useSelector(state => state.session);
   const [currentTab, setCurrentTab] = useState(0);
   const [events, setEvents] = useState([]);
   const [eventModal, setEventModal] = useState({
@@ -82,9 +84,22 @@ function ProteinDesignProject() {
 
   useEffect(() => {
     async function getSamples() {
-      const response = await fetch('http://localhost:4000/testAPI/plans');
-      const data = await response.json();
-      setGanttData(data);
+      const response = await fetch('http://localhost:4000/plans/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: session.user.username,
+          password: session.user.password,
+          folder: session.currentProject.folder
+        })
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log(data);
+        setGanttData(data);
+      } else {
+        setGanttData([]);
+      }
     }
     getSamples();
   }, []);
@@ -101,7 +116,7 @@ function ProteinDesignProject() {
   };
 
   return (
-    <Page className={classes.root} title="Strain Construction Project">
+    <Page className={classes.root} title="Protein Design Project">
       <Container maxWidth={false}>
         <Header currentTab={currentTab} onEventAdd={handleEventNew} />
         <div className={classes.progress}>
@@ -128,7 +143,7 @@ function ProteinDesignProject() {
           <KanbanBoard data={kanbanData} />
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
-          <Gantt data={mockGanttData} />
+          <Gantt data={ganttData} />
         </TabPanel>
         <TabPanel value={currentTab} index={2}>
           <PlanTable />

@@ -31,6 +31,7 @@ import { logout } from 'src/actions';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import NotificationsPopover from 'src/components/NotificationsPopover';
 import img from 'src/images/logo.png';
+import firebase from '../../firebase/firebase';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -113,6 +114,7 @@ function TopBar({ onOpenNavBarMobile, className, ...rest }) {
   const handleLogout = () => {
     history.push('/auth/login');
     dispatch(logout());
+    firebase.logout();
   };
 
   const handleSearchChange = event => {

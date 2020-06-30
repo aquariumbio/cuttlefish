@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -13,11 +13,12 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ProjectCard from '../../components/ProjectCard/index';
-import mockProjects from '../ProjectManagementList/projects_data'
+import mockProjects from '../ProjectManagementList/projects_data';
+import firebase from '../../firebase/firebase';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: "#FAFAFA"
+    backgroundColor: '#FAFAFA'
   },
   content: {
     padding: theme.spacing(1)
@@ -33,6 +34,28 @@ function OngoingProjects({ customer, className, ...rest }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    getProjects();
+  }, []);
+
+  const getProjects = async () => {
+    var projects = [];
+    await firebase.db
+      .collection('projects')
+      .where('status', '==', 'pending')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(project => {
+          projects.push(project.data());
+        });
+      })
+      .then(() => {
+        const cards = projects.map(proj => <ProjectCard project={proj} />);
+        setProjects(cards);
+      });
+  };
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -44,16 +67,8 @@ function OngoingProjects({ customer, className, ...rest }) {
 
   const handleFilter = (event, index) => {
     setAnchorEl(null);
-    setSelectedIndex(index)
+    setSelectedIndex(index);
   };
-
-  if (selectedIndex === 0) {
-    filterData = mockProjects
-  } else {
-    filterData = mockProjects.filter((proj) => proj.type === options[selectedIndex])
-  }
-
-  const projects = filterData.map(proj => <ProjectCard project={proj} />);
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
@@ -75,7 +90,7 @@ function OngoingProjects({ customer, className, ...rest }) {
               <MenuItem
                 key={option}
                 selected={index === selectedIndex}
-                onClick={(event) => handleFilter(event, index)}
+                onClick={event => handleFilter(event, index)}
               >
                 {option}
               </MenuItem>
@@ -84,9 +99,7 @@ function OngoingProjects({ customer, className, ...rest }) {
         </Grid>
       </Grid>
       <Divider />
-      <CardContent className={classes.content}>
-        {projects}
-      </CardContent>
+      <CardContent className={classes.content}>{projects}</CardContent>
     </Card>
   );
 }
