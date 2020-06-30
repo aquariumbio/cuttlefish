@@ -24,6 +24,7 @@
     "chart.js": "^2.9.2",
     "clsx": "^1.0.4",
     "draft-js": "^0.11.2",
+    "firebase": "^7.15.5",
     "history": "^4.10.1",
     "immutable": "^4.0.0-rc.12",
     "js-cookie": "^2.2.1",
@@ -53,7 +54,7 @@
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "uuid": "^3.3.3",
+    "uuid": "^3.4.0",
     "validate.js": "^0.12.0"
   },
   "devDependencies": {

@@ -98,7 +98,7 @@ export default function LibraryTab(props) {
         <Grid item className={classes.left}>
           {dropButton}
           <Typography variant="h6" noWrap>
-            {props.library.title}
+            {props.library.name}
           </Typography>
         </Grid>
         <Grid item>

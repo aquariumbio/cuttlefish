@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     marginTop: theme.spacing(1),
     marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),    
+    marginRight: theme.spacing(1),
     marginBottom: theme.spacing(2)
   },
   content: {
@@ -88,10 +88,9 @@ function ProjectCard({ project, className, ...rest }) {
             <Typography className={classes.header} variant="h4" noWrap>
               {project.title}
             </Typography>
-            <Typography
-              variant="body2"
-              noWrap
-            >{`Owned by: ${project.owner.join(', ')}`}</Typography>
+            <Typography variant="body2" noWrap>
+              {`Owned by: ${project.owner}`}
+            </Typography>
           </Grid>
           <Grid item xs className={classes.cardLabel}>
             <Typography variant="body2" noWrap>

@@ -5,9 +5,10 @@ export const SET_LIBRARIES = 'SET_LIBRARIES';
 export const PROTEIN = 'PROTEIN';
 export const STRAIN = 'STRAIN';
 
-export const login = () => dispatch =>
+export const login = user => dispatch =>
   dispatch({
-    type: SESSION_LOGIN
+    type: SESSION_LOGIN,
+    payload: user
   });
 
 export const logout = () => dispatch =>

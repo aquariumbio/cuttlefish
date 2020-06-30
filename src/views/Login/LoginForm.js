@@ -8,18 +8,22 @@ import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import { Button, TextField } from '@material-ui/core';
 import { login } from 'src/actions';
+import firebase from '../../firebase/firebase';
 
 const schema = {
   email: {
     presence: { allowEmpty: false, message: 'is required' },
     email: true
   },
+  // username: {
+  //   presence: { allowEmpty: false, message: 'is required' }
+  // },
   password: {
     presence: { allowEmpty: false, message: 'is required' }
   }
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {},
   fields: {
     margin: theme.spacing(-1),
@@ -50,10 +54,10 @@ function LoginForm({ className, ...rest }) {
     errors: {}
   });
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     event.persist();
 
-    setFormState((prevFormState) => ({
+    setFormState(prevFormState => ({
       ...prevFormState,
       values: {
         ...prevFormState.values,
@@ -69,18 +73,33 @@ function LoginForm({ className, ...rest }) {
     }));
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    // dispatch(login());
-    history.push('/');
+    try {
+      await firebase.login(formState.values.email, formState.values.password);
+      const username = firebase.getCurrentUsername();
+      // const firestoreUser = firebase.getCurrentFirestoreUser();
+      dispatch(
+        login({
+          firstName: 'THOMAS',
+          lastName: 'PENNER',
+          username: username,
+          password: formState.values.password
+        })
+      );
+      history.push('/');
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
-  const hasError = (field) => (!!(formState.touched[field] && formState.errors[field]));
+  const hasError = field =>
+    !!(formState.touched[field] && formState.errors[field]);
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
 
-    setFormState((prevFormState) => ({
+    setFormState(prevFormState => ({
       ...prevFormState,
       isValid: !errors,
       errors: errors || {}
@@ -104,6 +123,18 @@ function LoginForm({ className, ...rest }) {
           value={formState.values.email || ''}
           variant="outlined"
         />
+        {/* <TextField
+          error={hasError('username')}
+          fullWidth
+          helperText={
+            hasError('username') ? formState.errors.username[0] : null
+          }
+          label="Username"
+          name="username"
+          onChange={handleChange}
+          value={formState.values.username || ''}
+          variant="outlined"
+        /> */}
         <TextField
           error={hasError('password')}
           fullWidth

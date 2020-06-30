@@ -12,9 +12,9 @@ import LockIcon from '@material-ui/icons/Lock';
 import Page from 'src/components/Page';
 import gradients from 'src/utils/gradients';
 import LoginForm from './LoginForm';
-import img from "src/images/biofab.webp"
+import img from 'src/images/biofab.webp';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     height: '100%',
     display: 'flex',
@@ -80,21 +80,15 @@ function Login() {
   const classes = useStyles();
 
   return (
-    <Page
-      className={classes.root}
-      title="Sign In"
-    >
+    <Page className={classes.root} title="Sign In">
       <Card className={classes.card}>
         <CardContent className={classes.content}>
           <LockIcon className={classes.icon} />
-          <Typography
-            gutterBottom
-            variant="h3"
-          >
+          <Typography gutterBottom variant="h3">
             Sign in
           </Typography>
           <Typography variant="subtitle2">
-            Sign in on CuttleFish Project Dashboard
+            Use your Aquarium credentials to sign in to Cuttlefish
           </Typography>
           <LoginForm className={classes.loginForm} />
           <Divider className={classes.divider} />

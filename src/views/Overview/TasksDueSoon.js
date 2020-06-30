@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -9,25 +9,44 @@ import {
   Grid
 } from '@material-ui/core';
 import TaskCard from '../../components/TaskCard/index';
+import firebase from '../../firebase/firebase';
 import mockData from '../StrainConstructionProject/mockKanbanData';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: "#FAFAFA"
+    backgroundColor: '#FAFAFA'
   },
   content: {
     padding: theme.spacing(1)
   }
 }));
 
-let filterData
-
 function TasksDueSoon({ customer, className, ...rest }) {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [projects, setProjects] = useState([]);
 
-  filterData = mockData.tasks.filter((task) => task.status === "In Progress");
-  const tasks = filterData.map(task => <TaskCard task={task} />);
+  useEffect(() => {
+    getProjects();
+  }, []);
+
+  const getProjects = async () => {
+    var projects = [];
+    await firebase.db
+      .collection('projects')
+      .where('status', '==', 'In Progress')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(project => {
+          console.log(project.data());
+          projects.push(project.data());
+        });
+      })
+      .then(() => {
+        const cards = projects.map(task => <TaskCard task={task} />);
+        setProjects(cards);
+      });
+  };
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
@@ -55,9 +74,7 @@ function TasksDueSoon({ customer, className, ...rest }) {
         </Grid> */}
       </Grid>
       <Divider />
-      <CardContent className={classes.content}>
-        {tasks}
-      </CardContent>
+      <CardContent className={classes.content}>{projects}</CardContent>
     </Card>
   );
 }
