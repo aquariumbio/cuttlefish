@@ -10,7 +10,7 @@ router.post('/folders', function(req, res, next) {
     .then(user => {
       return user[0].id;
     })
-    .then(uid => AQ.get('/plans/folders?user_id=' + uid))
+    .then(uid => AQ.get('/plans/folders?user_id=' + 209))
     .then(data => res.status(200).send(data))
     .catch(err => res.status(400).send(err));
 });

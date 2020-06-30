@@ -74,9 +74,8 @@ class Firebase {
     return false;
   }
 
-  getCurrentFirestoreUser() {
-    let displayName = this.auth.currentUser.displayName;
-    let docRef = this.db.collection('users').document(displayName);
+  getFirestoreUserAtLogin(email) {
+    let docRef = this.db.collection('users').doc(email);
     docRef.get().then(doc => {
       if (doc.exists) {
         return doc.data();

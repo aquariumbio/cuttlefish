@@ -77,12 +77,12 @@ function LoginForm({ className, ...rest }) {
     event.preventDefault();
     try {
       await firebase.login(formState.values.email, formState.values.password);
-      const username = firebase.getCurrentUsername();
-      // const firestoreUser = firebase.getCurrentFirestoreUser();
+      const username = await firebase.getCurrentUsername();
+      // const firestoreUser = await firebase.getFirestoreUserAtLogin(
+      //   formState.values.email
+      // );
       dispatch(
         login({
-          firstName: 'THOMAS',
-          lastName: 'PENNER',
           username: username,
           password: formState.values.password
         })

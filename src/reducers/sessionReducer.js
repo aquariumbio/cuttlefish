@@ -21,6 +21,18 @@ const initialState = {
 const sessionReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SESSION_LOGIN: {
+      localStorage.setItem('user', {
+        ...state,
+        loggedIn: true,
+        user: {
+          ...state.user,
+          username: action.payload.username,
+          password: action.payload.password,
+          firstName: action.payload.firstName,
+          lastName: action.payload.lastName,
+          role: 'USER'
+        }
+      });
       return {
         ...state,
         loggedIn: true,
@@ -36,6 +48,7 @@ const sessionReducer = (state = initialState, action) => {
     }
 
     case actionTypes.SESSION_LOGOUT: {
+      localStorage.removeItem('user');
       return {
         ...state,
         loggedIn: false,
