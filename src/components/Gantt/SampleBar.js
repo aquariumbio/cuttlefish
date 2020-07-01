@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 import LibraryTab from './LibraryTab';
 import LibraryTask from './LibraryTask';
@@ -32,6 +33,12 @@ const useStyles = makeStyles(theme => ({
     textOverflow: 'ellipsis'
   }
 }));
+
+const CustomTypography = withStyles(theme => ({
+  h5: {
+      color: '#FFFFFF',
+  }
+}))(Typography);
 
 // Dropdown menu that lists samples, paired with Calendar to form a Gantt chart
 export default function SampleBar(props) {
@@ -75,12 +82,12 @@ export default function SampleBar(props) {
   return (
     <div className={classes.taskList}>
       <Grid item className={classes.topBar}>
-        <Typography variant="h4" noWrap>
+        <CustomTypography variant="h5" noWrap>
           Library
-        </Typography>
-        <Typography variant="h4" noWrap>
+        </CustomTypography>
+        <CustomTypography variant="h5" noWrap>
           Owner
-        </Typography>
+        </CustomTypography>
       </Grid>
       <div className={classes.libraries}>{libraryTabs}</div>
       {/* <div className={classes.libraries}>{libraryTabs}</div> */}
