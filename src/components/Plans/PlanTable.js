@@ -87,7 +87,7 @@ const StyledTableCell = withStyles(theme => ({
 export default function PlanTable(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(6);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -166,7 +166,7 @@ export default function PlanTable(props) {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
+          rowsPerPageOptions={[6, 36]}
           component="div"
           count={props.data.length}
           rowsPerPage={rowsPerPage}
