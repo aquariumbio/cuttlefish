@@ -35,17 +35,17 @@ const columns = [
   },
   {
     id: 'created_at',
-    label: 'Creation Date',
+    label: 'Created Date',
     minWidth: 70,
     align: 'left',
     format: value => value.moment().format('MMMM Do YYYY, h:mm:ss a')
   },
   {
-    id: 'status',
-    label: 'Status',
+    id: 'updated_at',
+    label: 'Updated Date',
     minWidth: 70,
     align: 'left',
-    format: value => value.toLocaleString('en-US')
+    format: value => value.moment().format('MMMM Do YYYY, h:mm:ss a')
   }
 ];
 
