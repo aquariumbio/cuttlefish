@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import moment from 'moment';
 import Page from 'src/components/Page';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -37,7 +38,7 @@ const columns = [
     label: 'Creation Date',
     minWidth: 70,
     align: 'left',
-    format: value => value.toDateString()
+    format: value => value.moment().format('MMMM Do YYYY, h:mm:ss a')
   },
   {
     id: 'status',
