@@ -21,7 +21,7 @@ const columns = [
   },
   {
     id: 'id',
-    label: 'id',
+    label: 'ID',
     minWidth: 50,
     align: 'left',
     format: value => value.toFixed(0)
@@ -41,7 +41,7 @@ const columns = [
   },
   {
     id: 'status',
-    label: 'status',
+    label: 'Status',
     minWidth: 70,
     align: 'left',
     format: value => value.toLocaleString('en-US')
