@@ -64,8 +64,8 @@ export default {
             list: 1,
             status: "Not Started",
             statusColor: "#909090",
-            title: "Debug Server",
-            members: "Phuong, Thomas",
+            title: "Redo COVID_RBD_bcov_2 AT qPCRs",
+            members: "Sam, Justin",
             deadline: "05/01/2020"
         },
         {
@@ -73,8 +73,8 @@ export default {
             list: 1,
             status: "Not Started",
             statusColor: "#909090",
-            title: "Add Authentication Feature",
-            members: "Phuong, Thomas",
+            title: "Review Assembly qPCR amp ACE2",
+            members: "Justin",
             deadline: '05/21/2020'
         },
         {
@@ -82,8 +82,8 @@ export default {
             list: 1,
             status: "Not Started",
             statusColor: "#909090",
-            title: "Connect to Backend Server",
-            members: "Phuong, Thomas",
+            title: "Edit Assembly qPCR amp ACE2 library",
+            members: "Sam, Justin",
             deadline: '07/01/2020'
         },
         {
@@ -91,8 +91,8 @@ export default {
             list: 1,
             status: "Not Started",
             statusColor: "#909090",
-            title: "User Testings for React web app",
-            members: "Phuong, Thomas",
+            title: "Review 3CL #4 NGS prep",
+            members: "Sam, Cami",
             deadline: '07/12/2020'
         },
         {
@@ -100,8 +100,8 @@ export default {
             list: 2,
             status: "In Progress",
             statusColor: "#E6B265",
-            title: "Team Meeting",
-            members: "Phuong, Thomas, Melody",
+            title: "Review plan April EBY100 plate",
+            members: "Sam, Aza",
             deadline: '04/25/2020'
         },
         {
@@ -109,8 +109,8 @@ export default {
             list: 2,
             status: "In Progress",
             statusColor: "#E6B265",
-            title: "User Testings",
-            members: "Phuong, Thomas, Melody",
+            title: "Edit 34481: COVID19_TWIST1",
+            members: "Justin, Cami",
             deadline: '04/30/2020'
         },
         {
@@ -118,8 +118,8 @@ export default {
             list: 2,
             status: "In Progress",
             statusColor: "#E6B265",
-            title: "Building React web app",
-            members: "Phuong, Thomas",
+            title: "Rebuild 3CL oligo pools rehydrate",
+            members: "Justin, Aza",
             deadline: '05/01/2020'
         },
         {
@@ -127,8 +127,8 @@ export default {
             list: 3,
             status: "Completed",
             statusColor: "#4CAF50",
-            title: "Integrate React Router",
-            members: "Phuong, Thomas",
+            title: "Review items in Covid_19_RBD#1",
+            members: "Sam, Cami, Aza",
             deadline: '04/04/2020'
         },
         {
@@ -136,8 +136,8 @@ export default {
             list: 3,
             status: "Completed",
             statusColor: "#4CAF50",
-            title: "User Research - Interviews",
-            members: "Phuong, Thomas, Melody",
+            title: "Edit items in IL1R NGS prep",
+            members: "Justin",
             deadline: '04/04/2020'
         }
     ]
