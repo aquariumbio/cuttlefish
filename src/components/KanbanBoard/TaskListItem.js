@@ -64,7 +64,7 @@ function TaskListItem({
       />
       <CardContent className={classes.content}>
         <Typography className={classes.member} variant="body1">
-          <strong>Engineers: </strong>
+          <strong>Members: </strong>
           {task.members}
         </Typography>
         <div className={classes.stats}>
