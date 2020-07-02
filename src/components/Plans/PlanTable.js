@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import moment from 'moment';
 import Page from 'src/components/Page';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -21,7 +22,7 @@ const columns = [
   },
   {
     id: 'id',
-    label: 'id',
+    label: 'ID',
     minWidth: 50,
     align: 'left',
     format: value => value.toFixed(0)
@@ -34,17 +35,17 @@ const columns = [
   },
   {
     id: 'created_at',
-    label: 'Creation Date',
+    label: 'Created Date',
     minWidth: 70,
     align: 'left',
-    format: value => value.toDateString()
+    format: value => moment(value).format('D MMM YYYY')
   },
   {
-    id: 'status',
-    label: 'status',
+    id: 'updated_at',
+    label: 'Updated Date',
     minWidth: 70,
     align: 'left',
-    format: value => value.toLocaleString('en-US')
+    format: value => moment(value).format('D MMM YYYY')
   }
 ];
 
@@ -86,7 +87,7 @@ const StyledTableCell = withStyles(theme => ({
 export default function PlanTable(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(6);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -116,7 +117,7 @@ export default function PlanTable(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {props.data
+              {JSON.parse(props.data)
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(row => {
                   return (
@@ -148,6 +149,12 @@ export default function PlanTable(props) {
                               </TableCell>
                             );
                           }
+                        } else if (column.id === 'created_at' || column.id === 'updated_at' ) {
+                          return (
+                            <TableCell key={column.id} align={column.align}>
+                              {moment(value).format('D MMM YYYY')}
+                            </TableCell>
+                          );
                         } else {
                           return (
                             <TableCell key={column.id} align={column.align}>
@@ -165,9 +172,9 @@ export default function PlanTable(props) {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
+          rowsPerPageOptions={[6, 36]}
           component="div"
-          count={props.data.length}
+          count={JSON.parse(props.data).length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}

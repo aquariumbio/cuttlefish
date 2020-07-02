@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
+import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,21 +27,21 @@ export default function CalendarRow(props) {
   const [hidden, setHidden] = useState();
   const getStyle = () => {
     if (props.taskID == null) {
-      return props.openRows.includes(props.libraryID)
+      return props.openRows.includes(props.operationID)
         ? classes.root
         : `${classes.hidden} ${classes.root}`;
     } else {
-      return props.openRows.includes(props.libraryID) &&
+      return props.openRows.includes(props.operationID) &&
         props.openRows.includes(props.taskID)
         ? classes.root
         : `${classes.hidden} ${classes.root}`;
     }
   };
 
-  const getStatusColor = (completed, started) => {
-    if (completed) {
+  const getStatusColor = status => {
+    if (status === 'done') {
       return '#4CAF50'; // Green
-    } else if (started) {
+    } else if (status === 'pending') {
       return '#FFC164'; // Yellow
     } else {
       return '#C9C9C9'; // Grey
@@ -48,16 +49,20 @@ export default function CalendarRow(props) {
   };
 
   useEffect(() => {
-    setHidden(props.openRows.includes(props.id));
-  }, []);
+    setHidden(props.openRows.includes(props.operationID));
+  }, [props.operationID, props.openRows]);
 
   // Render the specific day block for the row
-  const getDay = (day, task) => {
-    if (task.startDate <= day && day <= task.endDate) {
+  const getDay = (day, operation) => {
+    const start = moment(operation.created_at);
+    let between = moment(day.format('MM/DD/YYYY')).isSame(
+      start.format('MM/DD/YYYY')
+    );
+    if (between) {
       return (
         <tr
           style={{
-            backgroundColor: getStatusColor(task.completed, task.started)
+            backgroundColor: getStatusColor(operation.status)
           }}
           className={classes.tableRow}
         >
@@ -75,8 +80,12 @@ export default function CalendarRow(props) {
 
   // Render the row
   const row = props.daysInMonth.map(day => {
-    return getDay(day, props.task);
+    return getDay(day, props.operation);
   });
 
-  return <div className={getStyle()}>{row}</div>;
+  return (
+    <div className={getStyle()} key={props.operation.id}>
+      {row}
+    </div>
+  );
 }

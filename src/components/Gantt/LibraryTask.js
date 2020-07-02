@@ -38,17 +38,17 @@ export default function LibraryTask(props) {
 
   useEffect(() => {
     if (props.open) {
-      props.setOpenRows([...props.openRows, props.id]);
+      props.setOpenRows([...props.openRows, props.operation.id]);
     }
   }, []);
 
   // Handles dropdown as well as visible rows in calendar view
   const handleDropDown = event => {
     if (!open) {
-      props.setOpenRows([...props.openRows, props.task.id]);
+      props.setOpenRows([...props.openRows, props.operation.id]);
       setOpen(true);
     } else {
-      props.setOpenRows(props.openRows.filter(e => e !== props.task.id));
+      // props.setOpenRows(props.openRows.filter(e => e !== props.operation.id));
       setOpen(false);
     }
   };
@@ -77,12 +77,12 @@ export default function LibraryTask(props) {
     <div>
       <Grid container className={classes.root}>
         <Grid item xs className={classes.left} zeroMinWidth>
-          <IconButton>
+          {/* <IconButton>
             <AddCircleOutlineOutlinedIcon color="action" fontSize="small" />
-          </IconButton>
+          </IconButton> */}
           {dropButton}
           <Typography variant="h6" noWrap>
-            {props.task.title}
+            {props.operation.operation_type_id}
           </Typography>
         </Grid>
         <Grid item zeroMinWidth className={classes.right}>
@@ -92,9 +92,9 @@ export default function LibraryTask(props) {
             justify="flex-end"
             direction="row"
           >
-            <IconButton>
+            {/* <IconButton>
               <EditOutlinedIcon color="action" fontSize="small" />
-            </IconButton>
+            </IconButton> */}
           </Grid>
         </Grid>
       </Grid>

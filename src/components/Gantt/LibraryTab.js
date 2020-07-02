@@ -53,8 +53,8 @@ export default function LibraryTab(props) {
 
   const getAllIDs = () => {
     const IDs = [];
-    props.library.tasks.map(task => {
-      IDs.push(task.id);
+    props.library.operations.map(operation => {
+      IDs.push(operation.id);
     });
     IDs.push(props.library.id);
     return IDs;
@@ -62,8 +62,15 @@ export default function LibraryTab(props) {
 
   // Handles dropdown as well as visible rows in calendar view
   const handleDropDown = event => {
+    console.log(props.openRows);
     if (!open) {
-      props.setOpenRows([...props.openRows, props.library.id]);
+      const IDs = [];
+      props.library.operations.map(operation => {
+        IDs.push(operation.id);
+      });
+      IDs.push(props.library.id);
+
+      props.setOpenRows([...props.openRows, ...IDs]);
       setOpen(true);
     } else {
       const IDs = getAllIDs();
@@ -103,7 +110,7 @@ export default function LibraryTab(props) {
         </Grid>
         <Grid item>
           <Typography variant="h6" noWrap>
-            {props.library.owner}
+            {props.library.user_id}
           </Typography>
         </Grid>
       </div>

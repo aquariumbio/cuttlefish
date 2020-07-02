@@ -135,7 +135,8 @@ function RegisterForm({ className, ...rest }) {
           aqPassword: formState.values.password,
           aqLogin: formState.values.username,
           firstName: formState.values.firstName,
-          lastName: formState.values.lastName
+          lastName: formState.values.lastName,
+          email: formState.values.email
         })
         .catch(function(error) {
           console.error('Error writing document: ', error);

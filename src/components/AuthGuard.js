@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import PropTypes from 'prop-types';
+import { login } from 'src/actions';
 
 import firebase from '../firebase/firebase';
 
@@ -10,8 +11,20 @@ import firebase from '../firebase/firebase';
 function AuthGuard({ roles, children }) {
   const session = useSelector(state => state.session);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    // if (localStorage.getItem('user') != null) {
+    //   const user = localStorage.getItem('user');
+    //   dispatch(
+    //     login({
+    //       firstName: user.firstName,
+    //       lastName: user.lastName,
+    //       username: user.username,
+    //       password: user.password
+    //     })
+    //   );
+    // }
     if (!session.loggedIn || !session.user) {
       history.push('/auth/login');
       return;

@@ -97,7 +97,8 @@ function ProteinDesignProject() {
       });
       if (response.status === 200) {
         const data = await response.json();
-        setGanttData(data);
+        const result = data.reverse();
+        setGanttData(result);
       } else {
         setGanttData([]);
       }

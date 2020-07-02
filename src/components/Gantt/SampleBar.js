@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 import LibraryTab from './LibraryTab';
 import LibraryTask from './LibraryTask';
@@ -33,11 +34,41 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const CustomTypography = withStyles(theme => ({
+  h5: {
+    color: '#FFFFFF'
+  }
+}))(Typography);
+
 // Dropdown menu that lists samples, paired with Calendar to form a Gantt chart
 export default function SampleBar(props) {
   const classes = useStyles();
 
   useEffect(() => {}, [props.libraries]);
+
+  const libraryTabs = props.libraries.map(library => (
+    <LibraryTab
+      library={library}
+      open={false}
+      setOpenRows={props.setOpenRows}
+      openRows={props.openRows}
+    >
+      {library.operations.map(operation => (
+        <Grid item>
+          <LibraryTask
+            operation={operation}
+            open={false}
+            setOpenRows={props.setOpenRows}
+            openRows={props.openRows}
+          >
+            {/* {task.subtasks.map(subtask => (
+              <LibrarySubTask subtask={subtask} />
+            ))} */}
+          </LibraryTask>
+        </Grid>
+      ))}
+    </LibraryTab>
+  ));
 
   // const libraryTabs = props.libraries.map(library => (
   //   <LibraryTab
@@ -45,45 +76,20 @@ export default function SampleBar(props) {
   //     open={true}
   //     setOpenRows={props.setOpenRows}
   //     openRows={props.openRows}
-  //   >
-  //     {library.tasks.map(task => (
-  //       <Grid item>
-  //         <LibraryTask
-  //           task={task}
-  //           open={false}
-  //           setOpenRows={props.setOpenRows}
-  //           openRows={props.openRows}
-  //         >
-  //           {task.subtasks.map(subtask => (
-  //             <LibrarySubTask subtask={subtask} />
-  //           ))}
-  //         </LibraryTask>
-  //       </Grid>
-  //     ))}
-  //   </LibraryTab>
+  //   ></LibraryTab>
   // ));
-
-  const libraryTabs = props.libraries.map(library => (
-    <LibraryTab
-      library={library}
-      open={true}
-      setOpenRows={props.setOpenRows}
-      openRows={props.openRows}
-    ></LibraryTab>
-  ));
 
   return (
     <div className={classes.taskList}>
       <Grid item className={classes.topBar}>
-        <Typography variant="h4" noWrap>
+        <CustomTypography variant="h5" noWrap>
           Library
-        </Typography>
-        <Typography variant="h4" noWrap>
+        </CustomTypography>
+        <CustomTypography variant="h5" noWrap>
           Owner
-        </Typography>
+        </CustomTypography>
       </Grid>
       <div className={classes.libraries}>{libraryTabs}</div>
-      {/* <div className={classes.libraries}>{libraryTabs}</div> */}
     </div>
   );
 }
