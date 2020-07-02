@@ -12,7 +12,7 @@ import { withStyles, lighten } from '@material-ui/core/styles';
 import kanbanData from './mockKanbanData';
 import mockGanttData from './mockGanttData';
 import PlanTable from 'src/components/Plans/PlanTable';
-import Settings from '../Settings';
+import Settings from '../../components/Settings';
 import mockProjects from '../ProjectManagementList/projects_data'
 
 const useStyles = makeStyles(theme => ({
@@ -139,6 +139,7 @@ function ProteinDesignProject() {
           <Tab label="Kanban" />
           <Tab label="Gantt" />
           <Tab label="Plans" />
+          <Tab label="Settings"/>
         </Tabs>
         <TabPanel value={currentTab} index={0}>
           <KanbanBoard data={kanbanData} />
@@ -150,7 +151,7 @@ function ProteinDesignProject() {
           <PlanTable data={ganttData} />
         </TabPanel>
         <TabPanel value={currentTab} index={3}>
-          <Settings data={mockProjects} />
+          <Settings data={ganttData} />
         </TabPanel>
         {getModal()}
       </Container>
