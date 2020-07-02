@@ -4,8 +4,7 @@ import moment from 'moment';
 import Page from '../Page';
 import SampleBar from './SampleBar';
 import Calendar from './Calendar';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentLibraries } from 'src/actions';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,7 +23,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function Gantt(props) {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const session = useSelector(state => state.session);
   const [libraries, setLibraries] = useState([]);
   const [date, setDate] = useState(moment().toDate());
@@ -35,19 +33,20 @@ export default function Gantt(props) {
   ] = useState(); /* Tracks which rows to hide in calendar */
 
   useEffect(() => {
-    fetchSamplesFromPlans();
-  }, []);
+    if (props.data != null) {
+      fetchSamplesFromPlans();
+    }
+  }, [props.data]);
 
   const fetchSamplesFromPlans = async () => {
     const libraries = [];
     const currentOpenRows = [];
     for (const list of props.data) {
-      libraries.push(list);
-      libraries.reverse();
-      currentOpenRows.push(list.id);
+      const plan = JSON.parse(list.data);
+      libraries.push(plan);
+      currentOpenRows.push(plan.id);
     }
     setOpenRows(currentOpenRows);
-    dispatch(setCurrentLibraries(libraries));
     setLibraries(libraries);
   };
 

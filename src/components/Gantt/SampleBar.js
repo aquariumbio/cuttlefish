@@ -39,38 +39,38 @@ export default function SampleBar(props) {
 
   useEffect(() => {}, [props.libraries]);
 
+  const libraryTabs = props.libraries.map(library => (
+    <LibraryTab
+      library={library}
+      open={false}
+      setOpenRows={props.setOpenRows}
+      openRows={props.openRows}
+    >
+      {library.operations.map(operation => (
+        <Grid item>
+          <LibraryTask
+            operation={operation}
+            open={false}
+            setOpenRows={props.setOpenRows}
+            openRows={props.openRows}
+          >
+            {/* {task.subtasks.map(subtask => (
+              <LibrarySubTask subtask={subtask} />
+            ))} */}
+          </LibraryTask>
+        </Grid>
+      ))}
+    </LibraryTab>
+  ));
+
   // const libraryTabs = props.libraries.map(library => (
   //   <LibraryTab
   //     library={library}
   //     open={true}
   //     setOpenRows={props.setOpenRows}
   //     openRows={props.openRows}
-  //   >
-  //     {library.tasks.map(task => (
-  //       <Grid item>
-  //         <LibraryTask
-  //           task={task}
-  //           open={false}
-  //           setOpenRows={props.setOpenRows}
-  //           openRows={props.openRows}
-  //         >
-  //           {task.subtasks.map(subtask => (
-  //             <LibrarySubTask subtask={subtask} />
-  //           ))}
-  //         </LibraryTask>
-  //       </Grid>
-  //     ))}
-  //   </LibraryTab>
+  //   ></LibraryTab>
   // ));
-
-  const libraryTabs = props.libraries.map(library => (
-    <LibraryTab
-      library={library}
-      open={true}
-      setOpenRows={props.setOpenRows}
-      openRows={props.openRows}
-    ></LibraryTab>
-  ));
 
   return (
     <div className={classes.taskList}>
@@ -83,7 +83,6 @@ export default function SampleBar(props) {
         </Typography>
       </Grid>
       <div className={classes.libraries}>{libraryTabs}</div>
-      {/* <div className={classes.libraries}>{libraryTabs}</div> */}
     </div>
   );
 }

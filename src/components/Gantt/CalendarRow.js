@@ -26,11 +26,11 @@ export default function CalendarRow(props) {
   const [hidden, setHidden] = useState();
   const getStyle = () => {
     if (props.taskID == null) {
-      return props.openRows.includes(props.libraryID)
+      return props.openRows.includes(props.operationID)
         ? classes.root
         : `${classes.hidden} ${classes.root}`;
     } else {
-      return props.openRows.includes(props.libraryID) &&
+      return props.openRows.includes(props.operationID) &&
         props.openRows.includes(props.taskID)
         ? classes.root
         : `${classes.hidden} ${classes.root}`;
@@ -52,12 +52,15 @@ export default function CalendarRow(props) {
   }, []);
 
   // Render the specific day block for the row
-  const getDay = (day, task) => {
-    if (task.startDate <= day && day <= task.endDate) {
+  const getDay = (day, operation) => {
+    if (operation.created_at <= day && day <= operation.created_at) {
       return (
         <tr
           style={{
-            backgroundColor: getStatusColor(task.completed, task.started)
+            backgroundColor: getStatusColor(
+              operation.completed,
+              operation.started
+            )
           }}
           className={classes.tableRow}
         >
@@ -75,8 +78,12 @@ export default function CalendarRow(props) {
 
   // Render the row
   const row = props.daysInMonth.map(day => {
-    return getDay(day, props.task);
+    return getDay(day, props.operation);
   });
 
-  return <div className={getStyle()}>{row}</div>;
+  return (
+    <div className={getStyle()} key={props.operation.id}>
+      {row}
+    </div>
+  );
 }

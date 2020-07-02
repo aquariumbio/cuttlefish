@@ -53,8 +53,8 @@ export default function LibraryTab(props) {
 
   const getAllIDs = () => {
     const IDs = [];
-    props.library.tasks.map(task => {
-      IDs.push(task.id);
+    props.library.operations.map(operation => {
+      IDs.push(operation.id);
     });
     IDs.push(props.library.id);
     return IDs;
@@ -103,7 +103,7 @@ export default function LibraryTab(props) {
         </Grid>
         <Grid item>
           <Typography variant="h6" noWrap>
-            {props.library.owner}
+            {props.library.user_id}
           </Typography>
         </Grid>
       </div>

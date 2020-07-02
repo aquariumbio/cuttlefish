@@ -14,8 +14,7 @@ const initialState = {
   },
   currentProject: {
     type: 'Protein Design'
-  },
-  currentLibraries: []
+  }
 };
 
 const sessionReducer = (state = initialState, action) => {
@@ -62,13 +61,6 @@ const sessionReducer = (state = initialState, action) => {
       return {
         ...state,
         currentProject: action.payload
-      };
-    }
-
-    case actionTypes.SET_LIBRARIES: {
-      return {
-        ...state,
-        currentLibraries: action.payload
       };
     }
 

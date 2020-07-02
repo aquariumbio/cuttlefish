@@ -67,53 +67,55 @@ export default function Calendar(props) {
   };
 
   // Sets open/closed rows for main level Library samples in chart
-  // const getCalendarRows = () => {
-  //   const days = getDaysInMonth();
-  //   let rows = [];
-  //   props.libraries.map(library => {
-  //     library.tasks.map(task => {
-  //       rows.push(
-  //         <CalendarRow
-  //           libraryID={library.id}
-  //           taskID={null}
-  //           openRows={props.openRows}
-  //           task={task}
-  //           daysInMonth={days}
-  //         />
-  //       );
-  //       task.subtasks.map(subtask => {
-  //         rows.push(
-  //           <CalendarRow
-  //             libraryID={library.id}
-  //             taskID={task.id}
-  //             openRows={props.openRows}
-  //             task={subtask}
-  //             daysInMonth={days}
-  //           />
-  //         );
-  //       });
-  //     });
-  //   });
-  //   return rows;
-  // };
-
   const getCalendarRows = () => {
     const days = getDaysInMonth();
     let rows = [];
     props.libraries.map(library => {
-      rows.push(
-        <CalendarRow
-          libraryID={library.id}
-          taskID={null}
-          openRows={props.openRows}
-          task={library}
-          daysInMonth={days}
-        />
-      );
+      library.operations.map(operation => {
+        console.log(operation);
+        rows.push(
+          <CalendarRow
+            operationID={operation.id}
+            taskID={null}
+            openRows={props.openRows}
+            operation={operation}
+            daysInMonth={days}
+          />
+        );
+        // operation.subtasks.map(subtask => {
+        //   rows.push(
+        //     <CalendarRow
+        //       operationID={library.id}
+        //       taskID={operation.id}
+        //       openRows={props.openRows}
+        //       operation={subtask}
+        //       daysInMonth={days}
+        //     />
+        //   );
+        // });
+      });
     });
-
     return rows;
   };
+
+  // const getCalendarRows = () => {
+  //   const days = getDaysInMonth();
+  //   let rows = [];
+  //   props.libraries.map(library => {
+  //     console.log(library);
+  //     rows.push(
+  //       <CalendarRow
+  //         libraryID={library.id}
+  //         taskID={null}
+  //         openRows={props.openRows}
+  //         task={library}
+  //         daysInMonth={days}
+  //       />
+  //     );
+  //   });
+
+  //   return rows;
+  // };
 
   const getDayStyle = day => {
     if (day == 'S') {
