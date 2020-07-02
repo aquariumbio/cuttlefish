@@ -40,13 +40,13 @@ export default function Gantt(props) {
 
   const fetchSamplesFromPlans = async () => {
     const libraries = [];
-    const currentOpenRows = [];
+    // const currentOpenRows = [];
     for (const list of props.data) {
       const plan = JSON.parse(list.data);
       libraries.push(plan);
-      currentOpenRows.push(plan.id);
+      // currentOpenRows.push(plan.id);
     }
-    setOpenRows(currentOpenRows);
+    setOpenRows([]);
     setLibraries(libraries);
   };
 

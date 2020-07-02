@@ -49,7 +49,7 @@ export default function Calendar(props) {
   const [date, setDate] = useState(moment().toDate());
   const [monthsLoaded, setMonthsLoaded] = useState(0);
 
-  useEffect(() => {}, [props.libraries]);
+  useEffect(() => {}, [props.libraries, props.openRows]);
 
   const getDaysInMonth = () => {
     var daysInMonth = moment()
@@ -72,7 +72,6 @@ export default function Calendar(props) {
     let rows = [];
     props.libraries.map(library => {
       library.operations.map(operation => {
-        console.log(operation);
         rows.push(
           <CalendarRow
             operationID={operation.id}
@@ -102,7 +101,6 @@ export default function Calendar(props) {
   //   const days = getDaysInMonth();
   //   let rows = [];
   //   props.libraries.map(library => {
-  //     console.log(library);
   //     rows.push(
   //       <CalendarRow
   //         libraryID={library.id}

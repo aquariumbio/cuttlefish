@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 
 const CustomTypography = withStyles(theme => ({
   h5: {
-      color: '#FFFFFF',
+    color: '#FFFFFF'
   }
 }))(Typography);
 

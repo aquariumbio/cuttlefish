@@ -38,7 +38,7 @@ export default function LibraryTask(props) {
 
   useEffect(() => {
     if (props.open) {
-      props.setOpenRows([...props.openRows, props.id]);
+      props.setOpenRows([...props.openRows, props.operation.id]);
     }
   }, []);
 
@@ -48,7 +48,7 @@ export default function LibraryTask(props) {
       props.setOpenRows([...props.openRows, props.operation.id]);
       setOpen(true);
     } else {
-      props.setOpenRows(props.openRows.filter(e => e !== props.operation.id));
+      // props.setOpenRows(props.openRows.filter(e => e !== props.operation.id));
       setOpen(false);
     }
   };
