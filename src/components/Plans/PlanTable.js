@@ -38,14 +38,14 @@ const columns = [
     label: 'Created Date',
     minWidth: 70,
     align: 'left',
-    format: value => value.moment().format('MMMM Do YYYY, h:mm:ss a')
+    format: value => moment(value).format('D MMM YYYY')
   },
   {
     id: 'updated_at',
     label: 'Updated Date',
     minWidth: 70,
     align: 'left',
-    format: value => value.moment().format('MMMM Do YYYY, h:mm:ss a')
+    format: value => moment(value).format('D MMM YYYY')
   }
 ];
 
@@ -149,6 +149,12 @@ export default function PlanTable(props) {
                               </TableCell>
                             );
                           }
+                        } else if (column.id === 'created_at' || column.id === 'updated_at' ) {
+                          return (
+                            <TableCell key={column.id} align={column.align}>
+                              {moment(value).format('D MMM YYYY')}
+                            </TableCell>
+                          );
                         } else {
                           return (
                             <TableCell key={column.id} align={column.align}>
