@@ -122,7 +122,7 @@ export default function PlanTable(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {props.data
+              {JSON.parse(props.data)
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(row => {
                   return (
@@ -181,7 +181,7 @@ export default function PlanTable(props) {
         <TablePagination
           rowsPerPageOptions={[6, 36]}
           component="div"
-          count={props.data.length}
+          count={JSON.parse(props.data).length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}
