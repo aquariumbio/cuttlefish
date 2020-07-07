@@ -88,6 +88,7 @@ export default function PlanTable(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(6);
+  const [favStatus, setFavStatus] = React.useState(false);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -97,6 +98,10 @@ export default function PlanTable(props) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const handleFavorite = () => {
+    setFavStatus(!favStatus)
+  }
 
   return (
     <Page className={classes.root} title="Plans">
@@ -125,14 +130,15 @@ export default function PlanTable(props) {
                       {columns.map(column => {
                         const value = row[column.id];
                         if (column.id === 'favorite') {
-                          if (value) {
+                          if (favStatus) {
                             return (
                               <TableCell key={column.id} align={column.align}>
                                 <StarIcon
                                   style={{
                                     color: '#065683',
-                                    cursor: 'pointer'
+                                    cursor: 'pointer',
                                   }}
+                                  onClick={handleFavorite}
                                 />
                               </TableCell>
                             );
@@ -142,8 +148,9 @@ export default function PlanTable(props) {
                                 <StarBorderIcon
                                   style={{
                                     color: '#065683',
-                                    cursor: 'pointer'
+                                    cursor: 'pointer',
                                   }}
+                                  onClick={handleFavorite}
                                 />
                               </TableCell>
                             );
