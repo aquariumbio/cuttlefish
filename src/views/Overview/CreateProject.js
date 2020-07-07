@@ -383,7 +383,7 @@ const CreateProject = forwardRef((props, ref) => {
           <Button
             className={classes.field}
             style={{ 
-              width: '15%',
+              width: '16%',
               padding: '15px'
             }}
             margin="normal"
@@ -392,10 +392,10 @@ const CreateProject = forwardRef((props, ref) => {
           >
             + Add
           </Button>
-          <Paper component="ul" className={classes.chipList}>
+          <ul className={classes.chipList}>
             {chipData.map(data => {
               return (
-                <li key={data.key}>
+                <li key={data.key} className={classes.field}>
                   <Chip
                     label={data.label + ' - ' + data.role}
                     onDelete={
@@ -406,7 +406,7 @@ const CreateProject = forwardRef((props, ref) => {
                 </li>
               );
             })}
-          </Paper>
+          </ul>
         </DialogContent>
         <DialogActions>
           <Button
