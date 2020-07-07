@@ -14,6 +14,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { shadows } from '@material-ui/system';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -55,7 +56,10 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
         minWidth: 120,
       },
-    
+    member: {
+        marginTop: theme.spacing(2),
+        paddingLeft: theme.spacing(3), 
+    }
 }));
 
 
@@ -71,18 +75,18 @@ function Settings(props) {
     return (
         <Page title={"Settings"}>
             <List component="nav" className={classes.root} aria-label="mailbox folders">
-                <ListItem >
+                <ListItem boxShadow={3}>
                     <Typography variant="h5">Project Owner </Typography>
                 </ListItem>
                 <Typography variant="subtitle1" className={classes.subtitle}>{session.currentProject.owner}</Typography>
                 <Divider className={classes.divider}/>
                 
-                <ListItem >
+                <ListItem boxShadow={3}>
                     <Typography variant="h5">Members </Typography>
                 </ListItem>
                 <Grid container className={classes.grid} spacing={2}>
                 <Grid item xs={3}>
-                    <Typography variant="subtitle1" className={classes.subtitle}>{session.currentProject.members}</Typography>
+                    <Typography variant="subtitle1" className={classes.member}>{session.currentProject.members}</Typography>
                 </Grid>
                 <Grid item xs={3}>
                     <FormControl variant="outlined" className={classes.formControl}>
@@ -106,34 +110,34 @@ function Settings(props) {
 
                 <Divider className={classes.divider}/>
 
-                <ListItem >
+                <ListItem boxShadow={3}>
                     <Typography variant="h5">Start Date </Typography>
                 </ListItem>
                 <Typography variant="subtitle1" className={classes.subtitle}>{session.currentProject.start_date}</Typography>
 
                 <Divider className={classes.divider}/>
 
-                <ListItem >
+                <ListItem boxShadow={3}>
                     <Typography variant="h5">Projected Completion Date </Typography>
 
                 </ListItem>
                 <Typography variant="subtitle1" className={classes.subtitle}>{session.currentProject.end_date}</Typography>
                 <Divider className={classes.divider}/>
 
-                <ListItem >
+                <ListItem boxShadow={3}>
                     <Typography variant="h5">Project Type </Typography>
                 </ListItem>
                 <Typography variant="subtitle1" className={classes.subtitle}>{session.currentProject.type}</Typography>
 
                 <Divider className={classes.divider}/>
 
-                <ListItem >
+                <ListItem boxShadow={3}>
                     <Typography variant="h5">Project Status </Typography>
                 </ListItem>
                 <Typography variant="subtitle1" className={classes.subtitle}>{session.currentProject.status}</Typography>
                 <Divider className={classes.divider}/>
 
-                <ListItem>
+                <ListItem boxShadow={3}>
                 <Button
                         variant="outlined"
                         color="primary"
