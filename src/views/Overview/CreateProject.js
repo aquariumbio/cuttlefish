@@ -14,7 +14,6 @@ import {
   TextField,
   Button,
   Chip,
-  Divider,
   Grid,
   IconButton
 } from '@material-ui/core';
@@ -50,7 +49,7 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3)
   },
   closeIcon: {
-    paddingTop: 0,
+    padding: theme.spacing(1),
     marginLeft: theme.spacing(30)
   },
   chipList: {
@@ -161,7 +160,6 @@ const CreateProject = forwardRef((props, ref) => {
   };
 
   const handleCreateProject = () => {
-    console.log(session);
     firebase.db
       .collection('projects')
       .doc(projectID)
@@ -355,7 +353,7 @@ const CreateProject = forwardRef((props, ref) => {
           />
           <TextField
             className={classes.field}
-            style={{ width: '35%', marginRight: 10 }}
+            style={{ width: '40%', marginRight: 10 }}
             label="Project Contributors"
             name="contr"
             onChange={handleContributorName}
@@ -364,7 +362,7 @@ const CreateProject = forwardRef((props, ref) => {
           />
           <TextField
             className={classes.field}
-            style={{ width: '35%', marginRight: 10 }}
+            style={{ width: '40%', marginRight: 10 }}
             select
             SelectProps={{
               native: true
@@ -383,17 +381,20 @@ const CreateProject = forwardRef((props, ref) => {
           </TextField>
           <Button
             className={classes.field}
-            style={{ width: '12%' }}
+            style={{ 
+              width: '16%',
+              padding: '15px'
+            }}
             margin="normal"
             onClick={handleAddChip}
             variant="contained"
           >
             + Add
           </Button>
-          <Paper component="ul" className={classes.chipList}>
+          <ul className={classes.chipList}>
             {chipData.map(data => {
               return (
-                <li key={data.key}>
+                <li key={data.key} className={classes.field}>
                   <Chip
                     label={data.label + ' - ' + data.role}
                     onDelete={
@@ -404,7 +405,7 @@ const CreateProject = forwardRef((props, ref) => {
                 </li>
               );
             })}
-          </Paper>
+          </ul>
         </DialogContent>
         <DialogActions>
           <Button

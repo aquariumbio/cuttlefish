@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import moment from 'moment';
+import { Button, IconButton } from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CalendarRow from './CalendarRow';
+import { set } from 'immutable';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -14,12 +18,16 @@ const useStyles = makeStyles(theme => ({
   month: { display: 'flex', overflowX: 'auto' },
   monthContainer: { display: 'flex', flexDirection: 'column' },
   monthTitle: {
+    display: 'flex',
+    flexDirection: 'space-between',
     height: '50px',
     borderRight: '1px solid #E6E6E6',
     borderBottom: '1px solid #E6E6E6',
     color: '#909090',
-    paddingLeft: theme.spacing(2)
+    paddingLeft: theme.spacing(2),
+    marginBottom: theme.spacing(0.2)
   },
+  buttons: { position: 'absolute', paddingLeft: theme.spacing(4) },
   dayTitles: {
     display: 'flex',
     overflowX: 'auto'
@@ -49,7 +57,7 @@ export default function Calendar(props) {
   const [date, setDate] = useState(moment().toDate());
   const [monthsLoaded, setMonthsLoaded] = useState(0);
 
-  useEffect(() => {}, [props.libraries, props.openRows]);
+  useEffect(() => {}, [props.libraries, props.openRows, monthsLoaded]);
 
   const getDaysInMonth = () => {
     var daysInMonth = moment()
@@ -58,7 +66,9 @@ export default function Calendar(props) {
     var arrDays = [];
 
     while (daysInMonth) {
-      var current = moment().date(daysInMonth);
+      var current = moment()
+        .add(monthsLoaded, 'month')
+        .date(daysInMonth);
       arrDays.push(current);
       daysInMonth--;
     }
@@ -71,11 +81,20 @@ export default function Calendar(props) {
     const days = getDaysInMonth();
     let rows = [];
     props.libraries.map(library => {
+      rows.push(
+        <CalendarRow
+          operationID={library.id}
+          parentID={null}
+          openRows={props.openRows}
+          operation={library}
+          daysInMonth={days}
+        />
+      );
       library.operations.map(operation => {
         rows.push(
           <CalendarRow
             operationID={operation.id}
-            taskID={null}
+            parentID={null}
             openRows={props.openRows}
             operation={operation}
             daysInMonth={days}
@@ -104,7 +123,7 @@ export default function Calendar(props) {
   //     rows.push(
   //       <CalendarRow
   //         libraryID={library.id}
-  //         taskID={null}
+  //         parentID={null}
   //         openRows={props.openRows}
   //         task={library}
   //         daysInMonth={days}
@@ -121,11 +140,40 @@ export default function Calendar(props) {
     }
   };
 
+  const handleScroll = e => {
+    let element = e.target;
+    if (element.scrollWidth - element.scrollLeft === element.clientWidth) {
+      console.log('SCROLLED TO END');
+    }
+  };
+
   const getMonth = () => {
     const daysInMonth = getDaysInMonth();
     return (
       <div className={classes.monthContainer}>
-        <div className={classes.monthTitle}>{moment().format('MMMM')}</div>
+        <div>
+          <div className={classes.monthTitle}>
+            <div>
+              {moment()
+                .add(monthsLoaded, 'month')
+                .format('MMMM')}
+            </div>
+            <div className={classes.buttons}>
+              <IconButton
+                onClick={() => setMonthsLoaded(monthsLoaded - 1)}
+                size="medium"
+              >
+                <ArrowBackIcon />
+              </IconButton>
+              <IconButton
+                onClick={() => setMonthsLoaded(monthsLoaded + 1)}
+                size="medium"
+              >
+                <ArrowForwardIcon />
+              </IconButton>
+            </div>
+          </div>
+        </div>
         <div className={classes.dayTitles}>
           {daysInMonth.map(day => (
             <div
@@ -138,7 +186,9 @@ export default function Calendar(props) {
             </div>
           ))}
         </div>
-        <table className={classes.calendarRows}>{getCalendarRows()}</table>
+        <table className={classes.calendarRows} onScroll={e => handleScroll(e)}>
+          {getCalendarRows()}
+        </table>
       </div>
     );
   };

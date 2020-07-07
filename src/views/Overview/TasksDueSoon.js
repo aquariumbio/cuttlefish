@@ -38,7 +38,6 @@ function TasksDueSoon({ customer, className, ...rest }) {
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(project => {
-          console.log(project.data());
           projects.push(project.data());
         });
       })

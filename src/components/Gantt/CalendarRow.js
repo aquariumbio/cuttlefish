@@ -26,13 +26,13 @@ export default function CalendarRow(props) {
   const classes = useStyles();
   const [hidden, setHidden] = useState();
   const getStyle = () => {
-    if (props.taskID == null) {
+    if (props.parentID == null) {
       return props.openRows.includes(props.operationID)
         ? classes.root
         : `${classes.hidden} ${classes.root}`;
     } else {
       return props.openRows.includes(props.operationID) &&
-        props.openRows.includes(props.taskID)
+        props.openRows.includes(props.parentID)
         ? classes.root
         : `${classes.hidden} ${classes.root}`;
     }

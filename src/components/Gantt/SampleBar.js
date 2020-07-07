@@ -40,7 +40,7 @@ const CustomTypography = withStyles(theme => ({
   }
 }))(Typography);
 
-// Dropdown menu that lists samples, paired with Calendar to form a Gantt chart
+// Dropdown menu that lists plan samples, paired with Calendar to form a Gantt chart
 export default function SampleBar(props) {
   const classes = useStyles();
 
@@ -54,7 +54,7 @@ export default function SampleBar(props) {
       openRows={props.openRows}
     >
       {library.operations.map(operation => (
-        <Grid item>
+        <Grid item key={operation.id}>
           <LibraryTask
             operation={operation}
             open={false}

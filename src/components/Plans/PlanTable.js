@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import Page from 'src/components/Page';
@@ -88,6 +88,7 @@ export default function PlanTable(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(6);
+  const [favStatus, setFavStatus] = React.useState(false);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -97,6 +98,14 @@ export default function PlanTable(props) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const handleFavorite = () => {
+    setFavStatus(!favStatus);
+  };
+
+  useEffect(() => {
+    console.log(props.data);
+  }, [props.data]);
 
   return (
     <Page className={classes.root} title="Plans">
@@ -117,69 +126,88 @@ export default function PlanTable(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {JSON.parse(props.data)
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(row => {
-                  return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                      {columns.map(column => {
-                        const value = row[column.id];
-                        console.log(value);
-                        if (column.id === 'favorite') {
-                          if (value) {
-                            return (
-                              <TableCell key={column.id} align={column.align}>
-                                <StarIcon
-                                  style={{
-                                    color: '#065683',
-                                    cursor: 'pointer'
-                                  }}
-                                />
-                              </TableCell>
-                            );
-                          } else {
-                            return (
-                              <TableCell key={column.id} align={column.align}>
-                                <StarBorderIcon
-                                  style={{
-                                    color: '#065683',
-                                    cursor: 'pointer'
-                                  }}
-                                />
-                              </TableCell>
-                            );
-                          }
-                        } else if (column.id === 'created_at' || column.id === 'updated_at' ) {
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {moment(value).format('D MMM YYYY')}
-                            </TableCell>
-                          );
-                        } else {
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {column.format && typeof value === 'number'
-                                ? column.format(value)
-                                : value}
-                            </TableCell>
-                          );
-                        }
-                      })}
-                    </TableRow>
-                  );
-                })}
+              {props.data == null
+                ? 'LOADING PLANS...'
+                : JSON.parse(props.data)
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map(row => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.id}
+                        >
+                          {columns.map(column => {
+                            const value = row[column.id];
+                            if (column.id === 'favorite') {
+                              if (favStatus) {
+                                return (
+                                  <TableCell
+                                    key={column.id}
+                                    align={column.align}
+                                  >
+                                    <StarIcon
+                                      style={{
+                                        color: '#065683',
+                                        cursor: 'pointer'
+                                      }}
+                                      onClick={handleFavorite}
+                                    />
+                                  </TableCell>
+                                );
+                              } else {
+                                return (
+                                  <TableCell
+                                    key={column.id}
+                                    align={column.align}
+                                  >
+                                    <StarBorderIcon
+                                      style={{
+                                        color: '#065683',
+                                        cursor: 'pointer'
+                                      }}
+                                      onClick={handleFavorite}
+                                    />
+                                  </TableCell>
+                                );
+                              }
+                            } else if (
+                              column.id === 'created_at' ||
+                              column.id === 'updated_at'
+                            ) {
+                              return (
+                                <TableCell key={column.id} align={column.align}>
+                                  {moment(value).format('D MMM YYYY')}
+                                </TableCell>
+                              );
+                            } else {
+                              return (
+                                <TableCell key={column.id} align={column.align}>
+                                  {column.format && typeof value === 'number'
+                                    ? column.format(value)
+                                    : value}
+                                </TableCell>
+                              );
+                            }
+                          })}
+                        </TableRow>
+                      );
+                    })}
             </TableBody>
           </Table>
         </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[6, 36]}
-          component="div"
-          count={JSON.parse(props.data).length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
+        {props.data == null ? null : (
+          <TablePagination
+            rowsPerPageOptions={[6, 36]}
+            component="div"
+            count={JSON.parse(props.data).length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+        )}
       </Paper>
     </Page>
   );
