@@ -46,9 +46,7 @@ export default function LibraryTab(props) {
   const [open, setOpen] = useState(props.open);
 
   useEffect(() => {
-    if (props.open) {
-      props.setOpenRows([...props.openRows, props.library.id]);
-    }
+    props.setOpenRows([...props.openRows, props.library.id]);
   }, []);
 
   const getAllIDs = () => {
@@ -62,7 +60,6 @@ export default function LibraryTab(props) {
 
   // Handles dropdown as well as visible rows in calendar view
   const handleDropDown = event => {
-    console.log(props.openRows);
     if (!open) {
       const IDs = [];
       props.library.operations.map(operation => {

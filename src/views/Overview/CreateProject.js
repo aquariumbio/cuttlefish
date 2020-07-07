@@ -161,7 +161,6 @@ const CreateProject = forwardRef((props, ref) => {
   };
 
   const handleCreateProject = () => {
-    console.log(session);
     firebase.db
       .collection('projects')
       .doc(projectID)

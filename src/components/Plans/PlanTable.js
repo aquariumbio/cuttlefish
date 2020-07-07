@@ -124,7 +124,6 @@ export default function PlanTable(props) {
                     <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                       {columns.map(column => {
                         const value = row[column.id];
-                        console.log(value);
                         if (column.id === 'favorite') {
                           if (value) {
                             return (
@@ -149,7 +148,10 @@ export default function PlanTable(props) {
                               </TableCell>
                             );
                           }
-                        } else if (column.id === 'created_at' || column.id === 'updated_at' ) {
+                        } else if (
+                          column.id === 'created_at' ||
+                          column.id === 'updated_at'
+                        ) {
                           return (
                             <TableCell key={column.id} align={column.align}>
                               {moment(value).format('D MMM YYYY')}

@@ -27,6 +27,7 @@ export default function Gantt(props) {
   const [libraries, setLibraries] = useState([]);
   const [date, setDate] = useState(moment().toDate());
   const [monthsLoaded, setMonthsLoaded] = useState(0);
+  const [loading, setLoading] = useState();
   const [
     openRows,
     setOpenRows
@@ -35,36 +36,46 @@ export default function Gantt(props) {
   useEffect(() => {
     if (props.data != null) {
       fetchSamplesFromPlans();
+    } else {
+      setLoading(true);
     }
   }, [props.data]);
 
   const fetchSamplesFromPlans = async () => {
+    setLoading(true);
     const libraries = [];
-    // const currentOpenRows = [];
+    const currentOpenRows = [];
     for (const list of props.data) {
-      const plan = JSON.parse(list.data);
-      libraries.push(plan);
-      // currentOpenRows.push(plan.id);
+      const library = JSON.parse(list.data);
+      libraries.push(library);
+      currentOpenRows.push(library.id);
     }
-    setOpenRows([]);
+    setOpenRows(currentOpenRows);
     setLibraries(libraries);
+    setLoading(false);
   };
 
   return (
     <Page className={classes.root} title={'Gantt Chart'}>
       <div className={classes.container}>
-        <SampleBar
-          libraries={libraries}
-          openRows={openRows}
-          setOpenRows={setOpenRows}
-        />
-        <div className={classes.calendar}>
-          <Calendar
-            libraries={libraries}
-            openRows={openRows}
-            setOpenRows={setOpenRows}
-          />
-        </div>
+        {loading ? (
+          <h1>LOADING PLANS...</h1>
+        ) : (
+          <>
+            <SampleBar
+              libraries={libraries}
+              openRows={openRows}
+              setOpenRows={setOpenRows}
+            />
+            <div className={classes.calendar}>
+              <Calendar
+                libraries={libraries}
+                openRows={openRows}
+                setOpenRows={setOpenRows}
+              />
+            </div>
+          </>
+        )}
       </div>
     </Page>
   );

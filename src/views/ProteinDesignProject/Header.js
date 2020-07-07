@@ -15,12 +15,11 @@ function Header(props) {
     if (props.currentTab === 0) {
       return null;
     } else if (props.currentTab === 1) {
-      return (
-        <Button color="primary" variant="contained" onClick={props.onEventAdd}>
-          <AddIcon className={classes.addIcon} />
-          Create Library
-        </Button>
-      );
+      return null;
+      // <Button color="primary" variant="contained" onClick={props.onEventAdd}>
+      //   <AddIcon className={classes.addIcon} />
+      //   Create Library
+      // </Button>
     } else {
       return null;
     }

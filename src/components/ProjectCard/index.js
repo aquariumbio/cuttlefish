@@ -96,7 +96,7 @@ function ProjectCard({ project, className, ...rest }) {
             <Typography variant="body2" noWrap>
               {project.type}
             </Typography>
-            <Label color={getLabelColor()} variant="other">
+            <Label color={getLabelColor()} variant="outlined">
               {project.status}
             </Label>
           </Grid>
