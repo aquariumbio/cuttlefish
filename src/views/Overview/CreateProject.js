@@ -14,7 +14,6 @@ import {
   TextField,
   Button,
   Chip,
-  Divider,
   Grid,
   IconButton
 } from '@material-ui/core';
@@ -50,7 +49,7 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3)
   },
   closeIcon: {
-    paddingTop: 0,
+    padding: theme.spacing(1),
     marginLeft: theme.spacing(30)
   },
   chipList: {
@@ -355,7 +354,7 @@ const CreateProject = forwardRef((props, ref) => {
           />
           <TextField
             className={classes.field}
-            style={{ width: '35%', marginRight: 10 }}
+            style={{ width: '40%', marginRight: 10 }}
             label="Project Contributors"
             name="contr"
             onChange={handleContributorName}
@@ -364,7 +363,7 @@ const CreateProject = forwardRef((props, ref) => {
           />
           <TextField
             className={classes.field}
-            style={{ width: '35%', marginRight: 10 }}
+            style={{ width: '40%', marginRight: 10 }}
             select
             SelectProps={{
               native: true
@@ -383,7 +382,10 @@ const CreateProject = forwardRef((props, ref) => {
           </TextField>
           <Button
             className={classes.field}
-            style={{ width: '12%' }}
+            style={{ 
+              width: '15%',
+              padding: '15px'
+            }}
             margin="normal"
             onClick={handleAddChip}
             variant="contained"
