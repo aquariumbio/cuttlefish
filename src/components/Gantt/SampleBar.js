@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import { withStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 import LibraryTab from './LibraryTab';
 import LibraryTask from './LibraryTask';
+
 import LibrarySubTask from './LibrarySubTask';
 
 const useStyles = makeStyles(theme => ({
@@ -43,8 +45,37 @@ const CustomTypography = withStyles(theme => ({
 // Dropdown menu that lists plan samples, paired with Calendar to form a Gantt chart
 export default function SampleBar(props) {
   const classes = useStyles();
+  const session = useSelector(state => state.session);
+  const [sampleNames, setSampleNames] = useState();
 
-  useEffect(() => {}, [props.libraries]);
+  useEffect(() => {
+    getOperationNames();
+  }, [props.libraries]);
+
+  async function getOperationNames() {
+    const response = await fetch('http://localhost:4000/plans/op_names', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: session.user.username,
+        password: session.user.password
+      })
+    });
+    if (response.status === 200) {
+      const data = await response.json();
+      setSampleNames(data);
+    } else {
+      setSampleNames([]);
+    }
+  }
+
+  const getOperationName = id => {
+    if (sampleNames != null) {
+      const operation = sampleNames.find(operation => operation.id == id);
+      return operation.name;
+    }
+    return 'LOADING';
+  };
 
   const libraryTabs = props.libraries.map(library => (
     <LibraryTab
@@ -60,6 +91,7 @@ export default function SampleBar(props) {
             open={false}
             setOpenRows={props.setOpenRows}
             openRows={props.openRows}
+            name={getOperationName(operation.operation_type_id)}
           >
             {/* {task.subtasks.map(subtask => (
               <LibrarySubTask subtask={subtask} />
@@ -69,15 +101,6 @@ export default function SampleBar(props) {
       ))}
     </LibraryTab>
   ));
-
-  // const libraryTabs = props.libraries.map(library => (
-  //   <LibraryTab
-  //     library={library}
-  //     open={true}
-  //     setOpenRows={props.setOpenRows}
-  //     openRows={props.openRows}
-  //   ></LibraryTab>
-  // ));
 
   return (
     <div className={classes.taskList}>

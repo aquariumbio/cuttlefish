@@ -82,7 +82,7 @@ export default function LibraryTask(props) {
           </IconButton> */}
           {dropButton}
           <Typography variant="h6" noWrap>
-            {props.operation.operation_type_id}
+            {props.name}
           </Typography>
         </Grid>
         <Grid item zeroMinWidth className={classes.right}>
