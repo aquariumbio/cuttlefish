@@ -31,7 +31,7 @@ router.post('/folders', function(req, res, next) {
 // Retrieves plans from a specific folder
 // 'POST' isn't currently modifiying any data
 router.post('/', function(req, res, next) {
-  AQ.login('pennert', 'fa9b87vKSDAQ6tW8')
+  AQ.login(req.body.username, req.body.password)
     .then(() => AQ.Plan.where({ user_id: 209, folder: 'Covid-19' }))
     .then(plans => getPlans(plans))
     .then(data => res.status(200).send(data))
@@ -45,8 +45,15 @@ async function getPlans(plans) {
     return response;
   });
   const result = await Promise.all(pArray);
-  console.log(JSON.parse(result));
   return result;
 }
+
+// Get names of OperationTypes
+router.post('/op_names', function(req, res, next) {
+  AQ.login(req.body.username, req.body.password)
+    .then(() => AQ.OperationType.where())
+    .then(data => res.status(200).send(data))
+    .catch(err => res.status(400).send(err));
+});
 
 module.exports = router;
