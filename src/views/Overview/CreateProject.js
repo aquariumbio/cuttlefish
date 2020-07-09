@@ -133,7 +133,7 @@ const CreateProject = forwardRef((props, ref) => {
   const [folder, setFolder] = useState();
   const [contributor, setContributor] = useState('');
   const [chipData, setChipData] = useState([
-    { key: 0, label: session.firstName + ' ' + session.lastName, role: 'Owner' }
+    { key: 0, label: 'First Last', role: 'Owner' }
   ]);
   const [title, setTitle] = useState('');
   const [start, setStart] = useState(defaultEvent.start);
@@ -331,7 +331,6 @@ const CreateProject = forwardRef((props, ref) => {
           <TextField
             className={classes.field}
             defaultValue={moment(values.end).format('YYYY-MM-DDThh:mm:ss')}
-            disabled={values.allDay}
             style={{ width: '35%', marginRight: 10 }}
             margin="normal"
             label="End date"
@@ -341,13 +340,14 @@ const CreateProject = forwardRef((props, ref) => {
             variant="outlined"
           />
           <TextField
+            disabled
             className={classes.field}
-            label="Project Duration"
+            label="Project Duration (days)"
             name="dur"
             style={{ width: '25%', float: 'right' }}
             margin="normal"
             onChange={handleFieldChange}
-            defaultValue={moment(end).diff(moment(start), 'days') + ' day(s)'}
+            defaultValue={moment(end).diff(moment(start), 'days')} 
             multiline
             variant="filled"
           />
