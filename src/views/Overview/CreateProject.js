@@ -168,10 +168,7 @@ const CreateProject = forwardRef((props, ref) => {
         owner: session.user.username,
         description: description,
         folder: folder,
-        members: {
-          managers: chipData.map(chips => chips.filter(chip => chip.role === "Manager")),
-          collaborators: chipData.map(chips => chips.filter(chip => chip.role === "Collaborator"))
-        },
+        members: chipData.label,
         end_date: moment(end).format('M/D/YY'),
         type: type,
         status: 'pending'
