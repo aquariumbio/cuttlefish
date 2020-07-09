@@ -11,7 +11,8 @@ const useStyles = makeStyles(theme => ({
   },
   tableRow: {
     overflow: 'hidden',
-    lineHeight: 0
+    lineHeight: 0,
+    borderBottom: '1px solid #E6E6E6'
   },
   tableHead: {
     minHeight: '50px',

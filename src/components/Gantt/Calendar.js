@@ -17,17 +17,25 @@ const useStyles = makeStyles(theme => ({
 
   month: { display: 'flex', overflowX: 'auto' },
   monthContainer: { display: 'flex', flexDirection: 'column' },
-  monthTitle: {
+  monthBar: {
     display: 'flex',
-    flexDirection: 'space-between',
-    height: '50px',
+    flexDirection: 'column',
+    height: '70px',
     borderRight: '1px solid #E6E6E6',
     borderBottom: '1px solid #E6E6E6',
-    color: '#909090',
-    paddingLeft: theme.spacing(2),
-    marginBottom: theme.spacing(0.2)
+    color: '#909090'
   },
-  buttons: { position: 'absolute', paddingLeft: theme.spacing(4) },
+  spacer: { flexGrow: 1 },
+  monthTitle: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2)
+  },
+  monthBarTop: {
+    display: 'flex',
+    position: 'absolute',
+    paddingLeft: theme.spacing(2),
+    paddingTop: theme.spacing(2)
+  },
   dayTitles: {
     display: 'flex',
     overflowX: 'auto'
@@ -35,7 +43,6 @@ const useStyles = makeStyles(theme => ({
   day: {
     textAlign: 'center',
     minWidth: '30px',
-    borderRight: '1px solid #E6E6E6',
     color: '#969696'
   },
   calendarRows: {
@@ -45,9 +52,7 @@ const useStyles = makeStyles(theme => ({
     border: 0,
     borderSpacing: 0
   },
-  dayHeader: {
-    minHeight: '50px'
-  }
+  dayHeader: {}
 }));
 
 let weekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
@@ -116,24 +121,6 @@ export default function Calendar(props) {
     return rows;
   };
 
-  // const getCalendarRows = () => {
-  //   const days = getDaysInMonth();
-  //   let rows = [];
-  //   props.libraries.map(library => {
-  //     rows.push(
-  //       <CalendarRow
-  //         libraryID={library.id}
-  //         parentID={null}
-  //         openRows={props.openRows}
-  //         task={library}
-  //         daysInMonth={days}
-  //       />
-  //     );
-  //   });
-
-  //   return rows;
-  // };
-
   const getDayStyle = day => {
     if (day == 'S') {
       return '#e8e8e8';
@@ -152,39 +139,43 @@ export default function Calendar(props) {
     return (
       <div className={classes.monthContainer}>
         <div>
-          <div className={classes.monthTitle}>
-            <div>
-              {moment()
-                .add(monthsLoaded, 'month')
-                .format('MMMM')}
-            </div>
-            <div className={classes.buttons}>
+          <div className={classes.monthBar}>
+            <div className={classes.monthBarTop}>
+              <div className={classes.monthTitle}>
+                {moment()
+                  .add(monthsLoaded, 'month')
+                  .format('MMMM YYYY')}
+              </div>
               <IconButton
                 onClick={() => setMonthsLoaded(monthsLoaded - 1)}
                 size="medium"
+                style={{ padding: 0, marginRight: '1rem' }}
               >
                 <ArrowBackIcon />
               </IconButton>
               <IconButton
                 onClick={() => setMonthsLoaded(monthsLoaded + 1)}
                 size="medium"
+                style={{ padding: 0 }}
               >
                 <ArrowForwardIcon />
               </IconButton>
             </div>
-          </div>
-        </div>
-        <div className={classes.dayTitles}>
-          {daysInMonth.map(day => (
-            <div
-              className={classes.day}
-              style={{ backgroundColor: getDayStyle(day.format('d')) }}
-            >
-              <div className={classes.dayHeader}>
-                {weekdays[day.format('d')]}
-              </div>
+            <div className={classes.spacer}></div>
+            <div className={classes.dayTitles}>
+              {daysInMonth.map(day => (
+                <div
+                  className={classes.day}
+                  style={{ backgroundColor: getDayStyle(day.format('d')) }}
+                >
+                  <div className={classes.dayHeader}>
+                    {/* {weekdays[day.format('d')]} */}
+                    {day.format('D')}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
         <table className={classes.calendarRows} onScroll={e => handleScroll(e)}>
           {getCalendarRows()}

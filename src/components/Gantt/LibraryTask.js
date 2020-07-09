@@ -10,7 +10,8 @@ import LibrarySubTask from './LibrarySubTask';
 const useStyles = makeStyles(theme => ({
   root: {
     background: theme.palette.white.main,
-    height: '50px'
+    height: '50px',
+    marginBottom: '1px'
   },
   left: {
     display: 'flex',

@@ -35,8 +35,8 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingRight: theme.spacing(2),
+    marginBottom: '1px',
     borderTopLeftRadius: '3px',
-    marginBottom: theme.spacing(0.2),
     width: '100%'
   }
 }));

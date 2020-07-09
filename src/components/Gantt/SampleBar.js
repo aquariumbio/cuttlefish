@@ -27,11 +27,11 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: '50px',
+    height: '70px',
     paddingRight: theme.spacing(2),
     paddingLeft: theme.spacing(2),
     borderTopLeftRadius: '3px',
-    marginBottom: theme.spacing(0.2),
+    // marginBottom: theme.spacing(0.2),
     textOverflow: 'ellipsis'
   }
 }));

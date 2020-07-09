@@ -45,10 +45,14 @@ export default function Gantt(props) {
     setLoading(true);
     const libraries = [];
     const currentOpenRows = [];
+    let i = 0;
     for (const list of props.data) {
-      const library = JSON.parse(list.data);
-      libraries.push(library);
-      currentOpenRows.push(library.id);
+      if (i < 5) {
+        i++;
+        const library = JSON.parse(list.data);
+        libraries.push(library);
+        currentOpenRows.push(library.id);
+      }
     }
     setOpenRows(currentOpenRows);
     setLibraries(libraries);
