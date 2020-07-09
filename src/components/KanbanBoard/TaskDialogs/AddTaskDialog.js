@@ -34,7 +34,15 @@ const useStyles = makeStyles((theme) => ({
     },
     closeIcon: {
         marginLeft: theme.spacing(25)
-    }
+    },
+    chipList: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        listStyle: 'none'
+      },
+      chip: {
+        backgroundColor: '#bfbfbf'
+      }
 }));
 
 const CustomTypography = withStyles(theme => ({
@@ -69,57 +77,55 @@ const AddTaskDialog = forwardRef((props) => {
         setShow,
     } = props;
     const classes = useStyles();
-    const [values, setValues] = useState("Example Tag");
     const [engineer, setEngineer] = React.useState(engineers[0]);
+
+    const defaultEvent = {
+        title: 'Enter your task name',
+        desc: 'Enter your task description',
+        start: moment().toDate(),
+        end: moment().toDate(),
+        tag: 'Enter tag'
+    };
+
+    const [chipData, setChipData] = useState([
+        { key: 0, label: 'Example Tag', type: 'red' }
+    ]);  
+    const [tag, setTag] = useState('');
+
+    const [start, setStart] = useState(defaultEvent.start);
+    const [end, setEnd] = useState(defaultEvent.end);
 
     const handleClose = () => {
         setShow(false)
     }
 
-    const chips = [];
-    const chipsArray = [];
-
-    const handleAddChip = (name) => {
-        console.log('chip added');
-        chipsArray.push(name);
-        chips.push(
-            <Chip
-                label={name}
-                onDelete={(name, index) => handleDeleteChip(name, index)}
-            />
-        );
+    const handleStartDate = event => {
+        setStart(event.target.value);
+    };
+    
+    const handleEndDate = event => {
+        setEnd(event.target.value);
     };
 
-    const handleDeleteChip = (chip, index) => {
-        console.log('chip deleted');
-        chipsArray.splice(index, 1);
-        showChipArray();
+    const handleTagInput = event => {
+        setTag(event.target.value);
     };
 
-    const showChipArray = () => {
-        chipsArray.forEach(function (index, chip) {
-            chips.push(
-                <Chip
-                    label={chip}
-                    onDelete={(chip, index) => handleDeleteChip(chip, index)}
-                />
-            );
-            console.log('pushed chip ' + index);
-        })
-    }
+    const handleAddChip = () => {
+        setChipData(chips => [
+        ...chips,
+        { key: chips.length + 1, label: tag, role: '' }
+        ]);
+    };
+
+    const handleChipDelete = chipToDelete => () => {
+        setChipData(chips => chips.filter(chip => chip.key !== chipToDelete.key));
+    };
 
     const handleEngineerChange = (event) => {
         setEngineer(event.target.value);
     };
 
-    const handleFieldChange = (e) => {
-        e.persist();
-        setValues((prevValues) => ({
-          ...prevValues,
-          [e.target.name]:
-            e.target.type === 'checkbox' ? e.target.checked : e.target.value
-        }));
-      };
 
     return (
         <Dialog
@@ -161,7 +167,7 @@ const AddTaskDialog = forwardRef((props) => {
                     style={{ width: '100%' }}
                     label="Task Name"
                     name="Task Name"
-                    defaultValue="Enter your task name"
+                    placeHolder={defaultEvent.title}
                     variant="outlined"
                     fullWidth
                 />
@@ -185,24 +191,23 @@ const AddTaskDialog = forwardRef((props) => {
                 </TextField>
                 <TextField
                     className={classes.field}
-                    defaultValue={moment(values.start).format('YYYY-MM-DDThh:mm:ss')}
+                    defaultValue={moment(defaultEvent.start).format('YYYY-MM-DDThh:mm:ss')}
                     style={{ width: '35%', marginRight: 10 }}
                     margin="normal"
                     label="Start date"
                     name="start"
-                    onChange={handleFieldChange}
+                    onChange={handleStartDate}
                     type="datetime-local"
                     variant="outlined"
                 />
                 <TextField
                     className={classes.field}
-                    defaultValue={moment(values.end).format('YYYY-MM-DDThh:mm:ss')}
-                    disabled={values.allDay}
+                    defaultValue={moment(defaultEvent.end).format('YYYY-MM-DDThh:mm:ss')}
                     style={{ width: '35%', marginRight: 10 }}
                     margin="normal"
                     label="End date"
                     name="end"
-                    onChange={handleFieldChange}
+                    onChange={handleEndDate}
                     type="datetime-local"
                     variant="outlined"
                 />
@@ -212,8 +217,7 @@ const AddTaskDialog = forwardRef((props) => {
                     name="dur"
                     style={{ width: '25%', float: 'right' }}
                     margin="normal"
-                    onChange={handleFieldChange}
-                    value={moment(values.end).diff(moment(values.start), 'days')}
+                    defaultValue={moment(end).diff(moment(start), 'days')}
                     multiline
                     variant="filled"
                 />
@@ -222,7 +226,8 @@ const AddTaskDialog = forwardRef((props) => {
                     style={{ width: '70%', marginRight: 25 }}
                     label="Add Tags"
                     name="Add Tags"
-                    defaultValue="Enter tag"
+                    placeholder={defaultEvent.tag}
+                    onChange={handleTagInput}
                     variant="outlined"
                     fullWidth
                 />
@@ -231,11 +236,23 @@ const AddTaskDialog = forwardRef((props) => {
                     style={{ width: '20%' }}
                     margin="normal"
                     variant="contained"
-                    onClick={handleAddChip(values)}
+                    onClick={handleAddChip}
                 >
                     + Add
                 </Button>
-                <div style={{ marginBottom: 20 }}>{chips}</div>
+                <ul className={classes.chipList}>
+                {chipData.map(data => {
+                return (
+                    <li key={data.key} className={classes.field}>
+                    <Chip
+                        label={data.label}
+                        onDelete={handleChipDelete(data)}
+                        className={classes.chip}
+                    />
+                    </li>
+                );
+                })}
+            </ul>
             </DialogContent>
             < Divider />
             <DialogActions>
