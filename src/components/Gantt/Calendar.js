@@ -27,8 +27,7 @@ const useStyles = makeStyles(theme => ({
   },
   spacer: { flexGrow: 1 },
   monthTitle: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2)
+    width: '130px'
   },
   monthBarTop: {
     display: 'flex',

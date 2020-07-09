@@ -49,29 +49,22 @@ export default function LibraryTab(props) {
     props.setOpenRows([...props.openRows, props.library.id]);
   }, []);
 
-  const getAllIDs = () => {
+  const getChildrenIDs = () => {
     const IDs = [];
     props.library.operations.map(operation => {
       IDs.push(operation.id);
     });
-    IDs.push(props.library.id);
     return IDs;
   };
 
   // Handles dropdown as well as visible rows in calendar view
   const handleDropDown = event => {
+    const childrenIDs = getChildrenIDs();
     if (!open) {
-      const IDs = [];
-      props.library.operations.map(operation => {
-        IDs.push(operation.id);
-      });
-      IDs.push(props.library.id);
-
-      props.setOpenRows([...props.openRows, ...IDs]);
+      props.setOpenRows([...props.openRows, ...childrenIDs]);
       setOpen(true);
     } else {
-      const IDs = getAllIDs();
-      props.setOpenRows(props.openRows.filter(e => !IDs.includes(e)));
+      props.setOpenRows(props.openRows.filter(e => !childrenIDs.includes(e)));
       setOpen(false);
     }
   };
