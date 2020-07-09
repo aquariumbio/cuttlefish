@@ -11,7 +11,8 @@ const useStyles = makeStyles(theme => ({
   },
   tableRow: {
     overflow: 'hidden',
-    lineHeight: 0
+    lineHeight: 0,
+    borderBottom: '1px solid #E6E6E6'
   },
   tableHead: {
     minHeight: '50px',
@@ -55,8 +56,10 @@ export default function CalendarRow(props) {
   // Render the specific day block for the row
   const getDay = (day, operation) => {
     const start = moment(operation.created_at);
-    let between = moment(day.format('MM/DD/YYYY')).isSame(
-      start.format('MM/DD/YYYY')
+    const end = moment(operation.updated_at);
+    let between = moment(day.format('MM/DD/YYYY')).isBetween(
+      start.format('MM/DD/YYYY'),
+      end.format('MM/DD/YYYY')
     );
     if (between) {
       return (

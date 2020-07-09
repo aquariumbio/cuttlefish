@@ -10,7 +10,8 @@ import LibrarySubTask from './LibrarySubTask';
 const useStyles = makeStyles(theme => ({
   root: {
     background: theme.palette.white.main,
-    height: '50px'
+    height: '50px',
+    marginBottom: '1px'
   },
   left: {
     display: 'flex',
@@ -82,7 +83,7 @@ export default function LibraryTask(props) {
           </IconButton> */}
           {dropButton}
           <Typography variant="h6" noWrap>
-            {props.operation.operation_type_id}
+            {props.name}
           </Typography>
         </Grid>
         <Grid item zeroMinWidth className={classes.right}>
