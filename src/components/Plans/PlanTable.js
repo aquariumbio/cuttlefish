@@ -104,7 +104,9 @@ export default function PlanTable(props) {
   };
 
   useEffect(() => {
-    console.log(props.data);
+    if (props.data != null) {
+      props.data.forEach(plan => console.log(JSON.parse(plan.data)));
+    }
   }, [props.data]);
 
   return (
@@ -128,7 +130,7 @@ export default function PlanTable(props) {
             <TableBody>
               {props.data == null
                 ? 'LOADING PLANS...'
-                : JSON.parse(props.data)
+                : props.data
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map(row => {
                       return (
@@ -136,10 +138,10 @@ export default function PlanTable(props) {
                           hover
                           role="checkbox"
                           tabIndex={-1}
-                          key={row.id}
+                          key={JSON.parse(row.data).id}
                         >
                           {columns.map(column => {
-                            const value = row[column.id];
+                            const value = JSON.parse(row.data)[column.id];
                             if (column.id === 'favorite') {
                               if (favStatus) {
                                 return (
@@ -201,7 +203,7 @@ export default function PlanTable(props) {
           <TablePagination
             rowsPerPageOptions={[6, 36]}
             component="div"
-            count={JSON.parse(props.data).length}
+            count={props.data.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onChangePage={handleChangePage}

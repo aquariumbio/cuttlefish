@@ -32,7 +32,7 @@ router.post('/folders', function(req, res, next) {
 // 'POST' isn't currently modifiying any data
 router.post('/', function(req, res, next) {
   AQ.login(req.body.username, req.body.password)
-    .then(() => AQ.Plan.where({ user_id: 209, folder: 'Covid-19' }))
+    .then(() => AQ.Plan.where({ user_id: 209, folder: req.body.folder }))
     .then(plans => getPlans(plans))
     .then(data => res.status(200).send(data))
     .catch(err => res.status(400).send(err));

@@ -13,7 +13,7 @@ import kanbanData from './mockKanbanData';
 import mockGanttData from './mockGanttData';
 import PlanTable from 'src/components/Plans/PlanTable';
 import Settings from '../../components/Settings';
-import mockProjects from '../ProjectManagementList/projects_data'
+import mockProjects from '../ProjectManagementList/projects_data';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -140,7 +140,7 @@ function ProteinDesignProject() {
           <Tab label="Kanban" />
           <Tab label="Gantt" />
           <Tab label="Plans" />
-          <Tab label="Settings"/>
+          <Tab label="Settings" />
         </Tabs>
         <TabPanel value={currentTab} index={0}>
           <KanbanBoard data={kanbanData} />
