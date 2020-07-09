@@ -109,7 +109,7 @@ export default function SampleBar(props) {
           Library
         </CustomTypography>
         <CustomTypography variant="h5" noWrap>
-          Owner
+          Owner ID
         </CustomTypography>
       </Grid>
       <div className={classes.libraries}>{libraryTabs}</div>
