@@ -40,12 +40,12 @@ const useStyles = makeStyles((theme) => ({
     button: {
         width: 180,
         margin: theme.spacing(3),
-        marginTop: 0
     }, 
     grid: {
         flexGrow: 1,
     },
     subtitle: {
+        marginTop: theme.spacing(3),
         paddingLeft: theme.spacing(3), 
         paddingBottom: theme.spacing(3)
     },
@@ -54,11 +54,12 @@ const useStyles = makeStyles((theme) => ({
     },
     formControl: {
         margin: theme.spacing(1),
+        marginBottom: theme.spacing(2),
         minWidth: 120,
       },
     member: {
         marginTop: theme.spacing(2),
-        paddingLeft: theme.spacing(3), 
+        paddingLeft: theme.spacing(4), 
     }
 }));
 
@@ -71,12 +72,12 @@ function Settings(props) {
 
     const handleChange = (event) => {
         setUserType(event.target.value);
-        };
+    };
     return (
         <Page title={"Settings"}>
             <List component="nav" className={classes.root} aria-label="mailbox folders">
                 <ListItem boxShadow={3}>
-                    <Typography variant="h5">Project Owner </Typography>
+                    <Typography variant="h5"  className={classes.title}>Project Owner </Typography>
                 </ListItem>
                 <Typography variant="subtitle1" className={classes.subtitle}>{session.currentProject.owner}</Typography>
                 <Divider className={classes.divider}/>
@@ -84,27 +85,57 @@ function Settings(props) {
                 <ListItem boxShadow={3}>
                     <Typography variant="h5">Members </Typography>
                 </ListItem>
-                <Grid container className={classes.grid} spacing={2}>
-                <Grid item xs={3}>
-                    <Typography variant="subtitle1" className={classes.member}>{session.currentProject.members}</Typography>
-                </Grid>
-                <Grid item xs={3}>
-                    <FormControl variant="outlined" className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-outlined-label">User Type</InputLabel>
-                        <Select
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        value={userType}
-                        onChange={handleChange}
-                        label="User Type"
-                        >
-                        <MenuItem value="">
-                        </MenuItem>
-                        <MenuItem value={1}>Manager</MenuItem>
-                        <MenuItem value={2}>Collaborator</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Grid>
+                <Grid container direction={'column'} className={classes.grid} spacing={2}>
+                
+                {session.currentProject.members.managers.map(manager => (
+                    <Grid container direction={'row'} className={classes.grid} spacing={2}>
+                        <Grid item xs={3}>
+                        <Typography variant="subtitle1" className={classes.member}>{manager}</Typography>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <FormControl variant="outlined" className={classes.formControl}>
+                            <InputLabel id="demo-simple-select-outlined-label">User Type</InputLabel>
+                                <Select
+                                labelId="demo-simple-select-outlined-label"
+                                id="demo-simple-select-outlined"
+                                onChange={handleChange}
+                                defaultValue="Manager"
+                                label="User Type"
+                                >
+                                <MenuItem selected value="Manager">Manager</MenuItem>
+                                <MenuItem value="Collaborator">Collaborator</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+                ))}
+                
+                {session.currentProject.members.collaborators.map(collaborator => (
+                    <Grid container direction={'row'} className={classes.grid} spacing={2}>
+
+                        <Grid item xs={3}>
+                        <Typography variant="subtitle1" className={classes.member}>{collaborator}</Typography>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <FormControl variant="outlined" className={classes.formControl}>
+                            <InputLabel id="demo-simple-select-outlined-label">User Type</InputLabel>
+                                <Select
+                                labelId="demo-simple-select-outlined-label"
+                                id="demo-simple-select-outlined"
+                                defaultValue="Collaborator"
+                                onChange={handleChange}
+                                label="User Type"
+                                >
+
+                                <MenuItem value="Manager">Manager</MenuItem>
+                                <MenuItem selected value="Collaborator">Collaborator</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+                ))}
+                
+                
 
                 </Grid>
 
@@ -137,7 +168,6 @@ function Settings(props) {
                 <Typography variant="subtitle1" className={classes.subtitle}>{session.currentProject.status}</Typography>
                 <Divider className={classes.divider}/>
 
-                <ListItem boxShadow={3}>
                 <Button
                         variant="outlined"
                         color="primary"
@@ -145,74 +175,10 @@ function Settings(props) {
                         
                     >
                         Save Changes
-                    </Button>
-                </ListItem>
+                </Button>
             </List>
 
             
-            {/*<Grid container className={classes.grid} spacing={2}>
-                <Grid item xs={12}>
-                    <Paper className={classes.paper}>
-                        <Typography variant="h5">Project Owner: </Typography>
-                    </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                    <Typography variant="subtitle1">{session.currentProject.owner}</Typography>
-                </Grid>
-                <Grid item xs={12}>
-                    <Paper className={classes.paper}>
-                        <Typography variant="h5">Members: </Typography>
-                    </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                    <Typography variant="subtitle1">{session.currentProject.members}</Typography>
-                </Grid>
-                <Grid item xs={3}>
-                    <Paper className={classes.paper}>
-                        <Typography variant="h5">Start Date: </Typography>
-                    </Paper>
-                </Grid>
-                <Grid item xs={3}>
-                    <Typography variant="subtitle1">{session.currentProject.start_date}</Typography>
-                </Grid>
-                <Grid item xs={3}>
-                    <Paper className={classes.paper}>
-                        <Typography variant="h5">Projected Completion Date: </Typography>
-                    </Paper>
-                </Grid>
-                <Grid item xs={3}>
-                    <Typography variant="subtitle1">{session.currentProject.end_date}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                    <Paper className={classes.paper}>
-                        <Typography variant="h5">Project Type: </Typography>
-                    </Paper>
-                </Grid>
-                <Grid item xs={6}>
-                    <Typography variant="subtitle1">{session.currentProject.type}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                    <Paper className={classes.paper}>
-                        <Typography variant="h5">Project Status: </Typography>
-                    </Paper>
-                </Grid>
-                <Grid item xs={6}>
-                    <Typography variant="subtitle1">{session.currentProject.status}</Typography>
-                </Grid>
-                <Grid container
-                    direction="row"
-                    justify="center"
-                    alignItems="center">
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        className={classes.button}
-                        
-                    >
-                        Save Changes
-                    </Button>
-                </Grid>
-    </Grid>*/}
         </Page>
     );
 }
