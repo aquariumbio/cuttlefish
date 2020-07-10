@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     '& > * + *': {
       marginTop: theme.spacing(5),
     },
-  },
+  }
 }));
 
 export default function Gantt(props) {

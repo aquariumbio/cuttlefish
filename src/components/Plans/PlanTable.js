@@ -12,6 +12,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
+import { LinearProgress } from '@material-ui/core';
 
 const columns = [
   {
@@ -68,14 +69,20 @@ const columns = [
 //   createData(false, 38893, 'Plan F', '03/20/2020', 'Completed')
 // ];
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     width: '100%'
   },
   container: {
     maxHeight: 440
-  }
-});
+  },
+  progress: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(5),
+    },
+  },
+}));
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -129,7 +136,7 @@ export default function PlanTable(props) {
             </TableHead>
             <TableBody>
               {props.data == null
-                ? 'LOADING PLANS...'
+                ? <LinearProgress className={classes.progress} color="primary" />
                 : props.data
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map(row => {
