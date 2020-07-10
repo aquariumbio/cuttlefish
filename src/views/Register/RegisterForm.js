@@ -141,12 +141,14 @@ function RegisterForm({ className, ...rest }) {
         .catch(function(error) {
           console.error('Error writing document: ', error);
         });
-      dispatch(
-        login({
-          username: formState.values.username,
-          password: formState.values.password
-        })
-      );
+      const newUser = {
+        aqPassword: formState.values.password,
+        aqLogin: formState.values.username,
+        firstName: formState.values.firstName,
+        lastName: formState.values.lastName,
+        email: formState.values.email
+      };
+      dispatch(login(newUser));
       history.push('/');
     } else {
       alert('Invalid aquraium credentials');

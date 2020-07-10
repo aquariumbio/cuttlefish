@@ -20,7 +20,8 @@ const sessionReducer = (state = initialState, action) => {
           password: action.payload.password,
           firstName: action.payload.firstName,
           lastName: action.payload.lastName,
-          role: 'USER'
+          email: action.payload.email
+          // role: 'USER'
         }
       };
     }
@@ -30,7 +31,7 @@ const sessionReducer = (state = initialState, action) => {
         ...state,
         loggedIn: false,
         user: {
-          role: 'GUEST'
+          // role: 'GUEST'
         }
       };
     }

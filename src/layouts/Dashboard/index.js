@@ -1,12 +1,13 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { renderRoutes } from 'react-router-config';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
+import { useSelector } from 'react-redux';
 import { LinearProgress } from '@material-ui/core';
 import NavBar from './NavBar';
 import TopBar from './TopBar';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   container: {
     minHeight: '100vh',
     display: 'flex',
@@ -30,7 +31,10 @@ const useStyles = makeStyles((theme) => ({
 
 function Dashboard({ route }) {
   const classes = useStyles();
+  const session = useSelector(state => state.session);
   const [openNavBarMobile, setOpenNavBarMobile] = useState(false);
+
+  useEffect(() => {}, [session.user]);
 
   return (
     <>

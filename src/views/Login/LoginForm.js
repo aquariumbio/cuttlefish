@@ -84,12 +84,16 @@ function LoginForm({ className, ...rest }) {
           dispatch(
             login({
               username: doc.data().aqLogin,
-              password: formState.values.password
+              password: formState.values.password,
+              firstName: doc.data().firstName,
+              lastName: doc.data().lastName,
+              email: doc.data().email
             })
           );
           localStorage.setItem('User', JSON.stringify(doc.data()));
         });
       })
+      .then(() => history.push('/'))
       .catch(function(error) {
         console.log('Error getting user');
       });
@@ -100,7 +104,6 @@ function LoginForm({ className, ...rest }) {
     event.preventDefault();
     try {
       loginWithFirebase();
-      history.push('/');
     } catch (err) {
       alert(err.message);
     }
