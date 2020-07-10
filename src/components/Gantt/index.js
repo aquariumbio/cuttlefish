@@ -14,12 +14,17 @@ const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex'
   },
-
   calendar: {
     background: theme.palette.white.main,
     width: '45vw',
     marginLeft: theme.spacing(1)
-  }
+  },
+  progress: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(5),
+    },
+  },
 }));
 
 export default function Gantt(props) {
@@ -64,7 +69,7 @@ export default function Gantt(props) {
     <Page className={classes.root} title={'Gantt Chart'}>
       <div className={classes.container}>
         {loading ? (
-          <LinearProgress color="primary" />
+          <LinearProgress className={classes.progress} color="primary" />
       ) : (
           <>
             <SampleBar
