@@ -74,15 +74,20 @@ class Firebase {
     return false;
   }
 
-  getFirestoreUserAtLogin(email) {
-    let docRef = this.db.collection('users').doc(email);
-    docRef.get().then(doc => {
-      if (doc.exists) {
-        return doc.data();
-      } else {
-        console.log('No such user exists');
-      }
-    });
+  getFirestoreUserAtLogin(password) {
+    this.db
+      .collection('users')
+      .where('aqPassword', '==', password)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          console.log(doc.data());
+          return doc.data();
+        });
+      })
+      .catch(function(error) {
+        console.log('Error getting user');
+      });
   }
 }
 

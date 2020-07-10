@@ -1,11 +1,12 @@
 /* eslint-disable react/no-multi-comp */
 /* eslint-disable react/display-name */
 import React, { lazy } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import AuthLayout from './layouts/Auth';
 import ErrorLayout from './layouts/Error';
 import DashboardLayout from './layouts/Dashboard';
 import Overview from './views/Overview';
+import RequireAuth from '../src/components/RequireAuth';
 
 export default [
   {
@@ -69,21 +70,6 @@ export default [
         path: '/changelog',
         exact: true,
         component: lazy(() => import('src/views/Changelog'))
-      },
-      {
-        path: '/components/buttons',
-        exact: true,
-        component: lazy(() => import('src/views/Buttons'))
-      },
-      {
-        path: '/components/chips',
-        exact: true,
-        component: lazy(() => import('src/views/Chips'))
-      },
-      {
-        path: '/components/typography',
-        exact: true,
-        component: lazy(() => import('src/views/Typography'))
       },
       {
         path: '/overview',

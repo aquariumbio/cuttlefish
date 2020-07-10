@@ -73,20 +73,33 @@ function LoginForm({ className, ...rest }) {
     }));
   };
 
+  // Logs user in, setting localstorage to maintain session state
+  const loginWithFirebase = () => {
+    firebase.db
+      .collection('users')
+      .where('aqPassword', '==', formState.values.password)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          dispatch(
+            login({
+              username: doc.data().aqLogin,
+              password: formState.values.password
+            })
+          );
+          localStorage.setItem('User', JSON.stringify(doc.data()));
+        });
+      })
+      .catch(function(error) {
+        console.log('Error getting user');
+      });
+  };
+
+  // Currently retrieves user information from firebase and sets it to local storage
   const handleSubmit = async event => {
     event.preventDefault();
     try {
-      await firebase.login(formState.values.email, formState.values.password);
-      const username = await firebase.getCurrentUsername();
-      // const firestoreUser = await firebase.getFirestoreUserAtLogin(
-      //   formState.values.email
-      // );
-      dispatch(
-        login({
-          username: username,
-          password: formState.values.password
-        })
-      );
+      loginWithFirebase();
       history.push('/');
     } catch (err) {
       alert(err.message);

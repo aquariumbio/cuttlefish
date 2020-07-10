@@ -57,8 +57,8 @@ export default function SampleBar(props) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        username: session.user.username,
-        password: session.user.password
+        username: session.user.aqLogin,
+        password: session.user.aqPassword
       })
     });
     if (response.status === 200) {
