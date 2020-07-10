@@ -2,14 +2,17 @@ import React, { useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import Page from 'src/components/Page';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
+import { 
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  LinearProgress
+} from '@material-ui/core';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 
@@ -68,14 +71,20 @@ const columns = [
 //   createData(false, 38893, 'Plan F', '03/20/2020', 'Completed')
 // ];
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     width: '100%'
   },
   container: {
     maxHeight: 440
-  }
-});
+  },
+  progress: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(5),
+    },
+  },
+}));
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -129,73 +138,73 @@ export default function PlanTable(props) {
             </TableHead>
             <TableBody>
               {props.data == null
-                ? 'LOADING PLANS...'
+                ? <LinearProgress className={classes.progress} color="primary" />
                 : props.data
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map(row => {
-                      return (
-                        <TableRow
-                          hover
-                          role="checkbox"
-                          tabIndex={-1}
-                          key={JSON.parse(row.data).id}
-                        >
-                          {columns.map(column => {
-                            const value = JSON.parse(row.data)[column.id];
-                            if (column.id === 'favorite') {
-                              if (favStatus) {
-                                return (
-                                  <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                  >
-                                    <StarIcon
-                                      style={{
-                                        color: '#065683',
-                                        cursor: 'pointer'
-                                      }}
-                                      onClick={handleFavorite}
-                                    />
-                                  </TableCell>
-                                );
-                              } else {
-                                return (
-                                  <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                  >
-                                    <StarBorderIcon
-                                      style={{
-                                        color: '#065683',
-                                        cursor: 'pointer'
-                                      }}
-                                      onClick={handleFavorite}
-                                    />
-                                  </TableCell>
-                                );
-                              }
-                            } else if (
-                              column.id === 'created_at' ||
-                              column.id === 'updated_at'
-                            ) {
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map(row => {
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={JSON.parse(row.data).id}
+                      >
+                        {columns.map(column => {
+                          const value = JSON.parse(row.data)[column.id];
+                          if (column.id === 'favorite') {
+                            if (favStatus) {
                               return (
-                                <TableCell key={column.id} align={column.align}>
-                                  {moment(value).format('D MMM YYYY')}
+                                <TableCell
+                                  key={column.id}
+                                  align={column.align}
+                                >
+                                  <StarIcon
+                                    style={{
+                                      color: '#065683',
+                                      cursor: 'pointer'
+                                    }}
+                                    onClick={handleFavorite}
+                                  />
                                 </TableCell>
                               );
                             } else {
                               return (
-                                <TableCell key={column.id} align={column.align}>
-                                  {column.format && typeof value === 'number'
-                                    ? column.format(value)
-                                    : value}
+                                <TableCell
+                                  key={column.id}
+                                  align={column.align}
+                                >
+                                  <StarBorderIcon
+                                    style={{
+                                      color: '#065683',
+                                      cursor: 'pointer'
+                                    }}
+                                    onClick={handleFavorite}
+                                  />
                                 </TableCell>
                               );
                             }
-                          })}
-                        </TableRow>
-                      );
-                    })}
+                          } else if (
+                            column.id === 'created_at' ||
+                            column.id === 'updated_at'
+                          ) {
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {moment(value).format('D MMM YYYY')}
+                              </TableCell>
+                            );
+                          } else {
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {column.format && typeof value === 'number'
+                                  ? column.format(value)
+                                  : value}
+                              </TableCell>
+                            );
+                          }
+                        })}
+                      </TableRow>
+                    );
+                  })}
             </TableBody>
           </Table>
         </TableContainer>

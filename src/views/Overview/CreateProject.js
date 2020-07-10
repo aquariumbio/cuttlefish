@@ -174,8 +174,10 @@ const CreateProject = forwardRef((props, ref) => {
         owner: session.user.aqLogin,
         description: description,
         folder: folder,
-        members: chipData.map(x => x.label),
-        start_date: moment(start).format('M/D/YY'),
+        members: {
+          managers: chipData.map(chips => chips.filter(chip => chip.role === "Manager")),
+          collaborators: chipData.map(chips => chips.filter(chip => chip.role === "Collaborator"))
+        },
         end_date: moment(end).format('M/D/YY'),
         type: type,
         status: 'pending',
