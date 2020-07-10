@@ -138,71 +138,71 @@ export default function PlanTable(props) {
               {props.data == null
                 ? <LinearProgress className={classes.progress} color="primary" />
                 : props.data
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map(row => {
-                      return (
-                        <TableRow
-                          hover
-                          role="checkbox"
-                          tabIndex={-1}
-                          key={JSON.parse(row.data).id}
-                        >
-                          {columns.map(column => {
-                            const value = JSON.parse(row.data)[column.id];
-                            if (column.id === 'favorite') {
-                              if (favStatus) {
-                                return (
-                                  <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                  >
-                                    <StarIcon
-                                      style={{
-                                        color: '#065683',
-                                        cursor: 'pointer'
-                                      }}
-                                      onClick={handleFavorite}
-                                    />
-                                  </TableCell>
-                                );
-                              } else {
-                                return (
-                                  <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                  >
-                                    <StarBorderIcon
-                                      style={{
-                                        color: '#065683',
-                                        cursor: 'pointer'
-                                      }}
-                                      onClick={handleFavorite}
-                                    />
-                                  </TableCell>
-                                );
-                              }
-                            } else if (
-                              column.id === 'created_at' ||
-                              column.id === 'updated_at'
-                            ) {
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map(row => {
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={JSON.parse(row.data).id}
+                      >
+                        {columns.map(column => {
+                          const value = JSON.parse(row.data)[column.id];
+                          if (column.id === 'favorite') {
+                            if (favStatus) {
                               return (
-                                <TableCell key={column.id} align={column.align}>
-                                  {moment(value).format('D MMM YYYY')}
+                                <TableCell
+                                  key={column.id}
+                                  align={column.align}
+                                >
+                                  <StarIcon
+                                    style={{
+                                      color: '#065683',
+                                      cursor: 'pointer'
+                                    }}
+                                    onClick={handleFavorite}
+                                  />
                                 </TableCell>
                               );
                             } else {
                               return (
-                                <TableCell key={column.id} align={column.align}>
-                                  {column.format && typeof value === 'number'
-                                    ? column.format(value)
-                                    : value}
+                                <TableCell
+                                  key={column.id}
+                                  align={column.align}
+                                >
+                                  <StarBorderIcon
+                                    style={{
+                                      color: '#065683',
+                                      cursor: 'pointer'
+                                    }}
+                                    onClick={handleFavorite}
+                                  />
                                 </TableCell>
                               );
                             }
-                          })}
-                        </TableRow>
-                      );
-                    })}
+                          } else if (
+                            column.id === 'created_at' ||
+                            column.id === 'updated_at'
+                          ) {
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {moment(value).format('D MMM YYYY')}
+                              </TableCell>
+                            );
+                          } else {
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {column.format && typeof value === 'number'
+                                  ? column.format(value)
+                                  : value}
+                              </TableCell>
+                            );
+                          }
+                        })}
+                      </TableRow>
+                    );
+                  })}
             </TableBody>
           </Table>
         </TableContainer>

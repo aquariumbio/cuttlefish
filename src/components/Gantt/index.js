@@ -70,22 +70,22 @@ export default function Gantt(props) {
       <div className={classes.container}>
         {loading ? (
           <LinearProgress className={classes.progress} color="primary" />
-      ) : (
-          <>
-            <SampleBar
-              libraries={libraries}
-              openRows={openRows}
-              setOpenRows={setOpenRows}
-            />
-            <div className={classes.calendar}>
-              <Calendar
+        ) : (
+            <>
+              <SampleBar
                 libraries={libraries}
                 openRows={openRows}
                 setOpenRows={setOpenRows}
               />
-            </div>
-          </>
-        )}
+              <div className={classes.calendar}>
+                <Calendar
+                  libraries={libraries}
+                  openRows={openRows}
+                  setOpenRows={setOpenRows}
+                />
+              </div>
+            </>
+          )}
       </div>
     </Page>
   );
