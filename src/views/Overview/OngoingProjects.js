@@ -52,7 +52,9 @@ function OngoingProjects({ customer, className, ...rest }) {
         });
       })
       .then(() => {
-        const cards = projects.map(proj => <ProjectCard project={proj} />);
+        const cards = projects.map(proj => (
+          <ProjectCard project={proj} key={proj.id} />
+        ));
         setProjects(cards);
       });
   };

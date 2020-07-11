@@ -201,7 +201,7 @@ function NavBar({ openMobile, onMobileClose, className, ...rest }) {
             alt="Person"
             onClick={handleStatusToggle}
             className={classes.avatar}
-            src={session.user.avatar}
+            // src={session.user.avatar}
           />
         </Badge>
         <div className={classes.details}>
@@ -212,9 +212,9 @@ function NavBar({ openMobile, onMobileClose, className, ...rest }) {
             color="textPrimary"
             underline="none"
           >
-            {`${session.user.first_name} ${session.user.last_name}`}
+            {`${session.user.firstName} ${session.user.lastName}`}
           </Link>
-          <Typography variant="body2">{session.user.bio}</Typography>
+          {/* <Typography variant="body2">{session.user.bio}</Typography> */}
         </div>
         <IconButton className={classes.moreButton} size="small">
           <MoreIcon />

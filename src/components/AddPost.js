@@ -16,7 +16,7 @@ import SendIcon from '@material-ui/icons/Send';
 import AddPhotoIcon from '@material-ui/icons/AddPhotoAlternate';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {},
   content: {
     display: 'flex',
@@ -42,9 +42,9 @@ function AddPost({ className, ...rest }) {
   const classes = useStyles();
   const fileInputRef = useRef(null);
   const [value, setValue] = useState('');
-  const session = useSelector((state) => state.session);
+  const session = useSelector(state => state.session);
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     event.persist();
     setValue(event.target.value);
   };
@@ -54,20 +54,14 @@ function AddPost({ className, ...rest }) {
   };
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
+    <Card {...rest} className={clsx(classes.root, className)}>
       <CardContent className={classes.content}>
-        <Paper
-          className={classes.paper}
-          elevation={1}
-        >
+        <Paper className={classes.paper} elevation={1}>
           <Input
             className={classes.input}
             disableUnderline
             onChange={handleChange}
-            placeholder={`What's on your mind, ${session.user.first_name}`}
+            placeholder={`What's on your mind, ${session.user.firstName}`}
           />
         </Paper>
         <Tooltip title="Send">
@@ -77,26 +71,16 @@ function AddPost({ className, ...rest }) {
         </Tooltip>
         <Divider className={classes.divider} />
         <Tooltip title="Attach image">
-          <IconButton
-            edge="end"
-            onClick={handleAttach}
-          >
+          <IconButton edge="end" onClick={handleAttach}>
             <AddPhotoIcon />
           </IconButton>
         </Tooltip>
         <Tooltip title="Attach file">
-          <IconButton
-            edge="end"
-            onClick={handleAttach}
-          >
+          <IconButton edge="end" onClick={handleAttach}>
             <AttachFileIcon />
           </IconButton>
         </Tooltip>
-        <input
-          className={classes.fileInput}
-          ref={fileInputRef}
-          type="file"
-        />
+        <input className={classes.fileInput} ref={fileInputRef} type="file" />
       </CardContent>
     </Card>
   );

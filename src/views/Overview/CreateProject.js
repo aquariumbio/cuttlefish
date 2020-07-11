@@ -1,6 +1,7 @@
 /* eslint-disable react/display-name */
 import React, { useState, forwardRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import moment from 'moment';
 import uuid from 'uuid';
 import Paper from '@material-ui/core/Paper';
@@ -98,6 +99,7 @@ const CreateProject = forwardRef((props, ref) => {
   } = props;
   const classes = useStyles();
   const session = useSelector(state => state.session);
+  const history = useHistory();
   const [values, setValues] = useState(event || { ...defaultEvent });
   const projectTypes = [
     {
@@ -133,7 +135,11 @@ const CreateProject = forwardRef((props, ref) => {
   const [folder, setFolder] = useState();
   const [contributor, setContributor] = useState('');
   const [chipData, setChipData] = useState([
-    { key: 0, label: 'First Last', role: 'Owner' }
+    {
+      key: 0,
+      label: session.user.firstName + ' ' + session.user.lastName,
+      role: 'Owner'
+    }
   ]);
   const [title, setTitle] = useState('');
   const [start, setStart] = useState(defaultEvent.start);
@@ -165,7 +171,7 @@ const CreateProject = forwardRef((props, ref) => {
       .doc(projectID)
       .set({
         title: title,
-        owner: session.user.username,
+        owner: session.user.aqLogin,
         description: description,
         folder: folder,
         members: {
@@ -174,8 +180,10 @@ const CreateProject = forwardRef((props, ref) => {
         },
         end_date: moment(end).format('M/D/YY'),
         type: type,
-        status: 'pending'
+        status: 'pending',
+        id: uuid()
       })
+      .then(() => window.location.reload())
       .catch(function(error) {
         console.error('Error creating project: ', error);
       });
@@ -227,8 +235,8 @@ const CreateProject = forwardRef((props, ref) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        username: session.user.username,
-        password: session.user.password
+        username: session.user.aqLogin,
+        password: session.user.aqPassword
       })
     });
     if (response.status === 200) {
@@ -349,7 +357,7 @@ const CreateProject = forwardRef((props, ref) => {
             style={{ width: '25%', float: 'right' }}
             margin="normal"
             onChange={handleFieldChange}
-            defaultValue={moment(end).diff(moment(start), 'days')} 
+            defaultValue={moment(end).diff(moment(start), 'days')}
             multiline
             variant="filled"
           />
@@ -383,7 +391,7 @@ const CreateProject = forwardRef((props, ref) => {
           </TextField>
           <Button
             className={classes.field}
-            style={{ 
+            style={{
               width: '16%',
               padding: '15px'
             }}

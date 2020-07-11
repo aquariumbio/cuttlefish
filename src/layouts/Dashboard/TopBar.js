@@ -114,6 +114,7 @@ function TopBar({ onOpenNavBarMobile, className, ...rest }) {
   const handleLogout = () => {
     history.push('/auth/login');
     dispatch(logout());
+    localStorage.removeItem('User');
     firebase.logout();
   };
 
@@ -144,19 +145,19 @@ function TopBar({ onOpenNavBarMobile, className, ...rest }) {
   useEffect(() => {
     let mounted = true;
 
-    const fetchNotifications = () => {
-      axios.get('/api/account/notifications').then(response => {
-        if (mounted) {
-          setNotifications(response.data.notifications);
-        }
-      });
-    };
+    // const fetchNotifications = () => {
+    //   axios.get('/api/account/notifications').then(response => {
+    //     if (mounted) {
+    //       setNotifications(response.data.notifications);
+    //     }
+    //   });
+    // };
 
-    fetchNotifications();
+    // fetchNotifications();
 
-    return () => {
-      mounted = false;
-    };
+    // return () => {
+    //   mounted = false;
+    // };
   }, []);
 
   return (
