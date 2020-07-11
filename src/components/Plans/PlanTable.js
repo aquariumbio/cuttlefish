@@ -25,7 +25,7 @@ const columns = [
   },
   {
     id: 'id',
-    label: 'ID',
+    label: 'Plan ID',
     minWidth: 50,
     align: 'left',
     format: value => value.toFixed(0)
