@@ -171,12 +171,16 @@ const CreateProject = forwardRef((props, ref) => {
       .doc(projectID)
       .set({
         title: title,
-        owner: session.user.aqLogin,
+        owner: session.user.firstName + ' ' + session.user.lastName,
         description: description,
         folder: folder,
         members: {
-          managers: chipData.map(chips => chips.filter(chip => chip.role === "Manager")),
-          collaborators: chipData.map(chips => chips.filter(chip => chip.role === "Collaborator"))
+          managers: chipData.map(chips =>
+            chips.filter(chip => chip.role === 'Manager')
+          ),
+          collaborators: chipData.map(chips =>
+            chips.filter(chip => chip.role === 'Collaborator')
+          )
         },
         end_date: moment(end).format('M/D/YY'),
         type: type,

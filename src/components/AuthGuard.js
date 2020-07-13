@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import firebase from '../firebase/firebase';
 
@@ -9,6 +10,7 @@ import firebase from '../firebase/firebase';
 function AuthGuard({ roles, children }) {
   const session = useSelector(state => state.session);
   const history = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
     if (!session.loggedIn || !session.user) {

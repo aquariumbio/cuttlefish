@@ -91,9 +91,12 @@ function LoginForm({ className, ...rest }) {
             })
           );
           localStorage.setItem('User', JSON.stringify(doc.data()));
+          return doc;
         });
       })
-      .then(() => history.push('/'))
+      .then(response => {
+        history.push('/');
+      })
       .catch(function(error) {
         console.log('Error getting user');
       });
