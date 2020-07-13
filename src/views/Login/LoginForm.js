@@ -80,6 +80,9 @@ function LoginForm({ className, ...rest }) {
       .where('aqPassword', '==', formState.values.password)
       .get()
       .then(function(querySnapshot) {
+        if (querySnapshot.empty) {
+          alert('No such user exists');
+        }
         querySnapshot.forEach(function(doc) {
           dispatch(
             login({
@@ -91,14 +94,13 @@ function LoginForm({ className, ...rest }) {
             })
           );
           localStorage.setItem('User', JSON.stringify(doc.data()));
-          return doc;
         });
       })
-      .then(response => {
+      .then(() => {
         history.push('/');
       })
-      .catch(function(error) {
-        console.log('Error getting user');
+      .catch(error => {
+        console.log('Error getting user', error);
       });
   };
 
