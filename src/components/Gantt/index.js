@@ -5,6 +5,7 @@ import Page from '../Page';
 import SampleBar from './SampleBar';
 import Calendar from './Calendar';
 import { useSelector } from 'react-redux';
+import { LinearProgress } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -13,11 +14,16 @@ const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex'
   },
-
   calendar: {
     background: theme.palette.white.main,
     width: '45vw',
     marginLeft: theme.spacing(1)
+  },
+  progress: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(5),
+    },
   }
 }));
 
@@ -63,23 +69,23 @@ export default function Gantt(props) {
     <Page className={classes.root} title={'Gantt Chart'}>
       <div className={classes.container}>
         {loading ? (
-          <h1>LOADING PLANS...</h1>
+          <LinearProgress className={classes.progress} color="primary" />
         ) : (
-          <>
-            <SampleBar
-              libraries={libraries}
-              openRows={openRows}
-              setOpenRows={setOpenRows}
-            />
-            <div className={classes.calendar}>
-              <Calendar
+            <>
+              <SampleBar
                 libraries={libraries}
                 openRows={openRows}
                 setOpenRows={setOpenRows}
               />
-            </div>
-          </>
-        )}
+              <div className={classes.calendar}>
+                <Calendar
+                  libraries={libraries}
+                  openRows={openRows}
+                  setOpenRows={setOpenRows}
+                />
+              </div>
+            </>
+          )}
       </div>
     </Page>
   );

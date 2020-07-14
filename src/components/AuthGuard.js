@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { login } from 'src/actions';
-
 import firebase from '../firebase/firebase';
 
 // Example of user roles: ['GUEST', 'USER', 'ADMIN'];
@@ -11,20 +10,9 @@ import firebase from '../firebase/firebase';
 function AuthGuard({ roles, children }) {
   const session = useSelector(state => state.session);
   const history = useHistory();
-  const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
-    // if (localStorage.getItem('user') != null) {
-    //   const user = localStorage.getItem('user');
-    //   dispatch(
-    //     login({
-    //       firstName: user.firstName,
-    //       lastName: user.lastName,
-    //       username: user.username,
-    //       password: user.password
-    //     })
-    //   );
-    // }
     if (!session.loggedIn || !session.user) {
       history.push('/auth/login');
       return;
@@ -46,8 +34,8 @@ function AuthGuard({ roles, children }) {
 }
 
 AuthGuard.propTypes = {
-  children: PropTypes.node,
-  roles: PropTypes.array.isRequired
+  children: PropTypes.node
+  // roles: PropTypes.array.isRequired
 };
 
 export default AuthGuard;

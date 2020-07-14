@@ -1,16 +1,30 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
-import { Grid, Typography, Button } from '@material-ui/core';
+import { Grid, Typography, Button, Modal } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import CreateProject from '../Overview/CreateProject'
 
-const useStyles = makeStyles(() => ({
-  root: {}
+const useStyles = makeStyles((theme) => ({
+  addButton: {
+    color: theme.palette.common.white,
+    backgroundColor: '#065683',
+    '&:hover': {
+      backgroundColor: '#065683'
+    }
+  },
+  addIcon: {
+    marginRight: theme.spacing(1)
+  }
 }));
 
 function Header({ className, ...rest }) {
   const classes = useStyles();
+  const [show, setShow] = React.useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <div
@@ -40,13 +54,17 @@ function Header({ className, ...rest }) {
         </Grid>
         <Grid item>
           <Button
+            className={classes.addButton}
             color="primary"
-            component={RouterLink}
-            to="/projects/create"
             variant="contained"
+            onClick={handleShow}
           >
+            <AddIcon className={classes.addIcon} />
             Add project
           </Button>
+          <Modal open={show} onHide={handleClose} animation={false}>
+            <CreateProject show={show} setShow={setShow} />
+          </Modal>
         </Grid>
       </Grid>
     </div>

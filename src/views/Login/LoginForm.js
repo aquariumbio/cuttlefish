@@ -73,21 +73,42 @@ function LoginForm({ className, ...rest }) {
     }));
   };
 
+  // Logs user in, setting localstorage to maintain session state
+  const loginWithFirebase = () => {
+    firebase.db
+      .collection('users')
+      .where('aqPassword', '==', formState.values.password)
+      .get()
+      .then(function(querySnapshot) {
+        if (querySnapshot.empty) {
+          alert('No such user exists');
+        }
+        querySnapshot.forEach(function(doc) {
+          dispatch(
+            login({
+              username: doc.data().aqLogin,
+              password: formState.values.password,
+              firstName: doc.data().firstName,
+              lastName: doc.data().lastName,
+              email: doc.data().email
+            })
+          );
+          localStorage.setItem('User', JSON.stringify(doc.data()));
+        });
+      })
+      .then(() => {
+        history.push('/');
+      })
+      .catch(error => {
+        console.log('Error getting user', error);
+      });
+  };
+
+  // Currently retrieves user information from firebase and sets it to local storage
   const handleSubmit = async event => {
     event.preventDefault();
     try {
-      await firebase.login(formState.values.email, formState.values.password);
-      const username = await firebase.getCurrentUsername();
-      // const firestoreUser = await firebase.getFirestoreUserAtLogin(
-      //   formState.values.email
-      // );
-      dispatch(
-        login({
-          username: username,
-          password: formState.values.password
-        })
-      );
-      history.push('/');
+      loginWithFirebase();
     } catch (err) {
       alert(err.message);
     }

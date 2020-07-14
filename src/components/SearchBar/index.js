@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
-import { Grid, Button } from '@material-ui/core';
-import FilterListIcon from '@material-ui/icons/FilterList';
+import { Grid } from '@material-ui/core';
 import Search from './Search';
-import Filter from './Filter';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,15 +29,6 @@ function SearchBar({
   onFilter, onSearch, className, ...rest
 }) {
   const classes = useStyles();
-  const [openFilter, setOpenFilter] = useState(false);
-
-  const handleFilterOpen = () => {
-    setOpenFilter(true);
-  };
-
-  const handleFilterClose = () => {
-    setOpenFilter(false);
-  };
 
   return (
     <Grid
@@ -54,24 +43,6 @@ function SearchBar({
           onSearch={onSearch}
         />
       </Grid>
-      <Grid item>
-        <Button
-          className={classes.filterButton}
-          color="primary"
-          onClick={handleFilterOpen}
-          size="small"
-          variant="outlined"
-        >
-          <FilterListIcon className={classes.filterIcon} />
-          {' '}
-Show filters
-        </Button>
-      </Grid>
-      <Filter
-        onClose={handleFilterClose}
-        onFilter={onFilter}
-        open={openFilter}
-      />
     </Grid>
   );
 }
