@@ -168,7 +168,8 @@ const CreateProject = forwardRef((props, ref) => {
         owner: session.user.username,
         description: description,
         folder: folder,
-        members: chipData.label,
+        members: chipData.map(x => x.label),
+        start_date: moment(start).format('M/D/YY'),
         end_date: moment(end).format('M/D/YY'),
         type: type,
         status: 'pending'
