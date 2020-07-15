@@ -175,12 +175,12 @@ const CreateProject = forwardRef((props, ref) => {
         description: description,
         folder: folder,
         members: {
-          managers: chipData.map(chips =>
-            chips.filter(chip => chip.role === 'Manager')
-          ),
-          collaborators: chipData.map(chips =>
-            chips.filter(chip => chip.role === 'Collaborator')
-          )
+          // managers: chipData.map(chips =>
+          //   chips.filter(chip => chip.role === 'Manager')
+          // ),
+          // collaborators: chipData.map(chips =>
+          //   chips.filter(chip => chip.role === 'Collaborator')
+          // )
         },
         end_date: moment(end).format('M/D/YY'),
         type: type,
@@ -235,6 +235,7 @@ const CreateProject = forwardRef((props, ref) => {
   };
 
   const fetchAquariumPlanFolders = async () => {
+    console.log(session.user);
     const response = await fetch('http://localhost:4000/plans/folders', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

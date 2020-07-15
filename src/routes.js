@@ -59,7 +59,7 @@ export default [
   },
   {
     route: '*',
-    component: RequireAuth(DashboardLayout),
+    component: DashboardLayout,
     routes: [
       {
         path: '/calendar',

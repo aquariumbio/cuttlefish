@@ -16,8 +16,8 @@ const sessionReducer = (state = initialState, action) => {
         loggedIn: true,
         user: {
           ...state.user,
-          username: action.payload.username,
-          password: action.payload.password,
+          aqLogin: action.payload.aqLogin,
+          aqPassword: action.payload.aqPassword,
           firstName: action.payload.firstName,
           lastName: action.payload.lastName,
           email: action.payload.email
