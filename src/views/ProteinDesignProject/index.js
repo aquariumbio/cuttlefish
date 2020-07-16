@@ -55,7 +55,7 @@ function ProteinDesignProject() {
     open: false,
     event: null
   });
-  const [progress, setProgress] = useState([80]);
+  const [progress, setProgress] = useState([0]);
   const [ganttData, setGanttData] = useState();
 
   const handleEventNew = () => {
@@ -123,7 +123,7 @@ function ProteinDesignProject() {
         <Header currentTab={currentTab} onEventAdd={handleEventNew} />
         <div className={classes.progress}>
           <Typography gutterBottom variant="h6">
-            8 tasks completed out of 10
+            0 tasks completed out of 0
           </Typography>
           <CustomLinearProgress
             variant="determinate"
