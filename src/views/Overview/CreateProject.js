@@ -26,6 +26,8 @@ import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import mockProjects from '../ProjectManagementList/projects_data';
 import firebase from '../../firebase/firebase';
+import { FormHelperText } from '@material-ui/core';
+import Input from '@material-ui/core/Input';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -72,6 +74,8 @@ const CustomTypography = withStyles(theme => ({
     color: '#05486E'
   }
 }))(Typography);
+
+
 
 const defaultEvent = {
   title: 'Enter your project name',
@@ -147,6 +151,7 @@ const CreateProject = forwardRef((props, ref) => {
   const [newProjects, setNewProjects] = useState(mockProjects);
   const [aquariumFolders, setAquariumFolders] = useState([]);
   const [projectID, setProjectID] = useState(uuid());
+  const [hasError, setHasError] = useState('');
 
   const handleFieldChange = e => {
     e.persist();
@@ -174,14 +179,13 @@ const CreateProject = forwardRef((props, ref) => {
         owner: session.user.firstName + ' ' + session.user.lastName,
         description: description,
         folder: folder,
-        members: {
-          managers: chipData.map(chips =>
-            chips.filter(chip => chip.role === 'Manager')
-          ),
-          collaborators: chipData.map(chips =>
-            chips.filter(chip => chip.role === 'Collaborator')
-          )
-        },
+        members: Object.assign({}, {
+          managers: Object.assign({}, chipData.filter(chip => chip.role === 'Manager'))
+          ,
+          collaborators: Object.assign({}, chipData.filter(chip => chip.role === 'Collaborator'))
+          
+        }),
+        start_date: moment(start).format('M/D/YY'),
         end_date: moment(end).format('M/D/YY'),
         type: type,
         status: 'pending',
@@ -217,6 +221,7 @@ const CreateProject = forwardRef((props, ref) => {
 
   const handleFolderChange = event => {
     setFolder(event.target.value);
+    setHasError(folder === null);
   };
 
   const handleAddChip = () => {
@@ -255,7 +260,7 @@ const CreateProject = forwardRef((props, ref) => {
 
   return (
     <Dialog open={show} onClose={handleClose} className={classes.root}>
-      <form>
+      <form onSubmit={handleCreateProject}>
         <DialogTitle className={classes.title}>
           <Grid container spacing={20}>
             <Grid item md={6} xs={12}>
@@ -276,6 +281,7 @@ const CreateProject = forwardRef((props, ref) => {
         </DialogTitle>
         <DialogContent>
           <TextField
+            required
             className={classes.field}
             fullWidth
             label="Project Name"
@@ -284,7 +290,8 @@ const CreateProject = forwardRef((props, ref) => {
             placeholder={values.title}
             variant="outlined"
           />
-          <TextField
+          <TextField 
+            required={true}
             className={classes.field}
             fullWidth
             select
@@ -304,6 +311,7 @@ const CreateProject = forwardRef((props, ref) => {
             ))}
           </TextField>
           <TextField
+            required={true}
             className={classes.field}
             fullWidth
             label="Project Description"
@@ -313,25 +321,31 @@ const CreateProject = forwardRef((props, ref) => {
             value={description}
             variant="outlined"
           />
-          <FormControl className={classes.formControl}>
+          <FormControl error={hasError} required className={classes.formControl}>
             <InputLabel id="demo-controlled-open-select-label">
               Aquarium Plan Folder
             </InputLabel>
             <Select
+              native
+              required
               labelId="demo-controlled-open-select-label"
               id="demo-controlled-open-select"
               value={folder}
               onChange={handleFolderChange}
               placeholder={values.direc}
+              input={<Input inputProps={{ required: true }} />}
             >
+              <option value="" />
               {aquariumFolders.map(folder =>
                 folder != null ? (
-                  <MenuItem value={folder}>{folder}</MenuItem>
+                  <option value={folder}>{folder}</option>
                 ) : null
               )}
             </Select>
+            {hasError && <FormHelperText>This is required!</FormHelperText>}
           </FormControl>
           <TextField
+            required={true}
             className={classes.field}
             defaultValue={moment(values.start).format('YYYY-MM-DDThh:mm:ss')}
             style={{ width: '35%', marginRight: 10 }}
@@ -343,6 +357,7 @@ const CreateProject = forwardRef((props, ref) => {
             variant="outlined"
           />
           <TextField
+            required={true}
             className={classes.field}
             defaultValue={moment(values.end).format('YYYY-MM-DDThh:mm:ss')}
             style={{ width: '35%', marginRight: 10 }}
@@ -366,6 +381,7 @@ const CreateProject = forwardRef((props, ref) => {
             variant="filled"
           />
           <TextField
+            
             className={classes.field}
             style={{ width: '40%', marginRight: 10 }}
             label="Project Contributors"
@@ -431,7 +447,7 @@ const CreateProject = forwardRef((props, ref) => {
           </Button>
           <Button
             className={classes.confirmButton}
-            onClick={handleCreateProject}
+            type="submit"
             variant="contained"
           >
             Create
