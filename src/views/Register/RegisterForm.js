@@ -112,6 +112,37 @@ function RegisterForm({ className, ...rest }) {
     }));
   };
 
+  // Logs user in, setting localstorage to maintain session state
+  // const registerWithFirebase = () => {
+  //   firebase.db
+  //     .collection('users')
+  //     .where('aqPassword', '==', formState.values.password)
+  //     .get()
+  //     .then(function(querySnapshot) {
+  //       if (querySnapshot.empty) {
+  //         alert('No such user exists');
+  //       }
+  //       querySnapshot.forEach(function(doc) {
+  //         dispatch(
+  //           login({
+  //             username: doc.data().aqLogin,
+  //             password: formState.values.password,
+  //             firstName: doc.data().firstName,
+  //             lastName: doc.data().lastName,
+  //             email: doc.data().email
+  //           })
+  //         );
+  //         localStorage.setItem('User', JSON.stringify(doc.data()));
+  //       });
+  //     })
+  //     .then(() => {
+  //       history.push('/');
+  //     })
+  //     .catch(error => {
+  //       console.log('Error getting user', error);
+  //     });
+  // };
+
   const handleSubmit = async event => {
     event.preventDefault();
     const response = await fetch('http://localhost:4000/users/login', {
@@ -138,18 +169,23 @@ function RegisterForm({ className, ...rest }) {
           lastName: formState.values.lastName,
           email: formState.values.email
         })
+        .then(() => {
+          const newUser = {
+            aqPassword: formState.values.password,
+            aqLogin: formState.values.username,
+            firstName: formState.values.firstName,
+            lastName: formState.values.lastName,
+            email: formState.values.email
+          };
+          localStorage.setItem('User', JSON.stringify(newUser));
+          dispatch(login(newUser));
+        })
+        .then(() => {
+          history.push('/');
+        })
         .catch(function(error) {
           console.error('Error writing document: ', error);
         });
-      const newUser = {
-        aqPassword: formState.values.password,
-        aqLogin: formState.values.username,
-        firstName: formState.values.firstName,
-        lastName: formState.values.lastName,
-        email: formState.values.email
-      };
-      dispatch(login(newUser));
-      history.push('/');
     } else {
       alert('Invalid aquraium credentials');
     }

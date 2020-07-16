@@ -179,13 +179,14 @@ const CreateProject = forwardRef((props, ref) => {
         owner: session.user.firstName + ' ' + session.user.lastName,
         description: description,
         folder: folder,
-        members: Object.assign({}, {
-          managers: Object.assign({}, chipData.filter(chip => chip.role === 'Manager'))
-          ,
-          collaborators: Object.assign({}, chipData.filter(chip => chip.role === 'Collaborator'))
-          
-        }),
-        start_date: moment(start).format('M/D/YY'),
+        members: {
+          // managers: chipData.map(chips =>
+          //   chips.filter(chip => chip.role === 'Manager')
+          // ),
+          // collaborators: chipData.map(chips =>
+          //   chips.filter(chip => chip.role === 'Collaborator')
+          // )
+        },
         end_date: moment(end).format('M/D/YY'),
         type: type,
         status: 'pending',
@@ -240,6 +241,7 @@ const CreateProject = forwardRef((props, ref) => {
   };
 
   const fetchAquariumPlanFolders = async () => {
+    console.log(session.user);
     const response = await fetch('http://localhost:4000/plans/folders', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
