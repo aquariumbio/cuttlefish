@@ -22,17 +22,14 @@ const useStyles = makeStyles(theme => ({
   progress: {
     width: '100%',
     '& > * + *': {
-      marginTop: theme.spacing(5),
-    },
+      marginTop: theme.spacing(5)
+    }
   }
 }));
 
 export default function Gantt(props) {
   const classes = useStyles();
-  const session = useSelector(state => state.session);
   const [libraries, setLibraries] = useState([]);
-  const [date, setDate] = useState(moment().toDate());
-  const [monthsLoaded, setMonthsLoaded] = useState(0);
   const [loading, setLoading] = useState();
   const [
     openRows,
@@ -71,21 +68,21 @@ export default function Gantt(props) {
         {loading ? (
           <LinearProgress className={classes.progress} color="primary" />
         ) : (
-            <>
-              <SampleBar
+          <>
+            <SampleBar
+              libraries={libraries}
+              openRows={openRows}
+              setOpenRows={setOpenRows}
+            />
+            <div className={classes.calendar}>
+              <Calendar
                 libraries={libraries}
                 openRows={openRows}
                 setOpenRows={setOpenRows}
               />
-              <div className={classes.calendar}>
-                <Calendar
-                  libraries={libraries}
-                  openRows={openRows}
-                  setOpenRows={setOpenRows}
-                />
-              </div>
-            </>
-          )}
+            </div>
+          </>
+        )}
       </div>
     </Page>
   );

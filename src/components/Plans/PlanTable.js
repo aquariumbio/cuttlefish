@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import Page from 'src/components/Page';
-import { 
+import {
   Paper,
   Table,
   TableBody,
@@ -81,9 +81,9 @@ const useStyles = makeStyles(theme => ({
   progress: {
     width: '100%',
     '& > * + *': {
-      marginTop: theme.spacing(5),
-    },
-  },
+      marginTop: theme.spacing(5)
+    }
+  }
 }));
 
 const StyledTableCell = withStyles(theme => ({
@@ -112,11 +112,7 @@ export default function PlanTable(props) {
     setFavStatus(!favStatus);
   };
 
-  useEffect(() => {
-    if (props.data != null) {
-      props.data.forEach(plan => console.log(JSON.parse(plan.data)));
-    }
-  }, [props.data]);
+  useEffect(() => {}, [props.data]);
 
   return (
     <Page className={classes.root} title="Plans">
@@ -137,9 +133,10 @@ export default function PlanTable(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {props.data == null
-                ? <LinearProgress className={classes.progress} color="primary" />
-                : props.data
+              {props.data == null ? (
+                <LinearProgress className={classes.progress} color="primary" />
+              ) : (
+                props.data
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(row => {
                     return (
@@ -154,10 +151,7 @@ export default function PlanTable(props) {
                           if (column.id === 'favorite') {
                             if (favStatus) {
                               return (
-                                <TableCell
-                                  key={column.id}
-                                  align={column.align}
-                                >
+                                <TableCell key={column.id} align={column.align}>
                                   <StarIcon
                                     style={{
                                       color: '#065683',
@@ -169,10 +163,7 @@ export default function PlanTable(props) {
                               );
                             } else {
                               return (
-                                <TableCell
-                                  key={column.id}
-                                  align={column.align}
-                                >
+                                <TableCell key={column.id} align={column.align}>
                                   <StarBorderIcon
                                     style={{
                                       color: '#065683',
@@ -204,7 +195,8 @@ export default function PlanTable(props) {
                         })}
                       </TableRow>
                     );
-                  })}
+                  })
+              )}
             </TableBody>
           </Table>
         </TableContainer>

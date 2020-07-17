@@ -81,7 +81,6 @@ class Firebase {
       .get()
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-          console.log(doc.data());
           return doc.data();
         });
       })
