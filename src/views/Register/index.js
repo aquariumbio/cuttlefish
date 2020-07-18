@@ -93,13 +93,13 @@ function Register() {
           <Divider className={classes.divider} />
           <Link
             align="center"
-            color="secondary"
+            color="primary"
             component={RouterLink}
             to="/auth/login"
             underline="always"
             variant="subtitle2"
           >
-            Have an account?
+            <b>Have an account?</b>
           </Link>
         </CardContent>
         <img className="media" alt="Logo" src={img} />
