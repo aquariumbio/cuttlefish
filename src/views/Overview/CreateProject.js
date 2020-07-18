@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#bfbfbf'
   },
   formControl: {
-    margin: theme.spacing(1),
+    marginTop: theme.spacing(3),
     minWidth: '100%'
   }
 }));
@@ -323,7 +323,11 @@ const CreateProject = forwardRef((props, ref) => {
             value={description}
             variant="outlined"
           />
-          <FormControl error={hasError} required className={classes.formControl}>
+          <FormControl 
+            variant="outlined" 
+            error={hasError} 
+            required 
+            className={classes.formControl}>
             <InputLabel id="demo-controlled-open-select-label">
               Aquarium Plan Folder
             </InputLabel>
@@ -335,7 +339,7 @@ const CreateProject = forwardRef((props, ref) => {
               value={folder}
               onChange={handleFolderChange}
               placeholder={values.direc}
-              input={<Input inputProps={{ required: true }} />}
+              // input={<Input inputProps={{ required: true }} />}
             >
               <option value="" />
               {aquariumFolders.map(folder =>
