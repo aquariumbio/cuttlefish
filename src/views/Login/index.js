@@ -87,9 +87,7 @@ function Login() {
           <Typography gutterBottom variant="h3">
             Sign in
           </Typography>
-          <Typography variant="subtitle2">
-            Use your Aquarium credentials to sign in to Cuttlefish
-          </Typography>
+          <Typography variant="subtitle2">Sign in to Cuttlefish</Typography>
           <LoginForm className={classes.loginForm} />
           <Divider className={classes.divider} />
           <Link

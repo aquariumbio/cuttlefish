@@ -27,7 +27,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import mockProjects from '../ProjectManagementList/projects_data';
 import firebase from '../../firebase/firebase';
 import { FormHelperText } from '@material-ui/core';
-import Input from '@material-ui/core/Input';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -151,7 +150,6 @@ const CreateProject = forwardRef((props, ref) => {
   const [newProjects, setNewProjects] = useState(mockProjects);
   const [aquariumFolders, setAquariumFolders] = useState([]);
   const [projectID, setProjectID] = useState(uuid());
-  const [hasError, setHasError] = useState('');
 
   const handleFieldChange = e => {
     e.persist();
@@ -222,7 +220,6 @@ const CreateProject = forwardRef((props, ref) => {
 
   const handleFolderChange = event => {
     setFolder(event.target.value);
-    setHasError(folder === null);
   };
 
   const handleAddChip = () => {
@@ -323,33 +320,28 @@ const CreateProject = forwardRef((props, ref) => {
             value={description}
             variant="outlined"
           />
-          <FormControl 
-            variant="outlined" 
-            error={hasError} 
-            required 
-            className={classes.formControl}>
-            <InputLabel id="demo-controlled-open-select-label">
-              Aquarium Plan Folder
-            </InputLabel>
-            <Select
-              native
-              required
-              labelId="demo-controlled-open-select-label"
-              id="demo-controlled-open-select"
-              value={folder}
-              onChange={handleFolderChange}
-              placeholder={values.direc}
-              // input={<Input inputProps={{ required: true }} />}
-            >
-              <option value="" />
-              {aquariumFolders.map(folder =>
-                folder != null ? (
-                  <option value={folder}>{folder}</option>
-                ) : null
-              )}
-            </Select>
-            {hasError && <FormHelperText>This is required!</FormHelperText>}
-          </FormControl>
+          <TextField 
+            required={true}
+            className={classes.field}
+            fullWidth
+            select
+            SelectProps={{
+              native: true
+            }}
+            label="Aquarium Plan Folder"
+            value={folder}
+            onChange={handleFolderChange}
+            placeholder={values.direc}
+            variant="outlined"
+          >
+          
+            <option value="" />
+            {aquariumFolders.map(folder =>
+              folder != null ? (
+                <option value={folder}>{folder}</option>
+              ) : null
+            )}
+          </TextField>
           <TextField
             required={true}
             className={classes.field}
