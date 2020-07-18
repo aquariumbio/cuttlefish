@@ -92,13 +92,13 @@ function Login() {
           <Divider className={classes.divider} />
           <Link
             align="center"
-            color="secondary"
+            color="primary"
             component={RouterLink}
             to="/auth/register"
             underline="always"
             variant="subtitle2"
           >
-            Don&apos;t have an account?
+            <b>Don&apos;t have an account?</b>
           </Link>
         </CardContent>
         <img className="media" alt="Logo" src={img} />
