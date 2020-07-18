@@ -4,9 +4,20 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography, Button } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 
-const useStyles = makeStyles(() => ({
-  root: {}
+const useStyles = makeStyles((theme) => ({
+  root: {},
+  addButton: {
+    color: theme.palette.common.white,
+    backgroundColor: '#065683',
+    '&:hover': {
+      backgroundColor: '#065683'
+    }
+  },
+  addIcon: {
+    marginRight: theme.spacing(1)
+  }
 }));
 
 function Header({ className, ...rest }) {
@@ -40,11 +51,13 @@ function Header({ className, ...rest }) {
         </Grid>
         <Grid item>
           <Button
+            className={classes.addButton}
             color="primary"
+            variant="contained"
             component={RouterLink}
             to="/projects/create"
-            variant="contained"
           >
+            <AddIcon className={classes.addIcon} />
             Add task
           </Button>
         </Grid>
