@@ -77,7 +77,7 @@ function TaskManagementList() {
           ))}
         </div>
         <div className={classes.paginate}>
-          <Paginate pageCount={3} />
+          <Paginate pageCount={1} />
         </div>
       </Container>
     </Page>
