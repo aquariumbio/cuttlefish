@@ -100,7 +100,7 @@ function LoginForm({ className, ...rest }) {
         history.push('/');
       })
       .catch(error => {
-        console.log('Error getting user', error);
+        alert('Error getting user', error);
       });
   };
 

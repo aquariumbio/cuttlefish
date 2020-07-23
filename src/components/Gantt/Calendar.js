@@ -92,6 +92,7 @@ export default function Calendar(props) {
           openRows={props.openRows}
           operation={library}
           daysInMonth={days}
+          name={library.name}
         />
       );
       library.operations.map(operation => {
@@ -102,6 +103,7 @@ export default function Calendar(props) {
             openRows={props.openRows}
             operation={operation}
             daysInMonth={days}
+            name={operation.name}
           />
         );
         // operation.subtasks.map(subtask => {
@@ -123,13 +125,6 @@ export default function Calendar(props) {
   const getDayStyle = day => {
     if (day == 'S') {
       return '#e8e8e8';
-    }
-  };
-
-  const handleScroll = e => {
-    let element = e.target;
-    if (element.scrollWidth - element.scrollLeft === element.clientWidth) {
-      console.log('SCROLLED TO END');
     }
   };
 
@@ -168,17 +163,15 @@ export default function Calendar(props) {
                   style={{ backgroundColor: getDayStyle(day.format('d')) }}
                 >
                   <div className={classes.dayHeader}>
-                    {/* {weekdays[day.format('d')]} */}
-                    {day.format('D')}
+                    {weekdays[day.format('d')]}
+                    {/* {day.format('D')} */}
                   </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
-        <table className={classes.calendarRows} onScroll={e => handleScroll(e)}>
-          {getCalendarRows()}
-        </table>
+        <table className={classes.calendarRows}>{getCalendarRows()}</table>
       </div>
     );
   };

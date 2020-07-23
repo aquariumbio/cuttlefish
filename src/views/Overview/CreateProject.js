@@ -238,7 +238,6 @@ const CreateProject = forwardRef((props, ref) => {
   };
 
   const fetchAquariumPlanFolders = async () => {
-    console.log(session.user);
     const response = await fetch('http://localhost:4000/plans/folders', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
