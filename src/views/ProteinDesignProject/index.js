@@ -133,7 +133,7 @@ function ProteinDesignProject() {
           onChange={handleChange}
           indicatorColor="primary"
         >
-          <Tab label="Gantt" />
+          <Tab label="Timeline" />
           <Tab label="Plans" />
           <Tab label="Settings" />
         </Tabs>
