@@ -10,6 +10,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  Divider,
   Typography,
   TextField,
   Button,
@@ -42,7 +43,7 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       backgroundColor: '#065683'
     },
-    margin: theme.spacing(3)
+    margin: theme.spacing(1)
   },
   closeIcon: {
     padding: theme.spacing(1),
@@ -427,6 +428,7 @@ const CreateProject = forwardRef((props, ref) => {
             })}
           </ul>
         </DialogContent>
+        < Divider />
         <DialogActions>
           <Button
             className={classes.cancelButton}
