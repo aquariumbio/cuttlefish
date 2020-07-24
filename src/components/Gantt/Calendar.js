@@ -23,7 +23,11 @@ const useStyles = makeStyles(theme => ({
     height: '70px',
     borderRight: '1px solid #E6E6E6',
     borderBottom: '1px solid #E6E6E6',
-    color: '#909090'
+    color: '#909090',
+    position: '-webkit-sticky',
+    position: 'sticky',
+    top: 20,
+    zIndex: 5,
   },
   spacer: { flexGrow: 1 },
   monthTitle: {
