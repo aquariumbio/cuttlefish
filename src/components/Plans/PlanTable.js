@@ -11,10 +11,12 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  LinearProgress
+  LinearProgress,
+  Button
 } from '@material-ui/core';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
+import LinkIcon from '@material-ui/icons/Link';
 
 const columns = [
   {
@@ -68,6 +70,10 @@ const useStyles = makeStyles(theme => ({
     '& > * + *': {
       marginTop: theme.spacing(5)
     }
+  },
+  linkButton: {
+    padding: 0,
+    margin: 0
   }
 }));
 
@@ -166,6 +172,21 @@ export default function PlanTable(props) {
                             return (
                               <TableCell key={column.id} align={column.align}>
                                 {moment(value).format('D MMM YYYY')}
+                              </TableCell>
+                            );
+                          } else if (column.id == 'id') {
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                <Button
+                                  href={
+                                    'http://52.27.43.242/launcher?plan_id=' +
+                                    value
+                                  }
+                                  className={classes.linkButton}
+                                  target="_blank"
+                                >
+                                  {`${value.toFixed(0)}   `} <LinkIcon />
+                                </Button>
                               </TableCell>
                             );
                           } else {
