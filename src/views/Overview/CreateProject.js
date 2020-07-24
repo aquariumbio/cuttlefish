@@ -26,7 +26,10 @@ import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import mockProjects from '../ProjectManagementList/projects_data';
 import firebase from '../../firebase/firebase';
-import { FormHelperText } from '@material-ui/core';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -81,8 +84,8 @@ const defaultEvent = {
   type: 'Enter your project type',
   desc: 'Enter your project description',
   direc: 'Choose your Aquarium project',
-  start: moment().toDate(),
-  end: moment().toDate(),
+  start: moment(),
+  end: moment(),
   dur: 'Project Duration',
   contr: 'Enter name',
   role: 'Select Role'
@@ -145,8 +148,8 @@ const CreateProject = forwardRef((props, ref) => {
     }
   ]);
   const [title, setTitle] = useState('');
-  const [start, setStart] = useState(defaultEvent.start);
-  const [end, setEnd] = useState(defaultEvent.end);
+  const [start, setStart] = useState(moment().format('MM/DD/YYYY'));
+  const [end, setEnd] = useState(moment().format('MM/DD/YYYY'));
   const [newProjects, setNewProjects] = useState(mockProjects);
   const [aquariumFolders, setAquariumFolders] = useState([]);
   const [projectID, setProjectID] = useState(uuid());
@@ -345,31 +348,32 @@ const CreateProject = forwardRef((props, ref) => {
           <TextField
             required={true}
             className={classes.field}
-            defaultValue={moment(values.start).format('YYYY-MM-DDThh:mm:ss')}
+            defaultValue={moment().format('YYYY-MM-DD')}
             style={{ width: '35%', marginRight: 10 }}
             margin="normal"
-            label="Start date"
+            label="Project Start Date"
             name="start"
             onChange={handleStartDate}
-            type="datetime-local"
+            type="date"
             variant="outlined"
           />
           <TextField
             required={true}
             className={classes.field}
-            defaultValue={moment(values.end).format('YYYY-MM-DDThh:mm:ss')}
+            defaultValue={moment().format('YYYY-MM-DD')}
             style={{ width: '35%', marginRight: 10 }}
             margin="normal"
-            label="End date"
+            label="Projected End Date"
             name="end"
             onChange={handleEndDate}
-            type="datetime-local"
+            type="date"
             variant="outlined"
           />
+         
           <TextField
             disabled
             className={classes.field}
-            label="Project Duration (days)"
+            label="Project Duration(days)"
             name="dur"
             style={{ width: '25%', float: 'right' }}
             margin="normal"
