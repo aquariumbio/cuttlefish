@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
   right: {
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'end',
     marginRight: theme.spacing(1)
   },
@@ -93,9 +93,9 @@ export default function LibraryTask(props) {
             justify="flex-end"
             direction="row"
           >
-            {/* <IconButton>
-              <EditOutlinedIcon color="action" fontSize="small" />
-            </IconButton> */}
+            <Typography variant="h6" noWrap>
+              {props.operation.id}
+            </Typography>
           </Grid>
         </Grid>
       </Grid>

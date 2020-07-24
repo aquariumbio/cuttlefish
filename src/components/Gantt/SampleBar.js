@@ -46,36 +46,6 @@ const CustomTypography = withStyles(theme => ({
 export default function SampleBar(props) {
   const classes = useStyles();
   const session = useSelector(state => state.session);
-  const [sampleNames, setSampleNames] = useState();
-
-  useEffect(() => {
-    getOperationNames();
-  }, [props.libraries]);
-
-  async function getOperationNames() {
-    const response = await fetch('http://localhost:4000/plans/op_names', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: session.user.aqLogin,
-        password: session.user.aqPassword
-      })
-    });
-    if (response.status === 200) {
-      const data = await response.json();
-      setSampleNames(data);
-    } else {
-      setSampleNames([]);
-    }
-  }
-
-  const getOperationName = id => {
-    if (sampleNames != null) {
-      const operation = sampleNames.find(operation => operation.id == id);
-      return operation.name;
-    }
-    return 'LOADING';
-  };
 
   const libraryTabs = props.libraries.map(library => (
     <LibraryTab
@@ -91,7 +61,7 @@ export default function SampleBar(props) {
             open={false}
             setOpenRows={props.setOpenRows}
             openRows={props.openRows}
-            name={getOperationName(operation.operation_type_id)}
+            name={operation.name}
           >
             {/* {task.subtasks.map(subtask => (
               <LibrarySubTask subtask={subtask} />
