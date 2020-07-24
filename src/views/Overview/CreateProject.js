@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import moment from 'moment';
 import uuid from 'uuid';
-import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/styles';
 import {
   Dialog,
@@ -18,15 +17,10 @@ import {
   Grid,
   IconButton
 } from '@material-ui/core';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import mockProjects from '../ProjectManagementList/projects_data';
 import firebase from '../../firebase/firebase';
-import { FormHelperText } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -191,7 +185,7 @@ const CreateProject = forwardRef((props, ref) => {
         id: uuid()
       })
       .then(() => window.location.reload())
-      .catch(function(error) {
+      .catch(function (error) {
         console.error('Error creating project: ', error);
       });
     setNewProjects(...newProjects, newProjects);
@@ -288,7 +282,7 @@ const CreateProject = forwardRef((props, ref) => {
             placeholder={values.title}
             variant="outlined"
           />
-          <TextField 
+          <TextField
             required={true}
             className={classes.field}
             fullWidth
@@ -319,7 +313,7 @@ const CreateProject = forwardRef((props, ref) => {
             value={description}
             variant="outlined"
           />
-          <TextField 
+          <TextField
             required={true}
             className={classes.field}
             fullWidth
@@ -333,7 +327,7 @@ const CreateProject = forwardRef((props, ref) => {
             placeholder={values.direc}
             variant="outlined"
           >
-          
+
             <option value="" />
             {aquariumFolders.map(folder =>
               folder != null ? (
@@ -378,7 +372,6 @@ const CreateProject = forwardRef((props, ref) => {
             variant="filled"
           />
           <TextField
-            
             className={classes.field}
             style={{ width: '40%', marginRight: 10 }}
             label="Project Contributors"
