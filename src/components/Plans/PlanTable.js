@@ -28,7 +28,11 @@ const columns = [
     label: 'Plan ID',
     minWidth: 50,
     align: 'left',
-    format: value => value.toFixed(0)
+    format: value => (
+      <a href={'http://52.27.43.242/launcher?plan_id=' + value} target="_blank">
+        {value.toFixed(0)}
+      </a>
+    )
   },
   {
     id: 'name',
@@ -51,25 +55,6 @@ const columns = [
     format: value => moment(value).format('D MMM YYYY')
   }
 ];
-
-// function createData(
-//   favorite,
-//   planNumber,
-//   planName,
-//   planCreationDate,
-//   planStatus
-// ) {
-//   return { favorite, planNumber, planName, planCreationDate, planStatus };
-// }
-
-// const rows = [
-//   createData(true, 38890, 'ACE2 library AT', '03/20/2020', 'Completed'),
-//   createData(false, 38891, 'Plan B', '03/20/2020', 'Completed'),
-//   createData(false, 38892, 'Plan C', '03/20/2020', 'Completed'),
-//   createData(true, 38893, 'Plan D', '03/20/2020', 'Completed'),
-//   createData(false, 38893, 'Plan E', '03/20/2020', 'Completed'),
-//   createData(false, 38893, 'Plan F', '03/20/2020', 'Completed')
-// ];
 
 const useStyles = makeStyles(theme => ({
   root: {
