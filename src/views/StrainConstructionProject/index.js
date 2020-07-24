@@ -4,13 +4,11 @@ import { Container, Tabs, Tab, Modal, Typography } from '@material-ui/core';
 import Page from 'src/components/Page';
 import Header from './Header';
 import TabPanel from '../../components/TabPanel';
-import KanbanBoard from '../../components/KanbanBoard';
 import Notebook from './Notebook';
 import Plan from './Plan';
 import AddEditEvent from './AddFile';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles, lighten } from '@material-ui/core/styles';
-import data from './mockKanbanData';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -119,17 +117,13 @@ function StrainConstructionProject() {
           aria-label="simple tabs example"
           indicatorColor="primary"
         >
-          <Tab label="Kanban" />
           <Tab label="Notebook" />
           <Tab label="AQ Plan" />
         </Tabs>
         <TabPanel value={currentTab} index={0}>
-          <KanbanBoard data={data} />
-        </TabPanel>
-        <TabPanel value={currentTab} index={1}>
           <Notebook />
         </TabPanel>
-        <TabPanel value={currentTab} index={2}>
+        <TabPanel value={currentTab} index={1}>
           <Plan />
         </TabPanel>
         {getModal()}

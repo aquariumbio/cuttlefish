@@ -3,17 +3,13 @@ import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import { Container, Tabs, Tab, Modal, Typography } from '@material-ui/core';
 import Page from 'src/components/Page';
-import KanbanBoard from '../../components/KanbanBoard';
 import Gantt from '../../components/Gantt';
 import Header from './Header';
 import TabPanel from '../../components/TabPanel';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles, lighten } from '@material-ui/core/styles';
-import kanbanData from './mockKanbanData';
-import mockGanttData from './mockGanttData';
 import PlanTable from 'src/components/Plans/PlanTable';
 import Settings from '../../components/Settings';
-import mockProjects from '../ProjectManagementList/projects_data';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -137,21 +133,17 @@ function ProteinDesignProject() {
           onChange={handleChange}
           indicatorColor="primary"
         >
-          <Tab label="Kanban" />
           <Tab label="Gantt" />
           <Tab label="Plans" />
           <Tab label="Settings" />
         </Tabs>
         <TabPanel value={currentTab} index={0}>
-          <KanbanBoard data={kanbanData} />
-        </TabPanel>
-        <TabPanel value={currentTab} index={1}>
           <Gantt data={ganttData} />
         </TabPanel>
-        <TabPanel value={currentTab} index={2}>
+        <TabPanel value={currentTab} index={1}>
           <PlanTable data={ganttData} />
         </TabPanel>
-        <TabPanel value={currentTab} index={3}>
+        <TabPanel value={currentTab} index={2}>
           <Settings data={ganttData} />
         </TabPanel>
         {getModal()}
