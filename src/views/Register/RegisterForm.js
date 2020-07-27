@@ -278,36 +278,6 @@ function RegisterForm({ className, ...rest }) {
             variant="outlined"
           />
         </Tooltip>
-        {/* <div>
-          <div className={classes.policy}>
-            <Checkbox
-              checked={formState.values.policy || false}
-              className={classes.policyCheckbox}
-              color="primary"
-              name="policy"
-              onChange={handleChange}
-            />
-            <Typography
-              color="textSecondary"
-              variant="body1"
-            >
-              I have read the
-              {' '}
-              <Link
-                color="secondary"
-                component={RouterLink}
-                to="#"
-                underline="always"
-                variant="h6"
-              >
-                Terms and Conditions
-              </Link>
-            </Typography>
-          </div>
-          {hasError('policy') && (
-            <FormHelperText error>{formState.errors.policy[0]}</FormHelperText>
-          )}
-        </div> */}
       </div>
       <Button
         className={classes.submitButton}
