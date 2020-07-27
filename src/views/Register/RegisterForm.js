@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
-import { Link as RouterLink } from 'react-router-dom';
 import validate from 'validate.js';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import {
   Button,
-  Checkbox,
-  FormHelperText,
   TextField,
-  Typography,
-  Link
+  Tooltip,
+  Zoom
 } from '@material-ui/core';
 import { login } from 'src/actions';
 import { useDispatch } from 'react-redux';
@@ -183,7 +180,7 @@ function RegisterForm({ className, ...rest }) {
         .then(() => {
           history.push('/');
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.error('Error writing document: ', error);
         });
     } else {
@@ -211,63 +208,76 @@ function RegisterForm({ className, ...rest }) {
       onSubmit={handleSubmit}
     >
       <div className={classes.fields}>
-        <TextField
-          error={hasError('firstName')}
-          helperText={
-            hasError('firstName') ? formState.errors.firstName[0] : null
-          }
-          label="First name"
-          name="firstName"
-          onChange={handleChange}
-          value={formState.values.firstName || ''}
-          variant="outlined"
-        />
-        <TextField
-          error={hasError('lastName')}
-          helperText={
-            hasError('lastName') ? formState.errors.lastName[0] : null
-          }
-          label="Last name"
-          name="lastName"
-          onChange={handleChange}
-          value={formState.values.lastName || ''}
-          variant="outlined"
-        />
-        <TextField
-          error={hasError('email')}
-          fullWidth
-          helperText={hasError('email') ? formState.errors.email[0] : null}
-          label="Email address"
-          name="email"
-          onChange={handleChange}
-          value={formState.values.email || ''}
-          variant="outlined"
-        />
-        <TextField
-          error={hasError('username')}
-          fullWidth
-          helperText={
-            hasError('username') ? formState.errors.username[0] : null
-          }
-          label="Aquarium login"
-          name="username"
-          onChange={handleChange}
-          value={formState.values.username || ''}
-          variant="outlined"
-        />
-        <TextField
-          error={hasError('password')}
-          fullWidth
-          helperText={
-            hasError('password') ? formState.errors.password[0] : null
-          }
-          label="Aquarium password"
-          name="password"
-          onChange={handleChange}
-          type="password"
-          value={formState.values.password || ''}
-          variant="outlined"
-        />
+        <Tooltip TransitionComponent={Zoom} title="Your First Name">
+
+          <TextField
+            error={hasError('firstName')}
+            helperText={
+              hasError('firstName') ? formState.errors.firstName[0] : null
+            }
+            label="First name"
+            name="firstName"
+            onChange={handleChange}
+            value={formState.values.firstName || ''}
+            variant="outlined"
+          />
+        </Tooltip>
+        <Tooltip TransitionComponent={Zoom} title="Your Last Name">
+
+          <TextField
+            error={hasError('lastName')}
+            helperText={
+              hasError('lastName') ? formState.errors.lastName[0] : null
+            }
+            label="Last name"
+            name="lastName"
+            onChange={handleChange}
+            value={formState.values.lastName || ''}
+            variant="outlined"
+          />
+        </Tooltip>
+        <Tooltip TransitionComponent={Zoom} title="Your Email address">
+
+          <TextField
+            error={hasError('email')}
+            fullWidth
+            helperText={hasError('email') ? formState.errors.email[0] : null}
+            label="Email address"
+            name="email"
+            onChange={handleChange}
+            value={formState.values.email || ''}
+            variant="outlined"
+          />
+        </Tooltip>
+        <Tooltip TransitionComponent={Zoom} title="Username of your Aquarium account">
+          <TextField
+            error={hasError('username')}
+            fullWidth
+            helperText={
+              hasError('username') ? formState.errors.username[0] : null
+            }
+            label="Aquarium login"
+            name="username"
+            onChange={handleChange}
+            value={formState.values.username || ''}
+            variant="outlined"
+          />
+        </Tooltip>
+        <Tooltip TransitionComponent={Zoom} title="Password of your Aquarium account">
+          <TextField
+            error={hasError('password')}
+            fullWidth
+            helperText={
+              hasError('password') ? formState.errors.password[0] : null
+            }
+            label="Aquarium password"
+            name="password"
+            onChange={handleChange}
+            type="password"
+            value={formState.values.password || ''}
+            variant="outlined"
+          />
+        </Tooltip>
         {/* <div>
           <div className={classes.policy}>
             <Checkbox
