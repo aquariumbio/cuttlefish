@@ -6,6 +6,8 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CalendarRow from './CalendarRow';
 import { set } from 'immutable';
+import { StickyContainer, Sticky } from 'react-sticky';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -55,7 +57,11 @@ const useStyles = makeStyles(theme => ({
     border: 0,
     borderSpacing: 0
   },
-  dayHeader: {}
+  dayHeader: {},
+  stickyContainer: {
+    zIndex: 99, 
+    backgroundColor:'white'
+  }
 }));
 
 let weekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
@@ -135,8 +141,14 @@ export default function Calendar(props) {
   const getMonth = () => {
     const daysInMonth = getDaysInMonth();
     return (
+      <StickyContainer>
       <div className={classes.monthContainer}>
-        <div>
+        <Sticky>
+            {({
+            style,
+            isSticky
+          }) => (
+          <div style={{ ...style, paddingTop: isSticky ? '64px' : '0px' }} className={classes.stickyContainer}>          
           <div className={classes.monthBar}>
             <div className={classes.monthBarTop}>
               <div className={classes.monthTitle}>
@@ -175,8 +187,13 @@ export default function Calendar(props) {
             </div>
           </div>
         </div>
+        )}
+        </Sticky>
         <table className={classes.calendarRows}>{getCalendarRows()}</table>
+
       </div>
+      </StickyContainer>
+
     );
   };
 
