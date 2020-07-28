@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { Container, Tabs, Tab, Modal, Typography } from '@material-ui/core';
+import { Container, Tabs, Tab, Modal } from '@material-ui/core';
 import Page from 'src/components/Page';
 import Header from './Header';
 import TabPanel from '../../components/TabPanel';
@@ -99,18 +99,6 @@ function BasicProject() {
     <Page className={classes.root} title={"Strain Construction Project"}>
       <Container maxWidth={false}>
         <Header currentTab={currentTab} onEventAdd={handleEventNew} />
-
-        <div className={classes.progress}>
-          <Typography gutterBottom variant="h6">
-            8 tasks completed out of 10
-          </Typography>
-          <CustomLinearProgress
-            variant="determinate"
-            value={progress}
-            color="primary"
-          />
-        </div>
-
         <Tabs
           value={currentTab}
           onChange={handleChange}
