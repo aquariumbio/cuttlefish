@@ -5,8 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 import LibraryTab from './LibraryTab';
 import LibraryTask from './LibraryTask';
-
 import LibrarySubTask from './LibrarySubTask';
+import { StickyContainer, Sticky } from 'react-sticky';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,6 +33,9 @@ const useStyles = makeStyles(theme => ({
     borderTopLeftRadius: '3px',
     // marginBottom: theme.spacing(0.2),
     textOverflow: 'ellipsis'
+  },
+  stickyContainer: {
+    zIndex: 99, 
   }
 }));
 
@@ -74,15 +77,26 @@ export default function SampleBar(props) {
 
   return (
     <div className={classes.taskList}>
-      <Grid item className={classes.topBar}>
-        <CustomTypography variant="h5" noWrap>
-          Library
-        </CustomTypography>
-        <CustomTypography variant="h5" noWrap>
-          Owner ID
-        </CustomTypography>
-      </Grid>
+      <StickyContainer>
+        <Sticky>
+            {({
+            style,
+            isSticky
+          }) => (
+        <div style={{ ...style, paddingTop: isSticky ? '64px' : '0px' }} className={classes.stickyContainer}> 
+        <Grid item className={classes.topBar}>
+          <CustomTypography variant="h5" noWrap>
+            Library
+          </CustomTypography>
+          <CustomTypography variant="h5" noWrap>
+            Owner ID
+          </CustomTypography>
+        </Grid>
+        </div>
+            )}
+        </Sticky>
       <div className={classes.libraries}>{libraryTabs}</div>
+      </StickyContainer>
     </div>
   );
 }
