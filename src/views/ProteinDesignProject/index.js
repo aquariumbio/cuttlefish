@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router';
 import { makeStyles } from '@material-ui/styles';
-import { Container, Tabs, Tab, Modal } from '@material-ui/core';
+import { Container, Tabs, Tab, Modal, Typography } from '@material-ui/core';
 import Page from 'src/components/Page';
 import Gantt from '../../components/Gantt';
 import Header from './Header';
@@ -10,6 +11,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles, lighten } from '@material-ui/core/styles';
 import PlanTable from 'src/components/Plans/PlanTable';
 import Settings from '../../components/Settings';
+import firebase from '../../firebase/firebase';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,12 +48,14 @@ function ProteinDesignProject() {
   const classes = useStyles();
   const session = useSelector(state => state.session);
   const [currentTab, setCurrentTab] = useState(0);
+  const { id } = useParams();
   const [events, setEvents] = useState([]);
   const [eventModal, setEventModal] = useState({
     open: false,
     event: null
   });
   const [progress, setProgress] = useState([0]);
+  const [project, setProject] = useState();
   const [ganttData, setGanttData] = useState();
 
   const handleEventNew = () => {
@@ -80,26 +84,43 @@ function ProteinDesignProject() {
     setCurrentTab(newTab);
   };
 
-  useEffect(() => {
-    async function getSamples() {
-      const response = await fetch('http://localhost:4000/plans/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: session.user.aqLogin,
-          password: session.user.aqPassword,
-          folder: session.currentProject.folder
-        })
+  const getProjectFromFirebase = async () => {
+    var docRef = firebase.db.collection('projects').doc(id);
+    await docRef
+      .get()
+      .then(function(doc) {
+        if (doc.exists) {
+          getSamples(doc.data().folder);
+        } else {
+          console.log('No such document!');
+        }
+      })
+      .catch(function(error) {
+        console.log('Error getting document:', error);
       });
-      if (response.status === 200) {
-        const data = await response.json();
-        const result = data.reverse();
-        setGanttData(result);
-      } else {
-        setGanttData([]);
-      }
+  };
+
+  const getSamples = async folder => {
+    const response = await fetch('http://localhost:4000/plans/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: session.user.aqLogin,
+        password: session.user.aqPassword,
+        folder: folder
+      })
+    });
+    if (response.status === 200) {
+      const data = await response.json();
+      const result = data.reverse();
+      setGanttData(result);
+    } else {
+      setGanttData([]);
     }
-    getSamples();
+  };
+
+  useEffect(() => {
+    getProjectFromFirebase();
   }, []);
 
   // Conditional popup button action, rendered differently based on the respective action necessary for the project tab
@@ -117,6 +138,17 @@ function ProteinDesignProject() {
     <Page className={classes.root} title="Protein Design Project">
       <Container maxWidth={false}>
         <Header currentTab={currentTab} onEventAdd={handleEventNew} />
+        <div className={classes.progress}>
+          <Typography gutterBottom variant="h6">
+            0 tasks completed out of 0
+          </Typography>
+          <CustomLinearProgress
+            variant="determinate"
+            value={progress}
+            color="primary"
+          />
+        </div>
+
         <Tabs
           value={currentTab}
           onChange={handleChange}

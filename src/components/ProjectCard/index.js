@@ -70,7 +70,7 @@ function ProjectCard({ project, className, ...rest }) {
   // the correct project view can be rendered upon clicking
   const handleClick = () => {
     dispatch(getProject(project));
-    history.push(`/project/${project.title}`);
+    history.push(`/project/${project.id}`);
   };
 
   return (

@@ -15,19 +15,6 @@ router.post('/folders', function(req, res, next) {
     .catch(err => res.status(400).send(err));
 });
 
-// // Retrieves plans from a specific folder
-// // 'POST' isn't currently modifiying any data
-// router.post('/', function(req, res, next) {
-//   AQ.login(req.body.username, req.body.password)
-//     .then(() => AQ.User.where({ login: req.body.username }))
-//     .then(user => {
-//       return user[0].id;
-//     })
-//     .then(uid => AQ.Plan.where({ user_id: 209, folder: req.body.folder }))
-//     .then(data => res.status(400).send(data))
-//     .catch(err => res.status(400).send(err));
-// });
-
 // Retrieves plans from a specific folder
 // 'POST' isn't currently modifiying any data
 router.post('/', function(req, res, next) {

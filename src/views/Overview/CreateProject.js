@@ -24,7 +24,7 @@ import mockProjects from '../ProjectManagementList/projects_data';
 import firebase from '../../firebase/firebase';
 import {
   MuiPickersUtilsProvider,
-  KeyboardDatePicker,
+  KeyboardDatePicker
 } from '@material-ui/pickers';
 
 const useStyles = makeStyles(theme => ({
@@ -72,8 +72,6 @@ const CustomTypography = withStyles(theme => ({
     color: '#05486E'
   }
 }))(Typography);
-
-
 
 const defaultEvent = {
   title: 'Enter your project name',
@@ -187,10 +185,10 @@ const CreateProject = forwardRef((props, ref) => {
         end_date: moment(end).format('M/D/YY'),
         type: type,
         status: 'pending',
-        id: uuid()
+        id: projectID
       })
       .then(() => window.location.reload())
-      .catch(function (error) {
+      .catch(function(error) {
         console.error('Error creating project: ', error);
       });
     setNewProjects(...newProjects, newProjects);
@@ -332,12 +330,9 @@ const CreateProject = forwardRef((props, ref) => {
             placeholder={values.direc}
             variant="outlined"
           >
-
             <option value="" />
             {aquariumFolders.map(folder =>
-              folder != null ? (
-                <option value={folder}>{folder}</option>
-              ) : null
+              folder != null ? <option value={folder}>{folder}</option> : null
             )}
           </TextField>
           <TextField
@@ -364,7 +359,7 @@ const CreateProject = forwardRef((props, ref) => {
             type="date"
             variant="outlined"
           />
-         
+
           <TextField
             disabled
             className={classes.field}
@@ -433,7 +428,7 @@ const CreateProject = forwardRef((props, ref) => {
             })}
           </ul>
         </DialogContent>
-        < Divider />
+        <Divider />
         <DialogActions>
           <Button
             className={classes.cancelButton}

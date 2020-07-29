@@ -92,7 +92,7 @@ export default [
         component: lazy(() => import('src/views/ProjectManagementList'))
       },
       {
-        path: '/project/:project',
+        path: '/project/:id',
         exact: true,
         component: lazy(() => import('src/views/Project'))
       },
