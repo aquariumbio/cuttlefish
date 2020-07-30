@@ -7,6 +7,7 @@ import SampleBar from './SampleBar';
 import Calendar from './Calendar';
 import { useSelector } from 'react-redux';
 import { LinearProgress } from '@material-ui/core';
+import StickyCalendar from './StickyCalendar';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,8 +18,8 @@ const useStyles = makeStyles(theme => ({
   },
   calendar: {
     background: theme.palette.white.main,
-    width: '45vw',
-    marginLeft: theme.spacing(1)
+    marginLeft: theme.spacing(1),
+    overflow: 'auto'
   },
   progress: {
     width: '100%',
