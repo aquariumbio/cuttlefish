@@ -7,7 +7,6 @@ import SampleBar from './SampleBar';
 import Calendar from './Calendar';
 import { useSelector } from 'react-redux';
 import { LinearProgress } from '@material-ui/core';
-import StickyCalendar from './StickyCalendar';
 
 const useStyles = makeStyles(theme => ({
   root: {

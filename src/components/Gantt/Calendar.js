@@ -6,7 +6,6 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CalendarRow from './CalendarRow';
 import { set } from 'immutable';
-import { StickyContainer, Sticky } from 'react-sticky';
 
 
 const useStyles = makeStyles(theme => ({
