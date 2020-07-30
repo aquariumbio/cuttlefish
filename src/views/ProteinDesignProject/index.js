@@ -86,6 +86,7 @@ function ProteinDesignProject() {
     setCurrentTab(newTab);
   };
 
+  // Retrieves project data from Firebase
   const getProjectFromFirebase = async () => {
     var docRef = firebase.db.collection('projects').doc(id);
     await docRef
@@ -103,6 +104,7 @@ function ProteinDesignProject() {
       });
   };
 
+  // Retrieves Plan data from Aquarium
   const getSamples = async folder => {
     const response = await fetch('http://localhost:4000/plans/', {
       method: 'POST',
@@ -127,15 +129,15 @@ function ProteinDesignProject() {
   }, []);
 
   // Conditional popup button action, rendered differently based on the respective action necessary for the project tab
-  const getModal = () => {
-    if (currentTab === 0) {
-      return <Modal onClose={handleModalClose} open={eventModal.open}></Modal>;
-    } else if (currentTab === 1) {
-      return <Modal onClose={handleModalClose} open={eventModal.open}></Modal>;
-    } else {
-      return <Modal onClose={handleModalClose} open={eventModal.open}></Modal>;
-    }
-  };
+  // const getModal = () => {
+  //   if (currentTab === 0) {
+  //     return <Modal onClose={handleModalClose} open={eventModal.open}></Modal>;
+  //   } else if (currentTab === 1) {
+  //     return <Modal onClose={handleModalClose} open={eventModal.open}></Modal>;
+  //   } else {
+  //     return <Modal onClose={handleModalClose} open={eventModal.open}></Modal>;
+  //   }
+  // };
 
   return (
     <Page className={classes.root} title="Protein Design Project">
@@ -159,7 +161,7 @@ function ProteinDesignProject() {
         <TabPanel value={currentTab} index={2}>
           <Settings data={ganttData} />
         </TabPanel>
-        {getModal()}
+        {/* {getModal()} */}
       </Container>
     </Page>
   );
