@@ -12,6 +12,7 @@ import { withStyles, lighten } from '@material-ui/core/styles';
 import PlanTable from 'src/components/Plans/PlanTable';
 import Settings from '../../components/Settings';
 import firebase from '../../firebase/firebase';
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -47,6 +48,7 @@ const CustomLinearProgress = withStyles(theme => ({
 function ProteinDesignProject() {
   const classes = useStyles();
   const session = useSelector(state => state.session);
+  const history = useHistory();
   const [currentTab, setCurrentTab] = useState(0);
   const { id } = useParams();
   const [events, setEvents] = useState([]);
@@ -92,11 +94,12 @@ function ProteinDesignProject() {
         if (doc.exists) {
           getSamples(doc.data().folder);
         } else {
-          console.log('No such document!');
+          history.push('/errors/error-404');
         }
       })
       .catch(function(error) {
-        console.log('Error getting document:', error);
+        alert('Error getting project:', error);
+        history.push('/overview');
       });
   };
 
