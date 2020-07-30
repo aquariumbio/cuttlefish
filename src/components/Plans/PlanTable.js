@@ -17,6 +17,7 @@ import {
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 import LinkIcon from '@material-ui/icons/Link';
+import SearchBar from 'src/components/SearchBar';
 
 const columns = [
   {
@@ -74,6 +75,9 @@ const useStyles = makeStyles(theme => ({
   linkButton: {
     padding: 0,
     margin: 0
+  },
+  searchBar: {
+    paddingBottom: theme.spacing(3)
   }
 }));
 
@@ -89,6 +93,10 @@ export default function PlanTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(6);
   const [favStatus, setFavStatus] = React.useState(false);
+
+  const handleSearch = () => {};
+
+  const handleFilter = () => {};
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -107,6 +115,7 @@ export default function PlanTable(props) {
 
   return (
     <Page className={classes.root} title="Plans">
+      <SearchBar onFilter={handleFilter} onSearch={handleSearch} className={classes.searchBar}/>
       <Paper className={classes.root}>
         <TableContainer className={classes.container}>
           <Table sticky Header>
