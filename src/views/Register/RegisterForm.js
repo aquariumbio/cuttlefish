@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import validate from 'validate.js';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, withStyles } from '@material-ui/styles';
 import {
   Button,
   TextField,
@@ -78,6 +78,14 @@ const useStyles = makeStyles(theme => ({
     }
   }
 }));
+
+const CustomTooltip = withStyles({
+  tooltip: {
+    color: 'black',
+    backgroundColor: 'white',
+    fontSize: 12
+  }
+})(Tooltip);
 
 function RegisterForm({ className, ...rest }) {
   const classes = useStyles();
@@ -208,8 +216,7 @@ function RegisterForm({ className, ...rest }) {
       onSubmit={handleSubmit}
     >
       <div className={classes.fields}>
-        <Tooltip TransitionComponent={Zoom} title="Your First Name">
-
+        <CustomTooltip TransitionComponent={Zoom} title="Your First Name">
           <TextField
             error={hasError('firstName')}
             helperText={
@@ -221,9 +228,9 @@ function RegisterForm({ className, ...rest }) {
             value={formState.values.firstName || ''}
             variant="outlined"
           />
-        </Tooltip>
-        <Tooltip TransitionComponent={Zoom} title="Your Last Name">
+        </CustomTooltip>
 
+        <CustomTooltip TransitionComponent={Zoom} title="Your Last Name">
           <TextField
             error={hasError('lastName')}
             helperText={
@@ -235,9 +242,9 @@ function RegisterForm({ className, ...rest }) {
             value={formState.values.lastName || ''}
             variant="outlined"
           />
-        </Tooltip>
-        <Tooltip TransitionComponent={Zoom} title="Your Email address">
+        </CustomTooltip>
 
+        <CustomTooltip TransitionComponent={Zoom} title="Your Email address">
           <TextField
             error={hasError('email')}
             fullWidth
@@ -248,8 +255,9 @@ function RegisterForm({ className, ...rest }) {
             value={formState.values.email || ''}
             variant="outlined"
           />
-        </Tooltip>
-        <Tooltip TransitionComponent={Zoom} title="Username of your Aquarium account">
+        </CustomTooltip>
+
+        <CustomTooltip TransitionComponent={Zoom} title="Username of your Aquarium account">
           <TextField
             error={hasError('username')}
             fullWidth
@@ -262,8 +270,9 @@ function RegisterForm({ className, ...rest }) {
             value={formState.values.username || ''}
             variant="outlined"
           />
-        </Tooltip>
-        <Tooltip TransitionComponent={Zoom} title="Password of your Aquarium account">
+        </CustomTooltip>
+
+        <CustomTooltip TransitionComponent={Zoom} title="Password of your Aquarium account">
           <TextField
             error={hasError('password')}
             fullWidth
@@ -277,7 +286,7 @@ function RegisterForm({ className, ...rest }) {
             value={formState.values.password || ''}
             variant="outlined"
           />
-        </Tooltip>
+        </CustomTooltip>
       </div>
       <Button
         className={classes.submitButton}
