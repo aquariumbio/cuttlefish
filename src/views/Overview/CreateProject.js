@@ -335,7 +335,7 @@ const CreateProject = forwardRef((props, ref) => {
               folder != null ? <option value={folder}>{folder}</option> : null
             )}
           </TextField>
-          <TextField
+          {/* <TextField
             required={true}
             className={classes.field}
             defaultValue={moment().format('YYYY-MM-DD')}
@@ -371,7 +371,7 @@ const CreateProject = forwardRef((props, ref) => {
             defaultValue={moment(end).diff(moment(start), 'days')}
             multiline
             variant="filled"
-          />
+          /> */}
           <TextField
             className={classes.field}
             style={{ width: '40%', marginRight: 10 }}

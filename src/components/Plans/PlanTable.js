@@ -17,6 +17,7 @@ import {
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 import LinkIcon from '@material-ui/icons/Link';
+import SearchBar from 'src/components/SearchBar';
 
 const columns = [
   {
@@ -74,6 +75,9 @@ const useStyles = makeStyles(theme => ({
   linkButton: {
     padding: 0,
     margin: 0
+  },
+  searchBar: {
+    paddingBottom: theme.spacing(3)
   }
 }));
 
@@ -90,6 +94,10 @@ export default function PlanTable(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(6);
   const [favStatus, setFavStatus] = React.useState(false);
 
+  const handleSearch = () => { };
+
+  const handleFilter = () => { };
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -103,10 +111,11 @@ export default function PlanTable(props) {
     setFavStatus(!favStatus);
   };
 
-  useEffect(() => {}, [props.data]);
+  useEffect(() => { }, [props.data]);
 
   return (
     <Page className={classes.root} title="Plans">
+      <SearchBar onFilter={handleFilter} onSearch={handleSearch} className={classes.searchBar} />
       <Paper className={classes.root}>
         <TableContainer className={classes.container}>
           <Table sticky Header>
@@ -127,82 +136,82 @@ export default function PlanTable(props) {
               {props.data == null ? (
                 <LinearProgress className={classes.progress} color="primary" />
               ) : (
-                props.data
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map(row => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={JSON.parse(row.data).id}
-                      >
-                        {columns.map(column => {
-                          const value = JSON.parse(row.data)[column.id];
-                          if (column.id === 'favorite') {
-                            if (favStatus) {
+                  props.data
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map(row => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={JSON.parse(row.data).id}
+                        >
+                          {columns.map(column => {
+                            const value = JSON.parse(row.data)[column.id];
+                            if (column.id === 'favorite') {
+                              if (favStatus) {
+                                return (
+                                  <TableCell key={column.id} align={column.align}>
+                                    <StarIcon
+                                      style={{
+                                        color: '#065683',
+                                        cursor: 'pointer'
+                                      }}
+                                      onClick={handleFavorite}
+                                    />
+                                  </TableCell>
+                                );
+                              } else {
+                                return (
+                                  <TableCell key={column.id} align={column.align}>
+                                    <StarBorderIcon
+                                      style={{
+                                        color: '#065683',
+                                        cursor: 'pointer'
+                                      }}
+                                      onClick={handleFavorite}
+                                    />
+                                  </TableCell>
+                                );
+                              }
+                            } else if (
+                              column.id === 'created_at' ||
+                              column.id === 'updated_at'
+                            ) {
                               return (
                                 <TableCell key={column.id} align={column.align}>
-                                  <StarIcon
-                                    style={{
-                                      color: '#065683',
-                                      cursor: 'pointer'
-                                    }}
-                                    onClick={handleFavorite}
-                                  />
+                                  {moment(value).format('D MMM YYYY')}
+                                </TableCell>
+                              );
+                            } else if (column.id == 'id') {
+                              return (
+                                <TableCell key={column.id} align={column.align}>
+                                  <Button
+                                    href={
+                                      'http://52.27.43.242/launcher?plan_id=' +
+                                      value
+                                    }
+                                    className={classes.linkButton}
+                                    target="_blank"
+                                  >
+                                    {`${value.toFixed(0)}   `} <LinkIcon />
+                                  </Button>
                                 </TableCell>
                               );
                             } else {
                               return (
                                 <TableCell key={column.id} align={column.align}>
-                                  <StarBorderIcon
-                                    style={{
-                                      color: '#065683',
-                                      cursor: 'pointer'
-                                    }}
-                                    onClick={handleFavorite}
-                                  />
+                                  {column.format && typeof value === 'number'
+                                    ? column.format(value)
+                                    : value}
                                 </TableCell>
                               );
                             }
-                          } else if (
-                            column.id === 'created_at' ||
-                            column.id === 'updated_at'
-                          ) {
-                            return (
-                              <TableCell key={column.id} align={column.align}>
-                                {moment(value).format('D MMM YYYY')}
-                              </TableCell>
-                            );
-                          } else if (column.id == 'id') {
-                            return (
-                              <TableCell key={column.id} align={column.align}>
-                                <Button
-                                  href={
-                                    'http://52.27.43.242/launcher?plan_id=' +
-                                    value
-                                  }
-                                  className={classes.linkButton}
-                                  target="_blank"
-                                >
-                                  {`${value.toFixed(0)}   `} <LinkIcon />
-                                </Button>
-                              </TableCell>
-                            );
-                          } else {
-                            return (
-                              <TableCell key={column.id} align={column.align}>
-                                {column.format && typeof value === 'number'
-                                  ? column.format(value)
-                                  : value}
-                              </TableCell>
-                            );
-                          }
-                        })}
-                      </TableRow>
-                    );
-                  })
-              )}
+                          })}
+                        </TableRow>
+                      );
+                    })
+                )}
             </TableBody>
           </Table>
         </TableContainer>

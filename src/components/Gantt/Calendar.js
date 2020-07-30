@@ -8,7 +8,6 @@ import CalendarRow from './CalendarRow';
 import { set } from 'immutable';
 import { StickyContainer, Sticky } from 'react-sticky';
 
-
 const useStyles = makeStyles(theme => ({
   root: {
     borderRadius: '2px'
@@ -18,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   month: { display: 'flex', overflowX: 'auto' },
-  monthContainer: { display: 'flex', flexDirection: 'column' },
+  monthContainer: { display: 'flex', flexDirection: 'column', width: '50vw'},
   monthBar: {
     display: 'flex',
     flexDirection: 'column',
@@ -26,10 +25,7 @@ const useStyles = makeStyles(theme => ({
     borderRight: '1px solid #E6E6E6',
     borderBottom: '1px solid #E6E6E6',
     color: '#909090',
-    position: '-webkit-sticky',
-    position: 'sticky',
-    top: 20,
-    zIndex: 5,
+    backgroundColor: 'white'
   },
   spacer: { flexGrow: 1 },
   monthTitle: {
@@ -47,7 +43,7 @@ const useStyles = makeStyles(theme => ({
   },
   day: {
     textAlign: 'center',
-    minWidth: '30px',
+    width: '30px',
     color: '#969696'
   },
   calendarRows: {
@@ -55,11 +51,11 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     borderCollapse: 'collapse',
     border: 0,
-    borderSpacing: 0
+    borderSpacing: 0,
+    width: '100%'
   },
   dayHeader: {},
   stickyContainer: {
-    zIndex: 99, 
     backgroundColor:'white'
   }
 }));
@@ -146,10 +142,9 @@ export default function Calendar(props) {
         <StickyContainer>
           <Sticky>
               {({
-              style,
-              isSticky
+              style, isSticky
             }) => (
-          <div style={{ ...style, paddingTop: isSticky ? '64px' : '0px' }} className={classes.stickyContainer}>          
+          <div style={{ ...style, paddingTop: isSticky ? '64px' : '0px'}} className={classes.stickyContainer}>          
             <div className={classes.monthBar}>
               <div className={classes.monthBarTop}>
                 <div className={classes.monthTitle}>

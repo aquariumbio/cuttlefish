@@ -17,8 +17,8 @@ const useStyles = makeStyles(theme => ({
   },
   calendar: {
     background: theme.palette.white.main,
-    width: '45vw',
-    marginLeft: theme.spacing(1)
+    marginLeft: theme.spacing(1),
+    overflow: 'auto'
   },
   progress: {
     width: '100%',

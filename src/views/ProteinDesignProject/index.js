@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { makeStyles } from '@material-ui/styles';
-import { Container, Tabs, Tab, Modal, Typography } from '@material-ui/core';
+import { Container, Tabs, Tab, Modal } from '@material-ui/core';
 import Page from 'src/components/Page';
 import Gantt from '../../components/Gantt';
 import Header from './Header';
@@ -141,17 +141,6 @@ function ProteinDesignProject() {
     <Page className={classes.root} title="Protein Design Project">
       <Container maxWidth={false}>
         <Header currentTab={currentTab} onEventAdd={handleEventNew} />
-        <div className={classes.progress}>
-          <Typography gutterBottom variant="h6">
-            0 tasks completed out of 0
-          </Typography>
-          <CustomLinearProgress
-            variant="determinate"
-            value={progress}
-            color="primary"
-          />
-        </div>
-
         <Tabs
           value={currentTab}
           onChange={handleChange}
