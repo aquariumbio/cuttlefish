@@ -144,17 +144,19 @@ export default function PlanTable(props) {
 
   createData()
 
+  const options = {
+    count: data.length,
+    page: page,
+    rowsPerPageOptions: [6, 12, 18, 24, 30, 36],
+    rowsPerPage: rowsPerPage
+  };
+
   return (
     <Page className={classes.root} title="Plans">
       <MUIDataTable
         columns={columns.map(column => (column.label))}
-        data={data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)}
-        pagination={true}
-        page={page}
-        rowsPerPageOptions={[6, 12, 18, 24, 30, 36]}
-        rowsPerPage={rowsPerPage}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
+        data={data}
+        options={options}
       />
       {/* 
       <SearchBar onFilter={handleFilter} onSearch={handleSearch} className={classes.searchBar} />
