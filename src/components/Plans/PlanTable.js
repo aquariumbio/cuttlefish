@@ -18,14 +18,15 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 import LinkIcon from '@material-ui/icons/Link';
 import SearchBar from 'src/components/SearchBar';
+import MUIDataTable from "mui-datatables";
 
 const columns = [
-  {
-    id: 'favorite',
-    label: 'Favorite',
-    minWidth: 10,
-    align: 'left'
-  },
+  // {
+  //   id: 'favorite',
+  //   label: 'Favorite',
+  //   minWidth: 10,
+  //   align: 'left'
+  // },
   {
     id: 'id',
     label: 'Plan ID',
@@ -113,8 +114,49 @@ export default function PlanTable(props) {
 
   useEffect(() => { }, [props.data]);
 
+  const data = []
+
+  function createData() {
+    if (props.data == null) {
+      return <LinearProgress className={classes.progress} color="primary" />
+    }
+    else {
+      props.data
+        .map(row => {
+          let rowData = []
+          const value = JSON.parse(row.data)['id']
+          const idRow =
+            <Button
+              href={'http://52.27.43.242/launcher?plan_id=' + value}
+              className={classes.linkButton}
+              target="_blank"
+            >
+              {`${value.toFixed(0)}   `} <LinkIcon />
+            </Button >
+          rowData.push(idRow)
+          rowData.push(JSON.parse(row.data)['name'])
+          rowData.push(moment(JSON.parse(row.data)['created_at']).format('D MMM YYYY'))
+          rowData.push(moment(JSON.parse(row.data)['updated_at']).format('D MMM YYYY'))
+          data.push(rowData)
+        })
+    }
+  }
+
+  createData()
+
   return (
     <Page className={classes.root} title="Plans">
+      <MUIDataTable
+        columns={columns.map(column => (column.label))}
+        data={data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)}
+        pagination={true}
+        page={page}
+        rowsPerPageOptions={[6, 12, 18, 24, 30, 36]}
+        rowsPerPage={rowsPerPage}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+      />
+      {/* 
       <SearchBar onFilter={handleFilter} onSearch={handleSearch} className={classes.searchBar} />
       <Paper className={classes.root}>
         <TableContainer className={classes.container}>
@@ -226,7 +268,7 @@ export default function PlanTable(props) {
             onChangeRowsPerPage={handleChangeRowsPerPage}
           />
         )}
-      </Paper>
+      </Paper> */}
     </Page>
   );
 }
