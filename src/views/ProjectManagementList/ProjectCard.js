@@ -16,7 +16,7 @@ import { useDispatch } from 'react-redux';
 import { getProject } from 'src/actions';
 import { useHistory } from 'react-router';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     alignItems: 'center',
@@ -76,14 +76,11 @@ function ProjectCard({ project, className, ...rest }) {
 
   const handleClick = () => {
     dispatch(getProject(project));
-    history.push(`/project/${project.title}`);
+    history.push(`/project/${project.id}`);
   };
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
+    <Card {...rest} className={clsx(classes.root, className)}>
       <CardContent className={classes.content}>
         <div className={classes.header}>
           <div>
@@ -97,8 +94,7 @@ function ProjectCard({ project, className, ...rest }) {
               {project.title}
             </Link>
             <Typography variant="body2">
-              by
-              {' '}
+              by{' '}
               <Link
                 color="textPrimary"
                 component={RouterLink}
