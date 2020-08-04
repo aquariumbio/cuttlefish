@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     textOverflow: 'ellipsis'
   },
   stickyContainer: {
-    zIndex: 99, 
+    zIndex: 99
   }
 }));
 
@@ -52,6 +52,7 @@ export default function SampleBar(props) {
 
   const libraryTabs = props.libraries.map(library => (
     <LibraryTab
+      key={library.id}
       library={library}
       open={false}
       setOpenRows={props.setOpenRows}
@@ -60,6 +61,7 @@ export default function SampleBar(props) {
       {library.operations.map(operation => (
         <Grid item key={operation.id}>
           <LibraryTask
+            key={operation.id}
             operation={operation}
             open={false}
             setOpenRows={props.setOpenRows}
@@ -79,23 +81,23 @@ export default function SampleBar(props) {
     <div className={classes.taskList}>
       <StickyContainer>
         <Sticky>
-            {({
-            style,
-            isSticky
-          }) => (
-        <div style={{ ...style, paddingTop: isSticky ? '64px' : '0px' }} className={classes.stickyContainer}> 
-        <Grid item className={classes.topBar}>
-          <CustomTypography variant="h5" noWrap>
-            Library
-          </CustomTypography>
-          <CustomTypography variant="h5" noWrap>
-            Owner ID
-          </CustomTypography>
-        </Grid>
-        </div>
-            )}
+          {({ style, isSticky }) => (
+            <div
+              style={{ ...style, paddingTop: isSticky ? '64px' : '0px' }}
+              className={classes.stickyContainer}
+            >
+              <Grid item className={classes.topBar}>
+                <CustomTypography variant="h5" noWrap>
+                  Library
+                </CustomTypography>
+                <CustomTypography variant="h5" noWrap>
+                  ID
+                </CustomTypography>
+              </Grid>
+            </div>
+          )}
         </Sticky>
-      <div className={classes.libraries}>{libraryTabs}</div>
+        <div className={classes.libraries}>{libraryTabs}</div>
       </StickyContainer>
     </div>
   );

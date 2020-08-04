@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
+import uuid from 'uuid/v1';
 
 import moment from 'moment';
 
@@ -28,7 +29,8 @@ const useStyles = makeStyles(theme => ({
     pointerEvents: 'none'
   },
   paper: {
-    padding: theme.spacing(1)
+    padding: theme.spacing(1),
+    boxShadow: 'none'
   }
 }));
 
@@ -50,11 +52,11 @@ export default function CalendarRow(props) {
 
   const getStyle = () => {
     if (props.parentID == null) {
-      return props.openRows.includes(props.operationID)
+      return props.openRows.includes(props.id)
         ? classes.root
         : `${classes.hidden} ${classes.root}`;
     } else {
-      return props.openRows.includes(props.operationID) &&
+      return props.openRows.includes(props.id) &&
         props.openRows.includes(props.parentID)
         ? classes.root
         : `${classes.hidden} ${classes.root}`;
@@ -76,19 +78,21 @@ export default function CalendarRow(props) {
   };
 
   useEffect(() => {
-    setHidden(props.openRows.includes(props.operationID));
-  }, [props.operationID, props.openRows]);
+    setHidden(props.openRows.includes(props.id));
+  }, [props.id, props.openRows]);
 
   // Render the specific day block for the row
   const getDay = (day, operation) => {
-    const start = moment(operation.created_at).format('MM/DD/YYYY');
-    const end = moment(operation.updated_at).format('MM/DD/YYYY');
+    const start = moment(operation.created_at);
+    const end = moment(operation.updated_at);
     const currentDay = day.format('MM/DD/YYYY');
-    let between = start <= currentDay && end >= currentDay;
+    let between =
+      start.format('MM/DD/YYYY') <= currentDay &&
+      end.format('MM/DD/YYYY') >= currentDay;
 
     if (between) {
       return (
-        <>
+        <React.Fragment key={operation.id + currentDay}>
           <tr
             style={{
               backgroundColor: getStatusColor(operation.status)
@@ -120,16 +124,18 @@ export default function CalendarRow(props) {
             onClose={handlePopoverClose}
             disableRestoreFocus
           >
-            <Typography>{`Name: ${props.name}`}</Typography>
-            <Typography>{`Status: ${operation.status}`}</Typography>
-            <Typography>{`Created At: ${start}`}</Typography>
-            <Typography>{`Updated At: ${end}`}</Typography>
+            <Typography><b>Name: </b>{props.name}</Typography>
+            <Typography><b>Status: </b>{`Status: ${operation.status}`}</Typography>
+            <Typography><b>Created At: </b>{start.format(
+              'dddd, MMMM Do YYYY	')}</Typography>
+            <Typography><b>Updated At: </b>{end.format(
+              'dddd, MMMM Do YYYY	')}</Typography>
           </Popover>
-        </>
+        </React.Fragment>
       );
     } else {
       return (
-        <tr className={classes.tableRow}>
+        <tr className={classes.tableRow} key={operation.id + currentDay}>
           <th className={classes.tableHead}></th>
         </tr>
       );
@@ -142,8 +148,8 @@ export default function CalendarRow(props) {
   });
 
   return (
-    <div className={getStyle()} key={props.operation.id}>
+    <tbody className={getStyle()} key={props.id}>
       {row}
-    </div>
+    </tbody>
   );
 }

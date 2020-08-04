@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   month: { display: 'flex', overflowX: 'auto' },
-  monthContainer: { display: 'flex', flexDirection: 'column', width: '50vw'},
+  monthContainer: { display: 'flex', flexDirection: 'column', width: '50vw' },
   monthBar: {
     display: 'flex',
     flexDirection: 'column',
@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
   },
   dayHeader: {},
   stickyContainer: {
-    backgroundColor:'white'
+    backgroundColor: 'white'
   }
 }));
 
@@ -93,7 +93,8 @@ export default function Calendar(props) {
     props.libraries.map(library => {
       rows.push(
         <CalendarRow
-          operationID={library.id}
+          key={library.id}
+          id={library.id}
           parentID={null}
           openRows={props.openRows}
           operation={library}
@@ -104,7 +105,8 @@ export default function Calendar(props) {
       library.operations.map(operation => {
         rows.push(
           <CalendarRow
-            operationID={operation.id}
+            key={operation.id}
+            id={operation.id}
             parentID={null}
             openRows={props.openRows}
             operation={operation}
@@ -137,58 +139,59 @@ export default function Calendar(props) {
   const getMonth = () => {
     const daysInMonth = getDaysInMonth();
     return (
-      
       <div className={classes.monthContainer}>
         <StickyContainer>
           <Sticky>
-              {({
-              style, isSticky
-            }) => (
-          <div style={{ ...style, paddingTop: isSticky ? '64px' : '0px'}} className={classes.stickyContainer}>          
-            <div className={classes.monthBar}>
-              <div className={classes.monthBarTop}>
-                <div className={classes.monthTitle}>
-                  {moment()
-                    .add(monthsLoaded, 'month')
-                    .format('MMMM YYYY')}
-                </div>
-                <IconButton
-                  onClick={() => setMonthsLoaded(monthsLoaded - 1)}
-                  size="medium"
-                  style={{ padding: 0, marginRight: '1rem' }}
-                >
-                  <ArrowBackIcon />
-                </IconButton>
-                <IconButton
-                  onClick={() => setMonthsLoaded(monthsLoaded + 1)}
-                  size="medium"
-                  style={{ padding: 0 }}
-                >
-                  <ArrowForwardIcon />
-                </IconButton>
-              </div>
-              <div className={classes.spacer}></div>
-              <div className={classes.dayTitles}>
-                {daysInMonth.map(day => (
-                  <div
-                    className={classes.day}
-                    style={{ backgroundColor: getDayStyle(day.format('d')) }}
-                  >
-                    <div className={classes.dayHeader}>
-                      {weekdays[day.format('d')]}
-                      {/* {day.format('D')} */}
+            {({ style, isSticky }) => (
+              <div
+                style={{ ...style, paddingTop: isSticky ? '64px' : '0px' }}
+                className={classes.stickyContainer}
+              >
+                <div className={classes.monthBar}>
+                  <div className={classes.monthBarTop}>
+                    <div className={classes.monthTitle}>
+                      {moment()
+                        .add(monthsLoaded, 'month')
+                        .format('MMMM YYYY')}
                     </div>
+                    <IconButton
+                      onClick={() => setMonthsLoaded(monthsLoaded - 1)}
+                      size="medium"
+                      style={{ padding: 0, marginRight: '1rem' }}
+                    >
+                      <ArrowBackIcon />
+                    </IconButton>
+                    <IconButton
+                      onClick={() => setMonthsLoaded(monthsLoaded + 1)}
+                      size="medium"
+                      style={{ padding: 0 }}
+                    >
+                      <ArrowForwardIcon />
+                    </IconButton>
                   </div>
-                ))}
+                  <div className={classes.spacer}></div>
+                  <div className={classes.dayTitles}>
+                    {daysInMonth.map(day => (
+                      <div
+                        className={classes.day}
+                        style={{
+                          backgroundColor: getDayStyle(day.format('d'))
+                        }}
+                      >
+                        <div className={classes.dayHeader}>
+                          {weekdays[day.format('d')]}
+                          {/* {day.format('D')} */}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          )}
+            )}
           </Sticky>
-        <table className={classes.calendarRows}>{getCalendarRows()}</table>
+          <table className={classes.calendarRows}>{getCalendarRows()}</table>
         </StickyContainer>
       </div>
-
     );
   };
 

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { useDispatch } from 'react-redux';
-import moment from 'moment';
 import Page from '../Page';
 import SampleBar from './SampleBar';
 import Calendar from './Calendar';
@@ -33,7 +31,6 @@ export default function Gantt(props) {
   const session = useSelector(state => state.session);
   const [libraries, setLibraries] = useState([]);
   const [loading, setLoading] = useState();
-  const [operationNames, setOperationNames] = useState();
   const [
     openRows,
     setOpenRows
@@ -48,6 +45,7 @@ export default function Gantt(props) {
   }, [props.data]);
 
   async function setGanttData() {
+    setLoading(true);
     const response = await fetch('http://localhost:4000/plans/op_names', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -57,45 +55,35 @@ export default function Gantt(props) {
       })
     });
     if (response.status === 200) {
-      setLoading(true);
       const names = await response.json();
-      const libraries = [];
-      const currentOpenRows = [];
-      let i = 0;
-      for (const list of props.data) {
-        // if (i < 5) {
-        i++;
+      fetchSamplesFromPlans(names);
+    }
+  }
+
+  const handleSetLoadingFalse = () => {
+    console.log('DONE LOADING');
+    setLoading(false);
+  };
+
+  const fetchSamplesFromPlans = async names => {
+    const libraries = [];
+    const currentOpenRows = [];
+    let i = 0;
+    for (const list of props.data) {
+      if (i < 5) {
         const library = JSON.parse(list.data);
         library.operations.map(operation => {
           operation.name = getOperationName(names, operation.operation_type_id);
         });
         libraries.push(library);
         currentOpenRows.push(library.id);
-        // }
+        i++;
       }
-      setOpenRows(currentOpenRows);
-      setLibraries(libraries);
-      setLoading(false);
     }
-  }
-
-  // const fetchSamplesFromPlans = async () => {
-  //   setLoading(true);
-  //   const libraries = [];
-  //   const currentOpenRows = [];
-  //   let i = 0;
-  //   for (const list of props.data) {
-  //     // if (i < 5) {
-  //     i++;
-  //     let library = JSON.parse(list.data);
-  //     libraries.push(library);
-  //     currentOpenRows.push(library.id);
-  //     // }
-  //   }
-  //   setOpenRows(currentOpenRows);
-  //   setLibraries(libraries);
-  //   setLoading(false);
-  // };
+    setOpenRows(currentOpenRows);
+    setLibraries(libraries);
+    handleSetLoadingFalse();
+  };
 
   const getOperationName = (names, id) => {
     if (names != null) {
@@ -118,14 +106,12 @@ export default function Gantt(props) {
               libraries={libraries}
               openRows={openRows}
               setOpenRows={setOpenRows}
-              operationNames={operationNames}
             />
             <div className={classes.calendar}>
               <Calendar
                 libraries={libraries}
                 openRows={openRows}
                 setOpenRows={setOpenRows}
-                operationNames={operationNames}
               />
             </div>
           </>

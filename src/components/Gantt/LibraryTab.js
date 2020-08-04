@@ -100,7 +100,7 @@ export default function LibraryTab(props) {
         </Grid>
         <Grid item>
           <Typography variant="h6" noWrap>
-            {props.library.user_id}
+            {props.library.id}
           </Typography>
         </Grid>
       </div>

@@ -12,6 +12,7 @@ import { withStyles, lighten } from '@material-ui/core/styles';
 import PlanTable from 'src/components/Plans/PlanTable';
 import Settings from '../../components/Settings';
 import firebase from '../../firebase/firebase';
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -47,6 +48,7 @@ const CustomLinearProgress = withStyles(theme => ({
 function ProteinDesignProject() {
   const classes = useStyles();
   const session = useSelector(state => state.session);
+  const history = useHistory();
   const [currentTab, setCurrentTab] = useState(0);
   const { id } = useParams();
   const [events, setEvents] = useState([]);
@@ -84,6 +86,7 @@ function ProteinDesignProject() {
     setCurrentTab(newTab);
   };
 
+  // Retrieves project data from Firebase
   const getProjectFromFirebase = async () => {
     var docRef = firebase.db.collection('projects').doc(id);
     await docRef
@@ -92,14 +95,16 @@ function ProteinDesignProject() {
         if (doc.exists) {
           getSamples(doc.data().folder);
         } else {
-          console.log('No such document!');
+          history.push('/errors/error-404');
         }
       })
       .catch(function(error) {
-        console.log('Error getting document:', error);
+        alert('Error getting project:', error);
+        history.push('/overview');
       });
   };
 
+  // Retrieves Plan data from Aquarium
   const getSamples = async folder => {
     const response = await fetch('http://localhost:4000/plans/', {
       method: 'POST',
@@ -124,15 +129,15 @@ function ProteinDesignProject() {
   }, []);
 
   // Conditional popup button action, rendered differently based on the respective action necessary for the project tab
-  const getModal = () => {
-    if (currentTab === 0) {
-      return <Modal onClose={handleModalClose} open={eventModal.open}></Modal>;
-    } else if (currentTab === 1) {
-      return <Modal onClose={handleModalClose} open={eventModal.open}></Modal>;
-    } else {
-      return <Modal onClose={handleModalClose} open={eventModal.open}></Modal>;
-    }
-  };
+  // const getModal = () => {
+  //   if (currentTab === 0) {
+  //     return <Modal onClose={handleModalClose} open={eventModal.open}></Modal>;
+  //   } else if (currentTab === 1) {
+  //     return <Modal onClose={handleModalClose} open={eventModal.open}></Modal>;
+  //   } else {
+  //     return <Modal onClose={handleModalClose} open={eventModal.open}></Modal>;
+  //   }
+  // };
 
   return (
     <Page className={classes.root} title="Protein Design Project">
@@ -156,7 +161,7 @@ function ProteinDesignProject() {
         <TabPanel value={currentTab} index={2}>
           <Settings data={ganttData} />
         </TabPanel>
-        {getModal()}
+        {/* {getModal()} */}
       </Container>
     </Page>
   );
