@@ -145,6 +145,8 @@ export default function PlanTable(props) {
   createData()
 
   const options = {
+    sort: true,
+    filter: false,
     count: data.length,
     page: page,
     rowsPerPageOptions: [6, 12, 18, 24, 30, 36],
