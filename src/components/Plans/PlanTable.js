@@ -73,21 +73,29 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+let planTable;
+
 export default function PlanTable(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(6);
   const [favStatus, setFavStatus] = React.useState(false);
+  const data = []
+  const options = {
+    sort: true,
+    filter: false,
+    count: data.length,
+    page: page,
+    rowsPerPageOptions: [6, 12, 18, 24, 30, 36],
+    rowsPerPage: rowsPerPage
+  };
 
   useEffect(() => { }, [props.data]);
 
-  const data = []
-
   function createData() {
     if (props.data == null) {
-      return <LinearProgress className={classes.progress} color="primary" />
-    }
-    else {
+      data.push(<LinearProgress className={classes.progress} color="primary" />)
+    } else {
       props.data
         .map(row => {
           let rowData = []
@@ -111,22 +119,19 @@ export default function PlanTable(props) {
 
   createData()
 
-  const options = {
-    sort: true,
-    filter: false,
-    count: data.length,
-    page: page,
-    rowsPerPageOptions: [6, 12, 18, 24, 30, 36],
-    rowsPerPage: rowsPerPage
-  };
+  if (data.length === 1) {
+    planTable = data
+  } else {
+    planTable = <MUIDataTable
+      columns={columns.map(column => (column.label))}
+      data={data}
+      options={options}
+    />
+  }
 
   return (
     <Page className={classes.root} title="Plans">
-      <MUIDataTable
-        columns={columns.map(column => (column.label))}
-        data={data}
-        options={options}
-      />
+      {planTable}
     </Page>
   );
 }
