@@ -64,10 +64,17 @@ let weekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
 export default function Calendar(props) {
   const classes = useStyles();
-  const [date, setDate] = useState(moment().toDate());
   const [monthsLoaded, setMonthsLoaded] = useState(0);
+  const [date, setDate] = useState(props.startDate);
 
-  useEffect(() => {}, [props.libraries, props.openRows, monthsLoaded]);
+  useEffect(() => {
+    console.log(props.startDate);
+    setDate(props.startDate);
+  }, [props.libraries, props.openRows, props.startDate]);
+
+  useEffect(() => {
+    console.log(monthsLoaded);
+  }, [monthsLoaded]);
 
   const getDaysInMonth = () => {
     var daysInMonth = moment()
