@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import { withStyles } from '@material-ui/core/styles';
-import { Typography, Button, Card, IconButton} from '@material-ui/core';
+import { Typography, Button, Card, IconButton } from '@material-ui/core';
 import Page from 'src/components/Page';
 import Grid from '@material-ui/core/grid';
 import EditIcon from '@material-ui/icons/Edit';
@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: theme.spacing(3),
   },
   title: {
-    display: 'flex', 
+    display: 'flex',
     width: '200px',
     justifyContent: 'left',
     alignItems: 'center'
@@ -111,7 +111,7 @@ function Settings(props) {
         title: newTitle,
       })
       .then(() => window.location.reload())
-      .catch(function(error) {
+      .catch(function (error) {
         console.error('Error renaming project: ', error);
       });
     setHasEdited(true);
@@ -135,38 +135,38 @@ function Settings(props) {
             </Grid>
             <Grid item className={classes.subtitle}>
               <Typography variant="subtitle1">
-              {!hasEdited ? session.currentProject.title : newTitle}
-            </Typography>
+                {!hasEdited ? session.currentProject.title : newTitle}
+              </Typography>
             </Grid>
 
             <Grid item xs>
               <Typography variant="subtitle1" className={classes.subtitle}>
-              <Button
-              onClick={handleClickOpen}
-              >
-                
-               <EditIcon />
-              </Button>
-              
-            </Typography>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className={classes.dialog}>
-              <DialogTitle className={classes.dialogTitle}>
+                <Button
+                  onClick={handleClickOpen}
+                >
+
+                  <EditIcon />
+                </Button>
+
+              </Typography>
+              <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" className={classes.dialog}>
+                <DialogTitle className={classes.dialogTitle}>
                   <Grid container spacing={20}>
-                <Grid item md={6} xs={12}>
-                  <CustomTypography align="left" gutterBottom variant="h3">
-                    Create Project
+                    <Grid item md={6} xs={12}>
+                      <CustomTypography align="left" gutterBottom variant="h3">
+                        Create Project
                   </CustomTypography>
-                </Grid>
-                <Grid item md={6} xs={12}>
-                  <IconButton
-                    className={classes.closeIcon}
-                    onClick={handleClose}
-                    aria-label="close"
-                  >
-                    <CloseIcon />
-                  </IconButton>
-                </Grid>
-              </Grid>
+                    </Grid>
+                    <Grid item md={6} xs={12}>
+                      <IconButton
+                        className={classes.closeIcon}
+                        onClick={handleClose}
+                        aria-label="close"
+                      >
+                        <CloseIcon />
+                      </IconButton>
+                    </Grid>
+                  </Grid>
                 </DialogTitle>
                 <DialogContent>
                   <DialogContentText>
@@ -192,8 +192,6 @@ function Settings(props) {
                 </DialogActions>
               </Dialog>
             </Grid>
-
-
           </Grid>
 
           <Grid
@@ -201,15 +199,15 @@ function Settings(props) {
             className={classes.grid}
             spacing={2}
           >
-            <Grid item xs={3}  className={classes.title}>
+            <Grid item xs={3} className={classes.title}>
               <Typography variant="h5">
                 Project Owner{' '}
               </Typography>
             </Grid>
             <Grid item xs={6} className={classes.subtitle}>
               <Typography variant="subtitle1" >
-              {session.currentProject.owner}
-            </Typography>
+                {session.currentProject.owner}
+              </Typography>
             </Grid>
           </Grid>
 
@@ -218,15 +216,15 @@ function Settings(props) {
             className={classes.grid}
             spacing={2}
           >
-            <Grid item xs={3}  className={classes.title}>
+            <Grid item xs={3} className={classes.title}>
               <Typography variant="h5">
                 Project ID
               </Typography>
             </Grid>
             <Grid item xs={6} className={classes.subtitle}>
               <Typography variant="subtitle1" >
-               {session.currentProject.id}
-            </Typography>
+                {session.currentProject.id}
+              </Typography>
             </Grid>
           </Grid>
 
@@ -242,8 +240,8 @@ function Settings(props) {
             </Grid>
             <Grid item xs={6} className={classes.subtitle}>
               <Typography variant="subtitle1" >
-              {session.currentProject.status}
-            </Typography>
+                {session.currentProject.status}
+              </Typography>
             </Grid>
           </Grid>
 
@@ -259,8 +257,8 @@ function Settings(props) {
             </Grid>
             <Grid item xs={6} className={classes.subtitle}>
               <Typography variant="subtitle1" >
-              {session.currentProject.type}
-            </Typography>
+                {session.currentProject.type}
+              </Typography>
             </Grid>
           </Grid>
 
@@ -276,14 +274,14 @@ function Settings(props) {
             </Grid>
             <Grid item xs={6} className={classes.subtitle}>
               <Typography variant="subtitle1" >
-              {session.currentProject.folder}
-            </Typography>
+                {session.currentProject.folder}
+              </Typography>
             </Grid>
           </Grid>
-        
+
         </CardContent>
       </Card>
-      
+
     </Page>
   );
 }
