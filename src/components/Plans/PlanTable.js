@@ -12,12 +12,12 @@ import LinkIcon from '@material-ui/icons/Link';
 import MUIDataTable from "mui-datatables";
 
 const columns = [
-  // {
-  //   id: 'favorite',
-  //   label: 'Favorite',
-  //   minWidth: 10,
-  //   align: 'left'
-  // },
+  {
+    id: 'favorite',
+    label: 'Favorite',
+    minWidth: 10,
+    align: 'left'
+  },
   {
     id: 'id',
     label: 'Plan ID',
@@ -84,6 +84,8 @@ export default function PlanTable(props) {
   const options = {
     sort: true,
     filter: false,
+    selectableRows: 'none',
+    selectableRowsHeader: false,
     count: data.length,
     page: page,
     rowsPerPageOptions: [6, 12, 18, 24, 30, 36],
@@ -92,6 +94,10 @@ export default function PlanTable(props) {
 
   useEffect(() => { }, [props.data]);
 
+  const handleFavorite = () => {	
+    setFavStatus(!favStatus);	
+  };
+
   function createData() {
     if (props.data == null) {
       data.push(<LinearProgress className={classes.progress} color="primary" />)
@@ -99,6 +105,13 @@ export default function PlanTable(props) {
       props.data
         .map(row => {
           let rowData = []
+
+          const favoriteRow = 
+            <StarIcon 
+              style={{ color: '#065683', cursor: 'pointer' }} 
+              onClick={handleFavorite} />
+          rowData.push(favoriteRow)
+
           const value = JSON.parse(row.data)['id']
           const idRow =
             <Button
@@ -109,6 +122,7 @@ export default function PlanTable(props) {
               {`${value.toFixed(0)}   `} <LinkIcon />
             </Button >
           rowData.push(idRow)
+
           rowData.push(JSON.parse(row.data)['name'])
           rowData.push(moment(JSON.parse(row.data)['created_at']).format('D MMM YYYY'))
           rowData.push(moment(JSON.parse(row.data)['updated_at']).format('D MMM YYYY'))
