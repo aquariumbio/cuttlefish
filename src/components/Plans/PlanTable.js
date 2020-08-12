@@ -106,10 +106,12 @@ export default function PlanTable(props) {
         .map(row => {
           let rowData = []
 
-          const favoriteRow = 
-            <StarIcon 
-              style={{ color: '#065683', cursor: 'pointer' }} 
-              onClick={handleFavorite} />
+          let favoriteRow;
+          if (favStatus) {
+            favoriteRow = <StarIcon style={{ color: '#065683', cursor: 'pointer' }} onClick={handleFavorite} />
+          } else {
+            favoriteRow = <StarBorderIcon	style={{	color: '#065683',	cursor: 'pointer'	}} onClick={handleFavorite}	/>
+          }
           rowData.push(favoriteRow)
 
           const value = JSON.parse(row.data)['id']
@@ -124,8 +126,8 @@ export default function PlanTable(props) {
           rowData.push(idRow)
 
           rowData.push(JSON.parse(row.data)['name'])
-          rowData.push(moment(JSON.parse(row.data)['created_at']).format('D MMM YYYY'))
-          rowData.push(moment(JSON.parse(row.data)['updated_at']).format('D MMM YYYY'))
+          rowData.push(moment(JSON.parse(row.data)['created_at']).format('MM/DD/YYYY'))
+          rowData.push(moment(JSON.parse(row.data)['updated_at']).format('MM/DD/YYYY'))
           data.push(rowData)
         })
     }
