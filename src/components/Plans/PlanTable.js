@@ -81,6 +81,40 @@ export default function PlanTable(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(6);
   const [favStatus, setFavStatus] = React.useState(false);
   const data = []
+  const tableColumns = [
+    {
+      name: 'Favorite',
+      options: {
+        sort: false,
+        setCellHeaderProps: value => ({ style: { color: "white", backgroundColor: "#065683" } }),
+      },
+    },
+    {
+      name: 'Plan ID',
+      options: {
+        sort: false,
+        setCellHeaderProps: value => ({ style: { color: "white", backgroundColor: "#065683" } }),
+      },
+    },
+    {
+      name: 'Plan Name',
+      options: {
+        setCellHeaderProps: value => ({ style: { color: "white", backgroundColor: "#065683" } }),
+      },
+    },
+    {
+      name: 'Created Date',
+      options: {
+        setCellHeaderProps: value => ({ style: { color: "white", backgroundColor: "#065683" } }),
+      },
+    },
+    {
+      name: 'Updated Date',
+      options: {
+        setCellHeaderProps: value => ({ style: { color: "white", backgroundColor: "#065683" } }),
+      },
+    },
+  ];
   const options = {
     sort: true,
     filter: false,
@@ -88,7 +122,7 @@ export default function PlanTable(props) {
     selectableRowsHeader: false,
     search: true,
     searchOpen: true,
-    searchPlaceholder: 'Search for plan name',
+    searchPlaceholder: 'Search plan name',
     count: data.length,
     page: page,
     rowsPerPageOptions: [6, 12, 18, 24, 30, 36],
@@ -97,8 +131,8 @@ export default function PlanTable(props) {
 
   useEffect(() => { }, [props.data]);
 
-  const handleFavorite = () => {	
-    setFavStatus(!favStatus);	
+  const handleFavorite = (event) => {
+    setFavStatus(!favStatus);
   };
 
   function createData() {
@@ -113,7 +147,7 @@ export default function PlanTable(props) {
           if (favStatus) {
             favoriteRow = <StarIcon style={{ color: '#065683', cursor: 'pointer' }} onClick={handleFavorite} />
           } else {
-            favoriteRow = <StarBorderIcon	style={{	color: '#065683',	cursor: 'pointer'	}} onClick={handleFavorite}	/>
+            favoriteRow = <StarBorderIcon style={{ color: '#065683', cursor: 'pointer' }} onClick={handleFavorite} />
           }
           rowData.push(favoriteRow)
 
@@ -142,7 +176,7 @@ export default function PlanTable(props) {
     planTable = data
   } else {
     planTable = <MUIDataTable
-      columns={columns.map(column => (column.label))}
+      columns={tableColumns}
       data={data}
       options={options}
     />
