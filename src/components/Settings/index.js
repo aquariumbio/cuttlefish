@@ -16,6 +16,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import firebase from '../../firebase/firebase';
+import MaterialTable from 'material-table';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -137,6 +138,25 @@ function Settings(props) {
     getSelection().empty();
     setCopySuccess('Copied!');
   };
+
+  const [columns, setColumns] = useState([
+    { title: 'Name', field: 'name' },
+    { title: 'Aquarium Email', field: 'AQemail' },
+    {
+      title: 'Role',
+      field: 'role',
+      lookup: { 1: 'Owner', 2: 'Manager', 3: 'Contributor'},
+    },
+  ]);
+
+  const [data, setData] = useState([
+    [
+      { name: session.currentProject.owner, AQemail: 'XXXXX@uw.edu', role: 1 },
+      { name: 'Melody Chou', AQemail: 'melodc@uw.edu', role: 3 },
+      { name: 'Phuong Le', AQemail: 'Baran', role: 2},
+    ]
+  ]);
+
 
   return (
     <Page title={'Settings'}>
@@ -319,7 +339,43 @@ function Settings(props) {
 
       <Card className={classes.root} style={{marginTop: '32px'}}>
         <CardContent className={classes.content}>
+            <MaterialTable
+          title="Members"
+          columns={columns}
+          data={data}
+          editable={{
+            onRowAdd: newData =>
+              new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  setData([...data, newData]);
+                  
+                  resolve();
+                }, 1000)
+              }),
+            onRowUpdate: (newData, oldData) =>
+              new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  const dataUpdate = [...data];
+                  const index = oldData.tableData.id;
+                  dataUpdate[index] = newData;
+                  setData([...dataUpdate]);
 
+                  resolve();
+                }, 1000)
+              }),
+            onRowDelete: oldData =>
+              new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  const dataDelete = [...data];
+                  const index = oldData.tableData.id;
+                  dataDelete.splice(index, 1);
+                  setData([...dataDelete]);
+                  
+                  resolve()
+                }, 1000)
+              }),
+          }}
+        />
         </CardContent>
       </Card>
 
