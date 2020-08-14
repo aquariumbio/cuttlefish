@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef} from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import { withStyles } from '@material-ui/core/styles';
@@ -14,6 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CloseIcon from '@material-ui/icons/Close';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import firebase from '../../firebase/firebase';
 
 const useStyles = makeStyles(theme => ({
@@ -47,7 +48,6 @@ const useStyles = makeStyles(theme => ({
   grid: {
     display: 'flex',
     flexGrow: 0,
-    paddingBottom: theme.spacing(3),
   },
   title: {
     display: 'flex',
@@ -67,6 +67,13 @@ const useStyles = makeStyles(theme => ({
   dialogTitle: {
     marginTop: theme.spacing(1),
     paddingBottom: 0
+  },
+  icon: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  },
+  closeIcon: {
+    textAlign: 'right',
   }
 }));
 
@@ -79,6 +86,8 @@ function Settings(props) {
   const [hasEdited, setHasEdited] = useState(false);
 
   const [open, setOpen] = React.useState(false);
+  const [copySuccess, setCopySuccess] = useState('');
+  const textAreaRef = useRef(null);
 
   const handleChange = event => {
     setUserType(event.target.value);
@@ -118,6 +127,17 @@ function Settings(props) {
     handleClose();
   };
 
+  function copyToClipboard(e) {
+    const copyBoxElement =textAreaRef.current;
+    copyBoxElement.contentEditable = true;
+    copyBoxElement.focus();
+    document.execCommand('selectAll');
+    document.execCommand('copy');
+    copyBoxElement.contentEditable = false;
+    getSelection().empty();
+    setCopySuccess('Copied!');
+  };
+
   return (
     <Page title={'Settings'}>
       <Card className={classes.root}>
@@ -145,7 +165,7 @@ function Settings(props) {
                   onClick={handleClickOpen}
                 >
 
-                  <EditIcon />
+                  <EditIcon  className={classes.icon}/>
                 </Button>
 
               </Typography>
@@ -154,12 +174,12 @@ function Settings(props) {
                   <Grid container spacing={20}>
                     <Grid item md={6} xs={12}>
                       <CustomTypography align="left" gutterBottom variant="h3">
-                        Create Project
+                        Edit Project Name
                   </CustomTypography>
                     </Grid>
-                    <Grid item md={6} xs={12}>
+                    <Grid item md={6} xs={12} className={classes.closeIcon}>
                       <IconButton
-                        className={classes.closeIcon}
+                        
                         onClick={handleClose}
                         aria-label="close"
                       >
@@ -221,11 +241,26 @@ function Settings(props) {
                 Project ID
               </Typography>
             </Grid>
-            <Grid item xs={6} className={classes.subtitle}>
-              <Typography variant="subtitle1" >
+            <Grid item className={classes.subtitle}>
+              <Typography variant="subtitle1">
+                <div
+                  ref={textAreaRef}>
                 {session.currentProject.id}
+                </div>
+                
               </Typography>
             </Grid>
+            
+            <Grid item xs>
+              <Button
+                onClick={copyToClipboard}
+                  >
+                    <FileCopyIcon className={classes.icon}/>
+              </Button>
+              {copySuccess}
+            </Grid>
+            
+            
           </Grid>
 
           <Grid
@@ -278,6 +313,12 @@ function Settings(props) {
               </Typography>
             </Grid>
           </Grid>
+
+        </CardContent>
+      </Card>
+
+      <Card className={classes.root} style={{marginTop: '32px'}}>
+        <CardContent className={classes.content}>
 
         </CardContent>
       </Card>
