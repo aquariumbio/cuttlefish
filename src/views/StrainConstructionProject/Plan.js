@@ -1,67 +1,125 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/styles';
-import { Typography, Button, Card } from '@material-ui/core';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import React, { useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import moment from 'moment';
 import Page from 'src/components/Page';
+import {
+  LinearProgress,
+  Button
+} from '@material-ui/core';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import StarIcon from '@material-ui/icons/Star';
+import LinkIcon from '@material-ui/icons/Link';
+import MUIDataTable from "mui-datatables";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: "#FFFFFF",
-    userSelect: 'none',
-    whiteSpace: 'normal',
-    height: '100%',
-    display: 'inline-flex',
-    flexDirection: 'column',
-    verticalAlign: 'top',
+    width: '100%'
+  },
+  container: {
+    maxHeight: 440
+  },
+  progress: {
     width: '100%',
-    margin: theme.spacing(0, 1),
-    [theme.breakpoints.down('xs')]: {
-      width: 300
+    '& > * + *': {
+      marginTop: theme.spacing(5)
     }
   },
-  header: {
-    margin: theme.spacing(3),
-    display: 'flex',
-    alignItems: 'center'
+  linkButton: {
+    padding: 0,
+    margin: 0
   },
-  button: {
-    width: 180,
-    margin: theme.spacing(3),
-    marginTop: 0
+  searchBar: {
+    paddingBottom: theme.spacing(3)
   }
 }));
 
-function Plan({ className, ...rest }) {
+let planTable;
+
+export default function PlanTable(props) {
   const classes = useStyles();
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(6);
+  const [favStatus, setFavStatus] = React.useState(false);
+  const data = []
+  const tableColumns = [
+    {
+      name: 'Favorite',
+      options: {
+        sort: false,
+        setCellHeaderProps: value => ({ style: { color: "white", backgroundColor: "#065683" } }),
+      },
+    },
+    {
+      name: 'Plan ID',
+      options: {
+        sort: false,
+        setCellHeaderProps: value => ({ style: { color: "white", backgroundColor: "#065683" } }),
+      },
+    },
+    {
+      name: 'Plan Name',
+      options: {
+        setCellHeaderProps: value => ({ style: { color: "white", backgroundColor: "#065683" } }),
+      },
+    },
+    {
+      name: 'Created Date',
+      options: {
+        setCellHeaderProps: value => ({ style: { color: "white", backgroundColor: "#065683" } }),
+      },
+    },
+    {
+      name: 'Status',
+      options: {
+        setCellHeaderProps: value => ({ style: { color: "white", backgroundColor: "#065683" } }),
+      },
+    },
+  ];
+  const options = {
+    sort: true,
+    filter: false,
+    selectableRows: 'none',
+    selectableRowsHeader: false,
+    search: true,
+    searchOpen: true,
+    searchPlaceholder: 'Search plan name',
+    count: data.length,
+    page: page,
+    rowsPerPageOptions: [6, 12, 18, 24, 30, 36],
+    rowsPerPage: rowsPerPage
+  };
+
+  useEffect(() => { }, [props.data]);
+
+  const handleFavorite = (event) => {
+    setFavStatus(!favStatus);
+  };
+
+  function createData() {
+    if (props.data == null) {
+      data.push(<LinearProgress className={classes.progress} color="primary" />)
+    } else {
+
+      // backend rendering
+
+    }
+  }
+
+  createData()
+
+  // if (data.length === 1) {
+  //   planTable = data
+  // } else {
+    planTable = <MUIDataTable
+      columns={tableColumns}
+      data={data}
+      options={options}
+    />
+  // }
 
   return (
-    <Page title={"AQ Plan"}>
-      <Card
-        {...rest}
-        className={clsx(classes.root, className)}
-      >
-        <div className={classes.header}>
-          <Typography
-            variant="h5"
-          >
-            AQ plan is the way the researcher describes the work that should be done.
-            It consists of the operations and links between operations, also including the inputs.
-        </Typography>
-        </div>
-        <a href="http://52.27.43.242/launcher">
-          <Button
-            variant="outlined"
-            color="primary"
-            className={classes.button}
-            endIcon={<ArrowForwardIosIcon />}
-          >
-            Go to AQ Plan
-        </Button>
-        </a>
-      </Card>
+    <Page className={classes.root} title="Plans">
+      {planTable}
     </Page>
   );
 }
-
-export default Plan;
