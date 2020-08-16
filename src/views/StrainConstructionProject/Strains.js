@@ -110,7 +110,7 @@ export default function PlanTable(props) {
   // }
 
   return (
-    <Page className={classes.root} title="Plans">
+    <Page className={classes.root} title="Strains">
       {planTable}
     </Page>
   );
