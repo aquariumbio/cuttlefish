@@ -4,7 +4,7 @@ import { Container, Tabs, Tab, Modal } from '@material-ui/core';
 import Page from 'src/components/Page';
 import Header from './Header';
 import TabPanel from '../../components/TabPanel';
-import Notebook from './Notebook';
+import Notebook from './Overall';
 import Strains from './Strains';
 import Plan from './Plan';
 import AddEditEvent from './AddFile';
