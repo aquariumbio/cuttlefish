@@ -124,12 +124,22 @@ export default function CalendarRow(props) {
             onClose={handlePopoverClose}
             disableRestoreFocus
           >
-            <Typography><b>Name: </b>{props.name}</Typography>
-            <Typography><b>Status: </b>{`Status: ${operation.status}`}</Typography>
-            <Typography><b>Created At: </b>{start.format(
-              'dddd, MMMM Do YYYY	')}</Typography>
-            <Typography><b>Updated At: </b>{end.format(
-              'dddd, MMMM Do YYYY	')}</Typography>
+            <Typography>
+              <b>Name: </b>
+              {props.name}
+            </Typography>
+            <Typography>
+              <b>Status: </b>
+              {operation.status}
+            </Typography>
+            <Typography>
+              <b>Created At: </b>
+              {start.format('dddd, MMMM Do YYYY	')}
+            </Typography>
+            <Typography>
+              <b>Updated At: </b>
+              {end.format('dddd, MMMM Do YYYY	')}
+            </Typography>
           </Popover>
         </React.Fragment>
       );
@@ -148,7 +158,8 @@ export default function CalendarRow(props) {
   });
 
   return (
-    <tbody className={getStyle()} key={props.id}>
+    <tbody className={getStyle()} key={uuid()}>
+      {/* <tbody className={getStyle()}> */}
       {row}
     </tbody>
   );

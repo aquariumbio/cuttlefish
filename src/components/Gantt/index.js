@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import moment from 'moment';
 import { makeStyles } from '@material-ui/styles';
 import Page from '../Page';
 import SampleBar from './SampleBar';
@@ -30,6 +31,7 @@ export default function Gantt(props) {
   const classes = useStyles();
   const session = useSelector(state => state.session);
   const [libraries, setLibraries] = useState([]);
+  const [date, setDate] = useState(moment());
   const [loading, setLoading] = useState();
   const [
     openRows,
@@ -70,15 +72,16 @@ export default function Gantt(props) {
     const currentOpenRows = [];
     let i = 0;
     for (const list of props.data) {
-      if (i < 5) {
-        const library = JSON.parse(list.data);
-        library.operations.map(operation => {
-          operation.name = getOperationName(names, operation.operation_type_id);
-        });
-        libraries.push(library);
-        currentOpenRows.push(library.id);
-        i++;
-      }
+      const library = JSON.parse(list.data);
+      library.operations.map(operation => {
+        if (i == 0) {
+          setDate(moment(operation.created_at));
+          i++;
+        }
+        operation.name = getOperationName(names, operation.operation_type_id);
+      });
+      libraries.push(library);
+      currentOpenRows.push(library.id);
     }
     setOpenRows(currentOpenRows);
     setLibraries(libraries);
@@ -96,7 +99,7 @@ export default function Gantt(props) {
   };
 
   return (
-    <Page className={classes.root} title={'Gantt Chart'}>
+    <Page className={classes.root} title={'Timeline'}>
       <div className={classes.container}>
         {loading ? (
           <LinearProgress className={classes.progress} color="primary" />
@@ -112,6 +115,7 @@ export default function Gantt(props) {
                 libraries={libraries}
                 openRows={openRows}
                 setOpenRows={setOpenRows}
+                startDate={date}
               />
             </div>
           </>
