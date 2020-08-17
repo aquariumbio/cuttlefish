@@ -43,21 +43,13 @@ export default function PlanTable(props) {
   const data = []
   const tableColumns = [
     {
-      name: 'Favorite',
+      name: 'Strain Name',
       options: {
-        sort: false,
         setCellHeaderProps: value => ({ style: { color: "white", backgroundColor: "#065683" } }),
       },
     },
     {
-      name: 'Plan ID',
-      options: {
-        sort: false,
-        setCellHeaderProps: value => ({ style: { color: "white", backgroundColor: "#065683" } }),
-      },
-    },
-    {
-      name: 'Plan Name',
+      name: 'Progress',
       options: {
         setCellHeaderProps: value => ({ style: { color: "white", backgroundColor: "#065683" } }),
       },
@@ -118,7 +110,7 @@ export default function PlanTable(props) {
   // }
 
   return (
-    <Page className={classes.root} title="Plans">
+    <Page className={classes.root} title="Strains">
       {planTable}
     </Page>
   );
