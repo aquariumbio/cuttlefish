@@ -11,46 +11,6 @@ import StarIcon from '@material-ui/icons/Star';
 import LinkIcon from '@material-ui/icons/Link';
 import MUIDataTable from "mui-datatables";
 
-const columns = [
-  {
-    id: 'favorite',
-    label: 'Favorite',
-    minWidth: 10,
-    align: 'left'
-  },
-  {
-    id: 'id',
-    label: 'Plan ID',
-    minWidth: 50,
-    align: 'left',
-    format: value => (
-      <a href={'http://52.27.43.242/launcher?plan_id=' + value} target="_blank">
-        {value.toFixed(0)}
-      </a>
-    )
-  },
-  {
-    id: 'name',
-    label: 'Plan Name',
-    minWidth: 170,
-    align: 'left'
-  },
-  {
-    id: 'created_at',
-    label: 'Created Date',
-    minWidth: 70,
-    align: 'left',
-    format: value => moment(value).format('D MMM YYYY')
-  },
-  {
-    id: 'updated_at',
-    label: 'Updated Date',
-    minWidth: 70,
-    align: 'left',
-    format: value => moment(value).format('D MMM YYYY')
-  }
-];
-
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%'
@@ -79,7 +39,7 @@ export default function PlanTable(props) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(6);
-  const [favStatus, setFavStatus] = React.useState(false);
+  const [favData, setFavData] = React.useState([]);
   const data = []
   const tableColumns = [
     {
@@ -128,30 +88,50 @@ export default function PlanTable(props) {
     rowsPerPageOptions: [6, 12, 18, 24, 30, 36],
     rowsPerPage: rowsPerPage
   };
+  let planFav = [];
 
-  useEffect(() => { }, [props.data]);
+  const handleFavorite = (id) => {
+    for (var i = 0; i < planFav.length; i++) {
+      if (planFav[i].planID == id) {
+        planFav[i].favStatus = true;
+        setFavData(planFav)
+      }
+    }
+  };
 
-  const handleFavorite = (event) => {
-    setFavStatus(!favStatus);
+  const isFavorite = (planID) => {
+    for (var i = 0; i < favData.length; i++) {
+      if (favData[i].planID == planID) {
+        return favData[i].favStatus;
+      }
+    }
   };
 
   function createData() {
     if (props.data == null) {
       data.push(<LinearProgress className={classes.progress} color="primary" />)
     } else {
+      // Create local favorite state
+      props.data.map(row => {
+        const planID = JSON.parse(row.data)['id']
+        planFav.push({ planID: planID, favStatus: false })
+      })
+
       props.data
         .map(row => {
           let rowData = []
+          const value = JSON.parse(row.data)['id']
 
+          // Favorite Row
           let favoriteRow;
-          if (favStatus) {
-            favoriteRow = <StarIcon style={{ color: '#065683', cursor: 'pointer' }} onClick={handleFavorite} />
+          if (isFavorite(value)) {
+            favoriteRow = <StarIcon style={{ color: '#065683', cursor: 'pointer' }} onClick={function(){handleFavorite(value)}} />
           } else {
-            favoriteRow = <StarBorderIcon style={{ color: '#065683', cursor: 'pointer' }} onClick={handleFavorite} />
+            favoriteRow = <StarBorderIcon style={{ color: '#065683', cursor: 'pointer' }} onClick={function(){handleFavorite(value)}} />
           }
           rowData.push(favoriteRow)
 
-          const value = JSON.parse(row.data)['id']
+          // Plan ID Row
           const idRow =
             <Button
               href={'http://52.27.43.242/launcher?plan_id=' + value}
@@ -162,6 +142,7 @@ export default function PlanTable(props) {
             </Button >
           rowData.push(idRow)
 
+          // Plan Name, Created Date, and Updated Date rows
           rowData.push(JSON.parse(row.data)['name'])
           rowData.push(moment(JSON.parse(row.data)['created_at']).format('MM/DD/YYYY'))
           rowData.push(moment(JSON.parse(row.data)['updated_at']).format('MM/DD/YYYY'))
