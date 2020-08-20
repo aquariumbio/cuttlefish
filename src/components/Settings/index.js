@@ -1,4 +1,4 @@
-import React, { useState, useRef, forwardRef} from 'react';
+import React, { useState, useRef, forwardRef } from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import { withStyles } from '@material-ui/core/styles';
@@ -145,7 +145,7 @@ function Settings(props) {
   };
 
   function copyToClipboard(e) {
-    const copyBoxElement =textAreaRef.current;
+    const copyBoxElement = textAreaRef.current;
     copyBoxElement.contentEditable = true;
     copyBoxElement.focus();
     document.execCommand('selectAll');
@@ -161,7 +161,7 @@ function Settings(props) {
     {
       title: 'Role',
       field: 'role',
-      lookup: { 1: 'Owner', 2: 'Manager', 3: 'Contributor'},
+      lookup: { 1: 'Owner', 2: 'Manager', 3: 'Contributor' },
     },
   ]);
 
@@ -218,7 +218,7 @@ function Settings(props) {
                   onClick={handleClickOpen}
                 >
 
-                  <EditIcon  className={classes.icon}/>
+                  <EditIcon className={classes.icon} />
                 </Button>
 
               </Typography>
@@ -232,7 +232,7 @@ function Settings(props) {
                     </Grid>
                     <Grid item md={6} xs={12} className={classes.closeIcon}>
                       <IconButton
-                        
+
                         onClick={handleClose}
                         aria-label="close"
                       >
@@ -298,22 +298,21 @@ function Settings(props) {
               <Typography variant="subtitle1">
                 <div
                   ref={textAreaRef}>
-                {session.currentProject.id}
+                  {session.currentProject.id}
                 </div>
-                
               </Typography>
             </Grid>
-            
+
             <Grid item xs>
               <Button
                 onClick={copyToClipboard}
-                  >
-                    <FileCopyIcon className={classes.icon}/>
+              >
+                <FileCopyIcon className={classes.icon} />
               </Button>
               {copySuccess}
             </Grid>
-            
-            
+
+
           </Grid>
 
           <Grid
@@ -370,49 +369,45 @@ function Settings(props) {
         </CardContent>
       </Card>
 
-      <Card className={classes.root} style={{marginTop: '32px'}}>
-        <CardContent className={classes.content}>
-            <MaterialTable
-            icons={tableIcons}
-          title="Members"
-          columns={columns}
-          data={data}
-          editable={{
-            onRowAdd: newData =>
-              new Promise((resolve, reject) => {
-                setTimeout(() => {
-                  setData([...data, newData]);
-                  
-                  resolve();
-                }, 1000)
-              }),
-            onRowUpdate: (newData, oldData) =>
-              new Promise((resolve, reject) => {
-                setTimeout(() => {
-                  const dataUpdate = [...data];
-                  const index = oldData.tableData.id;
-                  dataUpdate[index] = newData;
-                  setData([...dataUpdate]);
+      <MaterialTable
+        style={{ marginTop: '32px', marginLeft: '9px' }}
+        icons={tableIcons}
+        title="Members"
+        columns={columns}
+        data={data}
+        editable={{
+          onRowAdd: newData =>
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                setData([...data, newData]);
 
-                  resolve();
-                }, 1000)
-              }),
-            onRowDelete: oldData =>
-              new Promise((resolve, reject) => {
-                setTimeout(() => {
-                  const dataDelete = [...data];
-                  const index = oldData.tableData.id;
-                  dataDelete.splice(index, 1);
-                  setData([...dataDelete]);
-                  
-                  resolve()
-                }, 1000)
-              }),
-          }}
-        />
-        </CardContent>
-      </Card>
+                resolve();
+              }, 1000)
+            }),
+          onRowUpdate: (newData, oldData) =>
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                const dataUpdate = [...data];
+                const index = oldData.tableData.id;
+                dataUpdate[index] = newData;
+                setData([...dataUpdate]);
 
+                resolve();
+              }, 1000)
+            }),
+          onRowDelete: oldData =>
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                const dataDelete = [...data];
+                const index = oldData.tableData.id;
+                dataDelete.splice(index, 1);
+                setData([...dataDelete]);
+
+                resolve()
+              }, 1000)
+            }),
+        }}
+      />
     </Page>
   );
 }
