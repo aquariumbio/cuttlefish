@@ -6,6 +6,8 @@ Although Aquarium has no internal representation of the expected project schedul
 
 ## Getting Started
 
+### Launch React App
+
 1. From the terminal, clone this repository to your local machine
 
    ```bash
@@ -25,6 +27,20 @@ Although Aquarium has no internal representation of the expected project schedul
    ```
 
 4. Open your browser and navigate to `localhost:3000`
+
+### Launch Node.js Backend
+
+1. In another terminal instance, navigate to the root of 'backend' folder
+
+   ```bash
+   cd backend
+   ```
+
+2. Within this directory, start the local node.js server
+
+   ```bash
+   npm run start
+   ```
 
 ### Built with Devias Material Kit Pro
 
