@@ -68,12 +68,10 @@ export default function Calendar(props) {
   const [date, setDate] = useState(props.startDate);
 
   useEffect(() => {
-    console.log(props.startDate);
     setDate(props.startDate);
   }, [props.libraries, props.openRows, props.startDate]);
 
   useEffect(() => {
-    console.log(monthsLoaded);
   }, [monthsLoaded]);
 
   const getDaysInMonth = () => {
