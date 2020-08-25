@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
@@ -92,16 +92,8 @@ export default function PlanTable(props) {
     rowsPerPage: rowsPerPage
   };
 
-  // Create an empty "favoritePlans" array in firebase
-  // firebase.db
-  //   .collection('users')
-  //   .doc(session.user.aqLogin)
-  //   .update({
-  //     favoritePlans: []
-  //   })
-  var favList
-
   const handleFavorite = async (id) => {
+    var favList
     var docRef = firebase.db.collection('users').doc(session.user.aqLogin);
     await docRef
       .get()
