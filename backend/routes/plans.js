@@ -10,7 +10,7 @@ router.post('/folders', function(req, res, next) {
     .then(user => {
       return user[0].id;
     })
-    .then(uid => AQ.get('/plans/folders?user_id=' + 209))
+    .then(uid => AQ.get('/plans/folders?user_id=' + 66))
     .then(data => res.status(200).send(data))
     .catch(err => res.status(400).send(err));
 });
@@ -19,7 +19,7 @@ router.post('/folders', function(req, res, next) {
 // 'POST' isn't currently modifiying any data
 router.post('/', function(req, res, next) {
   AQ.login(req.body.username, req.body.password)
-    .then(() => AQ.Plan.where({ user_id: 209, folder: req.body.folder }))
+    .then(() => AQ.Plan.where({ user_id: 66, folder: req.body.folder }))
     .then(plans => getPlans(plans))
     .then(data => res.status(200).send(data))
     .catch(err => res.status(400).send(err));

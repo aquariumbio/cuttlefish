@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import { Container, Tabs, Tab, Modal } from '@material-ui/core';
 import Page from 'src/components/Page';
@@ -10,6 +11,9 @@ import Plan from './Plan';
 import AddEditEvent from './AddFile';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles, lighten } from '@material-ui/core/styles';
+import firebase from '../../firebase/firebase';
+import { useHistory, useParams } from 'react-router';
+import Gantt from '../../components/StrainGantt';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,7 +47,11 @@ const CustomLinearProgress = withStyles(theme => ({
 
 function StrainConstructionProject() {
   const classes = useStyles();
+  const session = useSelector(state => state.session);
   const [currentTab, setCurrentTab] = useState(0);
+  const { id } = useParams();
+  const history = useHistory();
+  const [strainData, setStrainData] = useState();
   const [events, setEvents] = useState([]);
   const [eventModal, setEventModal] = useState({
     open: false,
@@ -77,6 +85,48 @@ function StrainConstructionProject() {
     setCurrentTab(newTab);
   };
 
+  // Retrieves project data from Firebase
+  const getProjectFromFirebase = async () => {
+    var docRef = firebase.db.collection('projects').doc(id);
+    await docRef
+      .get()
+      .then(function(doc) {
+        if (doc.exists) {
+          getSamples(doc.data().folder);
+        } else {
+          history.push('/errors/error-404');
+        }
+      })
+      .catch(function(error) {
+        alert('Error getting project:', error);
+        history.push('/overview');
+      });
+  };
+
+  // Retrieves Plan data from Aquarium
+  const getSamples = async folder => {
+    const response = await fetch('http://localhost:4000/plans/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: session.user.aqLogin,
+        password: session.user.aqPassword,
+        folder: folder
+      })
+    });
+    if (response.status === 200) {
+      const data = await response.json();
+      const result = data.reverse();
+      setStrainData(result);
+    } else {
+      setStrainData([]);
+    }
+  };
+
+  useEffect(() => {
+    getProjectFromFirebase();
+  }, []);
+
   // Conditional popup button action, rendered differently based on the respective action necessary for the project tab
   const getModal = () => {
     if (currentTab === 0) {
@@ -97,7 +147,7 @@ function StrainConstructionProject() {
   };
 
   return (
-    <Page className={classes.root} title={"Strain Construction Project"}>
+    <Page className={classes.root} title={'Strain Construction Project'}>
       <Container maxWidth={false}>
         <Header currentTab={currentTab} onEventAdd={handleEventNew} />
         <Tabs
@@ -114,7 +164,7 @@ function StrainConstructionProject() {
           <Notebook />
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
-          <Strains />
+          <Gantt data={strainData} />
         </TabPanel>
         <TabPanel value={currentTab} index={2}>
           <Plan />

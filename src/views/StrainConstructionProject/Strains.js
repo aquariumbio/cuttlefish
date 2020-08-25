@@ -2,14 +2,11 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import Page from 'src/components/Page';
-import {
-  LinearProgress,
-  Button
-} from '@material-ui/core';
+import { LinearProgress, Button } from '@material-ui/core';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 import LinkIcon from '@material-ui/icons/Link';
-import MUIDataTable from "mui-datatables";
+import MUIDataTable from 'mui-datatables';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,32 +37,40 @@ export default function PlanTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(6);
   const [favStatus, setFavStatus] = React.useState(false);
-  const data = []
+  const data = [];
   const tableColumns = [
     {
       name: 'Strain Name',
       options: {
-        setCellHeaderProps: value => ({ style: { color: "white", backgroundColor: "#065683" } }),
-      },
+        setCellHeaderProps: value => ({
+          style: { color: 'white', backgroundColor: '#065683' }
+        })
+      }
     },
     {
       name: 'Progress',
       options: {
-        setCellHeaderProps: value => ({ style: { color: "white", backgroundColor: "#065683" } }),
-      },
+        setCellHeaderProps: value => ({
+          style: { color: 'white', backgroundColor: '#065683' }
+        })
+      }
     },
     {
       name: 'Created Date',
       options: {
-        setCellHeaderProps: value => ({ style: { color: "white", backgroundColor: "#065683" } }),
-      },
+        setCellHeaderProps: value => ({
+          style: { color: 'white', backgroundColor: '#065683' }
+        })
+      }
     },
     {
       name: 'Status',
       options: {
-        setCellHeaderProps: value => ({ style: { color: "white", backgroundColor: "#065683" } }),
-      },
-    },
+        setCellHeaderProps: value => ({
+          style: { color: 'white', backgroundColor: '#065683' }
+        })
+      }
+    }
   ];
   const options = {
     sort: true,
@@ -81,37 +86,31 @@ export default function PlanTable(props) {
     rowsPerPage: rowsPerPage
   };
 
-  useEffect(() => { }, [props.data]);
+  useEffect(() => {}, [props.data]);
 
-  const handleFavorite = (event) => {
+  const handleFavorite = event => {
     setFavStatus(!favStatus);
   };
 
   function createData() {
     if (props.data == null) {
-      data.push(<LinearProgress className={classes.progress} color="primary" />)
+      data.push(
+        <LinearProgress className={classes.progress} color="primary" />
+      );
     } else {
-
       // backend rendering
-
     }
   }
 
-  createData()
+  createData();
 
   // if (data.length === 1) {
   //   planTable = data
   // } else {
-    planTable = <MUIDataTable
-      columns={tableColumns}
-      data={data}
-      options={options}
-    />
+  planTable = (
+    <MUIDataTable columns={tableColumns} data={data} options={options} />
+  );
   // }
 
-  return (
-    <Page className={classes.root} title="Strains">
-      {planTable}
-    </Page>
-  );
+  return <Page className={classes.root} title="Strains"></Page>;
 }
