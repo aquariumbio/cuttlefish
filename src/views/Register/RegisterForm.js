@@ -46,10 +46,6 @@ const schema = {
       maximum: 128
     }
   }
-  // policy: {
-  //   presence: { allowEmpty: false, message: 'is required' },
-  //   checked: true
-  // }
 };
 
 const useStyles = makeStyles(theme => ({
@@ -172,7 +168,8 @@ function RegisterForm({ className, ...rest }) {
           aqLogin: formState.values.username,
           firstName: formState.values.firstName,
           lastName: formState.values.lastName,
-          email: formState.values.email
+          email: formState.values.email,
+          favoritePlans: []
         })
         .then(() => {
           const newUser = {
@@ -180,7 +177,8 @@ function RegisterForm({ className, ...rest }) {
             aqLogin: formState.values.username,
             firstName: formState.values.firstName,
             lastName: formState.values.lastName,
-            email: formState.values.email
+            email: formState.values.email,
+            favoritePlans: []
           };
           localStorage.setItem('User', JSON.stringify(newUser));
           dispatch(login(newUser));
