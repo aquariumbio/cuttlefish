@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import Page from 'src/components/Page';
@@ -10,6 +11,7 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 import LinkIcon from '@material-ui/icons/Link';
 import MUIDataTable from "mui-datatables";
+import firebase from '../../firebase/firebase';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -37,10 +39,11 @@ let planTable;
 
 export default function PlanTable(props) {
   const classes = useStyles();
+  const session = useSelector(state => state.session);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(6);
-  const [favData, setFavData] = React.useState([]);
   const data = []
+  const [favData, setFavData] = React.useState([])
   const tableColumns = [
     {
       name: 'Favorite',
@@ -88,35 +91,48 @@ export default function PlanTable(props) {
     rowsPerPageOptions: [6, 12, 18, 24, 30, 36],
     rowsPerPage: rowsPerPage
   };
-  let planFav = [];
 
-  const handleFavorite = (id) => {
-    for (var i = 0; i < planFav.length; i++) {
-      if (planFav[i].planID == id) {
-        planFav[i].favStatus = true;
-        setFavData(planFav)
-      }
-    }
+  const handleFavorite = async (id) => {
+    var favList
+    var docRef = firebase.db.collection('users').doc(session.user.aqLogin);
+    await docRef
+      .get()
+      .then(function (doc) {
+        favList = doc.data().favoritePlans;
+        if (!favList.includes(id)) {
+          favList.push(id);
+        } else {
+          var index = favList.indexOf(id);
+          favList.splice(index, 1);
+        }
+      })
+      .catch(function (error) {
+        alert(error);
+      });
+
+    firebase.db.collection('users')
+      .doc(session.user.aqLogin)
+      .update('favoritePlans', favList);
   };
 
-  const isFavorite = (planID) => {
-    for (var i = 0; i < favData.length; i++) {
-      if (favData[i].planID == planID) {
-        return favData[i].favStatus;
-      }
-    }
-  };
+  async function getFavData() {
+    var data
+    var docRef = firebase.db.collection('users').doc(session.user.aqLogin);
+    await docRef
+      .get()
+      .then(function (doc) {
+        data = doc.data().favoritePlans;
+        setFavData(data)
+      })
+    return data
+  }
+
+  getFavData()
 
   function createData() {
     if (props.data == null) {
       data.push(<LinearProgress className={classes.progress} color="primary" />)
     } else {
-      // Create local favorite state
-      props.data.map(row => {
-        const planID = JSON.parse(row.data)['id']
-        planFav.push({ planID: planID, favStatus: false })
-      })
-
       props.data
         .map(row => {
           let rowData = []
@@ -124,10 +140,10 @@ export default function PlanTable(props) {
 
           // Favorite Row
           let favoriteRow;
-          if (isFavorite(value)) {
-            favoriteRow = <StarIcon style={{ color: '#065683', cursor: 'pointer' }} onClick={function(){handleFavorite(value)}} />
+          if (favData.includes(value)) {
+            favoriteRow = <StarIcon style={{ color: '#065683', cursor: 'pointer' }} onClick={function () { handleFavorite(value) }} />
           } else {
-            favoriteRow = <StarBorderIcon style={{ color: '#065683', cursor: 'pointer' }} onClick={function(){handleFavorite(value)}} />
+            favoriteRow = <StarBorderIcon style={{ color: '#065683', cursor: 'pointer' }} onClick={function () { handleFavorite(value) }} />
           }
           rowData.push(favoriteRow)
 
