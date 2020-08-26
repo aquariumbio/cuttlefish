@@ -99,7 +99,7 @@ export default function Gantt(props) {
   };
 
   return (
-    <Page className={classes.root} title={'Timeline'}>
+    <Page className={classes.root} title={'Strains'}>
       <div className={classes.container}>
         {loading ? (
           <LinearProgress className={classes.progress} color="primary" />
