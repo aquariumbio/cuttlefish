@@ -6,7 +6,6 @@ import Page from 'src/components/Page';
 import Header from './Header';
 import TabPanel from '../../components/TabPanel';
 import Notebook from './Overall';
-import Strains from './Strains';
 import Plan from './Plan';
 import AddEditEvent from './AddFile';
 import LinearProgress from '@material-ui/core/LinearProgress';
