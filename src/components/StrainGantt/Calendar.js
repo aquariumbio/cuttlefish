@@ -113,19 +113,17 @@ export default function Calendar(props) {
           />
         );
         if (typeof job != 'string') {
-          job.operations.map(operation => {
-            rows.push(
-              <CalendarRow
-                key={operation.id}
-                id={operation.id}
-                parentID={plan.id}
-                openRows={props.openRows}
-                operation={operation}
-                daysInMonth={days}
-                name={operation.id}
-              />
-            );
-          });
+          rows.push(
+            <CalendarRow
+              key={job.operations[0].id}
+              id={job.operations[0].id}
+              parentID={plan.id}
+              openRows={props.openRows}
+              operation={job.operations[0]}
+              daysInMonth={days}
+              name={job.operations[0].id}
+            />
+          );
         }
       });
     });

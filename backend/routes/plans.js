@@ -40,7 +40,7 @@ router.post('/strains', function(req, res, next) {
           let json = JSON.parse(plan.data);
           let operations = json.operations;
           operations.map(
-            op => (op.name = getOperationName(opNames, op.operation_type_id))
+            op => (op.name = getName(opNames, op.operation_type_id))
           );
           json.jobs = groupByJob(operations);
           json.operations = null;
@@ -97,7 +97,7 @@ async function getPlans(plans) {
 }
 
 // Helper function for groupByJob
-const getOperationName = (names, id) => {
+const getName = (names, id) => {
   if (names.length > 0) {
     const operation = names.find(operation => operation.id == id);
     if (operation != null) {

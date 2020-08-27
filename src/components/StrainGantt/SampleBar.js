@@ -69,13 +69,11 @@ export default function SampleBar(props) {
                   openRows={props.openRows}
                   name={job.id}
                 >
-                  {job.operations.map(operation => (
-                    <LibrarySubTask
-                      key={operation.id}
-                      operation={operation}
-                      name={operation.name}
-                    />
-                  ))}
+                  <LibrarySubTask
+                    key={job.operations[0].id}
+                    operation={job.operations[0]}
+                    name={job.operations[0].name}
+                  />
                 </LibraryTask>
               </Grid>
             );
@@ -108,7 +106,7 @@ export default function SampleBar(props) {
             >
               <Grid item className={classes.topBar}>
                 <CustomTypography variant="h5" noWrap>
-                  Library
+                  Name
                 </CustomTypography>
                 <CustomTypography variant="h5" noWrap>
                   ID
