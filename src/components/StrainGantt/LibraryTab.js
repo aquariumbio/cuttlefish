@@ -46,13 +46,13 @@ export default function LibraryTab(props) {
   const [open, setOpen] = useState(props.open);
 
   useEffect(() => {
-    props.setOpenRows([...props.openRows, props.library.id]);
+    props.setOpenRows([...props.openRows, props.plan.id]);
   }, []);
 
   const getChildrenIDs = () => {
     const IDs = [];
-    props.library.operations.map(operation => {
-      IDs.push(operation.id);
+    props.plan.jobs.map(job => {
+      IDs.push(job.id);
     });
     return IDs;
   };
@@ -95,12 +95,12 @@ export default function LibraryTab(props) {
         <Grid item className={classes.left}>
           {dropButton}
           <Typography variant="h6" noWrap>
-            {props.library.name}
+            {props.plan.name}
           </Typography>
         </Grid>
         <Grid item>
           <Typography variant="h6" noWrap>
-            {props.library.id}
+            {props.plan.id}
           </Typography>
         </Grid>
       </div>

@@ -6,6 +6,7 @@ import SampleBar from './SampleBar';
 import Calendar from './Calendar';
 import { useSelector } from 'react-redux';
 import { LinearProgress } from '@material-ui/core';
+var CircularJSON = require('circular-json');
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,13 +31,13 @@ const useStyles = makeStyles(theme => ({
 export default function Gantt(props) {
   const classes = useStyles();
   const session = useSelector(state => state.session);
-  const [libraries, setLibraries] = useState([]);
+  const [plans, setPlans] = useState([]);
+  const [operationNames, setOperationNames] = useState([]);
   const [date, setDate] = useState(moment());
   const [loading, setLoading] = useState();
-  const [
-    openRows,
-    setOpenRows
-  ] = useState(); /* Tracks which rows to hide in calendar */
+  const [openRows, setOpenRows] = useState(
+    []
+  ); /* Tracks which rows to hide in calendar */
 
   useEffect(() => {
     if (props.data != null) {
@@ -58,61 +59,41 @@ export default function Gantt(props) {
     });
     if (response.status === 200) {
       const names = await response.json();
-      fetchSamplesFromPlans(names);
+      setOperationNames(names);
+      await fetchSamplesFromPlans();
+      setLoading(false);
     }
   }
 
-  const handleSetLoadingFalse = () => {
-    console.log('DONE LOADING');
-    setLoading(false);
-  };
-
-  const fetchSamplesFromPlans = async names => {
-    const libraries = [];
+  const fetchSamplesFromPlans = async () => {
+    const planList = [];
     const currentOpenRows = [];
     let i = 0;
     for (const list of props.data) {
-      const library = JSON.parse(list.data);
-      library.operations.map(operation => {
-        if (i == 0) {
-          setDate(moment(operation.created_at));
-          i++;
-        }
-        operation.name = getOperationName(names, operation.operation_type_id);
-      });
-      libraries.push(library);
-      currentOpenRows.push(library.id);
+      planList.push(list);
+      currentOpenRows.push(list.id);
+      i++;
     }
+    setPlans(planList);
     setOpenRows(currentOpenRows);
-    setLibraries(libraries);
-    handleSetLoadingFalse();
-  };
-
-  const getOperationName = (names, id) => {
-    if (names != null) {
-      const operation = names.find(operation => operation.id == id);
-      if (operation != null) {
-        return operation.name;
-      }
-    }
-    return 'LOADING';
   };
 
   return (
     <Page className={classes.root} title={'Timeline'}>
       <div className={classes.container}>
-        {loading ? (
+        {plans.length < 1 ? (
           <LinearProgress className={classes.progress} color="primary" />
         ) : (
           <>
             <SampleBar
-              libraries={libraries}
+              plans={plans}
               openRows={openRows}
               setOpenRows={setOpenRows}
+              operationNames={operationNames}
             />
             <div className={classes.calendar}>
               <Calendar
-                libraries={libraries}
+                plans={plans}
                 openRows={openRows}
                 setOpenRows={setOpenRows}
                 startDate={date}

@@ -49,33 +49,63 @@ const CustomTypography = withStyles(theme => ({
 export default function SampleBar(props) {
   const classes = useStyles();
   const session = useSelector(state => state.session);
+  useEffect(() => {}, [props.plans]);
 
-  const libraryTabs = props.libraries.map(library => (
-    <LibraryTab
-      key={library.id}
-      library={library}
-      open={false}
-      setOpenRows={props.setOpenRows}
-      openRows={props.openRows}
-    >
-      {library.operations.map(operation => (
-        <Grid item key={operation.id}>
-          <LibraryTask
-            key={operation.id}
-            operation={operation}
-            open={false}
-            setOpenRows={props.setOpenRows}
-            openRows={props.openRows}
-            name={operation.name}
-          >
-            {/* {task.subtasks.map(subtask => (
-              <LibrarySubTask subtask={subtask} />
-            ))} */}
-          </LibraryTask>
-        </Grid>
-      ))}
-    </LibraryTab>
-  ));
+  const getOperationName = id => {
+    if (props.names.length > 0) {
+      const operation = props.names.find(operation => operation.id == id);
+      if (operation != null) {
+        return operation.name;
+      }
+    }
+    return 'LOADING';
+  };
+
+  const getPlanTabs = () => {
+    let tabs = [];
+    props.plans.map(plan => {
+      let jobs = [];
+      if (plan.jobs != null) {
+        plan.jobs.map(job => {
+          if (typeof job != 'string') {
+            jobs.push(
+              <Grid item key={job.id}>
+                <LibraryTask
+                  key={job.id}
+                  job={job}
+                  operation={job}
+                  open={false}
+                  setOpenRows={props.setOpenRows}
+                  openRows={props.openRows}
+                  name={job.name}
+                >
+                  {job.operations.map(operation => (
+                    <LibrarySubTask
+                      key={operation.id}
+                      operation={operation}
+                      name={getOperationName(operation.operation_type_id)}
+                    />
+                  ))}
+                </LibraryTask>
+              </Grid>
+            );
+          }
+        });
+      }
+      tabs.push(
+        <LibraryTab
+          key={plan.id}
+          plan={plan}
+          open={false}
+          setOpenRows={props.setOpenRows}
+          openRows={props.openRows}
+        >
+          {jobs}
+        </LibraryTab>
+      );
+    });
+    return tabs;
+  };
 
   return (
     <div className={classes.taskList}>
@@ -97,7 +127,9 @@ export default function SampleBar(props) {
             </div>
           )}
         </Sticky>
-        <div className={classes.libraries}>{libraryTabs}</div>
+        <div className={classes.libraries}>
+          {props.plans.length > 0 ? getPlanTabs() : null}
+        </div>
       </StickyContainer>
     </div>
   );

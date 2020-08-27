@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography, IconButton } from '@material-ui/core';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
@@ -6,7 +6,8 @@ import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 const useStyles = makeStyles(theme => ({
   root: {
     background: theme.palette.white.main,
-    height: '50px'
+    height: '50px',
+    marginBottom: '1px'
   },
   left: {
     display: 'flex',
@@ -27,20 +28,20 @@ export default function LibrarySubTask(props) {
   return (
     <Grid container className={classes.root}>
       <Grid item xs className={classes.left} zeroMinWidth>
-        <Typography variant="caption" noWrap>
-          {props.subtask.title}
+        <Typography variant="h6" noWrap>
+          {props.name}
         </Typography>
       </Grid>
-      <Grid item xs zeroMinWidth className={classes.right}>
+      <Grid item zeroMinWidth className={classes.right}>
         <Grid
           container
           alignItems="flex-start"
           justify="flex-end"
           direction="row"
         >
-          <IconButton>
-            <EditOutlinedIcon color="action" fontSize="small" />
-          </IconButton>
+          <Typography variant="h6" noWrap>
+            {props.operation.id}
+          </Typography>
         </Grid>
       </Grid>
     </Grid>

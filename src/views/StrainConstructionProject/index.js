@@ -105,7 +105,7 @@ function StrainConstructionProject() {
 
   // Retrieves Plan data from Aquarium
   const getSamples = async folder => {
-    const response = await fetch('http://localhost:4000/plans/', {
+    const response = await fetch('http://localhost:4000/plans/strains', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -164,7 +164,7 @@ function StrainConstructionProject() {
           <Notebook />
         </TabPanel>
         <TabPanel value={currentTab} index={1}>
-          <Gantt data={strainData} />
+          {strainData != null ? <Gantt data={strainData} /> : null}
         </TabPanel>
         <TabPanel value={currentTab} index={2}>
           <Plan />

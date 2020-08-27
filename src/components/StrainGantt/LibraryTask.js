@@ -43,13 +43,22 @@ export default function LibraryTask(props) {
     }
   }, []);
 
+  const getChildrenIDs = () => {
+    const IDs = [];
+    props.job.operations.map(operation => {
+      IDs.push(operation.id);
+    });
+    return IDs;
+  };
+
   // Handles dropdown as well as visible rows in calendar view
   const handleDropDown = event => {
+    const childrenIDs = getChildrenIDs();
     if (!open) {
-      props.setOpenRows([...props.openRows, props.operation.id]);
+      props.setOpenRows([...props.openRows, ...childrenIDs]);
       setOpen(true);
     } else {
-      // props.setOpenRows(props.openRows.filter(e => e !== props.operation.id));
+      props.setOpenRows(props.openRows.filter(e => !childrenIDs.includes(e)));
       setOpen(false);
     }
   };
@@ -78,9 +87,6 @@ export default function LibraryTask(props) {
     <div>
       <Grid container className={classes.root}>
         <Grid item xs className={classes.left} zeroMinWidth>
-          {/* <IconButton>
-            <AddCircleOutlineOutlinedIcon color="action" fontSize="small" />
-          </IconButton> */}
           {dropButton}
           <Typography variant="h6" noWrap>
             {props.name}
