@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/styles';
-import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
+import { makeStyles, withStyles } from '@material-ui/styles';
+import {
+  Typography,
+  Tooltip,
+  Zoom
+} from '@material-ui/core';
 import uuid from 'uuid/v1';
 
 import moment from 'moment';
@@ -24,31 +27,22 @@ const useStyles = makeStyles(theme => ({
     minWidth: '30px',
     display: 'inline-block',
     borderRight: '1px solid #E6E6E6'
-  },
-  popover: {
-    pointerEvents: 'none'
-  },
-  paper: {
-    padding: theme.spacing(1),
-    boxShadow: 'none'
   }
 }));
+
+const CustomTooltip = withStyles({
+  tooltip: {
+    color: 'black',
+    backgroundColor: 'white',
+    fontSize: 12,
+    boxShadow: '0 5px 10px rgba(0, 0, 0, 0.2)'
+  }
+})(Tooltip);
 
 // CalendarRow shows visual dates for specific sample schedule in the calendar
 export default function CalendarRow(props) {
   const classes = useStyles();
   const [hidden, setHidden] = useState();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handlePopoverOpen = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
 
   const getStyle = () => {
     if (props.parentID == null) {
@@ -92,56 +86,38 @@ export default function CalendarRow(props) {
 
     if (between) {
       return (
-        <React.Fragment key={operation.id + currentDay}>
+        <CustomTooltip
+          TransitionComponent={Zoom}
+          title={
+            <React.Fragment key={operation.id + currentDay}>
+              <Typography>
+                <b>Name: </b>
+                {props.name}
+              </Typography>
+              <Typography>
+                <b>Status: </b>
+                {operation.status}
+              </Typography>
+              <Typography>
+                <b>Created At: </b>
+                {start.format('dddd, MMMM Do YYYY	')}
+              </Typography>
+              <Typography>
+                <b>Updated At: </b>
+                {end.format('dddd, MMMM Do YYYY	')}
+              </Typography>
+            </React.Fragment>
+          }
+        >
           <tr
+            className={classes.tableRow}
             style={{
               backgroundColor: getStatusColor(operation.status)
             }}
-            className={classes.tableRow}
-            aria-owns={open ? 'mouse-over-popover' : undefined}
-            aria-haspopup="true"
-            onMouseEnter={handlePopoverOpen}
-            onMouseLeave={handlePopoverClose}
           >
             <th className={classes.tableHead}></th>
           </tr>
-          <Popover
-            id="mouse-over-popover"
-            className={classes.popover}
-            classes={{
-              paper: classes.paper
-            }}
-            open={open}
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left'
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'left'
-            }}
-            onClose={handlePopoverClose}
-            disableRestoreFocus
-          >
-            <Typography>
-              <b>Name: </b>
-              {props.name}
-            </Typography>
-            <Typography>
-              <b>Status: </b>
-              {operation.status}
-            </Typography>
-            <Typography>
-              <b>Created At: </b>
-              {start.format('dddd, MMMM Do YYYY	')}
-            </Typography>
-            <Typography>
-              <b>Updated At: </b>
-              {end.format('dddd, MMMM Do YYYY	')}
-            </Typography>
-          </Popover>
-        </React.Fragment>
+        </CustomTooltip>
       );
     } else {
       return (
