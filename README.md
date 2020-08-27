@@ -6,6 +6,8 @@ Although Aquarium has no internal representation of the expected project schedul
 
 ## Getting Started
 
+Currently, this version of Cuttlefish is being run with a React.js front-end and node.js backend, both being manually started on separate local servers. The Cuttlefish development backend is currently connecting to the BIOFAB production system at [Aquarium](http://52.27.43.242/), although it will soon be updated to work with a local Aquarium session.
+
 ### Launch React App
 
 1. From the terminal, clone this repository to your local machine

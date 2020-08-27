@@ -67,15 +67,6 @@ export default function Calendar(props) {
   const [monthsLoaded, setMonthsLoaded] = useState(0);
   const [date, setDate] = useState(props.startDate);
 
-  // useEffect(() => {
-  //   console.log(props.startDate);
-  //   setDate(props.startDate);
-  // }, [props.plans, props.openRows, props.startDate]);
-
-  // useEffect(() => {
-  //   console.log(monthsLoaded);
-  // }, [monthsLoaded]);
-
   const getDaysInMonth = () => {
     var daysInMonth = moment()
       .add(monthsLoaded, 'month')
@@ -121,10 +112,8 @@ export default function Calendar(props) {
             name={job.id}
           />
         );
-        console.log(job);
         if (typeof job != 'string') {
           job.operations.map(operation => {
-            console.log(operation);
             rows.push(
               <CalendarRow
                 key={operation.id}

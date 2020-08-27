@@ -51,16 +51,6 @@ export default function SampleBar(props) {
   const session = useSelector(state => state.session);
   useEffect(() => {}, [props.plans]);
 
-  const getOperationName = id => {
-    if (props.names.length > 0) {
-      const operation = props.names.find(operation => operation.id == id);
-      if (operation != null) {
-        return operation.name;
-      }
-    }
-    return 'LOADING';
-  };
-
   const getPlanTabs = () => {
     let tabs = [];
     props.plans.map(plan => {
@@ -77,13 +67,13 @@ export default function SampleBar(props) {
                   open={false}
                   setOpenRows={props.setOpenRows}
                   openRows={props.openRows}
-                  name={job.name}
+                  name={job.id}
                 >
                   {job.operations.map(operation => (
                     <LibrarySubTask
                       key={operation.id}
                       operation={operation}
-                      name={getOperationName(operation.operation_type_id)}
+                      name={operation.name}
                     />
                   ))}
                 </LibraryTask>

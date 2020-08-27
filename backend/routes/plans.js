@@ -29,30 +29,35 @@ router.post('/', function(req, res, next) {
     .catch(err => res.status(400).send(err));
 });
 
+// Builds data for Gantt Chart, retreiving plans and their respective jobs
 router.post('/strains', function(req, res, next) {
   AQ.login(req.body.username, req.body.password)
     .then(() => AQ.Plan.where({ user_id: 66, folder: req.body.folder }))
     .then(plans => getPlans(plans))
     .then(data => {
-      let result = data.map(plan => {
-        let json = JSON.parse(plan.data);
-        let operations = json.operations;
-        json.jobs = groupByJobID(operations);
-        json.operations = null;
-        return json;
+      AQ.OperationType.where().then(opNames => {
+        let result = data.map(plan => {
+          let json = JSON.parse(plan.data);
+          let operations = json.operations;
+          operations.map(
+            op => (op.name = getOperationName(opNames, op.operation_type_id))
+          );
+          json.jobs = groupByJob(operations);
+          json.operations = null;
+          return json;
+        });
+        res.status(200).send(CircularJSON.stringify(result));
       });
-      res.status(200).send(CircularJSON.stringify(result));
     })
     .catch(err => {
-      console.log(err);
       res.status(400).send(err);
     });
 });
 
 // Helper function for /strains
-const groupByJobID = array => {
+const groupByJob = array => {
   let jobsObject = [];
-  let flag = false;
+  let jobAssigned = false;
   // const id = uuid.v4();
   array = array.reduce((objectsByKeyValue, obj) => {
     if (obj.job_associations.length > 0) {
@@ -63,8 +68,8 @@ const groupByJobID = array => {
       objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
       return objectsByKeyValue;
     } else {
-      if (!flag) {
-        flag = true;
+      if (!jobAssigned) {
+        jobAssigned = true;
         jobsObject.push({ id: 'No Job Assigned' });
       }
       objectsByKeyValue['No Job Assigned'] = (
@@ -90,6 +95,17 @@ async function getPlans(plans) {
   const result = await Promise.all(pArray);
   return result;
 }
+
+// Helper function for groupByJob
+const getOperationName = (names, id) => {
+  if (names.length > 0) {
+    const operation = names.find(operation => operation.id == id);
+    if (operation != null) {
+      return operation.name;
+    }
+  }
+  return 'LOADING';
+};
 
 // Get names of OperationTypes
 router.post('/op_names', function(req, res, next) {
