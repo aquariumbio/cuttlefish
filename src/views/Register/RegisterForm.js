@@ -79,7 +79,8 @@ const CustomTooltip = withStyles({
   tooltip: {
     color: 'black',
     backgroundColor: 'white',
-    fontSize: 12
+    fontSize: 12,
+    boxShadow: '0 5px 10px rgba(0, 0, 0, 0.2)'
   }
 })(Tooltip);
 
