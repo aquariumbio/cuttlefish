@@ -67,13 +67,6 @@ export default function Calendar(props) {
   const [monthsLoaded, setMonthsLoaded] = useState(0);
   const [date, setDate] = useState(props.startDate);
 
-  useEffect(() => {
-    setDate(props.startDate);
-  }, [props.libraries, props.openRows, props.startDate]);
-
-  useEffect(() => {
-  }, [monthsLoaded]);
-
   const getDaysInMonth = () => {
     var daysInMonth = moment()
       .add(monthsLoaded, 'month')
@@ -91,45 +84,47 @@ export default function Calendar(props) {
     return result;
   };
 
-  // Sets open/closed rows for main level Library samples in chart
+  // Sets open/closed rows for main level plans in chart
   const getCalendarRows = () => {
     const days = getDaysInMonth();
     let rows = [];
-    props.libraries.map(library => {
+    props.plans.map(plan => {
       rows.push(
         <CalendarRow
-          key={library.id}
-          id={library.id}
+          key={plan.id}
+          id={plan.id}
           parentID={null}
           openRows={props.openRows}
-          operation={library}
+          operation={plan}
           daysInMonth={days}
-          name={library.name}
+          name={plan.name}
         />
       );
-      library.operations.map(operation => {
+      plan.jobs.map(job => {
         rows.push(
           <CalendarRow
-            key={operation.id}
-            id={operation.id}
-            parentID={null}
+            key={job.id}
+            id={job.id}
+            parentID={plan.id}
             openRows={props.openRows}
-            operation={operation}
+            operation={job}
             daysInMonth={days}
-            name={operation.name}
+            name={job.id}
           />
         );
-        // operation.subtasks.map(subtask => {
-        //   rows.push(
-        //     <CalendarRow
-        //       operationID={library.id}
-        //       taskID={operation.id}
-        //       openRows={props.openRows}
-        //       operation={subtask}
-        //       daysInMonth={days}
-        //     />
-        //   );
-        // });
+        if (typeof job != 'string') {
+          rows.push(
+            <CalendarRow
+              key={job.operations[0].id}
+              id={job.operations[0].id}
+              parentID={plan.id}
+              openRows={props.openRows}
+              operation={job.operations[0]}
+              daysInMonth={days}
+              name={job.operations[0].id}
+            />
+          );
+        }
       });
     });
     return rows;
@@ -194,7 +189,9 @@ export default function Calendar(props) {
               </div>
             )}
           </Sticky>
-          <table className={classes.calendarRows}>{getCalendarRows()}</table>
+          <table className={classes.calendarRows}>
+            {props.plans.length > 0 ? getCalendarRows() : null}
+          </table>
         </StickyContainer>
       </div>
     );
