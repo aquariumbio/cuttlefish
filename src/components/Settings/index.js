@@ -156,19 +156,25 @@ function Settings(props) {
   };
 
   const [columns, setColumns] = useState([
-    { title: 'Name', field: 'name' },
-    { title: 'Aquarium Email', field: 'AQemail' },
+    { title: 'Name', field: 'name', editable: 'never'},
+    { title: 'Aquarium Email', field: 'AQemail', editable: 'never'},
     {
       title: 'Role',
       field: 'role',
       lookup: { 1: 'Owner', 2: 'Manager', 3: 'Contributor' },
+      editable: 1 ? false : true 
     },
   ]);
 
   const [data, setData] = useState(
     [
-      { name: session.currentProject.owner, AQemail: 'XXXXX@uw.edu', role: 1 },
+      { name: session.currentProject.owner, AQemail: 'XXXXX@uw.edu', role: 1},
     ]);
+
+  const editable= {
+    isEditable: false, 
+    isDeletable:  data => data.role !== 1, 
+  };
 
   const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -370,6 +376,7 @@ function Settings(props) {
       </Card>
 
       <MaterialTable
+        editable={editable}
         style={{ marginTop: '32px', marginLeft: '9px' }}
         icons={tableIcons}
         title="Members"
