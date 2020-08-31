@@ -80,9 +80,6 @@ function LoginForm({ className, ...rest }) {
       .where('aqPassword', '==', formState.values.password)
       .get()
       .then(function(querySnapshot) {
-        if (querySnapshot.empty) {
-          alert('No such user exists');
-        }
         querySnapshot.forEach(function(doc) {
           dispatch(
             login({
@@ -96,20 +93,31 @@ function LoginForm({ className, ...rest }) {
           localStorage.setItem('User', JSON.stringify(doc.data()));
         });
       })
-      .then(() => {
-        history.push('/');
-      })
-      .catch(error => {
-        alert('Error getting user', error);
-      });
+      .then(
+        history.push('/')
+      )
   };
 
   // Currently retrieves user information from firebase and sets it to local storage
-  const handleSubmit = async event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     try {
-      loginWithFirebase();
+      firebase.login(formState.values.email, formState.values.password).catch(function(error){
+        var errorCode = error.code;
+        var errorMsg = error.message;
+        if (errorCode ==='auth/wrong-password') {
+          history.push('/auth/login')
+          alert('Invalid user email or Wrong password');
+        } else {
+          history.push('/auth/login')
+          alert(errorMsg);
+        }
+      })
+      .then (
+        loginWithFirebase()
+      )
     } catch (err) {
+      history.push('/auth/login')
       alert(err.message);
     }
   };
