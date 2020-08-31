@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import validate from 'validate.js';
@@ -15,9 +14,6 @@ const schema = {
     presence: { allowEmpty: false, message: 'is required' },
     email: true
   },
-  // username: {
-  //   presence: { allowEmpty: false, message: 'is required' }
-  // },
   password: {
     presence: { allowEmpty: false, message: 'is required' }
   }
@@ -152,18 +148,6 @@ function LoginForm({ className, ...rest }) {
           value={formState.values.email || ''}
           variant="outlined"
         />
-        {/* <TextField
-          error={hasError('username')}
-          fullWidth
-          helperText={
-            hasError('username') ? formState.errors.username[0] : null
-          }
-          label="Username"
-          name="username"
-          onChange={handleChange}
-          value={formState.values.username || ''}
-          variant="outlined"
-        /> */}
         <TextField
           error={hasError('password')}
           fullWidth
