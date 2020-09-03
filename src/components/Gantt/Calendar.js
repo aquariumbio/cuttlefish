@@ -99,7 +99,7 @@ export default function Calendar(props) {
   }
 
   // Sets open/closed rows for main level Library samples in chart
-  const getCalendarRows = () => {
+  const getCalendarRows = (dateOfFirstPlan) => {
     const days = getDaysInMonth(dateOfFirstPlan);
     let rows = [];
     props.libraries.map(library => {
@@ -150,7 +150,6 @@ export default function Calendar(props) {
     const dateOfFirstPlan = getDateOfFirstPlan();
 
     const daysInMonth = getDaysInMonth(dateOfFirstPlan);
-    console.log(dateOfFirstPlan);
     return (
       
       <div className={classes.monthContainer}>
