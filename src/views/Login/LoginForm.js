@@ -87,11 +87,9 @@ function LoginForm({ className, ...rest }) {
             })
           );
           localStorage.setItem('User', JSON.stringify(doc.data()));
+          history.push('/')
         });
       })
-      .then(
-        history.push('/')
-      )
   };
 
   // Currently retrieves user information from firebase and sets it to local storage
@@ -110,7 +108,7 @@ function LoginForm({ className, ...rest }) {
         }
       })
       .then (
-        loginWithFirebase()
+        loginWithFirebase(),
       )
     } catch (err) {
       history.push('/auth/login')
