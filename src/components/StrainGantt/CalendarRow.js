@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles, withStyles } from '@material-ui/styles';
-import {
-  Typography,
-  Tooltip,
-  Zoom
-} from '@material-ui/core';
+import { Typography, Tooltip, Zoom } from '@material-ui/core';
 import uuid from 'uuid/v1';
 
 import moment from 'moment';
@@ -86,8 +82,8 @@ export default function CalendarRow(props) {
 
   // Render the specific day block for the row
   const getDay = (day, operation) => {
-    const start = moment(operation.created_at);
-    const end = moment(operation.updated_at);
+    const start = moment(operation.initialize);
+    const end = moment(operation.complete || operation.aborted);
     const currentDay = day.format('MM/DD/YYYY');
     let between =
       start.format('MM/DD/YYYY') <= currentDay &&
@@ -108,12 +104,12 @@ export default function CalendarRow(props) {
                 {operation.status}
               </Typography>
               <Typography>
-                <b>Created At: </b>
-                {start.format('dddd, MMMM Do YYYY ')}
+                <b>Started: </b>
+                {start.format('LLL')}
               </Typography>
               <Typography>
-                <b>Updated At: </b>
-                {end.format('dddd, MMMM Do YYYY ')}
+                <b>Finished: </b>
+                {end.format('LLL')}
               </Typography>
             </React.Fragment>
           }

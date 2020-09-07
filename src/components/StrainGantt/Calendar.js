@@ -109,22 +109,9 @@ export default function Calendar(props) {
             openRows={props.openRows}
             operation={job}
             daysInMonth={days}
-            name={job.id}
+            name={job.operations[0].name}
           />
         );
-        if (typeof job != 'string') {
-          rows.push(
-            <CalendarRow
-              key={job.operations[0].id}
-              id={job.operations[0].id}
-              parentID={plan.id}
-              openRows={props.openRows}
-              operation={job.operations[0]}
-              daysInMonth={days}
-              name={job.operations[0].id}
-            />
-          );
-        }
       });
     });
     return rows;

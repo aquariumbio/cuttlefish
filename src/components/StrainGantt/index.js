@@ -52,7 +52,6 @@ export default function Gantt(props) {
       currentOpenRows.push(list.id);
       i++;
     }
-    console.log(planList[0]);
     setPlans(planList);
     setOpenRows(currentOpenRows);
   };

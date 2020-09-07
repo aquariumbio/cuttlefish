@@ -49,7 +49,9 @@ const CustomTypography = withStyles(theme => ({
 export default function SampleBar(props) {
   const classes = useStyles();
   const session = useSelector(state => state.session);
-  useEffect(() => {}, [props.plans]);
+  useEffect(() => {
+    console.log(props.plans);
+  }, [props.plans]);
 
   const getPlanTabs = () => {
     let tabs = [];
@@ -57,27 +59,19 @@ export default function SampleBar(props) {
       let jobs = [];
       if (plan.jobs != null) {
         plan.jobs.map(job => {
-          if (typeof job != 'string') {
-            jobs.push(
-              <Grid item key={job.id}>
-                <LibraryTask
-                  key={job.id}
-                  job={job}
-                  operation={job}
-                  open={false}
-                  setOpenRows={props.setOpenRows}
-                  openRows={props.openRows}
-                  name={job.id}
-                >
-                  <LibrarySubTask
-                    key={job.operations[0].id}
-                    operation={job.operations[0]}
-                    name={job.operations[0].name}
-                  />
-                </LibraryTask>
-              </Grid>
-            );
-          }
+          jobs.push(
+            <Grid item key={job.id}>
+              <LibraryTask
+                key={job.id}
+                job={job}
+                operation={job}
+                open={false}
+                setOpenRows={props.setOpenRows}
+                openRows={props.openRows}
+                name={job.operations[0].name}
+              ></LibraryTask>
+            </Grid>
+          );
         });
       }
       tabs.push(
