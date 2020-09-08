@@ -70,14 +70,14 @@ export default function Calendar(props) {
 
   useEffect(() => {}, [props.libraries, props.openRows, monthsLoaded]);
 
-  const getDaysInMonth = () => {
-    var daysInMonth = moment()
+  const getDaysInMonth = (dateOfFirstPlan) => {
+    var daysInMonth = moment(dateOfFirstPlan,'MM/DD/YYYY')
       .add(monthsLoaded, 'month')
       .daysInMonth();
     var arrDays = [];
 
     while (daysInMonth) {
-      var current = moment()
+      var current = moment(dateOfFirstPlan,'MM/DD/YYYY')
         .add(monthsLoaded, 'month')
         .date(daysInMonth);
       arrDays.push(current);
@@ -95,13 +95,12 @@ export default function Calendar(props) {
         firstPlanDate = moment(operation.created_at).format('MM/DD/YYYY');
       });
     });
-    //console.log(firstPlanDate);
     return firstPlanDate;
   }
 
   // Sets open/closed rows for main level Library samples in chart
-  const getCalendarRows = () => {
-    const days = getDaysInMonth();
+  const getCalendarRows = (dateOfFirstPlan) => {
+    const days = getDaysInMonth(dateOfFirstPlan);
     let rows = [];
     props.libraries.map(library => {
       rows.push(
@@ -148,9 +147,9 @@ export default function Calendar(props) {
   };
 
   const getMonth = () => {
-    const daysInMonth = getDaysInMonth();
     const dateOfFirstPlan = getDateOfFirstPlan();
 
+    const daysInMonth = getDaysInMonth(dateOfFirstPlan);
     return (
       
       <div className={classes.monthContainer}>
@@ -200,7 +199,7 @@ export default function Calendar(props) {
           </div>
           )}
           </Sticky>
-        <table className={classes.calendarRows}>{getCalendarRows()}</table>
+        <table className={classes.calendarRows}>{getCalendarRows(dateOfFirstPlan)}</table>
         </StickyContainer>
       </div>
 

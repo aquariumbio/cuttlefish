@@ -67,14 +67,14 @@ export default function Calendar(props) {
   const [monthsLoaded, setMonthsLoaded] = useState(0);
   const [date, setDate] = useState(props.startDate);
 
-  const getDaysInMonth = () => {
-    var daysInMonth = moment()
+  const getDaysInMonth = (dateOfFirstPlan) => {
+    var daysInMonth = moment(dateOfFirstPlan,'MM/DD/YYYY')
       .add(monthsLoaded, 'month')
       .daysInMonth();
     var arrDays = [];
 
     while (daysInMonth) {
-      var current = moment()
+      var current = moment(dateOfFirstPlan,'MM/DD/YYYY')
         .add(monthsLoaded, 'month')
         .date(daysInMonth);
       arrDays.push(current);
@@ -84,9 +84,18 @@ export default function Calendar(props) {
     return result;
   };
 
+  // Sets the calendar to display the month of the first plan in the project on project load
+  const getDateOfFirstPlan = () => {
+    var firstPlanDate = moment().toDate();
+    props.plans.map(plan => {
+      firstPlanDate = moment(plan.created_at);
+    });
+    return firstPlanDate.format('MM/DD/YYYY');
+  }
+
   // Sets open/closed rows for main level plans in chart
-  const getCalendarRows = () => {
-    const days = getDaysInMonth();
+  const getCalendarRows = (dateOfFirstPlan) => {
+    const days = getDaysInMonth(dateOfFirstPlan);
     let rows = [];
     props.plans.map(plan => {
       rows.push(
@@ -109,22 +118,9 @@ export default function Calendar(props) {
             openRows={props.openRows}
             operation={job}
             daysInMonth={days}
-            name={job.id}
+            name={job.operations[0].name}
           />
         );
-        if (typeof job != 'string') {
-          rows.push(
-            <CalendarRow
-              key={job.operations[0].id}
-              id={job.operations[0].id}
-              parentID={plan.id}
-              openRows={props.openRows}
-              operation={job.operations[0]}
-              daysInMonth={days}
-              name={job.operations[0].id}
-            />
-          );
-        }
       });
     });
     return rows;
@@ -137,7 +133,8 @@ export default function Calendar(props) {
   };
 
   const getMonth = () => {
-    const daysInMonth = getDaysInMonth();
+    const dateOfFirstPlan = getDateOfFirstPlan();
+    const daysInMonth = getDaysInMonth(dateOfFirstPlan);
     return (
       <div className={classes.monthContainer}>
         <StickyContainer>
@@ -150,7 +147,7 @@ export default function Calendar(props) {
                 <div className={classes.monthBar}>
                   <div className={classes.monthBarTop}>
                     <div className={classes.monthTitle}>
-                      {moment()
+                      {moment(dateOfFirstPlan,'MM/DD/YYYY')
                         .add(monthsLoaded, 'month')
                         .format('MMMM YYYY')}
                     </div>
@@ -190,7 +187,7 @@ export default function Calendar(props) {
             )}
           </Sticky>
           <table className={classes.calendarRows}>
-            {props.plans.length > 0 ? getCalendarRows() : null}
+            {props.plans.length > 0 ? getCalendarRows(dateOfFirstPlan) : null}
           </table>
         </StickyContainer>
       </div>

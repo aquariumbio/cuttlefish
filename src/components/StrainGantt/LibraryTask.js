@@ -15,7 +15,8 @@ const useStyles = makeStyles(theme => ({
   },
   left: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginLeft: theme.spacing(4)
   },
   right: {
     display: 'flex',
@@ -43,51 +44,10 @@ export default function LibraryTask(props) {
     }
   }, []);
 
-  const getChildrenIDs = () => {
-    const IDs = [];
-    props.job.operations.map(operation => {
-      IDs.push(operation.id);
-    });
-    return IDs;
-  };
-
-  // Handles dropdown as well as visible rows in calendar view
-  const handleDropDown = event => {
-    const childrenIDs = getChildrenIDs();
-    if (!open) {
-      props.setOpenRows([...props.openRows, ...childrenIDs]);
-      setOpen(true);
-    } else {
-      props.setOpenRows(props.openRows.filter(e => !childrenIDs.includes(e)));
-      setOpen(false);
-    }
-  };
-
-  const dropButton = open ? (
-    <Button
-      className={classes.dropButton}
-      color="primary"
-      onClick={handleDropDown}
-      disableRipple
-    >
-      <ArrowDropDownIcon fontSize="large" />
-    </Button>
-  ) : (
-    <Button
-      className={classes.dropButton}
-      color="primary"
-      onClick={handleDropDown}
-      disableRipple
-    >
-      <ArrowRightIcon fontSize="large" />
-    </Button>
-  );
-
   return (
     <div>
       <Grid container className={classes.root}>
         <Grid item xs className={classes.left} zeroMinWidth>
-          {dropButton}
           <Typography variant="h6" noWrap>
             {props.name}
           </Typography>

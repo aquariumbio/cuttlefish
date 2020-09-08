@@ -1,0 +1,260 @@
+[
+  {
+    "id": 38571,
+    "name": "Yeast QC Plant and CRISPR OR Circuit",
+    "created_at": "2020-03-06T16:25:27.505+00:00",
+    "updated_at": "2020-03-06T13:54:06.196-08:00",
+    "status": "error",
+    "jobs": [
+      {
+        "id": 116211,
+        "name": "magaank",
+        "created_at": "2020-03-06T16:25:27.505+00:00",
+        "updated_at": "2020-03-06T17:52:18.428+00:00",
+        "status": "done",
+        "operations": [
+          {
+            "operation": "initialize",
+            "time": "2020-03-06T16:25:27.505+00:00",
+            "created_at": "2020-03-06T16:25:27.505+00:00",
+            "updated_at": "2020-03-06T17:52:18.428+00:00",
+            "name": "Yeast Lysate",
+            "id": 279417,
+            "status": "done"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:28:16.004+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:29:04.670+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:29:31.703+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:29:41.788+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:29:50.804+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:30:27.666+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:37:00.876+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:37:49.349+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:37:52.925+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:38:04.358+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:49:06.819+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:50:37.312+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:54:48.156+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:58:17.071+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T21:01:06.994+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T21:01:11.330+00:00"
+          },
+          { "operation": "complete", "rval": {} }
+        ]
+      },
+      {
+        "id": 116215,
+        "name": "magaank",
+        "created_at": "2020-03-06T17:53:53.991+00:00",
+        "updated_at": "2020-03-06T18:50:48.083+00:00",
+        "status": "done",
+        "operations": [
+          {
+            "operation": "initialize",
+            "time": "2020-02-11T20:25:08.851+00:00",
+            "created_at": "2020-03-06T17:53:53.991+00:00",
+            "updated_at": "2020-03-06T18:50:48.083+00:00",
+            "name": "Colony PCR",
+            "id": 279418,
+            "status": "done"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:28:16.004+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:29:04.670+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:29:31.703+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:29:41.788+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:29:50.804+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:30:27.666+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:37:00.876+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:37:49.349+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:37:52.925+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:38:04.358+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:49:06.819+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:50:37.312+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:54:48.156+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:58:17.071+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T21:01:06.994+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T21:01:11.330+00:00"
+          },
+          { "operation": "complete", "rval": {} }
+        ]
+      },
+      {
+        "id": 116232,
+        "name": "roullnl",
+        "created_at": "2020-03-06T21:19:08.384+00:00",
+        "updated_at": "2020-03-06T13:54:06.196-08:00",
+        "status": "error",
+        "operations": [
+          {
+            "operation": "initialize",
+            "time": "2020-02-11T20:25:08.851+00:00",
+            "created_at": "2020-03-06T21:19:08.384+00:00",
+            "updated_at": "2020-03-06T13:54:06.196-08:00",
+            "name": "Fragment Analyzing",
+            "id": 279871,
+            "status": "error"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:28:16.004+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:29:04.670+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:29:31.703+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:29:41.788+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:29:50.804+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:30:27.666+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:37:00.876+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:37:49.349+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:37:52.925+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:38:04.358+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:49:06.819+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:50:37.312+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:54:48.156+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T20:58:17.071+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T21:01:06.994+00:00"
+          },
+          {
+            "operation": "next",
+            "time": "2020-02-11T21:01:11.330+00:00"
+          },
+          { "operation": "complete", "rval": {} }
+        ]
+      }
+    ]
+  }
+]
