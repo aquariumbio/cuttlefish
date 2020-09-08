@@ -5,7 +5,6 @@ import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOut
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import LibrarySubTask from './LibrarySubTask';
 
 const useStyles = makeStyles(theme => ({
   root: {

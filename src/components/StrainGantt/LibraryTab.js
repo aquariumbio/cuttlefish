@@ -4,8 +4,6 @@ import { Grid, Typography, Button } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
-import LibraryTask from './LibraryTask';
-
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',

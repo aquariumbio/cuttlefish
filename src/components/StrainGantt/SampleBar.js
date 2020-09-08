@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 import LibraryTab from './LibraryTab';
 import LibraryTask from './LibraryTask';
-import LibrarySubTask from './LibrarySubTask';
 import { StickyContainer, Sticky } from 'react-sticky';
 
 const useStyles = makeStyles(theme => ({
