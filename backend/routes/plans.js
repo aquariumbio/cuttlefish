@@ -135,7 +135,7 @@ router.post('/folder', function(req, res, next) {
 
     // GET PLAN IDS
     // CREATE TEMPLATE FOR FINAL OUTPUT
-    .then(() => AQ.Plan.where({ user_id: 66, folder: 'SD2 Plasmid QC' }))
+    .then(() => AQ.Plan.where({ user_id: 66, folder: req.body.folder }))
     .then(result => {
       result.forEach(res => {
         planIds += ',' + res.id;
