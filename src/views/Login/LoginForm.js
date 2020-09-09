@@ -59,6 +59,7 @@ function LoginForm({ className, ...rest }) {
 
   const handleChange = event => {
     event.persist();
+    setShowError(false)
 
     setFormState(prevFormState => ({
       ...prevFormState,
