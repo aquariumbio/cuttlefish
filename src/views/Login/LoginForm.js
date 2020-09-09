@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Button, TextField } from '@material-ui/core';
 import { login } from 'src/actions';
 import firebase from '../../firebase/firebase';
+import Alert from '@material-ui/lab/Alert';
 
 const schema = {
   email: {
@@ -36,6 +37,9 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       backgroundColor: '#065683'
     }
+  },
+  alertBox: {
+    marginBottom: theme.spacing(2)
   }
 }));
 
@@ -49,6 +53,9 @@ function LoginForm({ className, ...rest }) {
     touched: {},
     errors: {}
   });
+  const [showError, setShowError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
+  let alertBox
 
   const handleChange = event => {
     event.persist();
@@ -92,6 +99,11 @@ function LoginForm({ className, ...rest }) {
       })
   };
 
+  // Show alert box for error login
+  if (showError) {
+    alertBox = <Alert className={classes.alertBox} severity="error">{errorMessage}</Alert>
+  }
+
   // Currently retrieves user information from firebase and sets it to local storage
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -101,10 +113,12 @@ function LoginForm({ className, ...rest }) {
         var errorMsg = error.message;
         if (errorCode === 'auth/wrong-password') {
           history.push('/auth/login')
-          alert('Invalid user email or Wrong password');
+          setErrorMessage("Invalid Username or Password")
+          setShowError(true)
         } else {
           history.push('/auth/login')
-          alert(errorMsg);
+          setErrorMessage(errorMsg)
+          setShowError(true)
         }
       })
         .then(
@@ -112,7 +126,8 @@ function LoginForm({ className, ...rest }) {
         )
     } catch (err) {
       history.push('/auth/login')
-      alert(err.message);
+      setErrorMessage(err.message)
+      setShowError(true)
     }
   };
 
@@ -135,6 +150,7 @@ function LoginForm({ className, ...rest }) {
       className={clsx(classes.root, className)}
       onSubmit={handleSubmit}
     >
+      {alertBox}
       <div className={classes.fields}>
         <TextField
           error={hasError('email')}
