@@ -75,8 +75,8 @@ function LoginForm({ className, ...rest }) {
       .collection('users')
       .where('aqPassword', '==', formState.values.password)
       .get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
           dispatch(
             login({
               username: doc.data().aqLogin,
@@ -96,10 +96,10 @@ function LoginForm({ className, ...rest }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     try {
-      firebase.login(formState.values.email, formState.values.password).catch(function(error){
+      firebase.login(formState.values.email, formState.values.password).catch(function (error) {
         var errorCode = error.code;
         var errorMsg = error.message;
-        if (errorCode ==='auth/wrong-password') {
+        if (errorCode === 'auth/wrong-password') {
           history.push('/auth/login')
           alert('Invalid user email or Wrong password');
         } else {
@@ -107,9 +107,9 @@ function LoginForm({ className, ...rest }) {
           alert(errorMsg);
         }
       })
-      .then (
-        loginWithFirebase(),
-      )
+        .then(
+          loginWithFirebase(),
+        )
     } catch (err) {
       history.push('/auth/login')
       alert(err.message);
