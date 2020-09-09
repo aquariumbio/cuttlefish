@@ -82,14 +82,20 @@ export default function CalendarRow(props) {
 
   // Render the specific day block for the row
   const getDay = (day, operation) => {
-    const start = moment(operation.initialize);
-    const end = moment(operation.complete || operation.aborted);
+    const start = operation.initialize ? moment(operation.initialize) : null;
+    const end =
+      operation.complete || operation.aborted
+        ? moment(operation.complete || operation.aborted)
+        : null;
     const currentDay = day.format('MM/DD/YYYY');
-    let between =
-      start.format('MM/DD/YYYY') <= currentDay &&
-      end.format('MM/DD/YYYY') >= currentDay;
 
-    if (between) {
+    // Checks if the operation has a valid date
+    if (
+      start &&
+      end &&
+      start.format('MM/DD/YYYY') <= currentDay &&
+      end.format('MM/DD/YYYY') >= currentDay
+    ) {
       return (
         <CustomTooltip
           TransitionComponent={Zoom}

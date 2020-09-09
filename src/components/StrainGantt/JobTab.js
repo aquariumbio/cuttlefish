@@ -30,19 +30,32 @@ const useStyles = makeStyles(theme => ({
     padding: 0,
     margin: 0,
     minHeight: 0
+  },
+  linkButton: {
+    padding: 0,
+    margin: 0
   }
 }));
 
-export default function LibraryTask(props) {
+export default function JobTab(props) {
   const classes = useStyles();
-  const [open, setOpen] = useState(props.open);
 
-  useEffect(() => {
-    if (props.open) {
-      props.setOpenRows([...props.openRows, props.operation.id]);
+  const getIDLabel = job => {
+    if (job.status != 'error' && job.status != 'done') {
+      return job.status;
+    } else {
+      return (
+        <Button
+          href={`http://52.27.43.242/krill/log?job=` + props.job.id}
+          target="_blank"
+          className={classes.linkButton}
+          color="primary"
+        >
+          {props.job.id}
+        </Button>
+      );
     }
-  }, []);
-
+  };
   return (
     <div>
       <Grid container className={classes.root}>
@@ -59,12 +72,11 @@ export default function LibraryTask(props) {
             direction="row"
           >
             <Typography variant="h6" noWrap>
-              {props.operation.id}
+              {getIDLabel(props.job)}
             </Typography>
           </Grid>
         </Grid>
       </Grid>
-      <Grid container>{open ? props.children : null}</Grid>
     </div>
   );
 }

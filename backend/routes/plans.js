@@ -115,6 +115,7 @@ router.post('/op_names', function(req, res, next) {
     .catch(err => res.status(400).send(err));
 });
 
+// Gets information about all plans in a user's folder, used primarily in Gantt
 router.post('/folder', function(req, res, next) {
   // FINAL OUTPUT
   let plans = {}; // final output
@@ -238,6 +239,8 @@ router.post('/folder', function(req, res, next) {
             operations[operation_id][2];
         });
       });
+
+      // Convert output to preferred JSON structure
       let result = [];
       Object.entries(plans).forEach(plan => {
         let pl = plan[1];
@@ -258,7 +261,7 @@ router.post('/folder', function(req, res, next) {
         } else {
           pl.complete = jobs[jobs.length - 2].complete;
         }
-        pl.status = calculateStatus(pl.jobs);
+        pl.status = calculateStatus(pl);
         result.push(pl);
       });
       res.status(200).send(result);
@@ -267,9 +270,9 @@ router.post('/folder', function(req, res, next) {
 });
 
 // Returns overall status for plan
-function calculateStatus(jobs) {
-  let status = jobs[0].status;
-  jobs.forEach(job => {
+function calculateStatus(plan) {
+  let status = plan.jobs[0].status;
+  plan.jobs.forEach(job => {
     switch (job.status) {
       case 'error' && status != 'error':
         status = 'error';

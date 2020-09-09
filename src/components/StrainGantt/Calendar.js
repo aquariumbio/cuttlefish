@@ -67,14 +67,14 @@ export default function Calendar(props) {
   const [monthsLoaded, setMonthsLoaded] = useState(0);
   const [date, setDate] = useState(props.startDate);
 
-  const getDaysInMonth = (dateOfFirstPlan) => {
-    var daysInMonth = moment(dateOfFirstPlan,'MM/DD/YYYY')
+  const getDaysInMonth = dateOfFirstPlan => {
+    var daysInMonth = moment(dateOfFirstPlan, 'MM/DD/YYYY')
       .add(monthsLoaded, 'month')
       .daysInMonth();
     var arrDays = [];
 
     while (daysInMonth) {
-      var current = moment(dateOfFirstPlan,'MM/DD/YYYY')
+      var current = moment(dateOfFirstPlan, 'MM/DD/YYYY')
         .add(monthsLoaded, 'month')
         .date(daysInMonth);
       arrDays.push(current);
@@ -91,10 +91,10 @@ export default function Calendar(props) {
       firstPlanDate = moment(plan.created_at);
     });
     return firstPlanDate.format('MM/DD/YYYY');
-  }
+  };
 
   // Sets open/closed rows for main level plans in chart
-  const getCalendarRows = (dateOfFirstPlan) => {
+  const getCalendarRows = dateOfFirstPlan => {
     const days = getDaysInMonth(dateOfFirstPlan);
     let rows = [];
     props.plans.map(plan => {
@@ -113,7 +113,7 @@ export default function Calendar(props) {
         rows.push(
           <CalendarRow
             key={job.id}
-            id={job.id}
+            id={job.id + plan.id}
             parentID={plan.id}
             openRows={props.openRows}
             operation={job}
@@ -147,7 +147,7 @@ export default function Calendar(props) {
                 <div className={classes.monthBar}>
                   <div className={classes.monthBarTop}>
                     <div className={classes.monthTitle}>
-                      {moment(dateOfFirstPlan,'MM/DD/YYYY')
+                      {moment(dateOfFirstPlan, 'MM/DD/YYYY')
                         .add(monthsLoaded, 'month')
                         .format('MMMM YYYY')}
                     </div>
