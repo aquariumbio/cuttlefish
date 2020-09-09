@@ -20,12 +20,12 @@ import {
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
-import mockProjects from '../ProjectManagementList/projects_data';
 import firebase from '../../firebase/firebase';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
 } from '@material-ui/pickers';
+import { repeat } from 'lodash';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -144,7 +144,6 @@ const CreateProject = forwardRef((props, ref) => {
   const [title, setTitle] = useState('');
   const [start, setStart] = useState(moment().format('MM/DD/YYYY'));
   const [end, setEnd] = useState(moment().format('MM/DD/YYYY'));
-  const [newProjects, setNewProjects] = useState(mockProjects);
   const [aquariumFolders, setAquariumFolders] = useState([]);
   const [projectID, setProjectID] = useState(uuid());
 
@@ -165,7 +164,28 @@ const CreateProject = forwardRef((props, ref) => {
     setDescription(event.target.value);
   };
 
-  const handleCreateProject = () => {
+  function getPlans() {
+    fetch('http://localhost:4000/plans', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: 'pennert',
+        password: 'fa9b87vKSDAQ6tW8',
+        folder: 'SD2 Plasmid QC'
+      })
+    })
+      .then(response => {
+        if (response.status === 200) {
+          return response.json();
+        }
+      })
+      .then(plans => {
+        handleCreateProject(plans);
+      })
+      .catch(err => alert(err));
+  }
+
+  const handleCreateProject = plans => {
     firebase.db
       .collection('projects')
       .doc(projectID)
@@ -182,16 +202,19 @@ const CreateProject = forwardRef((props, ref) => {
           //   chips.filter(chip => chip.role === 'Collaborator')
           // )
         },
+        plans: plans,
         end_date: moment(end).format('M/D/YY'),
         type: type,
         status: 'pending',
         id: projectID
       })
-      .then(() => window.location.reload())
+      .then(() => {
+        window.location.reload();
+      })
       .catch(function(error) {
         console.error('Error creating project: ', error);
       });
-    setNewProjects(...newProjects, newProjects);
+    // }
     handleClose();
   };
 
@@ -255,7 +278,7 @@ const CreateProject = forwardRef((props, ref) => {
 
   return (
     <Dialog open={show} onClose={handleClose} className={classes.root}>
-      <form onSubmit={handleCreateProject}>
+      <form onSubmit={getPlans}>
         <DialogTitle className={classes.title}>
           <Grid container spacing={20}>
             <Grid item md={6} xs={12}>
