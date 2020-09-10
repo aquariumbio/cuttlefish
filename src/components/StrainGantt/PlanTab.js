@@ -156,7 +156,7 @@ export default function PlanTab(props) {
           endEstimate: end
         });
       })
-      // .then(() => window.location.reload())
+      .then(() => window.location.reload())
       .catch(function(error) {
         console.error('Error creating project: ', error);
       });
