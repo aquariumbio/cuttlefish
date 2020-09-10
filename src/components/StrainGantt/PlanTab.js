@@ -70,7 +70,8 @@ const useStyles = makeStyles(theme => ({
   left: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    width: 'calc(80%)'
   },
   jobList: {
     display: 'flex',
@@ -87,6 +88,16 @@ const useStyles = makeStyles(theme => ({
     marginBottom: '1px',
     borderTopLeftRadius: '3px',
     width: '100%'
+  },
+  strainName: {
+    flex: 1,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    lineHeight: 1
+  },
+  planLink: {
+    color: theme.palette.primary.main
   }
 }));
 
@@ -147,14 +158,10 @@ export default function PlanTab(props) {
 
   const handleTimeUpdate = () => {
     let planRef = firebase.db.collection('plans').doc(props.plan.id + id);
-
     planRef
-      .get()
-      .then(() => {
-        planRef.set({
-          startEstimate: start,
-          endEstimate: end
-        });
+      .set({
+        startEstimate: start,
+        endEstimate: end
       })
       .then(() => window.location.reload())
       .catch(function(error) {
@@ -205,7 +212,13 @@ export default function PlanTab(props) {
             <TextField
               required={true}
               className={classes.field}
-              defaultValue={moment().format('YYYY-MM-DD')}
+              defaultValue={
+                props.plan.estimatedTimes
+                  ? moment(props.plan.estimatedTimes.startEstimate).format(
+                      'YYYY-MM-DD'
+                    )
+                  : moment().format('YYYY-MM-DD')
+              }
               style={{ width: '35%', marginRight: 10 }}
               margin="normal"
               label="Projected Start Date"
@@ -217,7 +230,13 @@ export default function PlanTab(props) {
             <TextField
               required={true}
               className={classes.field}
-              defaultValue={moment().format('YYYY-MM-DD')}
+              defaultValue={
+                props.plan.estimatedTimes
+                  ? moment(props.plan.estimatedTimes.endEstimate).format(
+                      'YYYY-MM-DD'
+                    )
+                  : moment().format('YYYY-MM-DD')
+              }
               style={{ width: '35%', marginRight: 10 }}
               margin="normal"
               label="Projected End Date"
@@ -257,14 +276,18 @@ export default function PlanTab(props) {
           <Button className={classes.editButton} color="disabled" disableRipple>
             <AccessTimeIcon fontSize="small" onClick={handleOpenEdit} />
           </Button>
-          <Typography variant="h6" noWrap>
+          <Typography variant="body1" className={classes.strainName}>
             {props.plan.name}
           </Typography>
         </Grid>
         <Grid item>
-          <Typography variant="h6" noWrap>
+          <a
+            href={'http://52.27.43.242/launcher?plan_id=' + props.plan.id}
+            className={classes.planLink}
+            target="_blank"
+          >
             {props.plan.id}
-          </Typography>
+          </a>
         </Grid>
       </div>
       <Grid item className={classes.jobList}>

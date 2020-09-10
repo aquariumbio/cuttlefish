@@ -73,6 +73,8 @@ export default function CalendarRow(props) {
       return '#800080'; // Purple
     } else if (status == 'planning') {
       return '#FFC164'; // Yellow
+    } else if (status == 'delayed') {
+      return 'blue'; // Yellow
     } else {
       return '#C9C9C9'; // Grey
     }

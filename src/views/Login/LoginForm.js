@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Button, TextField } from '@material-ui/core';
 import { login } from 'src/actions';
 import firebase from '../../firebase/firebase';
-import Alert from '@material-ui/lab/Alert';
+// import Alert from '@material-ui/lab/Alert';
 
 const schema = {
   email: {
@@ -53,13 +53,13 @@ function LoginForm({ className, ...rest }) {
     touched: {},
     errors: {}
   });
-  const [showError, setShowError] = useState(false)
-  const [errorMessage, setErrorMessage] = useState("")
-  let alertBox
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  let alertBox;
 
   const handleChange = event => {
     event.persist();
-    setShowError(false)
+    setShowError(false);
 
     setFormState(prevFormState => ({
       ...prevFormState,
@@ -83,8 +83,8 @@ function LoginForm({ className, ...rest }) {
       .collection('users')
       .where('aqPassword', '==', formState.values.password)
       .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
           dispatch(
             login({
               username: doc.data().aqLogin,
@@ -95,40 +95,41 @@ function LoginForm({ className, ...rest }) {
             })
           );
           localStorage.setItem('User', JSON.stringify(doc.data()));
-          history.push('/')
+          history.push('/');
         });
-      })
+      });
   };
 
   // Show alert box for error login
   if (showError) {
-    alertBox = <Alert className={classes.alertBox} severity="error">{errorMessage}</Alert>
+    alertBox = null;
+    // alertBox = <Alert className={classes.alertBox} severity="error">{errorMessage}</Alert>
   }
 
   // Currently retrieves user information from firebase and sets it to local storage
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     try {
-      firebase.login(formState.values.email, formState.values.password).catch(function (error) {
-        var errorCode = error.code;
-        var errorMsg = error.message;
-        if (errorCode === 'auth/wrong-password') {
-          history.push('/auth/login')
-          setErrorMessage("Invalid Username or Password")
-          setShowError(true)
-        } else {
-          history.push('/auth/login')
-          setErrorMessage(errorMsg)
-          setShowError(true)
-        }
-      })
-        .then(
-          loginWithFirebase(),
-        )
+      firebase
+        .login(formState.values.email, formState.values.password)
+        .catch(function(error) {
+          var errorCode = error.code;
+          var errorMsg = error.message;
+          if (errorCode === 'auth/wrong-password') {
+            history.push('/auth/login');
+            setErrorMessage('Invalid Username or Password');
+            setShowError(true);
+          } else {
+            history.push('/auth/login');
+            setErrorMessage(errorMsg);
+            setShowError(true);
+          }
+        })
+        .then(loginWithFirebase());
     } catch (err) {
-      history.push('/auth/login')
-      setErrorMessage(err.message)
-      setShowError(true)
+      history.push('/auth/login');
+      setErrorMessage(err.message);
+      setShowError(true);
     }
   };
 
