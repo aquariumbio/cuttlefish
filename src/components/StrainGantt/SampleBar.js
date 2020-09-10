@@ -48,9 +48,6 @@ const CustomTypography = withStyles(theme => ({
 export default function SampleBar(props) {
   const classes = useStyles();
   const session = useSelector(state => state.session);
-  useEffect(() => {
-    console.log(props.plans);
-  }, [props.plans]);
 
   const getPlanTabs = () => {
     let tabs = [];

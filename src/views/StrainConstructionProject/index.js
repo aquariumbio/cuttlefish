@@ -102,6 +102,18 @@ function StrainConstructionProject() {
       });
   };
 
+  const getPlanTimeEstimate = plan => {
+    const planID = plan.id + id;
+    let planRef = firebase.db.collection('plans').doc(planID);
+    planRef.get().then(doc => {
+      if (doc.exists) {
+        plan.estimatedTimes = doc.data();
+      } else {
+        plan.estimatedTimes = null;
+      }
+    });
+  };
+
   // Retrieves Plan data from Aquarium
   const getSamples = async folder => {
     const response = await fetch('http://localhost:4000/plans/folder', {
@@ -115,7 +127,10 @@ function StrainConstructionProject() {
     });
     if (response.status === 200) {
       const data = await response.json();
-      // const result = data.reverse();
+      data.map(plan => {
+        getPlanTimeEstimate(plan);
+      });
+      const result = data.reverse();
       console.log(data);
       setStrainData(data);
     } else {

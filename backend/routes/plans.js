@@ -22,7 +22,6 @@ router.post('/folders', function(req, res, next) {
 router.post('/', function(req, res, next) {
   AQ.login(req.body.username, req.body.password)
     .then(() => AQ.Plan.where({ user_id: 66, folder: req.body.folder }))
-    .then(plans => getPlans(plans))
     .then(data => {
       res.status(200).send(data);
     })

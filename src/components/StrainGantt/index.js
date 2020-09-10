@@ -6,7 +6,6 @@ import SampleBar from './SampleBar';
 import Calendar from './Calendar';
 import { useSelector } from 'react-redux';
 import { LinearProgress } from '@material-ui/core';
-var CircularJSON = require('circular-json');
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,7 +31,6 @@ export default function Gantt(props) {
   const classes = useStyles();
   const session = useSelector(state => state.session);
   const [plans, setPlans] = useState([]);
-  const [date, setDate] = useState(moment());
   const [openRows, setOpenRows] = useState(
     []
   ); /* Tracks which rows to hide in calendar */
@@ -73,7 +71,6 @@ export default function Gantt(props) {
                 plans={plans}
                 openRows={openRows}
                 setOpenRows={setOpenRows}
-                startDate={date}
               />
             </div>
           </>

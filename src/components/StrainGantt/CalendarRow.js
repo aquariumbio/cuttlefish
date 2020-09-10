@@ -60,8 +60,10 @@ export default function CalendarRow(props) {
     }
   };
 
-  const getStatusColor = status => {
-    if (status === 'done') {
+  const getStatusColor = (status, estimateValid) => {
+    if (estimateValid) {
+      return '#C9C9C9'; // Grey
+    } else if (status === 'done') {
       return '#4CAF50'; // Green
     } else if (status === 'pending') {
       return '#FFC164'; // Yellow
@@ -82,12 +84,38 @@ export default function CalendarRow(props) {
 
   // Render the specific day block for the row
   const getDay = (day, operation) => {
-    const start = operation.initialize ? moment(operation.initialize) : null;
-    const end =
+    // Checks if estimate dates have been entered
+    let estimatedStart = null;
+    let estimatedEnd = null;
+    if (operation.estimatedTimes) {
+      console.log(operation);
+      estimatedStart = moment(operation.estimatedTimes.startEstimate);
+      estimatedEnd = moment(operation.estimatedTimes.endEstimate);
+    }
+
+    const currentDay = day.format('MM/DD/YYYY');
+    let start = operation.initialize ? moment(operation.initialize) : null;
+    let end =
       operation.complete || operation.aborted
         ? moment(operation.complete || operation.aborted)
         : null;
-    const currentDay = day.format('MM/DD/YYYY');
+
+    let estimateValid = false;
+    if (estimatedStart && estimatedEnd) {
+      if (
+        (estimatedStart.format('MM/DD/YYYY') <= currentDay &&
+          estimatedEnd.format('MM/DD/YYYY') >= currentDay &&
+          start.format('MM/DD/YYYY') > currentDay) ||
+        end.format('MM/DD/YYYY') < currentDay
+      ) {
+        estimateValid = true;
+        start = estimatedStart;
+        end = estimatedEnd;
+      }
+    }
+    if (estimateValid) {
+      console.log(estimateValid);
+    }
 
     // Checks if the operation has a valid date
     if (
@@ -110,12 +138,30 @@ export default function CalendarRow(props) {
                 {operation.status}
               </Typography>
               <Typography>
-                <b>Started: </b>
-                {start.format('LLL')}
+                {estimateValid ? (
+                  <Typography>
+                    <b>Estimated Start: </b>
+                    {start.format('MM/DD/YYYY')}{' '}
+                  </Typography>
+                ) : (
+                  <Typography>
+                    <b>Started: </b>
+                    {start.format('LLL')}
+                  </Typography>
+                )}
               </Typography>
               <Typography>
-                <b>Finished: </b>
-                {end.format('LLL')}
+                {estimateValid ? (
+                  <Typography>
+                    <b>Estimated Finish: </b>
+                    {end.format('MM/DD/YYYY')}{' '}
+                  </Typography>
+                ) : (
+                  <Typography>
+                    <b>Finished: </b>
+                    {end.format('LLL')}
+                  </Typography>
+                )}
               </Typography>
             </React.Fragment>
           }
@@ -123,7 +169,7 @@ export default function CalendarRow(props) {
           <tr
             className={classes.tableRow}
             style={{
-              backgroundColor: getStatusColor(operation.status)
+              backgroundColor: getStatusColor(operation.status, estimateValid)
             }}
           >
             <th className={classes.tableHead}></th>

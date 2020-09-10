@@ -49,7 +49,7 @@ function TasksDueSoon({ customer, className, ...rest }) {
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
-      <Grid container spacing={11}>
+      <Grid container>
         <Grid item xs={10}>
           <CardHeader title="Tasks Due Soon" />
         </Grid>

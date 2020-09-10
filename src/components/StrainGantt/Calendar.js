@@ -88,7 +88,7 @@ export default function Calendar(props) {
   const getDateOfFirstPlan = () => {
     var firstPlanDate = moment().toDate();
     props.plans.map(plan => {
-      firstPlanDate = moment(plan.created_at);
+      firstPlanDate = moment(plan.initialize);
     });
     return firstPlanDate.format('MM/DD/YYYY');
   };

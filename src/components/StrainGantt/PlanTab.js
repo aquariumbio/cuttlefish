@@ -14,12 +14,14 @@ import {
   Typography,
   Modal
 } from '@material-ui/core';
+import { useParams } from 'react-router';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import moment from 'moment';
+import firebase from '../../firebase/firebase';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -96,6 +98,7 @@ const CustomTypography = withStyles(theme => ({
 
 export default function PlanTab(props) {
   const classes = useStyles();
+  const { id } = useParams();
   const [open, setOpen] = useState(props.open);
   const [editOpen, setEditOpen] = useState(false);
   const [start, setStart] = useState(moment().format('MM/DD/YYYY'));
@@ -143,25 +146,20 @@ export default function PlanTab(props) {
   };
 
   const handleTimeUpdate = () => {
-    // firebase.db
-    //   .collection('projects')
-    //   .doc(projectID)
-    //   .set({
-    //     title: title,
-    //     owner: session.user.firstName + ' ' + session.user.lastName,
-    //     description: description,
-    //     folder: folder,
-    //     members: {
-    //     },
-    //     end_date: moment(end).format('M/D/YY'),
-    //     type: type,
-    //     status: 'pending',
-    //     id: projectID
-    //   })
-    //   .then(() => window.location.reload())
-    //   .catch(function(error) {
-    //     console.error('Error creating project: ', error);
-    //   });
+    let planRef = firebase.db.collection('plans').doc(props.plan.id + id);
+
+    planRef
+      .get()
+      .then(() => {
+        planRef.set({
+          startEstimate: start,
+          endEstimate: end
+        });
+      })
+      // .then(() => window.location.reload())
+      .catch(function(error) {
+        console.error('Error creating project: ', error);
+      });
     handleCloseEdit();
   };
 
@@ -200,15 +198,7 @@ export default function PlanTab(props) {
                   Update Plan Timeframe
                 </CustomTypography>
               </Grid>
-              <Grid item md={6} xs={12}>
-                <IconButton
-                  className={classes.closeIcon}
-                  onClick={handleCloseEdit}
-                  aria-label="close"
-                >
-                  <CloseIcon />
-                </IconButton>
-              </Grid>
+              <Typography variant="h4">{props.plan.name}</Typography>
             </Grid>
           </DialogTitle>
           <DialogContent>
@@ -265,7 +255,7 @@ export default function PlanTab(props) {
         <Grid item className={classes.left}>
           {dropButton}
           <Button className={classes.editButton} color="disabled" disableRipple>
-            <EditOutlinedIcon fontSize="small" onClick={handleOpenEdit} />
+            <AccessTimeIcon fontSize="small" onClick={handleOpenEdit} />
           </Button>
           <Typography variant="h6" noWrap>
             {props.plan.name}

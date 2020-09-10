@@ -147,77 +147,6 @@ const CreateProject = forwardRef((props, ref) => {
   const [aquariumFolders, setAquariumFolders] = useState([]);
   const [projectID, setProjectID] = useState(uuid());
 
-  const handleFieldChange = e => {
-    e.persist();
-    setValues(prevValues => ({
-      ...prevValues,
-      [e.target.name]:
-        e.target.type === 'checkbox' ? e.target.checked : e.target.value
-    }));
-  };
-
-  const handleProjectTitle = event => {
-    setTitle(event.target.value);
-  };
-
-  const handleDescription = event => {
-    setDescription(event.target.value);
-  };
-
-  function getPlans() {
-    fetch('http://localhost:4000/plans', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: 'pennert',
-        password: 'fa9b87vKSDAQ6tW8',
-        folder: 'SD2 Plasmid QC'
-      })
-    })
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        }
-      })
-      .then(plans => {
-        handleCreateProject(plans);
-      })
-      .catch(err => alert(err));
-  }
-
-  const handleCreateProject = plans => {
-    firebase.db
-      .collection('projects')
-      .doc(projectID)
-      .set({
-        title: title,
-        owner: session.user.firstName + ' ' + session.user.lastName,
-        description: description,
-        folder: folder,
-        members: {
-          // managers: chipData.map(chips =>
-          //   chips.filter(chip => chip.role === 'Manager')
-          // ),
-          // collaborators: chipData.map(chips =>
-          //   chips.filter(chip => chip.role === 'Collaborator')
-          // )
-        },
-        plans: plans,
-        end_date: moment(end).format('M/D/YY'),
-        type: type,
-        status: 'pending',
-        id: projectID
-      })
-      .then(() => {
-        window.location.reload();
-      })
-      .catch(function(error) {
-        console.error('Error creating project: ', error);
-      });
-    // }
-    handleClose();
-  };
-
   const handleTypeChange = event => {
     setType(event.target.value);
   };
@@ -257,6 +186,54 @@ const CreateProject = forwardRef((props, ref) => {
     setShow(false);
   };
 
+  const handleFieldChange = e => {
+    e.persist();
+    setValues(prevValues => ({
+      ...prevValues,
+      [e.target.name]:
+        e.target.type === 'checkbox' ? e.target.checked : e.target.value
+    }));
+  };
+
+  const handleProjectTitle = event => {
+    setTitle(event.target.value);
+  };
+
+  const handleDescription = event => {
+    setDescription(event.target.value);
+  };
+
+  const handleCreateProject = () => {
+    firebase.db
+      .collection('projects')
+      .doc(projectID)
+      .set({
+        title: title,
+        owner: session.user.firstName + ' ' + session.user.lastName,
+        description: description,
+        folder: folder,
+        members: {
+          // managers: chipData.map(chips =>
+          //   chips.filter(chip => chip.role === 'Manager')
+          // ),
+          // collaborators: chipData.map(chips =>
+          //   chips.filter(chip => chip.role === 'Collaborator')
+          // )
+        },
+        end_date: moment(end).format('M/D/YY'),
+        type: type,
+        status: 'pending',
+        id: projectID
+      })
+      .then(() => {
+        window.location.reload();
+      })
+      .catch(function(error) {
+        console.error('Error creating project: ', error);
+      });
+    handleClose();
+  };
+
   const fetchAquariumPlanFolders = async () => {
     const response = await fetch('http://localhost:4000/plans/folders', {
       method: 'POST',
@@ -278,7 +255,7 @@ const CreateProject = forwardRef((props, ref) => {
 
   return (
     <Dialog open={show} onClose={handleClose} className={classes.root}>
-      <form onSubmit={getPlans}>
+      <form onSubmit={handleCreateProject}>
         <DialogTitle className={classes.title}>
           <Grid container spacing={20}>
             <Grid item md={6} xs={12}>
