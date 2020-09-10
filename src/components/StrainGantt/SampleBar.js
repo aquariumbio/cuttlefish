@@ -3,9 +3,8 @@ import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import { withStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
-import LibraryTab from './LibraryTab';
-import LibraryTask from './LibraryTask';
-import LibrarySubTask from './LibrarySubTask';
+import PlanTab from './PlanTab';
+import JobTab from './JobTab';
 import { StickyContainer, Sticky } from 'react-sticky';
 
 const useStyles = makeStyles(theme => ({
@@ -49,7 +48,6 @@ const CustomTypography = withStyles(theme => ({
 export default function SampleBar(props) {
   const classes = useStyles();
   const session = useSelector(state => state.session);
-  useEffect(() => {}, [props.plans]);
 
   const getPlanTabs = () => {
     let tabs = [];
@@ -57,31 +55,21 @@ export default function SampleBar(props) {
       let jobs = [];
       if (plan.jobs != null) {
         plan.jobs.map(job => {
-          if (typeof job != 'string') {
-            jobs.push(
-              <Grid item key={job.id}>
-                <LibraryTask
-                  key={job.id}
-                  job={job}
-                  operation={job}
-                  open={false}
-                  setOpenRows={props.setOpenRows}
-                  openRows={props.openRows}
-                  name={job.id}
-                >
-                  <LibrarySubTask
-                    key={job.operations[0].id}
-                    operation={job.operations[0]}
-                    name={job.operations[0].name}
-                  />
-                </LibraryTask>
-              </Grid>
-            );
-          }
+          jobs.push(
+            <Grid item key={job.id}>
+              <JobTab
+                key={job.id}
+                job={job}
+                setOpenRows={props.setOpenRows}
+                openRows={props.openRows}
+                name={job.operations[0].name}
+              ></JobTab>
+            </Grid>
+          );
         });
       }
       tabs.push(
-        <LibraryTab
+        <PlanTab
           key={plan.id}
           plan={plan}
           open={false}
@@ -89,7 +77,7 @@ export default function SampleBar(props) {
           openRows={props.openRows}
         >
           {jobs}
-        </LibraryTab>
+        </PlanTab>
       );
     });
     return tabs;

@@ -13,28 +13,23 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: "#FAFAFA"
+    backgroundColor: '#FAFAFA'
   },
   content: {
     padding: theme.spacing(1)
   }
 }));
 
-const options = [
-  'All',
-  'Protein Design',
-  'Strain Construction'
-];
+const options = ['All', 'Protein Design', 'Strain Construction'];
 
 function PushToProduction({ customer, className, ...rest }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = (event) => {
+  const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -43,11 +38,8 @@ function PushToProduction({ customer, className, ...rest }) {
   };
 
   return (
-    <Card
-      {...rest}
-      className={clsx(classes.root, className)}
-    >
-      <Grid container spacing={11}>
+    <Card {...rest} className={clsx(classes.root, className)}>
+      <Grid container>
         <Grid item xs={10}>
           <CardHeader title="Push To Production" />
         </Grid>
@@ -61,8 +53,12 @@ function PushToProduction({ customer, className, ...rest }) {
             open={open}
             onClose={handleClose}
           >
-            {options.map((option) => (
-              <MenuItem key={option} selected={option === 'All'} onClick={handleClose}>
+            {options.map(option => (
+              <MenuItem
+                key={option}
+                selected={option === 'All'}
+                onClick={handleClose}
+              >
                 {option}
               </MenuItem>
             ))}

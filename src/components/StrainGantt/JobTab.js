@@ -5,7 +5,6 @@ import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOut
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import LibrarySubTask from './LibrarySubTask';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,7 +14,8 @@ const useStyles = makeStyles(theme => ({
   },
   left: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginLeft: theme.spacing(4)
   },
   right: {
     display: 'flex',
@@ -30,64 +30,36 @@ const useStyles = makeStyles(theme => ({
     padding: 0,
     margin: 0,
     minHeight: 0
+  },
+  linkButton: {
+    padding: 0,
+    margin: 0
   }
 }));
 
-export default function LibraryTask(props) {
+export default function JobTab(props) {
   const classes = useStyles();
-  const [open, setOpen] = useState(props.open);
 
-  useEffect(() => {
-    if (props.open) {
-      props.setOpenRows([...props.openRows, props.operation.id]);
-    }
-  }, []);
-
-  const getChildrenIDs = () => {
-    const IDs = [];
-    props.job.operations.map(operation => {
-      IDs.push(operation.id);
-    });
-    return IDs;
-  };
-
-  // Handles dropdown as well as visible rows in calendar view
-  const handleDropDown = event => {
-    const childrenIDs = getChildrenIDs();
-    if (!open) {
-      props.setOpenRows([...props.openRows, ...childrenIDs]);
-      setOpen(true);
+  const getIDLabel = job => {
+    if (job.status != 'error' && job.status != 'done') {
+      return job.status;
     } else {
-      props.setOpenRows(props.openRows.filter(e => !childrenIDs.includes(e)));
-      setOpen(false);
+      return (
+        <Button
+          href={`http://52.27.43.242/krill/log?job=` + props.job.id}
+          target="_blank"
+          className={classes.linkButton}
+          color="primary"
+        >
+          {props.job.id}
+        </Button>
+      );
     }
   };
-
-  const dropButton = open ? (
-    <Button
-      className={classes.dropButton}
-      color="primary"
-      onClick={handleDropDown}
-      disableRipple
-    >
-      <ArrowDropDownIcon fontSize="large" />
-    </Button>
-  ) : (
-    <Button
-      className={classes.dropButton}
-      color="primary"
-      onClick={handleDropDown}
-      disableRipple
-    >
-      <ArrowRightIcon fontSize="large" />
-    </Button>
-  );
-
   return (
     <div>
       <Grid container className={classes.root}>
         <Grid item xs className={classes.left} zeroMinWidth>
-          {dropButton}
           <Typography variant="h6" noWrap>
             {props.name}
           </Typography>
@@ -100,12 +72,11 @@ export default function LibraryTask(props) {
             direction="row"
           >
             <Typography variant="h6" noWrap>
-              {props.operation.id}
+              {getIDLabel(props.job)}
             </Typography>
           </Grid>
         </Grid>
       </Grid>
-      <Grid container>{open ? props.children : null}</Grid>
     </div>
   );
 }

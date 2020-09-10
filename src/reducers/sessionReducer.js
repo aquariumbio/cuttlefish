@@ -3,9 +3,7 @@ import * as actionTypes from 'src/actions';
 const initialState = {
   loggedIn: localStorage.getItem('User') != null,
   user: JSON.parse(localStorage.getItem('User')),
-  currentProject: {
-    type: 'Protein Design'
-  }
+  currentProject: JSON.parse(localStorage.getItem('currentProject'))
 };
 
 const sessionReducer = (state = initialState, action) => {
@@ -37,6 +35,8 @@ const sessionReducer = (state = initialState, action) => {
     }
 
     case actionTypes.GET_PROJECT: {
+      localStorage.setItem('currentProject', JSON.stringify(action.payload));
+
       return {
         ...state,
         currentProject: action.payload

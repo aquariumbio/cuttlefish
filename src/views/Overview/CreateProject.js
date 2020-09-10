@@ -20,12 +20,12 @@ import {
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
-import mockProjects from '../ProjectManagementList/projects_data';
 import firebase from '../../firebase/firebase';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
 } from '@material-ui/pickers';
+import { repeat } from 'lodash';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -144,9 +144,47 @@ const CreateProject = forwardRef((props, ref) => {
   const [title, setTitle] = useState('');
   const [start, setStart] = useState(moment().format('MM/DD/YYYY'));
   const [end, setEnd] = useState(moment().format('MM/DD/YYYY'));
-  const [newProjects, setNewProjects] = useState(mockProjects);
   const [aquariumFolders, setAquariumFolders] = useState([]);
   const [projectID, setProjectID] = useState(uuid());
+
+  const handleTypeChange = event => {
+    setType(event.target.value);
+  };
+
+  const handleStartDate = event => {
+    setStart(event.target.value);
+  };
+
+  const handleEndDate = event => {
+    setEnd(event.target.value);
+  };
+
+  const handleContributorName = ({ target }) => {
+    setContributor(target.value);
+  };
+
+  const handleRoleChange = event => {
+    setRole(event.target.value);
+  };
+
+  const handleFolderChange = event => {
+    setFolder(event.target.value);
+  };
+
+  const handleAddChip = () => {
+    setChipData(chips => [
+      ...chips,
+      { key: chips.length + 1, label: contributor, role: role }
+    ]);
+  };
+
+  const handleChipDelete = chipToDelete => () => {
+    setChipData(chips => chips.filter(chip => chip.key !== chipToDelete.key));
+  };
+
+  const handleClose = () => {
+    setShow(false);
+  };
 
   const handleFieldChange = e => {
     e.persist();
@@ -187,51 +225,13 @@ const CreateProject = forwardRef((props, ref) => {
         status: 'pending',
         id: projectID
       })
-      .then(() => window.location.reload())
+      .then(() => {
+        window.location.reload();
+      })
       .catch(function(error) {
         console.error('Error creating project: ', error);
       });
-    setNewProjects(...newProjects, newProjects);
     handleClose();
-  };
-
-  const handleTypeChange = event => {
-    setType(event.target.value);
-  };
-
-  const handleStartDate = event => {
-    setStart(event.target.value);
-  };
-
-  const handleEndDate = event => {
-    setEnd(event.target.value);
-  };
-
-  const handleContributorName = ({ target }) => {
-    setContributor(target.value);
-  };
-
-  const handleRoleChange = event => {
-    setRole(event.target.value);
-  };
-
-  const handleFolderChange = event => {
-    setFolder(event.target.value);
-  };
-
-  const handleAddChip = () => {
-    setChipData(chips => [
-      ...chips,
-      { key: chips.length + 1, label: contributor, role: role }
-    ]);
-  };
-
-  const handleChipDelete = chipToDelete => () => {
-    setChipData(chips => chips.filter(chip => chip.key !== chipToDelete.key));
-  };
-
-  const handleClose = () => {
-    setShow(false);
   };
 
   const fetchAquariumPlanFolders = async () => {
