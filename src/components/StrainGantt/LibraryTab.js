@@ -21,7 +21,8 @@ const useStyles = makeStyles(theme => ({
   left: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    width: 'calc(80%)'
   },
   libraryTasks: {
     display: 'flex',
@@ -38,6 +39,13 @@ const useStyles = makeStyles(theme => ({
     marginBottom: '1px',
     borderTopLeftRadius: '3px',
     width: '100%'
+  },
+  strainName: {
+    flex: 1,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    lineHeight: 1,
   }
 }));
 
@@ -94,12 +102,15 @@ export default function LibraryTab(props) {
       <div className={classes.title}>
         <Grid item className={classes.left}>
           {dropButton}
-          <Typography variant="h6" noWrap>
-            {props.plan.name}
+
+          <Typography variant="body1" className={classes.strainName} >
+              {props.plan.name}
+
           </Typography>
+
         </Grid>
         <Grid item>
-          <Typography variant="h6" noWrap>
+          <Typography variant="body1" noWrap>
             {props.plan.id}
           </Typography>
         </Grid>
