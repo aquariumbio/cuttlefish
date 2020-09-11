@@ -178,7 +178,7 @@ function TopBar({ onOpenNavBarMobile, className, ...rest }) {
         </RouterLink>
         <div className={classes.flexGrow} />
 
-        <Hidden smDown>
+        {/* <Hidden smDown>
           <div className={classes.search} ref={searchRef}>
             <SearchIcon className={classes.searchIcon} />
             <Input
@@ -214,9 +214,9 @@ function TopBar({ onOpenNavBarMobile, className, ...rest }) {
               </Paper>
             </ClickAwayListener>
           </Popper>
-        </Hidden>
+        </Hidden> */}
 
-        <Hidden mdDown>
+        {/* <Hidden mdDown>
           <IconButton
             className={classes.notificationsButton}
             color="inherit"
@@ -237,7 +237,7 @@ function TopBar({ onOpenNavBarMobile, className, ...rest }) {
           notifications={notifications}
           onClose={handleNotificationsClose}
           open={openNotifications}
-        />
+        /> */}
 
         <Hidden mdDown>
           <Button

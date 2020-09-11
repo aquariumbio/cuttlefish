@@ -22,35 +22,35 @@ export default [
           {
             title: 'Projects',
             href: '/projects'
-          },
-          {
-            title: 'Tasks',
-            href: '/tasks'
           }
+          // {
+          //   title: 'Tasks',
+          //   href: '/tasks'
+          // }
         ]
-      },
-
-      {
-        title: 'Calendar',
-        href: '/calendar',
-        icon: CalendarTodayIcon
-        // label: () => <Label color={colors.green[500]}>New</Label>
-      },
-      {
-        title: 'Todo List',
-        href: '/todo',
-        icon: CheckIcon
-      },
-      {
-        title: 'Inbox',
-        href: '/inbox',
-        icon: MailIcon
-        // label: () => (
-        //   <Label color={colors.red[500]} shape="rounded">
-        //     2
-        //   </Label>
-        // )
       }
+
+      // {
+      //   title: 'Calendar',
+      //   href: '/calendar',
+      //   icon: CalendarTodayIcon
+      //   // label: () => <Label color={colors.green[500]}>New</Label>
+      // },
+      // {
+      //   title: 'Todo List',
+      //   href: '/todo',
+      //   icon: CheckIcon
+      // },
+      // {
+      //   title: 'Inbox',
+      //   href: '/inbox',
+      //   icon: MailIcon
+      //   // label: () => (
+      //   //   <Label color={colors.red[500]} shape="rounded">
+      //   //     2
+      //   //   </Label>
+      //   // )
+      // }
     ]
   }
 ];

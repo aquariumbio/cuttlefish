@@ -5,7 +5,7 @@ import { Container, Tabs, Tab, Modal } from '@material-ui/core';
 import Page from 'src/components/Page';
 import Header from './Header';
 import TabPanel from '../../components/TabPanel';
-import Notebook from './Overall';
+import Overall from './Overall';
 import Plan from './Plan';
 import AddEditEvent from './AddFile';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -171,17 +171,13 @@ function StrainConstructionProject() {
           aria-label="simple tabs example"
           indicatorColor="primary"
         >
-          <Tab label="Overall" />
           <Tab label="Strains" />
           <Tab label="Plans" />
         </Tabs>
         <TabPanel value={currentTab} index={0}>
-          <Notebook />
-        </TabPanel>
-        <TabPanel value={currentTab} index={1}>
           {strainData != null ? <Gantt data={strainData} /> : null}
         </TabPanel>
-        <TabPanel value={currentTab} index={2}>
+        <TabPanel value={currentTab} index={1}>
           <Plan />
         </TabPanel>
         {getModal()}
