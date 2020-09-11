@@ -4,7 +4,7 @@ import { useParams } from 'react-router';
 import { makeStyles } from '@material-ui/styles';
 import { Container, Tabs, Tab, Modal } from '@material-ui/core';
 import Page from 'src/components/Page';
-import Gantt from '../../components/Gantt';
+import Gantt from '../../components/StrainGantt';
 import Header from './Header';
 import TabPanel from '../../components/TabPanel';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -104,9 +104,21 @@ function ProteinDesignProject() {
       });
   };
 
+  const getPlanTimeEstimate = plan => {
+    const planID = plan.id + id;
+    let planRef = firebase.db.collection('plans').doc(planID);
+    planRef.get().then(doc => {
+      if (doc.exists) {
+        plan.estimatedTimes = doc.data();
+      } else {
+        plan.estimatedTimes = null;
+      }
+    });
+  };
+
   // Retrieves Plan data from Aquarium
   const getSamples = async folder => {
-    const response = await fetch('http://localhost:4000/plans/', {
+    const response = await fetch('http://localhost:4000/plans/folder', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -117,8 +129,12 @@ function ProteinDesignProject() {
     });
     if (response.status === 200) {
       const data = await response.json();
+      data.map(plan => {
+        getPlanTimeEstimate(plan);
+      });
       const result = data.reverse();
-      setGanttData(result);
+      console.log(data);
+      setGanttData(data);
     } else {
       setGanttData([]);
     }
@@ -127,17 +143,6 @@ function ProteinDesignProject() {
   useEffect(() => {
     getProjectFromFirebase();
   }, []);
-
-  // Conditional popup button action, rendered differently based on the respective action necessary for the project tab
-  // const getModal = () => {
-  //   if (currentTab === 0) {
-  //     return <Modal onClose={handleModalClose} open={eventModal.open}></Modal>;
-  //   } else if (currentTab === 1) {
-  //     return <Modal onClose={handleModalClose} open={eventModal.open}></Modal>;
-  //   } else {
-  //     return <Modal onClose={handleModalClose} open={eventModal.open}></Modal>;
-  //   }
-  // };
 
   return (
     <Page className={classes.root} title="Protein Design Project">
