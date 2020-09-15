@@ -87,9 +87,9 @@ export default function Calendar(props) {
   // Sets the calendar to display the month of the first plan in the project on project load
   const getDateOfFirstPlan = () => {
     var firstPlanDate = moment().toDate();
-    props.plans.map(plan => {
-      firstPlanDate = moment(plan.initialize);
-    });
+    if (props.plans != null) {
+      firstPlanDate = moment(props.plans[0].initialize);
+    }
     return firstPlanDate.format('MM/DD/YYYY');
   };
 
