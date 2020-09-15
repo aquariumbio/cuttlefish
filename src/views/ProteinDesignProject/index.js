@@ -51,36 +51,7 @@ function ProteinDesignProject() {
   const history = useHistory();
   const [currentTab, setCurrentTab] = useState(0);
   const { id } = useParams();
-  const [events, setEvents] = useState([]);
-  const [eventModal, setEventModal] = useState({
-    open: false,
-    event: null
-  });
-  const [progress, setProgress] = useState([0]);
-  const [project, setProject] = useState();
   const [ganttData, setGanttData] = useState();
-
-  const handleEventNew = () => {
-    setEventModal({
-      open: true,
-      event: null
-    });
-  };
-
-  const handleModalClose = () => {
-    setEventModal({
-      open: false,
-      event: null
-    });
-  };
-
-  const handleEventAdd = event => {
-    setEvents(currentEvents => [...currentEvents, event]);
-    setEventModal({
-      open: false,
-      event: null
-    });
-  };
 
   const handleChange = (event, newTab) => {
     setCurrentTab(newTab);
@@ -147,26 +118,25 @@ function ProteinDesignProject() {
   return (
     <Page className={classes.root} title="Protein Design Project">
       <Container maxWidth={false}>
-        <Header currentTab={currentTab} onEventAdd={handleEventNew} />
+        <Header currentTab={currentTab} />
         <Tabs
           value={currentTab}
           onChange={handleChange}
           indicatorColor="primary"
         >
           <Tab label="Timeline" />
-          <Tab label="Plans" />
-          <Tab label="Settings" />
+          {/* <Tab label="Plans" /> */}
+          {/* <Tab label="Settings" /> */}
         </Tabs>
         <TabPanel value={currentTab} index={0}>
           <Gantt data={ganttData} />
         </TabPanel>
-        <TabPanel value={currentTab} index={1}>
+        {/* <TabPanel value={currentTab} index={1}>
           <PlanTable data={ganttData} />
-        </TabPanel>
-        <TabPanel value={currentTab} index={2}>
+        </TabPanel> */}
+        {/* <TabPanel value={currentTab} index={2}>
           <Settings data={ganttData} />
-        </TabPanel>
-        {/* {getModal()} */}
+        </TabPanel> */}
       </Container>
     </Page>
   );
