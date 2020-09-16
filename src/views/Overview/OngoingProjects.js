@@ -13,7 +13,6 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ProjectCard from '../../components/ProjectCard/index';
-import mockProjects from '../ProjectManagementList/projects_data';
 import firebase from '../../firebase/firebase';
 
 const useStyles = makeStyles(theme => ({
@@ -26,8 +25,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const options = ['All', 'Protein Design', 'Strain Construction'];
-
-let filterData;
 
 function OngoingProjects({ customer, className, ...rest }) {
   const classes = useStyles();

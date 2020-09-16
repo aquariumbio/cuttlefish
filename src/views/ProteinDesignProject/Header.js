@@ -1,14 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/styles';
-import { Typography, Grid, Button } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+//import { makeStyles } from '@material-ui/styles';
+import { Typography, Grid } from '@material-ui/core';
+//import AddIcon from '@material-ui/icons/Add';
 
-const useStyles = makeStyles(theme => ({}));
+//const useStyles = makeStyles(theme => ({}));
 
 function Header(props) {
-  const classes = useStyles();
+  //const classes = useStyles();
   const session = useSelector(state => state.session);
 
   const getButton = () => {

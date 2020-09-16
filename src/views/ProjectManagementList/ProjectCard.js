@@ -88,7 +88,7 @@ function ProjectCard({ project, className, ...rest }) {
               color="textPrimary"
               component={RouterLink}
               noWrap
-              to="/project/${project.title}"
+              to={`/project/${project.title}`}
               variant="h5"
             >
               {project.title}

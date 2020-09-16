@@ -54,7 +54,7 @@ function LoginForm({ className, ...rest }) {
     errors: {}
   });
   const [showError, setShowError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  //const [errorMessage, setErrorMessage] = useState('');
   let alertBox;
 
   const handleChange = event => {
@@ -114,21 +114,21 @@ function LoginForm({ className, ...rest }) {
         .login(formState.values.email, formState.values.password)
         .catch(function(error) {
           var errorCode = error.code;
-          var errorMsg = error.message;
+          //var errorMsg = error.message;
           if (errorCode === 'auth/wrong-password') {
             history.push('/auth/login');
-            setErrorMessage('Invalid Username or Password');
+            //setErrorMessage('Invalid Username or Password');
             setShowError(true);
           } else {
             history.push('/auth/login');
-            setErrorMessage(errorMsg);
+            //setErrorMessage(errorMsg);
             setShowError(true);
           }
         })
         .then(loginWithFirebase());
     } catch (err) {
       history.push('/auth/login');
-      setErrorMessage(err.message);
+      //setErrorMessage(err.message);
       setShowError(true);
     }
   };

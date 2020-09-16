@@ -1,7 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useState, forwardRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
 import moment from 'moment';
 import uuid from 'uuid';
 import { makeStyles } from '@material-ui/styles';
@@ -21,11 +20,10 @@ import {
 import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import firebase from '../../firebase/firebase';
-import {
-  MuiPickersUtilsProvider,
+/*import {
   KeyboardDatePicker
 } from '@material-ui/pickers';
-import { repeat } from 'lodash';
+import { repeat } from 'lodash';*/
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -87,20 +85,11 @@ const defaultEvent = {
 
 const CreateProject = forwardRef((props, ref) => {
   const {
-    event,
-    onDelete,
-    onCancel,
-    onAdd,
-    onEdit,
     show,
     setShow,
-    className,
-    ...rest
   } = props;
   const classes = useStyles();
   const session = useSelector(state => state.session);
-  const history = useHistory();
-  const [values, setValues] = useState(event || { ...defaultEvent });
   const projectTypes = [
     {
       value: 'Basic',
@@ -142,22 +131,22 @@ const CreateProject = forwardRef((props, ref) => {
     }
   ]);
   const [title, setTitle] = useState('');
-  const [start, setStart] = useState(moment().format('MM/DD/YYYY'));
-  const [end, setEnd] = useState(moment().format('MM/DD/YYYY'));
+  //const [start, setStart] = useState(moment().format('MM/DD/YYYY'));
+  //const [end, setEnd] = useState(moment().format('MM/DD/YYYY'));
   const [aquariumFolders, setAquariumFolders] = useState([]);
-  const [projectID, setProjectID] = useState(uuid());
+  const projectID = useState(uuid());
 
   const handleTypeChange = event => {
     setType(event.target.value);
   };
 
-  const handleStartDate = event => {
+  /*const handleStartDate = event => {
     setStart(event.target.value);
   };
 
   const handleEndDate = event => {
     setEnd(event.target.value);
-  };
+  };*/
 
   const handleContributorName = ({ target }) => {
     setContributor(target.value);
@@ -186,14 +175,14 @@ const CreateProject = forwardRef((props, ref) => {
     setShow(false);
   };
 
-  const handleFieldChange = e => {
+  /*const handleFieldChange = e => {
     e.persist();
     setValues(prevValues => ({
       ...prevValues,
       [e.target.name]:
         e.target.type === 'checkbox' ? e.target.checked : e.target.value
     }));
-  };
+  };*/
 
   const handleProjectTitle = event => {
     setTitle(event.target.value);
@@ -220,7 +209,6 @@ const CreateProject = forwardRef((props, ref) => {
           //   chips.filter(chip => chip.role === 'Collaborator')
           // )
         },
-        end_date: moment(end).format('M/D/YY'),
         type: type,
         status: 'pending',
         id: projectID
@@ -234,24 +222,25 @@ const CreateProject = forwardRef((props, ref) => {
     handleClose();
   };
 
-  const fetchAquariumPlanFolders = async () => {
-    const response = await fetch('http://localhost:4000/plans/folders', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: session.user.aqLogin,
-        password: session.user.aqPassword
-      })
-    });
-    if (response.status === 200) {
-      const folders = await response.json();
-      setAquariumFolders(JSON.parse(folders.data));
-    }
-  };
+  
 
   useEffect(() => {
+    const fetchAquariumPlanFolders = async () => {
+      const response = await fetch('http://localhost:4000/plans/folders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: session.user.aqLogin,
+          password: session.user.aqPassword
+        })
+      });
+      if (response.status === 200) {
+        const folders = await response.json();
+        setAquariumFolders(JSON.parse(folders.data));
+      }
+    };
     fetchAquariumPlanFolders();
-  }, []);
+  }, [session.user.aqLogin,session.user.aqPassword]);
 
   return (
     <Dialog open={show} onClose={handleClose} className={classes.root}>
@@ -282,7 +271,7 @@ const CreateProject = forwardRef((props, ref) => {
             label="Project Name"
             name="Project Name"
             onChange={handleProjectTitle}
-            placeholder={values.title}
+            placeholder={defaultEvent.title}
             variant="outlined"
           />
           <TextField
@@ -312,7 +301,7 @@ const CreateProject = forwardRef((props, ref) => {
             label="Project Description"
             name="desc"
             onChange={handleDescription}
-            placeholder={values.desc}
+            placeholder={defaultEvent.desc}
             value={description}
             variant="outlined"
           />
@@ -327,7 +316,7 @@ const CreateProject = forwardRef((props, ref) => {
             label="Aquarium Plan Folder"
             value={folder}
             onChange={handleFolderChange}
-            placeholder={values.direc}
+            placeholder={defaultEvent.direc}
             variant="outlined"
           >
             <option value="" />
@@ -378,7 +367,7 @@ const CreateProject = forwardRef((props, ref) => {
             label="Project Contributors"
             name="contr"
             onChange={handleContributorName}
-            placeholder={values.contr}
+            placeholder={defaultEvent.contr}
             variant="outlined"
           />
           <TextField

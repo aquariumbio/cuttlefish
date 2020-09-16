@@ -8,15 +8,13 @@ import {
   Divider,
   TextField,
   Button,
-  Chip,
-  IconButton,
   Grid,
   Typography,
   Modal
 } from '@material-ui/core';
 import { useParams } from 'react-router';
 import { withStyles } from '@material-ui/core/styles';
-import CloseIcon from '@material-ui/icons/Close';
+//import CloseIcon from '@material-ui/icons/Close';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
@@ -114,14 +112,15 @@ export default function PlanTab(props) {
   const [editOpen, setEditOpen] = useState(false);
   const [start, setStart] = useState(moment().format('MM/DD/YYYY'));
   const [end, setEnd] = useState(moment().format('MM/DD/YYYY'));
+  const { setOpenRows, openRows, plan} = props;
 
   useEffect(() => {
-    props.setOpenRows([...props.openRows, props.plan.id]);
-  }, []);
+    setOpenRows(openRows, plan.id);
+  }, [setOpenRows, openRows, plan]);
 
   const getChildrenIDs = () => {
     const IDs = [];
-    props.plan.jobs.map(job => {
+    props.plan.jobs.forEach(job => {
       const id = job.id + props.plan.id;
       IDs.push(id);
     });
@@ -285,6 +284,7 @@ export default function PlanTab(props) {
             href={'http://52.27.43.242/launcher?plan_id=' + props.plan.id}
             className={classes.planLink}
             target="_blank"
+            rel="noopener noreferrer"
           >
             {props.plan.id}
           </a>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React /*, { useState, useEffect } */from 'react';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import { Typography, Tooltip, Zoom } from '@material-ui/core';
 import uuid from 'uuid/v1';
@@ -45,7 +45,7 @@ const CustomTooltip = withStyles({
 // CalendarRow shows visual dates for specific sample schedule in the calendar
 export default function CalendarRow(props) {
   const classes = useStyles();
-  const [hidden, setHidden] = useState();
+  //const [hidden, setHidden] = useState();
 
   const getStyle = () => {
     if (props.parentID == null) {
@@ -71,18 +71,18 @@ export default function CalendarRow(props) {
       return '#FF0000'; // Red
     } else if (status === 'waiting') {
       return '#800080'; // Purple
-    } else if (status == 'planning') {
+    } else if (status === 'planning') {
       return '#FFC164'; // Yellow
-    } else if (status == 'delayed') {
+    } else if (status === 'delayed') {
       return 'blue'; // Yellow
     } else {
       return '#C9C9C9'; // Grey
     }
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     setHidden(props.openRows.includes(props.id));
-  }, [props.id, props.openRows]);
+  }, [props.id, props.openRows]);*/
 
   // Render the specific day block for the row
   const getDay = (day, operation) => {

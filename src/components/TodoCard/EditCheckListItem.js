@@ -53,7 +53,7 @@ function EditCheckListItem({
   const [openField, setOpenField] = useState(editing);
   const [description, setDescription] = useState(text);
   const [checkValue, setCheckValue] = useState(complete);
-  const [existingTask, setExistingTask] = useState(description !== '');
+  const existingTask = useState(description !== '');
   const [deleted, setDeleted] = useState(false);
 
   const handleTextClick = () => {
@@ -89,9 +89,9 @@ function EditCheckListItem({
     }
   };
 
-  const handleChange = e => {
+  /*const handleChange = e => {
     setDescription(e.target.value);
-  };
+  };*/
 
   const handleCheck = () => {
     setCheckValue(!checkValue);
@@ -114,13 +114,12 @@ function EditCheckListItem({
       className={clsx({
         [classes.root]: true,
         [classes.checked]: checkValue,
-        [classes.removed]: description == '' && !editing,
+        [classes.removed]: description === '' && !editing,
         [classes.deleted]: deleted,
         className
       })}
       button
       divider
-      className={classes.root}
       disableRipple
     >
       <ListItemIcon>

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import PropTypes from 'prop-types';
-import firebase from '../firebase/firebase';
+//import firebase from '../firebase/firebase';
 
 // Example of user roles: ['GUEST', 'USER', 'ADMIN'];
 

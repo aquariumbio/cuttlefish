@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
+//import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import { withStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
@@ -47,14 +47,14 @@ const CustomTypography = withStyles(theme => ({
 // Dropdown menu that lists plan samples, paired with Calendar to form a Gantt chart
 export default function SampleBar(props) {
   const classes = useStyles();
-  const session = useSelector(state => state.session);
+  //const session = useSelector(state => state.session);
 
   const getPlanTabs = () => {
     let tabs = [];
-    props.plans.map(plan => {
+    props.plans.forEach(plan => {
       let jobs = [];
       if (plan.jobs != null) {
-        plan.jobs.map(job => {
+        plan.jobs.forEach(job => {
           jobs.push(
             <Grid item key={job.id}>
               <JobTab

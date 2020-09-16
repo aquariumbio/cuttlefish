@@ -57,8 +57,8 @@ const AddEditEvent = forwardRef((props, ref) => {
   const { event, onCancel, onAdd, className, ...rest } = props;
   const classes = useStyles();
   const [values, setValues] = useState(event || { ...defaultEvent });
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const title = useState('');
+  const description = useState('');
   const mode = event ? 'edit' : 'add';
 
   const handleFieldChange = e => {

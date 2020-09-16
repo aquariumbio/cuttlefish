@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import moment from 'moment';
-import { Button, IconButton } from '@material-ui/core';
+import {IconButton } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CalendarRow from './CalendarRow';
-import { set } from 'immutable';
 import { StickyContainer, Sticky } from 'react-sticky';
 
 const useStyles = makeStyles(theme => ({
@@ -65,7 +64,7 @@ let weekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 export default function Calendar(props) {
   const classes = useStyles();
   const [monthsLoaded, setMonthsLoaded] = useState(0);
-  const [date, setDate] = useState(props.startDate);
+  //const [date, setDate] = useState(props.startDate);
 
   const getDaysInMonth = dateOfFirstPlan => {
     var daysInMonth = moment(dateOfFirstPlan, 'MM/DD/YYYY')
@@ -97,7 +96,7 @@ export default function Calendar(props) {
   const getCalendarRows = dateOfFirstPlan => {
     const days = getDaysInMonth(dateOfFirstPlan);
     let rows = [];
-    props.plans.map(plan => {
+    props.plans.forEach(plan => {
       rows.push(
         <CalendarRow
           key={plan.id}
@@ -109,7 +108,7 @@ export default function Calendar(props) {
           name={plan.name}
         />
       );
-      plan.jobs.map(job => {
+      plan.jobs.forEach(job => {
         rows.push(
           <CalendarRow
             key={job.id}
@@ -127,7 +126,7 @@ export default function Calendar(props) {
   };
 
   const getDayStyle = day => {
-    if (day == 'S') {
+    if (day === 'S') {
       return '#e8e8e8';
     }
   };

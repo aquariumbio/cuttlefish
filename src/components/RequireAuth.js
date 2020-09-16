@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import Login from '../views/Login';
 
 export function RequireAuth(Component) {
   return class AuthenticatedComponent extends React.Component {

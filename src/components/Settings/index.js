@@ -97,7 +97,7 @@ const useStyles = makeStyles(theme => ({
 function Settings(props) {
   const classes = useStyles();
   const session = useSelector(state => state.session);
-  const [userType, setUserType] = React.useState('');
+  //const [userType, setUserType] = React.useState('');
   const [newTitle, setTitle] = useState(session.currentProject.title);
 
   const [hasEdited, setHasEdited] = useState(false);
@@ -106,9 +106,9 @@ function Settings(props) {
   const [copySuccess, setCopySuccess] = useState('');
   const textAreaRef = useRef(null);
 
-  const handleChange = event => {
-    setUserType(event.target.value);
-  };
+  /*const handleChange = event => {
+    //setUserType(event.target.value);
+  };*/
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -155,7 +155,7 @@ function Settings(props) {
     setCopySuccess('Copied!');
   };
 
-  const [columns, setColumns] = useState([
+  const columns = useState([
     { title: 'Name', field: 'name', editable: 'never'},
     { title: 'Aquarium Email', field: 'AQemail', editable: 'never'},
     {
@@ -169,12 +169,7 @@ function Settings(props) {
   const [data, setData] = useState(
     [
       { name: session.currentProject.owner, AQemail: 'XXXXX@uw.edu', role: 1},
-    ]);
-
-  const editable= {
-    isEditable: false, 
-    isDeletable:  data => data.role !== 1, 
-  };
+    ])
 
   const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -376,13 +371,14 @@ function Settings(props) {
       </Card>
 
       <MaterialTable
-        editable={editable}
         style={{ marginTop: '32px', marginLeft: '9px' }}
         icons={tableIcons}
         title="Members"
         columns={columns}
         data={data}
         editable={{
+          isEditable: false, 
+          isDeletable:  data => data.role !== 1, 
           onRowAdd: newData =>
             new Promise((resolve, reject) => {
               setTimeout(() => {

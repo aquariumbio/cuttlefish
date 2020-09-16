@@ -40,8 +40,8 @@ let planTable;
 export default function PlanTable(props) {
   const classes = useStyles();
   const session = useSelector(state => state.session);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(6);
+  const page = React.useState(0);
+  const rowsPerPage = React.useState(6);
   const data = []
   const [favData, setFavData] = React.useState([])
   const tableColumns = [
@@ -134,7 +134,7 @@ export default function PlanTable(props) {
       data.push(<LinearProgress className={classes.progress} color="primary" />)
     } else {
       props.data
-        .map(row => {
+        .forEach(row => {
           let rowData = []
           const value = JSON.parse(row.data)['id']
 

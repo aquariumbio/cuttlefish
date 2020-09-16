@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core';
 import TaskCard from '../../components/TaskCard/index';
 import firebase from '../../firebase/firebase';
-import mockData from '../StrainConstructionProject/mockKanbanData';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 
 function TasksDueSoon({ customer, className, ...rest }) {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
+  //const [anchorEl, setAnchorEl] = useState(null);
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {

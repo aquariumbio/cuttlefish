@@ -43,7 +43,7 @@ function KanbanBoard(props) {
       });
     }
     setLists(tempLists);
-  }, []);
+  }, [props.data.lists, props.data.tasks, tempLists]);
 
   const handleDragEnd = event => {
     const { source, destination } = event;

@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
 function TaskCard({ setTasks, status, tasks, className, ...rest }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [newTask, setNewTask] = useState('');
+  const newTask = useState('');
   const [editing, setEditing] = useState(false);
 
   const handleDropDown = event => {

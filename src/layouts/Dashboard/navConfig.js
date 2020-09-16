@@ -1,10 +1,10 @@
 /* eslint-disable react/no-multi-comp */
 /* eslint-disable react/display-name */
 import BarChartIcon from '@material-ui/icons/BarChart';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+//import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import HomeIcon from '@material-ui/icons/HomeOutlined';
-import MailIcon from '@material-ui/icons/MailOutlined';
-import CheckIcon from '@material-ui/icons/Check';
+//import MailIcon from '@material-ui/icons/MailOutlined';
+//import CheckIcon from '@material-ui/icons/Check';
 
 export default [
   {

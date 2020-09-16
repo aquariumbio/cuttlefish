@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { Grid, Typography, Button, IconButton } from '@material-ui/core';
-import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import { Grid, Typography, Button } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -41,7 +37,7 @@ export default function JobTab(props) {
   const classes = useStyles();
 
   const getIDLabel = job => {
-    if (job.status != 'error' && job.status != 'done') {
+    if (job.status !== 'error' && job.status !== 'done') {
       return job.status;
     } else {
       return (

@@ -6,8 +6,8 @@ import Header from './Header';
 import TabPanel from '../../components/TabPanel';
 import KanbanBoard from '../../components/KanbanBoard';
 import AddEditEvent from './AddFile';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import { withStyles, lighten } from '@material-ui/core/styles';
+//import LinearProgress from '@material-ui/core/LinearProgress';
+//import { withStyles, lighten } from '@material-ui/core/styles';
 import data from './mockKanbanData';
 
 const useStyles = makeStyles(theme => ({
@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CustomLinearProgress = withStyles(theme => ({
+/*const CustomLinearProgress = withStyles(theme => ({
   root: {
     height: 5,
     backgroundColor: lighten(theme.palette.success.main, 0.5)
@@ -38,17 +38,17 @@ const CustomLinearProgress = withStyles(theme => ({
     borderRadius: 20,
     backgroundColor: theme.palette.success.main
   }
-}))(LinearProgress);
+}))(LinearProgress);*/
 
 function BasicProject() {
   const classes = useStyles();
   const [currentTab, setCurrentTab] = useState(0);
-  const [events, setEvents] = useState([]);
+  //const [events, setEvents] = useState([]);
   const [eventModal, setEventModal] = useState({
     open: false,
     event: null
   });
-  const [progress, setProgress] = useState([80]);
+  //const [progress, setProgress] = useState([80]);
 
   const handleEventNew = () => {
     setEventModal({
@@ -65,7 +65,7 @@ function BasicProject() {
   };
 
   const handleEventAdd = event => {
-    setEvents(currentEvents => [...currentEvents, event]);
+    //setEvents(currentEvents => [...currentEvents, event]);
     setEventModal({
       open: false,
       event: null

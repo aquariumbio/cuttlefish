@@ -15,7 +15,8 @@ export default function Project(props) {
       case 'Protein Design':
         return <ProteinDesignProject />;
       case 'Basic':
-        return <BasicProject />
+        return <BasicProject />;
+      default:
     }
   };
   return <div>{getProject(session.currentProject.type)}</div>;

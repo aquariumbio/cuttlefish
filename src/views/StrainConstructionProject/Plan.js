@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import moment from 'moment';
 import Page from 'src/components/Page';
 import {
   LinearProgress,
-  Button
 } from '@material-ui/core';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
+/*import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
-import LinkIcon from '@material-ui/icons/Link';
+import LinkIcon from '@material-ui/icons/Link';*/
 import MUIDataTable from "mui-datatables";
 
 const useStyles = makeStyles(theme => ({
@@ -37,9 +35,9 @@ let planTable;
 
 export default function PlanTable(props) {
   const classes = useStyles();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(6);
-  const [favStatus, setFavStatus] = React.useState(false);
+  const page = React.useState(0);
+  const rowsPerPage = React.useState(6);
+  //const [favStatus, setFavStatus] = React.useState(false);
   const data = []
   const tableColumns = [
     {
@@ -91,9 +89,9 @@ export default function PlanTable(props) {
 
   useEffect(() => { }, [props.data]);
 
-  const handleFavorite = (event) => {
+  /*const handleFavorite = (event) => {
     setFavStatus(!favStatus);
-  };
+  };*/
 
   function createData() {
     if (props.data == null) {
