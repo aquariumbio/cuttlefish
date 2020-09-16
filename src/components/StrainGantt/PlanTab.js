@@ -31,14 +31,16 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: theme.palette.primary.light
     },
     padding: 0,
-    margin: 0
+    margin: 0,
+    minWidth: '0px'
   },
   editButton: {
     '&:hover': {
       backgroundColor: theme.palette.primary.light
     },
     padding: 0,
-    margin: 0
+    margin: 0,
+    minWidth: '0px'
   },
   editDialog: {
     width: '100%'
@@ -69,7 +71,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 'calc(80%)'
+    width: 'calc(85%)'
   },
   jobList: {
     display: 'flex',
@@ -272,12 +274,13 @@ export default function PlanTab(props) {
       <div className={classes.title}>
         <Grid item className={classes.left}>
           {dropButton}
-          <Button className={classes.editButton} color="disabled" disableRipple>
-            <AccessTimeIcon fontSize="small" onClick={handleOpenEdit} />
-          </Button>
+          
           <Typography variant="body1" className={classes.strainName}>
             {props.plan.name}
           </Typography>
+          <Button className={classes.editButton} color="disabled" disableRipple>
+            <AccessTimeIcon fontSize="small" onClick={handleOpenEdit} />
+          </Button>
         </Grid>
         <Grid item>
           <a
