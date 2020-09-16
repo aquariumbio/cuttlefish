@@ -38,10 +38,12 @@ Currently, this version of Cuttlefish is being run with a React.js front-end and
    cd backend
    ```
 
-2. Within this directory, start the local node.js server
+2. Within this directory, start the local node.js server using a specified Aquarium instance, including
+   the Aquarium URL as the third command. For example, this command utilizes the main server, although you
+   might be using a local instance of Aquarium, likely at 'http://localhost:3000/'
 
    ```bash
-   npm run start
+   npm start "http://52.27.43.242/"
    ```
 
 ### Built with Devias Material Kit Pro

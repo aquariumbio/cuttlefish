@@ -7107,7 +7107,7 @@ AQ.Wire.record_getters.to_s = function() {
 //
 
 AQ.config = {
-  aquarium_url: 'http://52.27.43.242/'
+  aquarium_url: process.argv[2]
 };
 
 AQ.next_record_id = 0;

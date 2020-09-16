@@ -9,8 +9,8 @@ import Header from './Header';
 import TabPanel from '../../components/TabPanel';
 //import LinearProgress from '@material-ui/core/LinearProgress';
 //import { withStyles, lighten } from '@material-ui/core/styles';
-import PlanTable from 'src/components/Plans/PlanTable';
-import Settings from '../../components/Settings';
+//import PlanTable from 'src/components/Plans/PlanTable';
+//import Settings from '../../components/Settings';
 import firebase from '../../firebase/firebase';
 import { useHistory } from 'react-router';
 
@@ -51,36 +51,7 @@ function ProteinDesignProject() {
   const history = useHistory();
   const [currentTab, setCurrentTab] = useState(0);
   const { id } = useParams();
-  //const [events, setEvents] = useState([]);
-  /*const [eventModal, setEventModal] = useState({
-    open: false,
-    event: null
-  });*/
-  //const [progress, setProgress] = useState([0]);
-  //const [project, setProject] = useState();
   const [ganttData, setGanttData] = useState();
-
-  /*const handleEventNew = () => {
-    setEventModal({
-      open: true,
-      event: null
-    });
-  };*/
-
-  /*const handleModalClose = () => {
-    setEventModal({
-      open: false,
-      event: null
-    });
-  };
-
-  const handleEventAdd = event => {
-    //setEvents(currentEvents => [...currentEvents, event]);
-    setEventModal({
-      open: false,
-      event: null
-    });
-  };*/
 
   const handleChange = (event, newTab) => {
     setCurrentTab(newTab);
@@ -158,19 +129,18 @@ function ProteinDesignProject() {
           indicatorColor="primary"
         >
           <Tab label="Timeline" />
-          <Tab label="Plans" />
-          <Tab label="Settings" />
+          {/* <Tab label="Plans" /> */}
+          {/* <Tab label="Settings" /> */}
         </Tabs>
         <TabPanel value={currentTab} index={0}>
           <Gantt data={ganttData} />
         </TabPanel>
-        <TabPanel value={currentTab} index={1}>
+        {/* <TabPanel value={currentTab} index={1}>
           <PlanTable data={ganttData} />
-        </TabPanel>
-        <TabPanel value={currentTab} index={2}>
+        </TabPanel> */}
+        {/* <TabPanel value={currentTab} index={2}>
           <Settings data={ganttData} />
-        </TabPanel>
-        {/* {getModal()} */}
+        </TabPanel> */}
       </Container>
     </Page>
   );

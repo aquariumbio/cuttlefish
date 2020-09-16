@@ -86,10 +86,6 @@ function StrainConstructionProject() {
 
   
 
-  
-
-  
-
   useEffect(() => {
     const getPlanTimeEstimate = plan => {
       const planID = plan.id + id;
@@ -102,7 +98,7 @@ function StrainConstructionProject() {
         }
       });
     };
-    
+
     // Retrieves Plan data from Aquarium
     const getSamples = async folder => {
       const response = await fetch('http://localhost:4000/plans/folder', {
