@@ -110,10 +110,12 @@ function StrainConstructionProject() {
           folder: folder
         })
       });
+      console.log(response);
       if (response.status === 200) {
         const data = await response.json();
+        console.log(data);
         data.forEach(plan => {
-          getPlanTimeEstimate(plan);
+          //getPlanTimeEstimate(plan);
         });
         //const result = data.reverse();
         console.log(data);

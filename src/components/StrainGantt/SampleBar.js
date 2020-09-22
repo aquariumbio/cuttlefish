@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: '70px',
+    height: '100px',
     paddingRight: theme.spacing(2),
     paddingLeft: theme.spacing(2),
     borderTopLeftRadius: '3px',

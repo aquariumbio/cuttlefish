@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   monthBar: {
     display: 'flex',
     flexDirection: 'column',
-    height: '70px',
+    height: '100px',
     borderRight: '1px solid #E6E6E6',
     borderBottom: '1px solid #E6E6E6',
     color: '#909090',
@@ -175,8 +175,8 @@ export default function Calendar(props) {
                         }}
                       >
                         <div className={classes.dayHeader}>
+                          {parseInt(day.format('D')) % 5 == 0 ? day.format('D') : ' '} <br></br>
                           {weekdays[day.format('d')]}
-                          {/* {day.format('D')} */}
                         </div>
                       </div>
                     ))}
